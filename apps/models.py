@@ -1,7 +1,6 @@
-from tkinter import PhotoImage
-
-from django.db.models import CharField, Model, EmailField, IntegerField, BooleanField, PositiveIntegerField, DateField, \
-    FileField, URLField, ImageField, TextField
+from django.db.models import CharField, TextField, EmailField, IntegerField, BooleanField, PositiveIntegerField, \
+    DateField, \
+    FileField, URLField, ImageField, Model
 
 
 class Users(Model):
@@ -17,7 +16,7 @@ class Users(Model):
     payme_balance = PositiveIntegerField(default=0)
     photo = ImageField(upload_to='users/images')
     # ticket_role = CharField(max_length=255)
-    vaucher_balans = IntegerField()
+    voucher_balance = IntegerField()
 
 
 class UsersCourses(Model):
@@ -82,9 +81,3 @@ class Lessons(Model):
     module_id = IntegerField()
     finished = BooleanField()
     is_open = BooleanField()
-
-
-
-
-
-
