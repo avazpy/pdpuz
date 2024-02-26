@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from apps.models import Users, UsersCourses, Courses, Modules, Tasks, TasksCourses, Video, LessonQuestions, Lessons
+from apps.models import Users, UsersCourses, Courses, Modules, Tasks, TasksChat, Videos, LessonQuestions, Lessons, \
+    Devices, Payments, Certificates
 
 
 @admin.register(Users)
@@ -28,13 +29,13 @@ class TasksAdminAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(TasksCourses)
-class TasksCoursesAdmin(admin.ModelAdmin):
+@admin.register(TasksChat)
+class TasksChatAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(Video)
-class VideoAdmin(admin.ModelAdmin):
+@admin.register(Videos)
+class VideosAdmin(admin.ModelAdmin):
     pass
 
 
@@ -45,4 +46,19 @@ class LessonQuestionsAdmin(admin.ModelAdmin):
 
 @admin.register(Lessons)
 class LessonsAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Payments)
+class PaymentsAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Devices)
+class DevicesAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Certificates)
+class CertificatesAdmin(admin.ModelAdmin):
     pass
