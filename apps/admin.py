@@ -1,7 +1,12 @@
 from django.contrib import admin
 
 from apps.models import Users, UsersCourses, Courses, Modules, Tasks, TasksChat, Videos, LessonQuestions, Lessons, \
-    Devices, Payments, Certificates
+    Devices, Payments, Certificates, CreatedBaseModel
+
+
+@admin.register(CreatedBaseModel)
+class CreatedBaseModelAdmin(admin.ModelAdmin):
+    pass
 
 
 @admin.register(Users)

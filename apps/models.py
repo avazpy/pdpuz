@@ -1,11 +1,12 @@
-from django.contrib.auth.models import AbstractUser
 from django.db.models import CharField, TextField, EmailField, IntegerField, BooleanField, PositiveIntegerField, \
     DateField, \
-    FileField, URLField, ImageField, Model, ForeignKey, CASCADE , DateTimeField
+    FileField, URLField, ImageField, Model, ForeignKey, CASCADE, DateTimeField
+
 
 class CreatedBaseModel(Model):
     update_at = DateTimeField(auto_now=True)
     created_at = DateTimeField(auto_now_add=True)
+
 
 class Users(CreatedBaseModel):
     firstname = CharField(max_length=255)
@@ -107,7 +108,7 @@ class Devices(CreatedBaseModel):
 
 
 class Certificates(CreatedBaseModel):
-    user_id = ForeignKey(Users, on_delete=CASCADE)
+    user_id = ForeignKey('apps.Users', on_delete=CASCADE)
     course_id = ForeignKey('apps.Courses', on_delete=CASCADE)
     finished_at = DateField()
     qr_code = IntegerField()
