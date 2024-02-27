@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from apps.models import Users, UsersCourses, Courses, Modules, Tasks, TasksChat, Videos, LessonQuestions, Lessons, \
-    Devices, Payments, Certificates, CreatedBaseModel
+from apps.models import User, UserCourse, Course, Module, Task, TaskChat, Video, LessonQuestion, Lesson, \
+    Device, Payment, Certificate, CreatedBaseModel
 
 
 @admin.register(CreatedBaseModel)
@@ -9,61 +9,61 @@ class CreatedBaseModelAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(Users)
+@admin.register(User)
 class UsersAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(UsersCourses)
+@admin.register(UserCourse)
 class UsersCoursesAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(Courses)
+@admin.register(Course)
 class CoursesAdminAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(Modules)
+@admin.register(Module)
 class ModulesAdminAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(Tasks)
+@admin.register(Task)
 class TasksAdminAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(TasksChat)
+@admin.register(TaskChat)
 class TasksChatAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(Videos)
+@admin.register(Video)
 class VideosAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(LessonQuestions)
+@admin.register(LessonQuestion)
 class LessonQuestionsAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(Lessons)
+@admin.register(Lesson)
 class LessonsAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(Payments)
+@admin.register(Payment)
 class PaymentsAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(Devices)
+@admin.register(Device)
 class DevicesAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(Certificates)
+@admin.register(Certificate)
 class CertificatesAdmin(admin.ModelAdmin):
     pass
