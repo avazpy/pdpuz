@@ -3,7 +3,6 @@ from django.contrib import admin
 from apps.models import Users, UsersCourses, Courses, Modules, Tasks, TasksChat, Videos, LessonQuestions, Lessons, \
     Devices, Payments, Certificates
 
-
 @admin.register(Users)
 class UsersAdmin(admin.ModelAdmin):
     pass
