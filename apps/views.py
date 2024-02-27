@@ -1,8 +1,9 @@
-from django.shortcuts import render
-from django.views.generic import TemplateView
+from rest_framework.viewsets import ModelViewSet
+
+from apps.models import User
+from apps.serializers import UserModelSerializer
 
 
-class IndexView(TemplateView):
-    template_name = 'base.html'
-
-
+class UserViewSet(ModelViewSet):
+    serializer_class = UserModelSerializer
+    queryset = User.objects.all()

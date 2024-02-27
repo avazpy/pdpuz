@@ -1,3 +1,4 @@
+from django.contrib.auth.models import AbstractUser
 from django.db.models import CharField, TextField, EmailField, IntegerField, BooleanField, PositiveIntegerField, \
     DateField, \
     FileField, URLField, ImageField, Model, ForeignKey, CASCADE, DateTimeField
@@ -12,7 +13,7 @@ class CreatedBaseModel(Model):
         abstract = True
 
 
-class User(CreatedBaseModel):
+class User(AbstractUser):
     firstname = CharField(max_length=255)
     lastname = CharField(max_length=255)
     email = EmailField(max_length=255, default=None)
