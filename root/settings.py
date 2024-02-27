@@ -1,7 +1,8 @@
 import os
-from pathlib import Path
-from dotenv import load_dotenv
 from datetime import timedelta
+from pathlib import Path
+
+from dotenv import load_dotenv
 
 load_dotenv('.env')
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,6 +27,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'django_filters',
     'mptt',
+    'rest_framework_simplejwt'
 ]
 
 MIDDLEWARE = [
@@ -260,3 +262,5 @@ JAZZMIN_SETTINGS = {
     # Add a language dropdown into the admin
     # "language_chooser": True,
 }
+
+
