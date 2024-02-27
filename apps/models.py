@@ -2,7 +2,6 @@ from django.contrib.auth.models import AbstractUser
 from django.db.models import CharField, TextField, EmailField, IntegerField, BooleanField, PositiveIntegerField, \
     DateField, \
     FileField, URLField, ImageField, Model, ForeignKey, CASCADE, DateTimeField
-from django.utils import timezone
 
 
 class CreatedBaseModel(Model):
@@ -22,7 +21,7 @@ class User(AbstractUser):
     bot_options = CharField(max_length=255, null=True, blank=True)
     country_model = BooleanField(default=False)
     has_registered_bot = BooleanField(default=False)
-    not_read_message_count = IntegerField(default=0)
+    not_read_message_count = PositiveIntegerField(default=0)
     payme_balance = PositiveIntegerField(default=0)
     photo = ImageField(upload_to='users/images', default='users/default.jpg')
     ticket_role = CharField(max_length=255, blank=True, null=True)
@@ -34,10 +33,10 @@ class User(AbstractUser):
 
 class Course(CreatedBaseModel):
     title = CharField(max_length=255)
-    lesson_count = IntegerField()
-    modul_count = IntegerField()
+    lesson_count = PositiveIntegerField(default=0)
+    modul_count = PositiveIntegerField(default=0)
     order = IntegerField()
-    task_count = IntegerField()
+    task_count = PositiveIntegerField(default=0)
     type = CharField(max_length=255)
     url = URLField(max_length=255)
 
@@ -48,17 +47,18 @@ class Course(CreatedBaseModel):
 class UserCourse(CreatedBaseModel):
     user_id = ForeignKey('apps.User', CASCADE)
     course_id = ForeignKey('apps.Course', CASCADE)
+    status = CharField(max_length=255)
 
 
 class Module(CreatedBaseModel):
     has_in_tg = CharField(max_length=255)
     learning_type = CharField(max_length=255)
-    lesson_count = IntegerField()
+    lesson_count = PositiveIntegerField(default=0)
     order = IntegerField()
-    row_num = IntegerField()
+    row_num = PositiveIntegerField(default=0)
     status = CharField(max_length=255)
     support_day = DateField()
-    task_count = IntegerField()
+    task_count = PositiveIntegerField(default=0)
     title = CharField(max_length=255)
     user_id = ForeignKey('apps.User', on_delete=CASCADE)
 
@@ -77,7 +77,7 @@ class Lesson(CreatedBaseModel):
     status = CharField(max_length=20, choices=STATUS_CHOICES, default='BLOCKED')
     title = CharField(max_length=255)
     url = URLField(max_length=255)
-    video_count = IntegerField()
+    video_count = PositiveIntegerField(default=0)
     module_id = ForeignKey('apps.Module', on_delete=CASCADE)
     finished = BooleanField()
     is_open = BooleanField()
@@ -98,7 +98,7 @@ class Video(CreatedBaseModel):
 class Task(CreatedBaseModel):
     description = CharField(max_length=255)
     video_id = ForeignKey('apps.Video', on_delete=CASCADE)
-    task_number = IntegerField()
+    task_number = PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.video_id.lesson_id.title
