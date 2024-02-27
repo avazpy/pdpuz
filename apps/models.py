@@ -8,7 +8,7 @@ class CreatedBaseModel(Model):
     created_at = DateTimeField(auto_now_add=True)
 
 
-class Users(CreatedBaseModel):
+class User(CreatedBaseModel):
     firstname = CharField(max_length=255)
     lastname = CharField(max_length=255)
     email = EmailField(max_length=255, default=None)
@@ -23,8 +23,11 @@ class Users(CreatedBaseModel):
     ticket_role = CharField(max_length=255, default=None)
     voucher_balance = IntegerField()
 
+    def __str__(self):
+        return self.firstname + ' ' + self.lastname
 
-class Courses(CreatedBaseModel):
+
+class Course(CreatedBaseModel):
     title = CharField(max_length=255)
     lesson_count = IntegerField()
     modul_count = IntegerField()
@@ -33,13 +36,16 @@ class Courses(CreatedBaseModel):
     type = CharField(max_length=255)
     url = URLField(max_length=255)
 
+    def __str__(self):
+        return self.title
 
-class UsersCourses(CreatedBaseModel):
+
+class UserCourse(CreatedBaseModel):
     user_id = ForeignKey('apps.Users', CASCADE)
     course_id = ForeignKey('apps.Courses', CASCADE)
 
 
-class Modules(CreatedBaseModel):
+class Module(CreatedBaseModel):
     has_in_tg = CharField(max_length=255)
     learning_type = CharField(max_length=255)
     lesson_count = IntegerField()
@@ -51,10 +57,19 @@ class Modules(CreatedBaseModel):
     title = CharField(max_length=255)
     user_id = ForeignKey('apps.Users', on_delete=CASCADE)
 
+    def __str__(self):
+        return self.title
 
-class Lessons(CreatedBaseModel):
+
+class Lesson(CreatedBaseModel):
+    STATUS_CHOICES = (
+        ('BLOCKED', 'Blocked'),
+        ('INPROG', 'In Progress'),
+        ('FINISHED', 'Finished'),
+    )
+
     order = IntegerField()
-    status = CharField(max_length=255)
+    status = CharField(max_length=20, choices=STATUS_CHOICES, default='BLOCKED')
     title = CharField(max_length=255)
     url = URLField(max_length=255)
     video_count = IntegerField()
@@ -63,19 +78,28 @@ class Lessons(CreatedBaseModel):
     is_open = BooleanField()
     is_deleted = BooleanField()
 
+    def __str__(self):
+        return self.title
 
-class Videos(CreatedBaseModel):
+
+class Video(CreatedBaseModel):
     lesson_id = ForeignKey('apps.Lessons', on_delete=CASCADE)
     file = FileField(upload_to='videos/video')
 
+    def __str__(self):
+        return self.lesson_id.title
 
-class Tasks(CreatedBaseModel):
+
+class Task(CreatedBaseModel):
     description = CharField(max_length=255)
     video_id = ForeignKey('apps.Videos', on_delete=CASCADE)
     task_number = IntegerField()
 
+    def __str__(self):
+        return self.video_id.lesson_id.title
 
-class TasksChat(CreatedBaseModel):
+
+class TaskChat(CreatedBaseModel):
     description = CharField(max_length=255)
     video_id = ForeignKey('apps.Videos', on_delete=CASCADE)
     user_id = ForeignKey('apps.Users', on_delete=CASCADE)
@@ -85,30 +109,42 @@ class TasksChat(CreatedBaseModel):
     text = CharField(max_length=255)
 
 
-class LessonQuestions(CreatedBaseModel):
+class LessonQuestion(CreatedBaseModel):
     video_id = ForeignKey('apps.Videos', on_delete=CASCADE)
     user_id = ForeignKey('apps.Users', on_delete=CASCADE)
     text = TextField()
     file = FileField()
     voice_message = FileField()
 
+    def __str__(self):
+        return self.video_id.lesson_id.title + ' ' + f"{self.user_id.id}"
 
-class Payments(CreatedBaseModel):
+
+class Payment(CreatedBaseModel):
     balance = PositiveIntegerField()
     income = BooleanField(default=False)
     expend = CharField(max_length=255)
-    processed_date = DateField()
+    processed_date = DateTimeField()
     reason = CharField(max_length=255)
     user_id = ForeignKey('apps.Users', on_delete=CASCADE)
 
+    def __str__(self):
+        return self.id
 
-class Devices(CreatedBaseModel):
+
+class Device(CreatedBaseModel):
     title = CharField(max_length=255)
     user_id = ForeignKey('apps.Users', on_delete=CASCADE)
 
+    def __str__(self):
+        return self.title
 
-class Certificates(CreatedBaseModel):
+
+class Certificate(CreatedBaseModel):
     user_id = ForeignKey('apps.Users', on_delete=CASCADE)
     course_id = ForeignKey('apps.Courses', on_delete=CASCADE)
     finished_at = DateField()
-    qr_code = IntegerField()
+    qr_code = ImageField(upload_to='media/certificates_qr')
+
+    def __str__(self):
+        return self.id
