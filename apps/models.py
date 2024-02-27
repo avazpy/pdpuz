@@ -1,11 +1,12 @@
 from django.db.models import CharField, TextField, EmailField, IntegerField, BooleanField, PositiveIntegerField, \
     DateField, \
     FileField, URLField, ImageField, Model, ForeignKey, CASCADE, DateTimeField
+from django.utils import timezone
 
 
 class CreatedBaseModel(Model):
-    update_at = DateTimeField(auto_now=True)
-    created_at = DateTimeField(auto_now_add=True)
+    update_at = DateTimeField(auto_now=True, null=True)
+    created_at = DateTimeField(auto_now_add=True, null=True)
 
     class Meta:
         abstract = True
