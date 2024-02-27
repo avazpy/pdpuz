@@ -7,6 +7,9 @@ class CreatedBaseModel(Model):
     update_at = DateTimeField(auto_now=True)
     created_at = DateTimeField(auto_now_add=True)
 
+    class Meta:
+        abstract = True
+
 
 class User(CreatedBaseModel):
     firstname = CharField(max_length=255)

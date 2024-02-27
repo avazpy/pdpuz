@@ -4,11 +4,6 @@ from apps.models import User, UserCourse, Course, Module, Task, TaskChat, Video,
     Device, Payment, Certificate, CreatedBaseModel
 
 
-@admin.register(CreatedBaseModel)
-class CreatedBaseModelAdmin(admin.ModelAdmin):
-    pass
-
-
 @admin.register(User)
 class UsersAdmin(admin.ModelAdmin):
     pass
