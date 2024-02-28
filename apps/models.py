@@ -132,7 +132,7 @@ class Payment(CreatedBaseModel):
     expend = CharField(max_length=255)
     processed_date = DateTimeField()
     reason = CharField(max_length=255)
-    user_id = ForeignKey('apps.User', CASCADE)
+    user = ForeignKey('apps.User', CASCADE)
 
     def __str__(self):
         return self.id
