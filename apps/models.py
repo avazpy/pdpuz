@@ -44,10 +44,12 @@ class Course(CreatedBaseModel):
 
 
 class UserCourse(CreatedBaseModel):
-    user_id = ForeignKey('apps.User', CASCADE)
-    course_id = ForeignKey('apps.Course', CASCADE)
+    user = ForeignKey('apps.User', CASCADE)
+    course = ForeignKey('apps.Course', CASCADE)
     status = CharField(default='', max_length=255)
 
+    class Meta:
+        unique_together = ('user', 'course')
 
 class Module(CreatedBaseModel):
     has_in_tg = CharField(max_length=255)
@@ -59,7 +61,7 @@ class Module(CreatedBaseModel):
     support_day = DateField()
     task_count = PositiveIntegerField(default=0)
     title = CharField(max_length=255)
-    user_id = ForeignKey('apps.User', on_delete=CASCADE)
+    user = ForeignKey('apps.User', CASCADE)
 
     def __str__(self):
         return self.title
@@ -77,7 +79,7 @@ class Lesson(CreatedBaseModel):
     title = CharField(max_length=255)
     url = URLField(max_length=255)
     video_count = PositiveIntegerField(default=0)
-    module_id = ForeignKey('apps.Module', on_delete=CASCADE)
+    module = ForeignKey('apps.Module', CASCADE)
     finished = BooleanField()
     is_open = BooleanField()
     is_deleted = BooleanField()
@@ -87,41 +89,41 @@ class Lesson(CreatedBaseModel):
 
 
 class Video(CreatedBaseModel):
-    lesson_id = ForeignKey('apps.Lesson', on_delete=CASCADE)
+    lesson = ForeignKey('apps.Lesson', CASCADE)
     file = FileField(upload_to='videos/video')
 
     def __str__(self):
-        return self.lesson_id.title
+        return self.lesson.title
 
 
 class Task(CreatedBaseModel):
     description = CharField(max_length=255)
-    video_id = ForeignKey('apps.Video', on_delete=CASCADE)
+    video = ForeignKey('apps.Video', CASCADE)
     task_number = PositiveIntegerField(default=0)
 
     def __str__(self):
-        return self.video_id.lesson_id.title
+        return self.video.lesson.title
 
 
 class TaskChat(CreatedBaseModel):
     description = CharField(max_length=255)
-    video_id = ForeignKey('apps.Video', on_delete=CASCADE)
-    user_id = ForeignKey('apps.User', on_delete=CASCADE)
-    task_id = ForeignKey('apps.Task', on_delete=CASCADE)
+    video = ForeignKey('apps.Video', CASCADE)
+    user = ForeignKey('apps.User', CASCADE)
+    task = ForeignKey('apps.Task', CASCADE)
     file = FileField(max_length=255)
     voice = FileField(max_length=255)
     text = CharField(max_length=255)
 
 
 class LessonQuestion(CreatedBaseModel):
-    video_id = ForeignKey('apps.Video', on_delete=CASCADE)
-    user_id = ForeignKey('apps.User', on_delete=CASCADE)
+    video = ForeignKey('apps.Video', CASCADE)
+    user = ForeignKey('apps.User', CASCADE)
     text = TextField()
     file = FileField()
     voice_message = FileField()
 
     def __str__(self):
-        return self.video_id.lesson_id.title + ' ' + f"{self.user_id.id}"
+        return self.video.lesson.title + ' ' + f"{self.user.id}"
 
 
 class Payment(CreatedBaseModel):
@@ -130,7 +132,7 @@ class Payment(CreatedBaseModel):
     expend = CharField(max_length=255)
     processed_date = DateTimeField()
     reason = CharField(max_length=255)
-    user_id = ForeignKey('apps.User', on_delete=CASCADE)
+    user_id = ForeignKey('apps.User', CASCADE)
 
     def __str__(self):
         return self.id
@@ -138,15 +140,15 @@ class Payment(CreatedBaseModel):
 
 class Device(CreatedBaseModel):
     title = CharField(max_length=255)
-    user_id = ForeignKey('apps.User', on_delete=CASCADE)
+    user = ForeignKey('apps.User', CASCADE)
 
     def __str__(self):
         return self.title
 
 
 class Certificate(CreatedBaseModel):
-    user_id = ForeignKey('apps.User', on_delete=CASCADE)
-    course_id = ForeignKey('apps.Course', on_delete=CASCADE)
+    user = ForeignKey('apps.User', CASCADE)
+    course = ForeignKey('apps.Course', CASCADE)
     finished_at = DateField()
     qr_code = ImageField(upload_to='media/certificates_qr')
 
