@@ -13,9 +13,8 @@ class CreatedBaseModel(Model):
 
 
 class User(AbstractUser):
-    firstname = CharField(max_length=255)
-    lastname = CharField(max_length=255)
-    email = EmailField(max_length=255, blank=True, null=True)
+    username = CharField(default='', max_length=255, null=False, unique=True)
+    password = CharField(default='', max_length=255, null=False)
     phone_number = CharField(max_length=13, null=True, blank=True)
     balance = PositiveIntegerField(default=0)
     bot_options = CharField(max_length=255, null=True, blank=True)
@@ -28,7 +27,7 @@ class User(AbstractUser):
     voucher_balance = PositiveIntegerField(default=0)
 
     def __str__(self):
-        return self.firstname + ' ' + self.lastname
+        return self.get_full_name()
 
 
 class Course(CreatedBaseModel):
@@ -47,7 +46,7 @@ class Course(CreatedBaseModel):
 class UserCourse(CreatedBaseModel):
     user_id = ForeignKey('apps.User', CASCADE)
     course_id = ForeignKey('apps.Course', CASCADE)
-    status = CharField(max_length=255)
+    status = CharField(default='', max_length=255)
 
 
 class Module(CreatedBaseModel):
