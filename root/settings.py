@@ -58,9 +58,10 @@ TEMPLATES = [
         },
     },
 ]
-AUTH_USER_MODEL = 'apps.User'
 
 WSGI_APPLICATION = 'root.wsgi.application'
+
+AUTH_USER_MODEL = 'apps.User'
 
 DATABASES = {
     "default": {
@@ -104,9 +105,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR / 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# django-storages settings
-
-DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+# # django-storages settings
+#
+# DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': (
@@ -263,4 +264,17 @@ JAZZMIN_SETTINGS = {
     # "language_chooser": True,
 }
 
+# django-storages settings
 
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
+MINIO_BUCKET_NAME = "media"
+
+AWS_ACCESS_KEY_ID = "2ArjQX3YiRe1UuDckRZQ"
+AWS_SECRET_ACCESS_KEY = "TuWkaLC9cgor0esbYntcVOH4AkTyq0bHkVCCjp2T"
+AWS_STORAGE_BUCKET_NAME = "media"
+AWS_S3_ENDPOINT_URL = "http://localhost:9000"
+
+# AWS_DEFAULT_ACL = None
+# AWS_QUERYSTRING_AUTH = True
+# AWS_S3_FILE_OVERWRITE = False
