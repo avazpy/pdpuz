@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db.models import CharField, TextField, EmailField, IntegerField, BooleanField, PositiveIntegerField, \
     DateField, \
     FileField, URLField, ImageField, Model, ForeignKey, CASCADE, DateTimeField
+from django.core.validators import RegexValidator
 
 
 class CreatedBaseModel(Model):
@@ -15,7 +16,13 @@ class CreatedBaseModel(Model):
 class User(AbstractUser):
     username = CharField(default='', max_length=255, null=False, unique=True)
     password = CharField(default='', max_length=255, null=False)
-    phone_number = CharField(max_length=13, null=True, blank=True)
+    phone_number = CharField(max_length=16, blank=True, unique=True, null=True, validators=[
+        RegexValidator(
+            regex=r'^\+?1?\d{9,15}$',
+            message="Phone number must be entered in the format '+123456789'. Up to 15 digits allowed."
+        ),
+    ],
+                             )
     balance = PositiveIntegerField(default=0)
     bot_options = CharField(max_length=255, null=True, blank=True)
     country_model = BooleanField(default=False)
@@ -50,6 +57,7 @@ class UserCourse(CreatedBaseModel):
 
     class Meta:
         unique_together = ('user', 'course')
+
 
 class Module(CreatedBaseModel):
     has_in_tg = CharField(max_length=255)
