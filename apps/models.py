@@ -68,14 +68,14 @@ class Module(CreatedBaseModel):
 
 
 class Lesson(CreatedBaseModel):
-    STATUS_CHOICES = (
-        ('BLOCKED', 'Blocked'),
-        ('INPROG', 'In Progress'),
-        ('FINISHED', 'Finished'),
-    )
+    STATUS_CHOICES = [
+        ('blocked', 'BLOCKED'),
+        ('inprog', 'INPROG'),
+        ('finished', 'FINISHED'),
+    ]
 
     order = IntegerField()
-    status = CharField(max_length=20, choices=STATUS_CHOICES, default='BLOCKED')
+    status = CharField(choices=STATUS_CHOICES, default='BLOCKED')
     title = CharField(max_length=255)
     url = URLField(max_length=255)
     video_count = PositiveIntegerField(default=0)
@@ -154,3 +154,13 @@ class Certificate(CreatedBaseModel):
 
     def __str__(self):
         return self.id
+
+
+class UserLesson(CreatedBaseModel):
+    user = ForeignKey('apps.User', CASCADE)
+    lesson = ForeignKey('apps.Lesson', CASCADE)
+    is_open = BooleanField()
+    is_finished = BooleanField()
+
+    class Meta:
+        unique_together = ('user', 'lesson')
