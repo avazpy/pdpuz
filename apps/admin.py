@@ -10,11 +10,11 @@ from apps.models import UserCourse, Course, Module, Task, TaskChat, Video, Lesso
 
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
-    list_display = ('custom_image', "username", "email", "first_name", "last_name", "is_staff")
+    list_display = ("username", 'photo', "email", "first_name", "last_name", "is_staff")
 
     fieldsets = (
         (None, {"fields": ("username", "password")}),
-        (_("Personal info"), {"fields": ("first_name", "last_name", "email", 'image')}),
+        (_("Personal info"), {"fields": ("first_name", "last_name", "email", 'photo')}),
         (
             _("Permissions"),
             {
