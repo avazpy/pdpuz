@@ -7,7 +7,7 @@ from apps.models import User
 class UserModelSerializer(ModelSerializer):
     class Meta:
         model = User
-        exclude = ('groups', 'user_permissions', 'password', 'photo', 'balance', 'bot_options', 'country_model',
+        exclude = ('groups', 'user_permissions', 'password', 'balance', 'bot_options', 'country_model',
                    'has_registered_bot', 'not_read_message_count', 'ticket_role', 'voucher_balance')
 
 

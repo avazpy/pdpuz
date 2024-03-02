@@ -275,6 +275,20 @@ AWS_SECRET_ACCESS_KEY = "TuWkaLC9cgor0esbYntcVOH4AkTyq0bHkVCCjp2T"
 AWS_STORAGE_BUCKET_NAME = "media"
 AWS_S3_ENDPOINT_URL = "http://localhost:9000"
 
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'basic': {
+            'type': 'apiKey'
+        },
+        'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header',
+            'description': 'JWT token bilan kirish',
+        }
+    }
+}
+
 # AWS_DEFAULT_ACL = None
 # AWS_QUERYSTRING_AUTH = True
 # AWS_S3_FILE_OVERWRITE = False
