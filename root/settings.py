@@ -265,6 +265,7 @@ JAZZMIN_SETTINGS = {
 }
 
 # django-storages settings
+#fasdfhlkd
 
 DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
