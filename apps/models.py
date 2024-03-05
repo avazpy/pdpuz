@@ -115,6 +115,14 @@ class Task(CreatedBaseModel):
     description = CharField(max_length=255)
     video = ForeignKey('apps.Video', CASCADE)
     task_number = PositiveIntegerField(default=0)
+    lastTime = DateTimeField()
+    order = IntegerField()
+    priority = PositiveIntegerField(default=0)
+    title = CharField(max_length=255)
+    mustComplete = BooleanField()
+    status = CharField()
+    files = CharField(max_length=255)
+    userTaskList = CharField(max_length=255)
 
     def __str__(self):
         return self.video.lesson.title
