@@ -16,7 +16,7 @@
         "fields": {
             "user": 2,
             "lesson": 2,
-            "is_open": true,
+            "is_open": false,
             "is_finished": true
         }
     },

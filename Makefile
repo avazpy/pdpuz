@@ -11,9 +11,7 @@ file:
 	python3 manage.py loaddata module.json
 	python3 manage.py loaddata lesson.json
 	python3 manage.py loaddata video.json
-
 	python3 manage.py loaddata lessonquestion.json
-
 	python3 manage.py loaddata payment.json
 	python3 manage.py loaddata task.json
 	python3 manage.py loaddata taskchat.json
