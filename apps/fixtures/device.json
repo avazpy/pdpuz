@@ -1,0 +1,27 @@
+[
+   {
+        "model": "apps.device",
+        "pk": 1,
+        "fields": {
+            "title": "Smartphone",
+            "user": 1
+        }
+    },
+    {
+        "model": "apps.device",
+        "pk": 2,
+        "fields": {
+            "title": "Tablet",
+            "user": 2
+        }
+    },
+    {
+        "model": "apps.device",
+        "pk": 3,
+        "fields": {
+            "title": "Laptop",
+            "user": 3
+        }
+    }
+
+]

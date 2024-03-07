@@ -1,0 +1,42 @@
+[
+  {
+        "model": "apps.course",
+        "pk": 1,
+        "fields": {
+            "title": "Introduction to Python",
+            "lesson_count": 10,
+            "modul_count": 5,
+            "order": 1,
+            "task_count": 20,
+            "type": "Beginner",
+            "url": "https://example.com/python-course"
+        }
+    },
+    {
+        "model": "apps.course",
+        "pk": 2,
+        "fields": {
+            "title": "Web Development Fundamentals",
+            "lesson_count": 15,
+            "modul_count": 7,
+            "order": 2,
+            "task_count": 25,
+            "type": "Intermediate",
+            "url": "https://example.com/web-dev-course"
+        }
+    },
+    {
+        "model": "apps.course",
+        "pk": 3,
+        "fields": {
+            "title": "Machine Learning Basics",
+            "lesson_count": 12,
+            "modul_count": 6,
+            "order": 3,
+            "task_count": 30,
+            "type": "Advanced",
+            "url": "https://example.com/ml-basics-course"
+        }
+    }
+
+]

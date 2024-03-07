@@ -1,0 +1,33 @@
+[
+   {
+        "model": "apps.certificate",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "course": 1,
+            "finished_at": "2024-01-01",
+            "qr_code": "certificates_qr/certificate1.png"
+        }
+    },
+    {
+        "model": "apps.certificate",
+        "pk": 2,
+        "fields": {
+            "user": 2,
+            "course": 2,
+            "finished_at": "2024-02-01",
+            "qr_code": "certificates_qr/certificate2.png"
+        }
+    },
+    {
+        "model": "apps.certificate",
+        "pk": 3,
+        "fields": {
+            "user": 3,
+            "course": 3,
+            "finished_at": "2024-03-01",
+            "qr_code": "certificates_qr/certificate3.png"
+        }
+    }
+
+]

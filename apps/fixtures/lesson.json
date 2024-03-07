@@ -1,0 +1,47 @@
+[
+   {
+        "model": "apps.lesson",
+        "pk": 1,
+        "fields": {
+            "order": 1,
+            "status": "blocked",
+            "title": "Lesson 1: Introduction to Programming",
+            "url": "https://example.com/lesson1",
+            "video_count": 5,
+            "module": 1,
+            "finished": false,
+            "is_open": true,
+            "is_deleted": false
+        }
+    },
+    {
+        "model": "apps.lesson",
+        "pk": 2,
+        "fields": {
+            "order": 2,
+            "status": "inprog",
+            "title": "Lesson 2: Data Structures and Algorithms",
+            "url": "https://example.com/lesson2",
+            "video_count": 8,
+            "module": 1,
+            "finished": false,
+            "is_open": true,
+            "is_deleted": false
+        }
+    },
+    {
+        "model": "apps.lesson",
+        "pk": 3,
+        "fields": {
+            "order": 3,
+            "status": "finished",
+            "title": "Lesson 3: Web Development Basics",
+            "url": "https://example.com/lesson3",
+            "video_count": 10,
+            "module": 2,
+            "finished": true,
+            "is_open": false,
+            "is_deleted": false
+        }
+    }
+]
