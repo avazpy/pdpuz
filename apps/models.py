@@ -96,6 +96,9 @@ class UserModule(CreatedBaseModel):
     module = ForeignKey('apps.Module', CASCADE)
     status = CharField(choices=StatusChoices.choices, default=StatusChoices.BLOCKED)
 
+    class Meta:
+        unique_together = ('user', 'module')
+
 
 class Lesson(CreatedBaseModel):
     order = IntegerField()
