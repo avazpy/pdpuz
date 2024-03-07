@@ -274,15 +274,30 @@ JAZZMIN_SETTINGS = {
 }
 
 # django-storages settings
+#fasdfhlkd
 
 DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
-MINIO_BUCKET_NAME = "media"
+MINIO_BUCKET_NAME = os.getenv('MINIO_BUCKET_NAME')
 
-AWS_ACCESS_KEY_ID = "2ArjQX3YiRe1UuDckRZQ"
-AWS_SECRET_ACCESS_KEY = "TuWkaLC9cgor0esbYntcVOH4AkTyq0bHkVCCjp2T"
-AWS_STORAGE_BUCKET_NAME = "media"
-AWS_S3_ENDPOINT_URL = "http://localhost:9000"
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_ENDPOINT_URL = os.getenv('AWS_S3_ENDPOINT_URL')
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'basic': {
+            'type': 'apiKey'
+        },
+        'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header',
+            'description': 'JWT token bilan kirish',
+        }
+    }
+}
 
 # AWS_DEFAULT_ACL = None
 # AWS_QUERYSTRING_AUTH = True

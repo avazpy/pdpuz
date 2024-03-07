@@ -1,10 +1,10 @@
-from unittest import TestCase
-
 from django.contrib.auth.models import AbstractUser
-from django.db.models import CharField, TextField, EmailField, IntegerField, BooleanField, PositiveIntegerField, \
+from django.contrib.auth.models import AbstractBaseUser
+from django.core.validators import RegexValidator
+from django.db.models import CharField, TextField, IntegerField, BooleanField, PositiveIntegerField, \
     DateField, \
     FileField, URLField, ImageField, Model, ForeignKey, CASCADE, DateTimeField
-from django.db import models
+
 
 class CreatedBaseModel(Model):
     update_at = DateTimeField(auto_now=True, null=True)
@@ -17,7 +17,18 @@ class CreatedBaseModel(Model):
 class User(AbstractUser):
     username = CharField(default='', max_length=255, null=False, unique=True)
     password = CharField(default='', max_length=255, null=False)
-    phone_number = CharField(max_length=13, null=True, blank=True)
+
+    phone_number = CharField(
+        max_length=13,
+        blank=True,
+        null=True,
+        validators=[
+            RegexValidator(
+                regex=r'^\+?1?\d{9,13}$',
+                message="Phone number must be entered in the format '+998'. Up to 13 digits allowed."
+            ),
+        ],
+    )
     balance = PositiveIntegerField(default=0)
     bot_options = CharField(max_length=255, null=True, blank=True)
     country_model = BooleanField(default=False)
@@ -29,6 +40,9 @@ class User(AbstractUser):
     voucher_balance = PositiveIntegerField(default=0)
 
 
+def __str__(self):
+    return self.get_full_name()
+
 
 class Course(CreatedBaseModel):
     title = CharField(max_length=255)
@@ -38,6 +52,9 @@ class Course(CreatedBaseModel):
     task_count = PositiveIntegerField(default=0)
     type = CharField(max_length=255)
     url = URLField(max_length=255)
+
+    def __str__(self):
+        return self.title
 
 
 class UserCourse(CreatedBaseModel):
@@ -60,6 +77,8 @@ class Module(CreatedBaseModel):
     title = CharField(max_length=255)
     user = ForeignKey('apps.User', CASCADE)
 
+    def __str__(self):
+        return self.title
 
 
 class Lesson(CreatedBaseModel):
@@ -79,16 +98,33 @@ class Lesson(CreatedBaseModel):
     is_open = BooleanField()
     is_deleted = BooleanField()
 
+    def __str__(self):
+        return self.title
+
 
 class Video(CreatedBaseModel):
     lesson = ForeignKey('apps.Lesson', CASCADE)
     file = FileField(upload_to='videos/video')
+
+    def __str__(self):
+        return self.lesson.title
 
 
 class Task(CreatedBaseModel):
     description = CharField(max_length=255)
     video = ForeignKey('apps.Video', CASCADE)
     task_number = PositiveIntegerField(default=0)
+    lastTime = DateTimeField()
+    order = IntegerField()
+    priority = PositiveIntegerField(default=0)
+    title = CharField(max_length=255)
+    mustComplete = BooleanField()
+    status = CharField()
+    files = CharField(max_length=255)
+    userTaskList = CharField(max_length=255)
+
+    def __str__(self):
+        return self.video.lesson.title
 
 
 class TaskChat(CreatedBaseModel):
@@ -108,6 +144,9 @@ class LessonQuestion(CreatedBaseModel):
     file = FileField()
     voice_message = FileField()
 
+    def __str__(self):
+        return self.video.lesson.title + ' ' + f"{self.user.id}"
+
 
 class Payment(CreatedBaseModel):
     balance = PositiveIntegerField()
@@ -117,12 +156,16 @@ class Payment(CreatedBaseModel):
     reason = CharField(max_length=255)
     user = ForeignKey('apps.User', CASCADE)
 
+    def __str__(self):
+        return self.id
 
 
 class Device(CreatedBaseModel):
     title = CharField(max_length=255)
     user = ForeignKey('apps.User', CASCADE)
 
+    def __str__(self):
+        return self.title
 
 
 class Certificate(CreatedBaseModel):
@@ -131,6 +174,8 @@ class Certificate(CreatedBaseModel):
     finished_at = DateField()
     qr_code = ImageField(upload_to='media/certificates_qr')
 
+    def __str__(self):
+        return self.id
 
 
 class UserLesson(CreatedBaseModel):
@@ -141,12 +186,3 @@ class UserLesson(CreatedBaseModel):
 
     class Meta:
         unique_together = ('user', 'lesson')
-
-
-class MyModel(models.Model):
-    userId = models.IntegerField()
-    title = models.CharField(max_length=255)
-
-
-
-
