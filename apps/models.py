@@ -180,9 +180,7 @@ class Device(CreatedBaseModel):
         return self.title
 
 
-class Certificate(CreatedBaseM# for i in [matn ,matn1, matn2, matn3]:
-#     cv2.imshow("PDP Sertifikati", i)
-odel):
+class Certificate(CreatedBaseModel):
     user = ForeignKey('apps.User', CASCADE)
     course = ForeignKey('apps.Course', CASCADE)
     finished_at = DateField()
