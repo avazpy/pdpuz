@@ -15,8 +15,8 @@ class CreatedBaseModel(Model):
 
 
 class User(AbstractUser):
-    username = CharField( max_length=255, unique=True)
-    password = CharField( max_length=255)
+    username = CharField(max_length=255, unique=True)
+    password = CharField(max_length=255)
 
     phone_number = CharField(
         max_length=13,
@@ -77,6 +77,7 @@ class Module(CreatedBaseModel):
     lesson_count = PositiveIntegerField(default=0)
     order = IntegerField()
     row_num = PositiveIntegerField(default=0)
+    status = CharField(max_length=255)
     support_day = DateField()
     task_count = PositiveIntegerField(default=0)
     title = CharField(max_length=255)
@@ -117,7 +118,7 @@ class Lesson(CreatedBaseModel):
 class UserLesson(CreatedBaseModel):
     class StatusChoices(TextChoices):
         BLOCKED = 'blocked', 'BLOCKED'
-        INPROG = 'inprog', 'INPROG'
+        IN_PROG = 'in_prog', 'IN_PROG'
         FINISHED = 'finished', 'FINISHED'
 
     user = ForeignKey('apps.User', CASCADE)

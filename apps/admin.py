@@ -41,14 +41,16 @@ class UsersCoursesAdmin(admin.ModelAdmin):
     pass
 
 
+class ModuleStackedInline(admin.StackedInline):
+    model = Module
+    exclude = ()
+    extra = 1
+    min_num = 1
+
+
 @admin.register(Course)
 class CoursesAdminAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(Module)
-class ModulesAdminAdmin(admin.ModelAdmin):
-    pass
+    inlines = [ModuleStackedInline]
 
 
 @admin.register(Task)
