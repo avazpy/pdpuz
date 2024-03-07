@@ -15,6 +15,9 @@ class CreatedBaseModel(Model):
 
 
 class User(AbstractUser):
+    username = CharField( max_length=255, unique=True)
+    password = CharField( max_length=255)
+
     phone_number = CharField(
         max_length=13,
         blank=True,

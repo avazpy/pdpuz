@@ -1,6 +1,9 @@
 make:
 	python3 manage.py makemigrations
 	python3 manage.py migrate
+run:
+	sudo chmod 666 /var/run/docker.sock
+	docker start pg_container
 file:
 	python3 manage.py loaddata user.json
 	python3 manage.py loaddata course.json
@@ -17,3 +20,4 @@ file:
 	python3 manage.py loaddata userlesson.json
 	python3 manage.py loaddata device.json
 	python3 manage.py loaddata certificate.json
+	python3 manage.py loaddata usertask.json
