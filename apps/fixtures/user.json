@@ -1,0 +1,57 @@
+[
+  {
+        "model": "apps.user",
+        "pk": 1,
+        "fields": {
+            "username": "user1",
+            "password": "pbkdf2_sha256$720000$A7a8wbgBVuzDab7xtdhVON$clFcKVYUe5o2qrWP8JZG1bwqdX/2fiGJz/2YA0uX63A=",
+            "phone_number": "+1234567890",
+            "balance": 100,
+            "bot_options": "option1",
+            "country_model": true,
+            "has_registered_bot": true,
+            "not_read_message_count": 5,
+            "payme_balance": 50,
+            "photo": "users/images/user1.jpg",
+            "ticket_role": "role1",
+            "voucher_balance": 20
+        }
+    },
+    {
+        "model": "apps.user",
+        "pk": 2,
+        "fields": {
+            "username": "user2",
+            "password": "pbkdf2_sha256$720000$oNFXe527ItNC1Ot53z9AQB$kBgyyC0TxaThLD50xPpzFCaLhDD9T8dKZX+V2nxS0DY=",
+            "phone_number": "+9876543210",
+            "balance": 200,
+            "bot_options": "option2",
+            "country_model": false,
+            "has_registered_bot": false,
+            "not_read_message_count": 3,
+            "payme_balance": 70,
+            "photo": "users/images/user2.jpg",
+            "ticket_role": "role2",
+            "voucher_balance": 30
+        }
+    },
+    {
+        "model": "apps.user",
+        "pk": 3,
+        "fields": {
+            "username": "user3",
+            "password": "pbkdf2_sha256$720000$wzBRGYm5orXgUVYV4htmHl$tPljM+VzEtLFXOnqsLJ3r8yJG9V4V8Ue8LcQoa+H8nI=",
+            "phone_number": "+1122334455",
+            "balance": 150,
+            "bot_options": "option3",
+            "country_model": true,
+            "has_registered_bot": false,
+            "not_read_message_count": 7,
+            "payme_balance": 80,
+            "photo": "users/images/user3.jpg",
+            "ticket_role": "role3",
+            "voucher_balance": 40
+        }
+    }
+
+]

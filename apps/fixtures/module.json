@@ -1,0 +1,51 @@
+[
+  {
+        "model": "apps.module",
+        "pk": 1,
+        "fields": {
+            "has_in_tg": "Yes",
+            "learning_type": "Online",
+            "lesson_count": 10,
+            "order": 1,
+            "row_num": 1,
+            "status": "Active",
+            "support_day": "2024-03-01",
+            "task_count": 5,
+            "title": "Introduction to Programming",
+            "user": 1
+        }
+    },
+    {
+        "model": "apps.module",
+        "pk": 2,
+        "fields": {
+            "has_in_tg": "No",
+            "learning_type": "Offline",
+            "lesson_count": 8,
+            "order": 2,
+            "row_num": 2,
+            "status": "Inactive",
+            "support_day": "2024-03-02",
+            "task_count": 4,
+            "title": "Data Structures and Algorithms",
+            "user": 2
+        }
+    },
+    {
+        "model": "apps.module",
+        "pk": 3,
+        "fields": {
+            "has_in_tg": "Yes",
+            "learning_type": "Online",
+            "lesson_count": 12,
+            "order": 3,
+            "row_num": 3,
+            "status": "Active",
+            "support_day": "2024-03-03",
+            "task_count": 6,
+            "title": "Web Development Basics",
+            "user": 3
+        }
+    }
+
+]

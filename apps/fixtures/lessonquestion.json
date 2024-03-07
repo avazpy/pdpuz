@@ -1,0 +1,36 @@
+[
+    {
+        "model": "apps.lessonquestion",
+        "pk": 1,
+        "fields": {
+            "video": 1,
+            "user": 1,
+            "text": "Can you explain this concept further?",
+            "file": "lesson_questions/question1.txt",
+            "voice_message": "lesson_questions/voice_message1.mp3"
+        }
+    },
+    {
+        "model": "apps.lessonquestion",
+        "pk": 2,
+        "fields": {
+            "video": 2,
+            "user": 2,
+            "text": "I need clarification on the third point",
+            "file": "lesson_questions/question2.txt",
+            "voice_message": "lesson_questions/voice_message2.mp3"
+        }
+    },
+    {
+        "model": "apps.lessonquestion",
+        "pk": 3,
+        "fields": {
+            "video": 3,
+            "user": 3,
+            "text": "Could you provide an example for this?",
+            "file": "lesson_questions/question3.txt",
+            "voice_message": "lesson_questions/voice_message3.mp3"
+        }
+    }
+
+]

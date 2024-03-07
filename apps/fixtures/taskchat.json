@@ -1,0 +1,41 @@
+[
+  {
+        "model": "apps.taskchat",
+        "pk": 1,
+        "fields": {
+            "description": "Discuss the assignment requirements",
+            "video": 1,
+            "user": 1,
+            "task": 1,
+            "file": "chats/file1.txt",
+            "voice": "chats/voice1.mp3",
+            "text": "Let's start discussing"
+        }
+    },
+    {
+        "model": "apps.taskchat",
+        "pk": 2,
+        "fields": {
+            "description": "Ask for clarification on Module 1 content",
+            "video": 2,
+            "user": 2,
+            "task": 2,
+            "file": "chats/file2.txt",
+            "voice": "chats/voice2.mp3",
+            "text": "Can you explain this further?"
+        }
+    },
+    {
+        "model": "apps.taskchat",
+        "pk": 3,
+        "fields": {
+            "description": "Share insights on Lesson 3",
+            "video": 3,
+            "user": 3,
+            "task": 3,
+            "file": "chats/file3.txt",
+            "voice": "chats/voice3.mp3",
+            "text": "I found this part very interesting"
+        }
+    }
+]

@@ -1,0 +1,30 @@
+[
+  {
+        "model": "apps.task",
+        "pk": 1,
+        "fields": {
+            "description": "Complete the introduction quiz",
+            "video": 1,
+            "task_number": 1
+        }
+    },
+    {
+        "model": "apps.task",
+        "pk": 2,
+        "fields": {
+            "description": "Submit your assignment for Module 1",
+            "video": 2,
+            "task_number": 2
+        }
+    },
+    {
+        "model": "apps.task",
+        "pk": 3,
+        "fields": {
+            "description": "Watch video lecture on Data Structures",
+            "video": 3,
+            "task_number": 1
+        }
+    }
+
+]

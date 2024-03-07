@@ -1,0 +1,34 @@
+[
+
+    {
+        "model": "apps.userlesson",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "lesson": 1,
+            "is_open": true,
+            "is_finished": false
+        }
+    },
+    {
+        "model": "apps.userlesson",
+        "pk": 2,
+        "fields": {
+            "user": 2,
+            "lesson": 2,
+            "is_open": true,
+            "is_finished": true
+        }
+    },
+    {
+        "model": "apps.userlesson",
+        "pk": 3,
+        "fields": {
+            "user": 3,
+            "lesson": 3,
+            "is_open": false,
+            "is_finished": false
+        }
+    }
+
+]
