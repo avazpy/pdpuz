@@ -3,51 +3,51 @@
         "model": "apps.task",
         "pk": 1,
         "fields": {
-            "description": "Task description 1",
-            "video": 1,
+            "description": "Task 1 description",
+            "lesson": 1,
             "task_number": 1,
-            "lastTime": "2024-03-01T08:00:00Z",
+            "lastTime": "2023-03-15T10:00:00Z",
             "order": 1,
-            "priority": 1,
-            "title": "Task title 1",
+            "priority": 2,
+            "title": "Task 1",
             "mustComplete": true,
-            "status": "Pending",
+            "status": "INPROG",
             "files": "file1.txt",
-            "userTaskList": "user1, user2"
+            "user_task_list": "UserTaskList 1"
         }
     },
     {
         "model": "apps.task",
         "pk": 2,
         "fields": {
-            "description": "Task description 2",
-            "video": 2,
+            "description": "Task 2 description",
+            "lesson": 1,
             "task_number": 2,
-            "lastTime": "2024-03-02T08:00:00Z",
+            "lastTime": "2023-03-16T10:00:00Z",
             "order": 2,
-            "priority": 2,
-            "title": "Task title 2",
+            "priority": 1,
+            "title": "Task 2",
             "mustComplete": false,
-            "status": "InProgress",
+            "status": "BLOCKED",
             "files": "file2.txt",
-            "userTaskList": "user3, user4"
+            "user_task_list": "UserTaskList 2"
         }
     },
     {
         "model": "apps.task",
         "pk": 3,
         "fields": {
-            "description": "Task description 3",
-            "video": 3,
+            "description": "Task 3 description",
+            "lesson": 2,
             "task_number": 3,
-            "lastTime": "2024-03-03T08:00:00Z",
+            "lastTime": "2023-03-17T10:00:00Z",
             "order": 3,
             "priority": 3,
-            "title": "Task title 3",
+            "title": "Task 3",
             "mustComplete": true,
-            "status": "Completed",
+            "status": "FINISHED",
             "files": "file3.txt",
-            "userTaskList": "user5, user6"
+            "user_task_list": "UserTaskList 3"
         }
     }
 ]

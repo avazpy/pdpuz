@@ -1,5 +1,5 @@
-from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator
 from django.db.models import CharField, TextField, IntegerField, BooleanField, PositiveIntegerField, \
     DateField, \
@@ -215,9 +215,6 @@ class Payment(CreatedBaseModel):
     reason = CharField(max_length=255)
     user = ForeignKey('apps.User', CASCADE)
 
-    def __str__(self):
-        return self.id
-
 
 class Device(CreatedBaseModel):
     title = CharField(max_length=255)
@@ -232,6 +229,3 @@ class Certificate(CreatedBaseModel):
     course = ForeignKey('apps.Course', CASCADE)
     finished_at = DateField()
     qr_code = ImageField(upload_to='certificate/certificates_qr')
-
-    def __str__(self):
-        return self.id
