@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'mptt',
     'rest_framework_simplejwt',
     # 'fixtures',
+    'nested_inline',
 
 
 ]
