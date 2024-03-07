@@ -1,6 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import AbstractBaseUser
-from django.core.validators import RegexValidator
+from django.core.validators import RegexValidator, FileExtensionValidator
 from django.db.models import CharField, TextField, IntegerField, BooleanField, PositiveIntegerField, \
     DateField, \
     FileField, URLField, ImageField, Model, ForeignKey, CASCADE, DateTimeField, TextChoices
@@ -77,7 +77,6 @@ class Module(CreatedBaseModel):
     lesson_count = PositiveIntegerField(default=0)
     order = IntegerField()
     row_num = PositiveIntegerField(default=0)
-    status = CharField(max_length=255)
     support_day = DateField()
     task_count = PositiveIntegerField(default=0)
     title = CharField(max_length=255)
@@ -115,6 +114,13 @@ class Lesson(CreatedBaseModel):
         return self.title
 
 
+def validate_file_extension(value):
+    import os
+    from django.core.exceptions import ValidationError
+    ext = os.path.splitext(value.name)[1]  # [0] returns path+filename
+    valid_extensions = ['.mp4', '.avi', '.mkv']
+    if not ext.lower() in valid_extensions:
+        raise ValidationError('Unsupported file extension.')
 class UserLesson(CreatedBaseModel):
     class StatusChoices(TextChoices):
         BLOCKED = 'blocked', 'BLOCKED'
@@ -142,7 +148,7 @@ class LessonQuestion(CreatedBaseModel):
 
 class Video(CreatedBaseModel):
     lesson = ForeignKey('apps.Lesson', CASCADE)
-    file = FileField(upload_to='videos/video')
+    file = FileField(upload_to='videos/video', validators=[validate_file_extension])
 
     def __str__(self):
         return self.lesson.title
@@ -184,6 +190,20 @@ class TaskChat(CreatedBaseModel):
     file = FileField(max_length=255)
     voice = FileField(max_length=255)
     text = CharField(max_length=255)
+
+
+class LessonQuestion(CreatedBaseModel):
+    video = ForeignKey('apps.Video', CASCADE)
+    user = ForeignKey('apps.User', CASCADE)
+    text = TextField()
+    file = FileField(null=True,
+                     blank=True,
+                     validators=[FileExtensionValidator(['pdf'])])
+
+    voice_message = FileField()
+
+    def __str__(self):
+        return self.video.lesson.title + ' ' + f"{self.user.id}"
 
 
 class Payment(CreatedBaseModel):
