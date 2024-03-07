@@ -1,0 +1,39 @@
+[
+  {
+        "model": "apps.payment",
+        "pk": 1,
+        "fields": {
+            "balance": 500,
+            "income": true,
+            "expend": "Purchase",
+            "processed_date": "2024-03-01T10:00:00Z",
+            "reason": "Course enrollment fee",
+            "user": 1
+        }
+    },
+    {
+        "model": "apps.payment",
+        "pk": 2,
+        "fields": {
+            "balance": 200,
+            "income": true,
+            "expend": "Deposit",
+            "processed_date": "2024-03-02T14:30:00Z",
+            "reason": "Top-up",
+            "user": 2
+        }
+    },
+    {
+        "model": "apps.payment",
+        "pk": 3,
+        "fields": {
+            "balance": 1000,
+            "income": true,
+            "expend": "Refund",
+            "processed_date": "2024-03-03T09:45:00Z",
+            "reason": "Cancellation",
+            "user": 3
+        }
+    }
+
+]

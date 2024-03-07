@@ -1,0 +1,27 @@
+[
+  {
+        "model": "apps.video",
+        "pk": 1,
+        "fields": {
+            "lesson": 1,
+            "file": "videos/video/video1.mp4"
+        }
+    },
+    {
+        "model": "apps.video",
+        "pk": 2,
+        "fields": {
+            "lesson": 1,
+            "file": "videos/video/video2.mp4"
+        }
+    },
+    {
+        "model": "apps.video",
+        "pk": 3,
+        "fields": {
+            "lesson": 2,
+            "file": "videos/video/video3.mp4"
+        }
+    }
+
+]
