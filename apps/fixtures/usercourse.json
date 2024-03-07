@@ -1,0 +1,30 @@
+[
+  {
+        "model": "apps.usercourse",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "course": 1,
+            "status": "Enrolled"
+        }
+    },
+    {
+        "model": "apps.usercourse",
+        "pk": 2,
+        "fields": {
+            "user": 1,
+            "course": 2,
+            "status": "Completed"
+        }
+    },
+    {
+        "model": "apps.usercourse",
+        "pk": 3,
+        "fields": {
+            "user": 2,
+            "course": 1,
+            "status": "Enrolled"
+        }
+    }
+
+]
