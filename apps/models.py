@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser
 from django.core.validators import RegexValidator
 from django.db.models import CharField, TextField, IntegerField, BooleanField, PositiveIntegerField, \
     DateField, \
-    FileField, URLField, ImageField, Model, ForeignKey, CASCADE, DateTimeField
+    FileField, URLField, ImageField, Model, ForeignKey, CASCADE, DateTimeField, TextChoices
 
 
 class CreatedBaseModel(Model):
@@ -15,9 +15,6 @@ class CreatedBaseModel(Model):
 
 
 class User(AbstractUser):
-    username = CharField(default='', max_length=255, null=False, unique=True)
-    password = CharField(default='', max_length=255, null=False)
-
     phone_number = CharField(
         max_length=13,
         blank=True,
@@ -58,12 +55,18 @@ class Course(CreatedBaseModel):
 
 
 class UserCourse(CreatedBaseModel):
+    class StatusChoices(TextChoices):
+        BLOCKED = 'blocked', 'BLOCKED'
+        INPROG = 'inprog', 'INPROG'
+        FINISHED = 'finished', 'FINISHED'
+
     user = ForeignKey('apps.User', CASCADE)
     course = ForeignKey('apps.Course', CASCADE)
-    status = CharField(default='', max_length=255)
+    status = CharField(choices=StatusChoices.choices, default=StatusChoices.BLOCKED)
 
     class Meta:
         unique_together = ('user', 'course')
+
 
 class Module(CreatedBaseModel):
     has_in_tg = CharField(max_length=255)
@@ -71,7 +74,6 @@ class Module(CreatedBaseModel):
     lesson_count = PositiveIntegerField(default=0)
     order = IntegerField()
     row_num = PositiveIntegerField(default=0)
-    status = CharField(max_length=255)
     support_day = DateField()
     task_count = PositiveIntegerField(default=0)
     title = CharField(max_length=255)
@@ -81,15 +83,19 @@ class Module(CreatedBaseModel):
         return self.title
 
 
-class Lesson(CreatedBaseModel):
-    STATUS_CHOICES = [
-        ('blocked', 'BLOCKED'),
-        ('inprog', 'INPROG'),
-        ('finished', 'FINISHED'),
-    ]
+class UserModule(CreatedBaseModel):
+    class StatusChoices(TextChoices):
+        BLOCKED = 'blocked', 'BLOCKED'
+        INPROG = 'inprog', 'INPROG'
+        FINISHED = 'finished', 'FINISHED'
 
+    user = ForeignKey('apps.User', CASCADE)
+    module = ForeignKey('apps.Module', CASCADE)
+    status = CharField(choices=StatusChoices.choices, default=StatusChoices.BLOCKED)
+
+
+class Lesson(CreatedBaseModel):
     order = IntegerField()
-    status = CharField(choices=STATUS_CHOICES, default='BLOCKED')
     title = CharField(max_length=255)
     url = URLField(max_length=255)
     video_count = PositiveIntegerField(default=0)
@@ -100,6 +106,31 @@ class Lesson(CreatedBaseModel):
 
     def __str__(self):
         return self.title
+
+
+class UserLesson(CreatedBaseModel):
+    class StatusChoices(TextChoices):
+        BLOCKED = 'blocked', 'BLOCKED'
+        INPROG = 'inprog', 'INPROG'
+        FINISHED = 'finished', 'FINISHED'
+
+    user = ForeignKey('apps.User', CASCADE)
+    lesson = ForeignKey('apps.Lesson', CASCADE)
+    status = CharField(choices=StatusChoices.choices, default=StatusChoices.BLOCKED)
+
+    class Meta:
+        unique_together = ('user', 'lesson')
+
+
+class LessonQuestion(CreatedBaseModel):
+    video = ForeignKey('apps.Video', CASCADE)
+    user = ForeignKey('apps.User', CASCADE)
+    text = TextField()
+    file = FileField()
+    voice_message = FileField()
+
+    def __str__(self):
+        return self.video.lesson.title + ' ' + f"{self.user.id}"
 
 
 class Video(CreatedBaseModel):
@@ -148,17 +179,6 @@ class TaskChat(CreatedBaseModel):
     text = CharField(max_length=255)
 
 
-class LessonQuestion(CreatedBaseModel):
-    video = ForeignKey('apps.Video', CASCADE)
-    user = ForeignKey('apps.User', CASCADE)
-    text = TextField()
-    file = FileField()
-    voice_message = FileField()
-
-    def __str__(self):
-        return self.video.lesson.title + ' ' + f"{self.user.id}"
-
-
 class Payment(CreatedBaseModel):
     balance = PositiveIntegerField()
     income = BooleanField(default=False)
@@ -187,13 +207,3 @@ class Certificate(CreatedBaseModel):
 
     def __str__(self):
         return self.id
-
-
-class UserLesson(CreatedBaseModel):
-    user = ForeignKey('apps.User', CASCADE)
-    lesson = ForeignKey('apps.Lesson', CASCADE)
-    is_open = BooleanField()
-    is_finished = BooleanField()
-
-    class Meta:
-        unique_together = ('user', 'lesson')
