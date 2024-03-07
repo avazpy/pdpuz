@@ -65,7 +65,6 @@ class UserCourse(CreatedBaseModel):
     class Meta:
         unique_together = ('user', 'course')
 
-
 class Module(CreatedBaseModel):
     has_in_tg = CharField(max_length=255)
     learning_type = CharField(max_length=255)

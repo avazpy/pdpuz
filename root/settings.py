@@ -4,6 +4,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
+
 load_dotenv('.env')
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -27,8 +28,15 @@ INSTALLED_APPS = [
     'drf_yasg',
     'django_filters',
     'mptt',
-    'rest_framework_simplejwt'
+    'rest_framework_simplejwt',
+    # 'fixtures',
+
+
 ]
+
+
+# python manage.py makemigrations
+# python manage.py migrate
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -104,6 +112,7 @@ MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR / 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 
 # # django-storages settings
 #
@@ -293,3 +302,10 @@ SWAGGER_SETTINGS = {
 # AWS_DEFAULT_ACL = None
 # AWS_QUERYSTRING_AUTH = True
 # AWS_S3_FILE_OVERWRITE = False
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
+    }
+}
+
