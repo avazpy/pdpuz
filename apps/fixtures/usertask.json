@@ -1,0 +1,35 @@
+[
+    {
+        "model": "apps.usertask",
+        "pk": 1,
+        "fields": {
+            "status": 1,
+            "user": 1,
+            "task": 1,
+            "is_open": true,
+            "finished": false
+        }
+    },
+    {
+        "model": "apps.usertask",
+        "pk": 2,
+        "fields": {
+            "status": 2,
+            "user": 2,
+            "task": 2,
+            "is_open": true,
+            "finished": true
+        }
+    },
+    {
+        "model": "apps.usertask",
+        "pk": 3,
+        "fields": {
+            "status": 3,
+            "user": 3,
+            "task": 3,
+            "is_open": false,
+            "finished": false
+        }
+    }
+]
