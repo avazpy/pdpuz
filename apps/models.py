@@ -127,6 +127,17 @@ class Task(CreatedBaseModel):
         return self.video.lesson.title
 
 
+class UserTask(CreatedBaseModel):
+    status = IntegerField()
+    user = ForeignKey('apps.User', CASCADE)
+    task = ForeignKey('apps.Task', CASCADE)
+    is_open = BooleanField()
+    finished = BooleanField()
+
+    class Meta:
+        unique_together = ('user', 'task')
+
+
 class TaskChat(CreatedBaseModel):
     description = CharField(max_length=255)
     video = ForeignKey('apps.Video', CASCADE)
