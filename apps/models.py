@@ -81,6 +81,7 @@ class Module(CreatedBaseModel):
     task_count = PositiveIntegerField(default=0)
     title = CharField(max_length=255)
     user = ForeignKey('apps.User', CASCADE)
+    course = ForeignKey('apps.Course', CASCADE)
 
     def __str__(self):
         return self.title
@@ -121,6 +122,8 @@ def validate_file_extension(value):
     valid_extensions = ['.mp4', '.avi', '.mkv']
     if not ext.lower() in valid_extensions:
         raise ValidationError('Unsupported file extension.')
+
+
 class UserLesson(CreatedBaseModel):
     class StatusChoices(TextChoices):
         BLOCKED = 'blocked', 'BLOCKED'
@@ -192,18 +195,18 @@ class TaskChat(CreatedBaseModel):
     text = CharField(max_length=255)
 
 
-class LessonQuestion(CreatedBaseModel):
-    video = ForeignKey('apps.Video', CASCADE)
-    user = ForeignKey('apps.User', CASCADE)
-    text = TextField()
-    file = FileField(null=True,
-                     blank=True,
-                     validators=[FileExtensionValidator(['pdf'])])
-
-    voice_message = FileField()
-
-    def __str__(self):
-        return self.video.lesson.title + ' ' + f"{self.user.id}"
+# class LessonQuestion(CreatedBaseModel):
+#     video = ForeignKey('apps.Video', CASCADE)
+#     user = ForeignKey('apps.User', CASCADE)
+#     text = TextField()
+#     file = FileField(null=True,
+#                      blank=True,
+#                      validators=[FileExtensionValidator(['pdf'])])
+#
+#     voice_message = FileField()
+#
+#     def __str__(self):
+#         return self.video.lesson.title + ' ' + f"{self.user.id}"
 
 
 class Payment(CreatedBaseModel):

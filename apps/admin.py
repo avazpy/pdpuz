@@ -3,8 +3,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
-from apps.models import User
-from apps.models import UserCourse, Course, Module, Task, TaskChat, Video, LessonQuestion, Lesson, \
+from apps.models import User, UserCourse, Course, Module, Task, TaskChat, Video, LessonQuestion, Lesson, \
     Device, Payment, Certificate
 
 
