@@ -139,6 +139,13 @@ class LessonQuestion(CreatedBaseModel):
 class Video(CreatedBaseModel):
     lesson = ForeignKey('apps.Lesson', CASCADE)
     file = FileField(upload_to='videos/video')
+    materials = FileField(upload_to='videos/materials')
+    title = CharField(max_length=255)
+    description = CharField(max_length=255)
+    is_youtube = BooleanField(default=False)
+    media_code = CharField(max_length=255)
+    media_url = CharField(max_length=255)
+    order = PositiveIntegerField()
 
     def __str__(self):
         return self.lesson.title
