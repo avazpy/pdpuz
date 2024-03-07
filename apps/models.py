@@ -131,8 +131,8 @@ class UserTask(CreatedBaseModel):
     status = IntegerField()
     user = ForeignKey('apps.User', CASCADE)
     task = ForeignKey('apps.Task', CASCADE)
-    is_open = BooleanField()
-    finished = BooleanField()
+    is_open = BooleanField(default=True)
+    finished = BooleanField(default=False)
 
     class Meta:
         unique_together = ('user', 'task')
