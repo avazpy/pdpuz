@@ -6,8 +6,7 @@
         "fields": {
             "user": 1,
             "lesson": 1,
-            "is_open": true,
-            "is_finished": false
+            "status": "blocked"
         }
     },
     {
@@ -16,8 +15,7 @@
         "fields": {
             "user": 2,
             "lesson": 2,
-            "is_open": false,
-            "is_finished": true
+            "status": "blocked"
         }
     },
     {
@@ -26,8 +24,7 @@
         "fields": {
             "user": 3,
             "lesson": 3,
-            "is_open": false,
-            "is_finished": false
+            "status": "finished"
         }
     }
 

@@ -15,8 +15,8 @@ class CreatedBaseModel(Model):
 
 
 class User(AbstractUser):
-    username = CharField( max_length=255, unique=True)
-    password = CharField( max_length=255)
+    username = CharField(max_length=255, unique=True)
+    password = CharField(max_length=255)
 
     phone_number = CharField(
         max_length=13,
@@ -81,6 +81,7 @@ class Module(CreatedBaseModel):
     task_count = PositiveIntegerField(default=0)
     title = CharField(max_length=255)
     user = ForeignKey('apps.User', CASCADE)
+    course = ForeignKey('apps.Course', CASCADE)
 
     def __str__(self):
         return self.title
@@ -121,6 +122,31 @@ def validate_file_extension(value):
     valid_extensions = ['.mp4', '.avi', '.mkv']
     if not ext.lower() in valid_extensions:
         raise ValidationError('Unsupported file extension.')
+
+
+class UserLesson(CreatedBaseModel):
+    class StatusChoices(TextChoices):
+        BLOCKED = 'blocked', 'BLOCKED'
+        IN_PROG = 'in_prog', 'IN_PROG'
+        FINISHED = 'finished', 'FINISHED'
+
+    user = ForeignKey('apps.User', CASCADE)
+    lesson = ForeignKey('apps.Lesson', CASCADE)
+    status = CharField(choices=StatusChoices.choices, default=StatusChoices.BLOCKED)
+
+    class Meta:
+        unique_together = ('user', 'lesson')
+
+
+class LessonQuestion(CreatedBaseModel):
+    video = ForeignKey('apps.Video', CASCADE)
+    user = ForeignKey('apps.User', CASCADE)
+    text = TextField()
+    file = FileField()
+    voice_message = FileField()
+
+    def __str__(self):
+        return self.video.lesson.title + ' ' + f"{self.user.id}"
 
 
 class Video(CreatedBaseModel):
@@ -169,18 +195,18 @@ class TaskChat(CreatedBaseModel):
     text = CharField(max_length=255)
 
 
-class LessonQuestion(CreatedBaseModel):
-    video = ForeignKey('apps.Video', CASCADE)
-    user = ForeignKey('apps.User', CASCADE)
-    text = TextField()
-    file = FileField(null=True,
-                     blank=True,
-                     validators=[FileExtensionValidator(['pdf'])])
-
-    voice_message = FileField()
-
-    def __str__(self):
-        return self.video.lesson.title + ' ' + f"{self.user.id}"
+# class LessonQuestion(CreatedBaseModel):
+#     video = ForeignKey('apps.Video', CASCADE)
+#     user = ForeignKey('apps.User', CASCADE)
+#     text = TextField()
+#     file = FileField(null=True,
+#                      blank=True,
+#                      validators=[FileExtensionValidator(['pdf'])])
+#
+#     voice_message = FileField()
+#
+#     def __str__(self):
+#         return self.video.lesson.title + ' ' + f"{self.user.id}"
 
 
 class Payment(CreatedBaseModel):
