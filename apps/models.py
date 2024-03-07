@@ -1,6 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import AbstractBaseUser
-from django.core.validators import RegexValidator, FileExtensionValidator
+from django.core.validators import RegexValidator
 from django.db.models import CharField, TextField, IntegerField, BooleanField, PositiveIntegerField, \
     DateField, \
     FileField, URLField, ImageField, Model, ForeignKey, CASCADE, DateTimeField, TextChoices
@@ -107,8 +107,6 @@ class Lesson(CreatedBaseModel):
     url = URLField(max_length=255)
     video_count = PositiveIntegerField(default=0)
     module = ForeignKey('apps.Module', CASCADE)
-    finished = BooleanField()
-    is_open = BooleanField()
     is_deleted = BooleanField()
 
     def __str__(self):
@@ -127,7 +125,7 @@ def validate_file_extension(value):
 class UserLesson(CreatedBaseModel):
     class StatusChoices(TextChoices):
         BLOCKED = 'blocked', 'BLOCKED'
-        IN_PROG = 'in_prog', 'IN_PROG'
+        IN_PROG = 'inprog', 'INPROG'
         FINISHED = 'finished', 'FINISHED'
 
     user = ForeignKey('apps.User', CASCADE)
@@ -159,7 +157,7 @@ class Video(CreatedBaseModel):
 
 class Task(CreatedBaseModel):
     description = CharField(max_length=255)
-    video = ForeignKey('apps.Video', CASCADE)
+    lesson = ForeignKey('apps.Lesson', CASCADE)
     task_number = PositiveIntegerField(default=0)
     lastTime = DateTimeField()
     order = IntegerField()
@@ -168,10 +166,10 @@ class Task(CreatedBaseModel):
     mustComplete = BooleanField()
     status = CharField()
     files = CharField(max_length=255)
-    userTaskList = CharField(max_length=255)
+    user_task_list = CharField(max_length=255)
 
     def __str__(self):
-        return self.video.lesson.title
+        return self.lesson.title
 
 
 class UserTask(CreatedBaseModel):
@@ -233,7 +231,7 @@ class Certificate(CreatedBaseModel):
     user = ForeignKey('apps.User', CASCADE)
     course = ForeignKey('apps.Course', CASCADE)
     finished_at = DateField()
-    qr_code = ImageField(upload_to='media/certificates_qr')
+    qr_code = ImageField(upload_to='certificate/certificates_qr')
 
     def __str__(self):
         return self.id
