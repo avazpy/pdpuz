@@ -60,7 +60,7 @@ class Course(CreatedBaseModel):
 class UserCourse(CreatedBaseModel):
     class StatusChoices(TextChoices):
         BLOCKED = 'blocked', 'BLOCKED'
-        INPROG = 'inprog', 'INPROG'
+        IN_PROG = 'in_prog', 'IN_PROG'
         FINISHED = 'finished', 'FINISHED'
 
     user = ForeignKey('apps.User', CASCADE)
@@ -90,7 +90,7 @@ class Module(CreatedBaseModel):
 class UserModule(CreatedBaseModel):
     class StatusChoices(TextChoices):
         BLOCKED = 'blocked', 'BLOCKED'
-        INPROG = 'inprog', 'INPROG'
+        IN_PROG = 'in_prog', 'IN_PROG'
         FINISHED = 'finished', 'FINISHED'
 
     user = ForeignKey('apps.User', CASCADE)
@@ -125,7 +125,7 @@ def validate_file_extension(value):
 class UserLesson(CreatedBaseModel):
     class StatusChoices(TextChoices):
         BLOCKED = 'blocked', 'BLOCKED'
-        IN_PROG = 'inprog', 'INPROG'
+        IN_PROG = 'in_prog', 'IN_PROG'
         FINISHED = 'finished', 'FINISHED'
 
     user = ForeignKey('apps.User', CASCADE)

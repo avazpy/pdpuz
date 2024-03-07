@@ -5,7 +5,6 @@ from apps.models import User
 
 
 class UserModelSerializer(ModelSerializer):
-
     class Meta:
         model = User
         exclude = ('groups', 'user_permissions', 'password', 'balance', 'bot_options', 'country_model',
@@ -25,7 +24,6 @@ class UserCreateModelSerializer(ModelSerializer):
         extra_kwargs = {
             'password': {'write_only': True}
         }
-
 
     def validate_password(self, password):
         return make_password(password)

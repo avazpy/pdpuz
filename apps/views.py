@@ -1,4 +1,3 @@
-from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.generics import CreateAPIView
@@ -16,10 +15,10 @@ class UserViewSet(ModelViewSet):
     search_fields = ('username', 'email')
 
     @action(detail=False, methods=['GET'], url_path='get-me')
-    def get_me(self, request,pk=None):
+    def get_me(self, request):
         if request.user.is_authenticated:
             return Response({'message': f'{request.user.username}'})
-        return Response({'message': f'login qilinmagan'})
+        return Response({'message': f'login closed'})
 
 
 class RegisterCreateAPIView(CreateAPIView):
