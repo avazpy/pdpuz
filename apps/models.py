@@ -2,7 +2,7 @@ from datetime import timedelta
 
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import AbstractBaseUser
-from django.core.validators import RegexValidator
+from django.core.validators import RegexValidator, FileExtensionValidator
 from django.db.models import CharField, TextField, IntegerField, BooleanField, PositiveIntegerField, \
     DateField, \
     FileField, URLField, ImageField, Model, ForeignKey, CASCADE, DateTimeField, TextChoices
@@ -59,7 +59,7 @@ class Course(CreatedBaseModel):
 class UserCourse(CreatedBaseModel):
     class StatusChoices(TextChoices):
         BLOCKED = 'blocked', 'BLOCKED'
-        INPROG = 'inprog', 'INPROG'
+        IN_PROG = 'in_prog', 'IN_PROG'
         FINISHED = 'finished', 'FINISHED'
 
     user = ForeignKey('apps.User', CASCADE)
@@ -98,7 +98,7 @@ class Module(CreatedBaseModel):
 class UserModule(CreatedBaseModel):
     class StatusChoices(TextChoices):
         BLOCKED = 'blocked', 'BLOCKED'
-        INPROG = 'inprog', 'INPROG'
+        IN_PROG = 'in_prog', 'IN_PROG'
         FINISHED = 'finished', 'FINISHED'
 
     user = ForeignKey('apps.User', CASCADE)
@@ -115,17 +115,26 @@ class Lesson(CreatedBaseModel):
     url = URLField(max_length=255)
     video_count = PositiveIntegerField(default=0)
     module = ForeignKey('apps.Module', CASCADE)
-    materials = FileField(upload_to='videos/materials')
+    materials = FileField(null=True,blank=True,validators=[FileExtensionValidator(['pdf', 'pptx', 'ppt'])])
     is_deleted = BooleanField()
 
     def __str__(self):
         return self.title
 
 
+def validate_file_extension(value):
+    import os
+    from django.core.exceptions import ValidationError
+    ext = os.path.splitext(value.name)[1]  # [0] returns path+filename
+    valid_extensions = ['.mp4', '.avi', '.mkv']
+    if not ext.lower() in valid_extensions:
+        raise ValidationError('Unsupported file extension.')
+
+
 class UserLesson(CreatedBaseModel):
     class StatusChoices(TextChoices):
         BLOCKED = 'blocked', 'BLOCKED'
-        INPROG = 'inprog', 'INPROG'
+        IN_PROG = 'in_prog', 'IN_PROG'
         FINISHED = 'finished', 'FINISHED'
 
     user = ForeignKey('apps.User', CASCADE)

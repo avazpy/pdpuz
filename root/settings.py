@@ -29,7 +29,7 @@ INSTALLED_APPS = [
     'django_filters',
     'mptt',
     'rest_framework_simplejwt',
-    # 'fixtures',
+    'nested_inline',
 
 
 ]
