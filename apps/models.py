@@ -118,8 +118,6 @@ class Lesson(CreatedBaseModel):
     materials = FileField(null=True,blank=True,validators=[FileExtensionValidator(['pdf', 'pptx', 'ppt'])])
     is_deleted = BooleanField()
 
-    def __str__(self):
-        return self.title
 
 
 def validate_file_extension(value):
@@ -230,5 +228,4 @@ class Certificate(CreatedBaseModel):
     finished_at = DateField()
     qr_code = ImageField(upload_to='media/certificates_qr')
 
-    def __str__(self):
-        return self.id
+
