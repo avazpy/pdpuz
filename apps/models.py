@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import AbstractBaseUser
 from django.core.validators import RegexValidator
@@ -67,6 +69,15 @@ class UserCourse(CreatedBaseModel):
     class Meta:
         unique_together = ('user', 'course')
 
+    @property
+    def support_day(self):
+        purchase_date = self.created_at
+
+        if purchase_date:
+            return purchase_date + timedelta(days=45)
+        else:
+            return None
+
 
 class Module(CreatedBaseModel):
     has_in_tg = CharField(max_length=255)
@@ -78,6 +89,7 @@ class Module(CreatedBaseModel):
     task_count = PositiveIntegerField(default=0)
     title = CharField(max_length=255)
     user = ForeignKey('apps.User', CASCADE)
+    course = ForeignKey('apps.Course', CASCADE)
 
     def __str__(self):
         return self.title
@@ -103,8 +115,7 @@ class Lesson(CreatedBaseModel):
     url = URLField(max_length=255)
     video_count = PositiveIntegerField(default=0)
     module = ForeignKey('apps.Module', CASCADE)
-    finished = BooleanField()
-    is_open = BooleanField()
+    materials = FileField(upload_to='videos/materials')
     is_deleted = BooleanField()
 
     def __str__(self):
@@ -126,20 +137,19 @@ class UserLesson(CreatedBaseModel):
 
 
 class LessonQuestion(CreatedBaseModel):
-    video = ForeignKey('apps.Video', CASCADE)
+    lesson = ForeignKey('apps.Lesson', CASCADE)
     user = ForeignKey('apps.User', CASCADE)
-    text = TextField()
-    file = FileField()
-    voice_message = FileField()
+    text = TextField(null=True, blank=True)
+    file = FileField(null=True, blank=True)
+    voice_message = FileField(null=True, blank=True)
 
     def __str__(self):
-        return self.video.lesson.title + ' ' + f"{self.user.id}"
+        return self.lesson.title + ' ' + f"{self.user.id}"
 
 
 class Video(CreatedBaseModel):
     lesson = ForeignKey('apps.Lesson', CASCADE)
     file = FileField(upload_to='videos/video')
-    materials = FileField(upload_to='videos/materials')
     title = CharField(max_length=255)
     description = CharField(max_length=255)
     is_youtube = BooleanField(default=False)
@@ -153,7 +163,7 @@ class Video(CreatedBaseModel):
 
 class Task(CreatedBaseModel):
     description = CharField(max_length=255)
-    video = ForeignKey('apps.Video', CASCADE)
+    lesson = ForeignKey('apps.Lesson', CASCADE)
     task_number = PositiveIntegerField(default=0)
     lastTime = DateTimeField()
     order = IntegerField()
@@ -162,17 +172,15 @@ class Task(CreatedBaseModel):
     mustComplete = BooleanField()
     status = CharField()
     files = CharField(max_length=255)
-    userTaskList = CharField(max_length=255)
+    user_task_list = CharField(max_length=255)
 
     def __str__(self):
-        return self.video.lesson.title
+        return self.lesson.title
 
 
 class UserTask(CreatedBaseModel):
-    status = IntegerField()
     user = ForeignKey('apps.User', CASCADE)
     task = ForeignKey('apps.Task', CASCADE)
-    is_open = BooleanField(default=True)
     finished = BooleanField(default=False)
 
     class Meta:
@@ -180,8 +188,6 @@ class UserTask(CreatedBaseModel):
 
 
 class TaskChat(CreatedBaseModel):
-    description = CharField(max_length=255)
-    video = ForeignKey('apps.Video', CASCADE)
     user = ForeignKey('apps.User', CASCADE)
     task = ForeignKey('apps.Task', CASCADE)
     file = FileField(max_length=255)
