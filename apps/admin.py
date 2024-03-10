@@ -12,7 +12,6 @@ from apps.models import User, UserCourse, Course, Module, Task, TaskChat, Video,
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
     list_display = ("username", 'photo', "email", "first_name", "last_name", "is_staff")
-
     fieldsets = (
         (None, {"fields": ("username", "password")}),
         (_("Personal info"), {"fields": ("first_name", "last_name", "email", 'photo', 'phone_number')}),

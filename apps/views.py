@@ -13,27 +13,19 @@ from apps.models import User
 from apps.serializers import UserModelSerializer, UserCreateModelSerializer
 
 
-# views.py
-
-
 class LoginView(APIView):
     @method_decorator(csrf_exempt)
     def post(self, request):
-        user_agent_str = request.headers.get('User-Agent', '')
-
+        user_agent_str = request.headers.get('User-Agent')
         user_agent = user_agents.parse(user_agent_str)
         operating_system = user_agent.os.family
         browser_name = user_agent.browser.family
         browser_version = user_agent.browser.version_string
         device_type = 'Mobile' if user_agent.is_mobile else 'Desktop'
-
         print(f"Operating System: {operating_system}")
         print(f"Browser Name: {browser_name}")
         print(f"Browser Version: {browser_version}")
         print(f"Device Type: {device_type}")
-
-        # Login ni Logikasi
-
         return Response({"message": "Login successful"}, status=status.HTTP_200_OK)
 
 
@@ -44,10 +36,10 @@ class UserViewSet(ModelViewSet):
     search_fields = ('username', 'email')
 
     @action(detail=False, methods=['GET'], url_path='get-me')
-    def get_me(self, request, pk=None):
+    def get_me(self, request):
         if request.user.is_authenticated:
             return Response({'message': f'{request.user.username}'})
-        return Response({'message': f'login qilinmagan'})
+        return Response({'message': f'login closed'})
 
 
 class RegisterCreateAPIView(CreateAPIView):
