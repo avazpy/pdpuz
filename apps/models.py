@@ -115,7 +115,7 @@ class Lesson(CreatedBaseModel):
     url = URLField(max_length=255)
     video_count = PositiveIntegerField(default=0)
     module = ForeignKey('apps.Module', CASCADE)
-    materials = FileField(null=True,blank=True,validators=[FileExtensionValidator(['pdf', 'pptx', 'ppt'])])
+    materials = FileField(null=True, blank=True, validators=[FileExtensionValidator(['pdf', 'pptx', 'ppt'])])
     is_deleted = BooleanField()
 
 
