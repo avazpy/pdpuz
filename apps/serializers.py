@@ -1,7 +1,7 @@
 from django.contrib.auth.hashers import make_password
 from rest_framework.serializers import ModelSerializer
 
-from apps.models import User
+from apps.models import User, UserCourse, UserModule, UserLesson, UserTask
 
 
 class UserModelSerializer(ModelSerializer):
@@ -32,3 +32,27 @@ class UserCreateModelSerializer(ModelSerializer):
 
     def validate_password(self, password):
         return make_password(password)
+
+
+class UserCourseModelSerializer(ModelSerializer):
+    class Meta:
+        model = UserCourse
+        fields = '__all__'
+
+
+class UserModuleModelSerializer(ModelSerializer):
+    class Meta:
+        model = UserModule
+        fields = '__all__'
+
+
+class UserLessonModelSerializer(ModelSerializer):
+    class Meta:
+        model = UserLesson
+        fields = '__all__'
+
+
+class UserTaskModelSerializer(ModelSerializer):
+    class Meta:
+        model = UserTask
+        fields = '__all__'

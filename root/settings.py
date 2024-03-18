@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 load_dotenv('.env')
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-$0fw1(tu4xw%ibqrmwq-&1m88&d4nj4!$vj2@9!ro9o3ox0b+g'
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 DEBUG = True
 
@@ -30,13 +30,8 @@ INSTALLED_APPS = [
     'mptt',
     'rest_framework_simplejwt',
     'nested_inline',
-
-
 ]
 
-
-# python manage.py makemigrations
-# python manage.py migrate
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -53,7 +48,7 @@ ROOT_URLCONF = 'root.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
+        'DIRS': [BASE_DIR]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -273,9 +268,6 @@ JAZZMIN_SETTINGS = {
     # "language_chooser": True,
 }
 
-# django-storages settings
-#fasdfhlkd
-
 DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
 MINIO_BUCKET_NAME = os.getenv('MINIO_BUCKET_NAME')
@@ -299,13 +291,9 @@ SWAGGER_SETTINGS = {
     }
 }
 
-# AWS_DEFAULT_ACL = None
-# AWS_QUERYSTRING_AUTH = True
-# AWS_S3_FILE_OVERWRITE = False
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
         'LOCATION': 'unique-snowflake',
     }
 }
-

@@ -1,7 +1,7 @@
 from datetime import timedelta
 
-from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator, FileExtensionValidator
 from django.db.models import CharField, TextField, IntegerField, BooleanField, PositiveIntegerField, \
     DateField, \
@@ -119,7 +119,6 @@ class Lesson(CreatedBaseModel):
     is_deleted = BooleanField()
 
 
-
 def validate_file_extension(value):
     import os
     from django.core.exceptions import ValidationError
@@ -227,5 +226,3 @@ class Certificate(CreatedBaseModel):
     course = ForeignKey('apps.Course', CASCADE)
     finished_at = DateField()
     qr_code = ImageField(upload_to='media/certificates_qr')
-
-
