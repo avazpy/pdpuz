@@ -2,16 +2,19 @@
 # from django.utils.decorators import method_decorator
 # from django.views.decorators.csrf import csrf_exempt
 # from rest_framework import status
+from django.contrib.auth import get_user_model
 from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter, SearchFilter
-from rest_framework.generics import CreateAPIView, ListAPIView
+from rest_framework.generics import CreateAPIView, ListAPIView, UpdateAPIView
 from rest_framework.response import Response
 # from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
 from apps.models import User, UserCourse, UserModule, UserLesson, UserTask
+# from apps.models import Profile
 from apps.serializers import UserModelSerializer, UserCreateModelSerializer, UserCourseModelSerializer, \
     UserModuleModelSerializer, UserLessonModelSerializer, UserTaskModelSerializer
+# from apps.serializers import UpdateUserSerializer
 
 
 # views.py
@@ -78,3 +81,10 @@ class UserTaskListAPIView(ListAPIView):
     queryset = UserTask.objects.all()
     serializer_class = UserTaskModelSerializer
     pagination_class = None
+
+
+# class UpdateUser(UpdateAPIView):
+#     serializer_class = UpdateUserSerializer
+#     queryset = Profile.objects.all()
+#     pagination_class = None
+

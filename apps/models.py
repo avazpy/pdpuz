@@ -1,11 +1,12 @@
 from datetime import timedelta
 
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator, FileExtensionValidator
 from django.db.models import CharField, TextField, IntegerField, BooleanField, PositiveIntegerField, \
     DateField, \
-    FileField, URLField, ImageField, Model, ForeignKey, CASCADE, DateTimeField, TextChoices
+    FileField, URLField, ImageField, Model, ForeignKey, CASCADE, DateTimeField, TextChoices, OneToOneField
 
 
 class CreatedBaseModel(Model):
@@ -38,9 +39,12 @@ class User(AbstractUser):
     ticket_role = CharField(max_length=255, blank=True, null=True)
     voucher_balance = PositiveIntegerField(default=0)
 
+    def __str__(self):
+        return self.get_full_name()
 
-def __str__(self):
-    return self.get_full_name()
+
+# class UserProfile(User):
+#     user = OneToOneField('apps.User', CASCADE)
 
 
 class Course(CreatedBaseModel):

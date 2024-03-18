@@ -297,3 +297,8 @@ CACHES = {
         'LOCATION': 'unique-snowflake',
     }
 }
+
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+# docker run -p 6379:6379 -it redis/redis-stack:latest
+

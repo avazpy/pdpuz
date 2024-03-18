@@ -4,6 +4,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from apps.views import UserViewSet, RegisterCreateAPIView, UserCourseListAPIView, UserModuleListAPIView, \
     UserLessonListAPIView, UserTaskListAPIView
+# from apps.views import UpdateUser
 
 # from apps.views import LoginView
 
@@ -21,4 +22,5 @@ urlpatterns = [
     path('user-module', UserModuleListAPIView.as_view(), name='user_module'),
     path('user-lesson', UserLessonListAPIView.as_view(), name='user_lesson'),
     path('user-task', UserTaskListAPIView.as_view(), name='user_task'),
+    # path('user-profile-update', UpdateUser.as_view(), name='user_profile_update'),
 ]
