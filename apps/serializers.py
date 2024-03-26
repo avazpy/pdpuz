@@ -1,7 +1,9 @@
 from django.contrib.auth.hashers import make_password
 from rest_framework.serializers import ModelSerializer
 
-from apps.models import User, UserCourse, UserModule, UserLesson, UserTask
+from apps.models import User, UserCourse, UserModule, UserLesson, UserTask, Task
+
+
 # from apps.models import Profile
 
 
@@ -74,3 +76,10 @@ class UserTaskModelSerializer(ModelSerializer):
     class Meta:
         model = UserTask
         fields = '__all__'
+
+
+class TaskModelSerializer(ModelSerializer):
+    class Meta:
+        model = Task
+        fields = '__all__'
+

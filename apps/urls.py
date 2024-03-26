@@ -3,13 +3,16 @@ from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
 from apps.views import UserViewSet, RegisterCreateAPIView, UserCourseListAPIView, UserModuleListAPIView, \
-    UserLessonListAPIView, UserTaskListAPIView
+    UserLessonListAPIView, UserTaskListAPIView, TaskListAPIView
+
 # from apps.views import UpdateUser
 
 # from apps.views import LoginView
 
 router = DefaultRouter()
 router.register('users', UserViewSet, basename='user')
+
+
 
 urlpatterns = [
     path('', include(router.urls)),
@@ -22,5 +25,6 @@ urlpatterns = [
     path('user-module', UserModuleListAPIView.as_view(), name='user_module'),
     path('user-lesson', UserLessonListAPIView.as_view(), name='user_lesson'),
     path('user-task', UserTaskListAPIView.as_view(), name='user_task'),
+    path('task', TaskListAPIView.as_view(), name='task')
     # path('user-profile-update', UpdateUser.as_view(), name='user_profile_update'),
 ]

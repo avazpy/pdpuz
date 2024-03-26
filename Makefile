@@ -16,3 +16,5 @@ file:
 	python3 manage.py loaddata device.json
 	python3 manage.py loaddata certificate.json
 	python3 manage.py loaddata usertask.json
+celery:
+	celery -A root worker -l info

@@ -17,6 +17,7 @@ class CreatedBaseModel(Model):
         abstract = True
 
 
+
 class User(AbstractUser):
     phone_number = CharField(
         max_length=13,
@@ -225,6 +226,13 @@ class Device(CreatedBaseModel):
         return self.title
 
 
+# user-agent ma'lumotlarini databasega device table ni title ga  yozadigan qilish.
+# class Device(CreatedBaseModel):
+#     title = CharField(max_length=255)
+#     user = ForeignKey('apps.User', CASCADE)
+#
+#     def __str__(self):
+#         return self.title
 class Certificate(CreatedBaseModel):
     user = ForeignKey('apps.User', CASCADE)
     course = ForeignKey('apps.Course', CASCADE)

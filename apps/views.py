@@ -10,10 +10,10 @@ from rest_framework.response import Response
 # from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
-from apps.models import User, UserCourse, UserModule, UserLesson, UserTask
+from apps.models import User, UserCourse, UserModule, UserLesson, UserTask, Task
 # from apps.models import Profile
 from apps.serializers import UserModelSerializer, UserCreateModelSerializer, UserCourseModelSerializer, \
-    UserModuleModelSerializer, UserLessonModelSerializer, UserTaskModelSerializer
+    UserModuleModelSerializer, UserLessonModelSerializer, UserTaskModelSerializer, TaskModelSerializer
 # from apps.serializers import UpdateUserSerializer
 
 
@@ -87,4 +87,8 @@ class UserTaskListAPIView(ListAPIView):
 #     serializer_class = UpdateUserSerializer
 #     queryset = Profile.objects.all()
 #     pagination_class = None
+
+class TaskListAPIView(ListAPIView):
+    queryset = Task.objects.all()
+    serializer_class = TaskModelSerializer
 
