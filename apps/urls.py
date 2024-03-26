@@ -19,8 +19,8 @@ urlpatterns = [
     path('users/register', RegisterCreateAPIView.as_view(), name='token_obtain_pair'),
     # path('users/login', LoginView.as_view(), name='token_login'),
     path('user-course', UserCourseListAPIView.as_view(), name='user_course'),
-    path('module/', ModuleListAPIView.as_view(), name='module'),
-    path('lesson/', LessonListAPIView.as_view(), name='lesson'),
-    path('task/', TaskListAPIView.as_view(), name='task'),
-    path('user-profile-update:/<pk>', UpdateUser.as_view(), name='user_profile_update'),
+    path('module/<pk>', ModuleListAPIView.as_view(), name='module'),
+    path('lesson/<pk>', LessonListAPIView.as_view(), name='lesson'),
+    path('task/<pk>', TaskListAPIView.as_view(), name='task'),
+    path('user-profile-update', UpdateUser.as_view(), name='user_profile_update'),
 ]

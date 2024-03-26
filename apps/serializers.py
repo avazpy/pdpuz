@@ -1,9 +1,9 @@
 from django.contrib.auth.hashers import make_password
 from rest_framework.exceptions import ValidationError
-from rest_framework.fields import IntegerField, CharField, ImageField
+from rest_framework.fields import CharField
 from rest_framework.serializers import ModelSerializer
 
-from apps.models import User, UserCourse, UserProfile, Lesson, Task, Module
+from apps.models import User, UserCourse, Lesson, Task, Module
 
 
 # from apps.models import Profile
@@ -23,7 +23,6 @@ class UserModelSerializer(ModelSerializer):
 
 class UpdateUserSerializer(ModelSerializer):
     confirm_password = CharField(max_length=255, write_only=True)
-    photo = ImageField()
 
     class Meta:
         model = User

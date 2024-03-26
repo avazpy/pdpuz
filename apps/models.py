@@ -41,10 +41,6 @@ class User(AbstractUser):
         return self.get_full_name()
 
 
-class UserProfile(User):
-    user = OneToOneField('apps.User', CASCADE, related_name='user_profile')
-
-
 class Course(CreatedBaseModel):
     title = CharField(max_length=255)
     lesson_count = PositiveIntegerField(default=0)
