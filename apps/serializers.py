@@ -1,7 +1,9 @@
 from django.contrib.auth.hashers import make_password
+from rest_framework.exceptions import ValidationError
+from rest_framework.fields import IntegerField, CharField, ImageField
 from rest_framework.serializers import ModelSerializer
 
-from apps.models import User, UserCourse, UserModule, UserLesson, UserTask, UserProfile, Course, Lesson, Task
+from apps.models import User, UserCourse, UserProfile, Lesson, Task, Module
 
 
 # from apps.models import Profile
@@ -20,20 +22,33 @@ class UserModelSerializer(ModelSerializer):
 
 
 class UpdateUserSerializer(ModelSerializer):
+    confirm_password = CharField(max_length=255, write_only=True)
+    photo = ImageField()
+
     class Meta:
-        model = UserProfile
-        fields = ['first_name', 'last_name', 'password', 'photo']
+        model = User
+        fields = ['first_name', 'last_name', 'password', 'confirm_password', 'photo']
+        extra_kwargs = {
+            'password': {'write_only': True}
+        }
 
-    def update(self, instance, validated_data):
-        instance.first_name = validated_data.get('first_name', instance.first_name)
-        instance.last_name = validated_data.get('last_name', instance.last_name)
-        instance.set_password = validated_data.get('password', instance.password)
-        instance.save()
-        profile_data = validated_data.pop('profile')
-        instance.profile.photo = profile_data.get('photo', instance.profile.photo)
-        instance.profile.save()
+    def validate(self, data):
+        confirm_password = data.pop('confirm_password')
+        if confirm_password and confirm_password == data['password']:
+            data['password'] = make_password(data['password'])
+            return data
+        raise ValidationError("Password error")
 
-        return instance
+    # def update(self, instance, validated_data):
+    #     instance.first_name = validated_data.get('first_name', instance.first_name)
+    #     instance.last_name = validated_data.get('last_name', instance.last_name)
+    #     instance.set_password = validated_data.get('password', instance.password)
+    #     instance.save()
+    #     profile_data = validated_data.pop('profile')
+    #     instance.profile.photo = profile_data.get('photo', instance.profile.photo)
+    #     instance.profile.save()
+    #
+    #     return instance
 
 
 class UserDetailModelSerializer(ModelSerializer):
@@ -57,22 +72,22 @@ class UserCreateModelSerializer(ModelSerializer):
 class UserCourseModelSerializer(ModelSerializer):
     class Meta:
         model = UserCourse
-        fields = '__all__'
+        fields = 'created_at', 'user', 'course'
 
 
 class ModuleModelSerializer(ModelSerializer):
     class Meta:
-        model = Course
-        fields = '__all__'
+        model = Module
+        fields = 'created_at', 'learning_type', 'lesson_count', 'support_day', 'task_count', 'title', 'course'
 
 
 class LessonModelSerializer(ModelSerializer):
     class Meta:
         model = Lesson
-        fields = '__all__'
+        fields = 'created_at', 'title', 'video_count', 'module', 'materials'
 
 
 class TaskModelSerializer(ModelSerializer):
     class Meta:
         model = Task
-        fields = '__all__'
+        fields = 'created_at', 'description', 'task_number', 'lastTime', 'title', 'files', 'lesson', 'user_task_list'
