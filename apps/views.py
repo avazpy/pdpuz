@@ -4,13 +4,12 @@
 # from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter, SearchFilter
-from rest_framework.generics import CreateAPIView, ListAPIView, UpdateAPIView
+from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateAPIView
 from rest_framework.response import Response
 # from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
 from apps.models import User, UserCourse, Module, Lesson, Task
-from apps.models import UserProfile
 from apps.serializers import UpdateUserSerializer
 from apps.serializers import UserModelSerializer, UserCreateModelSerializer, UserCourseModelSerializer, \
     ModuleModelSerializer, \
@@ -83,7 +82,7 @@ class TaskListAPIView(ListAPIView):
     pagination_class = None
 
 
-class UpdateUser(UpdateAPIView):
+class UpdateUser(RetrieveUpdateAPIView):
     serializer_class = UpdateUserSerializer
-    queryset = UserProfile.objects.all()
+    queryset = User.objects.all()
     pagination_class = None
