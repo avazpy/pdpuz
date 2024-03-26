@@ -1,7 +1,5 @@
 from datetime import timedelta
 
-from django.contrib.auth import get_user_model
-from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator, FileExtensionValidator
 from django.db.models import CharField, TextField, IntegerField, BooleanField, PositiveIntegerField, \
@@ -43,8 +41,8 @@ class User(AbstractUser):
         return self.get_full_name()
 
 
-# class UserProfile(User):
-#     user = OneToOneField('apps.User', CASCADE)
+class UserProfile(User):
+    user = OneToOneField('apps.User', CASCADE, related_name='user_profile')
 
 
 class Course(CreatedBaseModel):
