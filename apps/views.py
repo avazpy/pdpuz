@@ -2,7 +2,6 @@
 # from django.utils.decorators import method_decorator
 # from django.views.decorators.csrf import csrf_exempt
 # from rest_framework import status
-from django.contrib.auth import get_user_model
 from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.generics import CreateAPIView, ListAPIView, UpdateAPIView
@@ -10,11 +9,12 @@ from rest_framework.response import Response
 # from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
-from apps.models import User, UserCourse, UserModule, UserLesson, UserTask, Task
-# from apps.models import Profile
+from apps.models import User, UserCourse, Module, Lesson, Task
+
+from apps.serializers import UpdateUserSerializer
 from apps.serializers import UserModelSerializer, UserCreateModelSerializer, UserCourseModelSerializer, \
-    UserModuleModelSerializer, UserLessonModelSerializer, UserTaskModelSerializer, TaskModelSerializer
-# from apps.serializers import UpdateUserSerializer
+    ModuleModelSerializer, \
+    LessonModelSerializer, TaskModelSerializer
 
 
 # views.py
@@ -65,30 +65,25 @@ class UserCourseListAPIView(ListAPIView):
     pagination_class = None
 
 
-class UserModuleListAPIView(ListAPIView):
-    queryset = UserModule.objects.all()
-    serializer_class = UserModuleModelSerializer
+class ModuleListAPIView(ListAPIView):
+    queryset = Module.objects.all()
+    serializer_class = ModuleModelSerializer
     pagination_class = None
 
 
-class UserLessonListAPIView(ListAPIView):
-    queryset = UserLesson.objects.all()
-    serializer_class = UserLessonModelSerializer
+class LessonListAPIView(ListAPIView):
+    queryset = Lesson.objects.all()
+    serializer_class = LessonModelSerializer
     pagination_class = None
 
-
-class UserTaskListAPIView(ListAPIView):
-    queryset = UserTask.objects.all()
-    serializer_class = UserTaskModelSerializer
-    pagination_class = None
-
-
-# class UpdateUser(UpdateAPIView):
-#     serializer_class = UpdateUserSerializer
-#     queryset = Profile.objects.all()
-#     pagination_class = None
 
 class TaskListAPIView(ListAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskModelSerializer
+    pagination_class = None
 
+
+class UpdateUser(UpdateAPIView):
+    serializer_class = UpdateUserSerializer
+    queryset = UserProfile.objects.all()
+    pagination_class = None
