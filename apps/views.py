@@ -1,43 +1,57 @@
-# import user_agents
-# from django.utils.decorators import method_decorator
-# from django.views.decorators.csrf import csrf_exempt
-# from rest_framework import status
+from django_user_agents.utils import get_user_agent
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
+from rest_framework import status
+from rest_framework.authtoken.models import Token
 from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateAPIView
+from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
-# from rest_framework.views import APIView
+from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
-from apps.models import User, UserCourse, Module, Lesson, Task
+from apps.models import User, UserCourse, Module, Lesson, Task, Device
 from apps.serializers import UpdateUserSerializer
 from apps.serializers import UserModelSerializer, UserCreateModelSerializer, UserCourseModelSerializer, \
     ModuleModelSerializer, \
     LessonModelSerializer, TaskModelSerializer
 
 
-# views.py
+class LoginView(APIView):
+    permission_classes = [AllowAny]
 
+    @swagger_auto_schema(
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'phone_number': openapi.Schema(type=openapi.TYPE_STRING),
+                'password': openapi.Schema(type=openapi.TYPE_STRING),
+            },
+            required=['phone_number', 'password']
+        )
+    )
+    def post(self, request, *args, **kwargs):
+        phone_number = request.data.get('phone_number')
+        password = request.data.get('password')
 
-# class LoginView(APIView):
-# @method_decorator(csrf_exempt)
-# def post(self, request):
-#     user_agent_str = request.headers.get('User-Agent')
+        user = User.objects.filter(username=phone_number).first()
 
-# user_agent = user_agents.parse(user_agent_str)
-# operating_system = user_agent.os.family
-# browser_name = user_agent.browser.family
-# browser_version = user_agent.browser.version_string
-# device_type = 'Mobile' if user_agent.is_mobile else 'Desktop'
+        if user and user.check_password(password):
+            # token, created = Token.objects.get_or_create(user=user)
+            token, created = Token.objects.get_or_create(user=user)
 
-# print(f"Operating System: {operating_system}")
-# print(f"Browser Name: {browser_name}")
-# print(f"Browser Version: {browser_version}")
-# print(f"Device Type: {device_type}")
+            # Get user agent data
+            user_agent = get_user_agent(request)
+            title = f"{user_agent.os.family}, {user_agent.browser.family}, {user_agent.browser.version_string}, {'Mobile' if user_agent.is_mobile else 'Desktop'}"
 
-# Login ni Logikasi
+            device, created = Device.objects.get_or_create(user_id=user.id, title=title)
 
-# return Response({"message": "Login successful"}, status=status.HTTP_200_OK)
+            return Response({"message": f"{user.username} you have logged in successfully!"},
+                            status=status.HTTP_200_OK)
+        else:
+            return Response({'error': 'Invalid username or password'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class UserViewSet(ModelViewSet):
@@ -47,10 +61,10 @@ class UserViewSet(ModelViewSet):
     search_fields = ('username', 'email')
 
     @action(detail=False, methods=['GET'], url_path='get-me')
-    def get_me(self, request):
+    def get_me(self, request, pk=None):
         if request.user.is_authenticated:
             return Response({'message': f'{request.user.username}'})
-        return Response({'message': f'login closed'})
+        return Response({'message': f'login qilinmagan'})
 
 
 class RegisterCreateAPIView(CreateAPIView):
@@ -85,4 +99,5 @@ class TaskListAPIView(ListAPIView):
 class UpdateUser(RetrieveUpdateAPIView):
     serializer_class = UpdateUserSerializer
     queryset = User.objects.all()
+    parser_classes = [MultiPartParser, FormParser]
     pagination_class = None

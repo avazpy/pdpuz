@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator, FileExtensionValidator
 from django.db.models import CharField, TextField, IntegerField, BooleanField, PositiveIntegerField, \
     DateField, \
-    FileField, URLField, ImageField, Model, ForeignKey, CASCADE, DateTimeField, TextChoices, OneToOneField
+    FileField, URLField, ImageField, Model, ForeignKey, CASCADE, DateTimeField, TextChoices
 
 
 class CreatedBaseModel(Model):
@@ -40,10 +40,6 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.get_full_name()
-
-
-class UserProfile(User):
-    user = OneToOneField('apps.User', CASCADE, related_name='user_profile')
 
 
 class Course(CreatedBaseModel):
