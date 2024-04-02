@@ -4,7 +4,6 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-
 load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -30,8 +29,8 @@ INSTALLED_APPS = [
     'mptt',
     'rest_framework_simplejwt',
     'nested_inline',
+    'django_user_agents',
 ]
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -107,7 +106,6 @@ MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR / 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
 
 # # django-storages settings
 #
@@ -298,7 +296,5 @@ CACHES = {
     }
 }
 
-
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
 # docker run -p 6379:6379 -it redis/redis-stack:latest
-

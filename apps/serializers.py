@@ -14,7 +14,8 @@ class UserModelSerializer(ModelSerializer):
         model = User
         exclude = ('groups', 'user_permissions', 'balance', 'bot_options', 'country_model',
                    'has_registered_bot', 'not_read_message_count', 'ticket_role', 'voucher_balance', 'is_active',
-                   'is_superuser', 'is_staff', 'payme_balance'
+                   'is_superuser', 'is_staff', 'payme_balance', 'last_login', 'username', 'first_name', 'last_name',
+                   'date_joined'
                    )
 
     def validate_password(self, password):
