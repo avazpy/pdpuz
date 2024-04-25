@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 from nested_inline.admin import NestedStackedInline, NestedModelAdmin
 
 from apps.models import User, UserCourse, Course, Module, Task, TaskChat, Video, LessonQuestion, Lesson, \
-    Device, Payment, Certificate
+    Device, Payment, Certificate, UserTask, UserLesson, UserModule
 
 
 @admin.register(User)
@@ -76,6 +76,16 @@ class TasksChatAdmin(ModelAdmin):
     pass
 
 
+@admin.register(UserModule)
+class UserModuleAdmin(ModelAdmin):
+    pass
+
+
+@admin.register(UserLesson)
+class UserLessonAdmin(ModelAdmin):
+    pass
+
+
 @admin.register(Video)
 class VideosAdmin(ModelAdmin):
     pass
@@ -83,6 +93,11 @@ class VideosAdmin(ModelAdmin):
 
 @admin.register(LessonQuestion)
 class LessonQuestionsAdmin(ModelAdmin):
+    pass
+
+
+@admin.register(UserTask)
+class UserTaskAdmin(ModelAdmin):
     pass
 
 

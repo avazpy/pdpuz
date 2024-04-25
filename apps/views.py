@@ -60,11 +60,14 @@ class UserViewSet(ModelViewSet):
     filter = (OrderingFilter, SearchFilter)
     search_fields = ('username', 'email')
 
+    def get_queryset(self):
+        return super().get_queryset().filter(owner=self.request.user)
+
     @action(detail=False, methods=['GET'], url_path='get-me')
     def get_me(self, request, pk=None):
         if request.user.is_authenticated:
             return Response({'message': f'{request.user.username}'})
-        return Response({'message': f'login qilinmagan'})
+        return Response({'message': f'login closed'})
 
 
 class RegisterCreateAPIView(CreateAPIView):
@@ -76,6 +79,9 @@ class UserCourseListAPIView(ListAPIView):
     queryset = UserCourse.objects.all()
     serializer_class = UserCourseModelSerializer
     pagination_class = None
+
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
 
 
 class ModuleListAPIView(ListAPIView):
