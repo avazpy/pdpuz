@@ -6,7 +6,7 @@ from django.db.models import CharField, TextField, IntegerField, BooleanField, P
     DateField, \
     FileField, URLField, ImageField, Model, ForeignKey, CASCADE, DateTimeField, TextChoices
 from django.utils.translation import gettext_lazy as _
-# from parler.models import TranslatableModel, TranslatedFields
+from parler.models import TranslatableModel, TranslatedFields
 
 
 class CreatedBaseModel(Model):
@@ -27,8 +27,9 @@ class User(AbstractUser):
                 regex=r'^\+?1?\d{9,13}$',
                 message="Phone number must be entered in the format '+998'. Up to 13 digits allowed."
             ),
-        ],
+        ], unique=True,
     )
+    tg_id = CharField(max_length=255, unique=True)
     balance = PositiveIntegerField(default=0, verbose_name=_('balance'))
     bot_options = CharField(max_length=255, null=True, blank=True, verbose_name=_('bot options'))
     country_model = BooleanField(default=False, verbose_name=_('country model'))
@@ -45,6 +46,10 @@ class User(AbstractUser):
     class Meta:
         verbose_name = _("user")
         verbose_name_plural = _("users")
+
+    # def delete(self, using=None, keep_parents=False):
+    #     self.photo.delete(save=False)
+    #     return super().delete(using, keep_parents)
 
 
 class Course(CreatedBaseModel):
@@ -71,7 +76,8 @@ class UserCourse(CreatedBaseModel):
         IN_PROG = 'in_prog', _('IN_PROG')
         FINISHED = 'finished', _('FINISHED')
 
-    user = ForeignKey('apps.User', CASCADE)
+    user = ForeignKey('apps.UserCourse', CASCADE)
+    module = ForeignKey('apps.CourseModule', CASCADE)
     course = ForeignKey('apps.Course', CASCADE)
     status = CharField(choices=StatusChoices.choices, default=StatusChoices.BLOCKED, verbose_name=_('status'))
 
@@ -110,21 +116,22 @@ class Module(CreatedBaseModel):
         return self.title
 
 
-class UserModule(CreatedBaseModel):
+class CourseModule(CreatedBaseModel):
     class StatusChoices(TextChoices):
         BLOCKED = 'blocked', _('BLOCKED')
         IN_PROG = 'in_prog', _('IN_PROG')
         FINISHED = 'finished', _('FINISHED')
 
     status = CharField(choices=StatusChoices.choices, default=StatusChoices.BLOCKED,
-                       verbose_name=_('status_UserModule'))
+                       verbose_name=_('status_CourseModule'))
     user = ForeignKey('apps.User', CASCADE)
+    course = ForeignKey('apps.UserCourse', CASCADE)
     module = ForeignKey('apps.Module', CASCADE)
 
     class Meta:
-        verbose_name = _("User Module")
+        verbose_name = _("Course Module")
         verbose_name_plural = _("User Modules")
-        unique_together = ('user', 'module')
+        unique_together = ('user', 'course', 'module')
 
 
 class Lesson(CreatedBaseModel):
@@ -151,7 +158,7 @@ def validate_file_extension(value):
         raise ValidationError('Unsupported file extension.')
 
 
-class UserLesson(CreatedBaseModel):
+class ModuleLesson(CreatedBaseModel):
     class StatusChoices(TextChoices):
         BLOCKED = 'blocked', _('BLOCKED')
         IN_PROG = 'in_prog', _('IN_PROG')
@@ -166,14 +173,14 @@ class UserLesson(CreatedBaseModel):
 
 class Meta:
     unique_together = ('user', 'lesson')
-    verbose_name = _('UserLesson')
-    verbose_name_plural = _('UserLessons')
+    verbose_name = _('ModuleLesson')
+    verbose_name_plural = _('ModuleLessons')
 
 
 class LessonQuestion(CreatedBaseModel):
+    lesson = ForeignKey('apps.ModuleLesson', CASCADE)
+    user = ForeignKey('apps.UserCourse', CASCADE)
     text = TextField(verbose_name='text_LessonQuestion', null=True, blank=True)
-    lesson = ForeignKey('apps.Lesson', on_delete=CASCADE)
-    user = ForeignKey('apps.User', CASCADE)
     file = FileField(verbose_name=_('file_LessonQuestion'), null=True, blank=True)
     voice_message = FileField(verbose_name=_('voice_mes_LessonQuestion'), null=True, blank=True)
 
@@ -281,3 +288,11 @@ class Certificate(CreatedBaseModel):
     class Meta:
         verbose_name = _('Certificate')
         verbose_name_plural = _('Certificates')
+
+
+class DeletedUser(CreatedBaseModel):
+    phone_number = CharField(max_length=13)
+    username = CharField(max_length=255, null=True, blank=True)
+
+    def __str__(self):
+        return f"Deleted User : {self.phone_number}"

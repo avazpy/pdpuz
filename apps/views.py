@@ -1,20 +1,21 @@
 from django_user_agents.utils import get_user_agent
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
-from rest_framework import status, viewsets
+from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter, SearchFilter
-from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateAPIView, GenericAPIView
+from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateAPIView, RetrieveDestroyAPIView
 from rest_framework.parsers import MultiPartParser, FormParser
-from rest_framework.permissions import AllowAny ,IsAdminUser,IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
-from apps.models import User, UserCourse, Module, Lesson, Task, Device, Course
-from apps.serializers import UpdateUserSerializer, DeviceModelSerializer, CoursesModelSerializer, \
-    UserCreateModelSerializer
-from apps.serializers import UserModelSerializer, UserCreateModelSerializer, UserCourseModelSerializer, \
+
+from apps.models import User, UserCourse, Module, Lesson, Task, Device, CourseModule, ModuleLesson, Course, DeletedUser
+from apps.serializers import UpdateUserSerializer, DeviceModelSerializer, CourseModuleModelSerializer, \
+    ModuleLessonModelSerializer, UpdatePasswordUserSerializer, CoursesModelSerializer, DeletedUserSerializer
+from apps.serializers import UserModelSerializer, RegisterModelSerializer, UserCourseModelSerializer, \
     ModuleModelSerializer, \
     LessonModelSerializer, TaskModelSerializer, CheckPhoneModelSerializer
 
@@ -58,27 +59,27 @@ class UserViewSet(ModelViewSet):
     serializer_class = UserModelSerializer
     queryset = User.objects.all()
     filter = (OrderingFilter, SearchFilter)
-    search_fields = ('username', 'email')
+    search_fields = ('username', 'phone_number')
 
     @action(detail=False, methods=['GET'], url_path='get-me')
-    def get_me(self, request, pk=None):
+    def get_me(self, request):
         if request.user.is_authenticated:
-            return Response({'message': f'{request.user.username}'})
+            return Response({'message': f'{request.user.phone_number}'})
         return Response({'message': f'login closed'})
 
 
-class RegisterCreateAPIView(CreateAPIView):
+class UserCreateAPIView(CreateAPIView):
     queryset = User.objects.all()
-    serializer_class = UserCreateModelSerializer
+    serializer_class = RegisterModelSerializer
 
 
 class UserCourseListAPIView(ListAPIView):
     queryset = UserCourse.objects.all()
-    permission_classes = [IsAuthenticated]
-    def get(self, request):
-        items = UserCourse.objects.filter(user=self.request.user)
-        serializer = UserCourseModelSerializer(items, many=True)
-        return Response(serializer.data)
+    serializer_class = UserCourseModelSerializer
+    pagination_class = None
+
+    def get_object(self):
+        return self.request.user
 
     def get_queryset(self):
         return super().get_queryset().filter(user=self.request.user)
@@ -87,10 +88,24 @@ class UserCourseListAPIView(ListAPIView):
 class ModuleListAPIView(ListAPIView):
     queryset = Module.objects.all()
     serializer_class = ModuleModelSerializer
+    permission_classes = [IsAuthenticated]
     pagination_class = None
 
+    def get_object(self):
+        return self.request.user
+
     def get_queryset(self):
-        return super().get_queryset()
+        return super().get_queryset().filter(user=self.request.user)
+
+
+class CourseModuleListAPIView(ListAPIView):
+    queryset = CourseModule.objects.all()
+    serializer_class = CourseModuleModelSerializer
+    permission_classes = [IsAuthenticated]
+    pagination_class = None
+
+    def get_object(self):
+        return self.request.user
 
     def get_queryset(self):
         return super().get_queryset().filter(user=self.request.user)
@@ -99,7 +114,24 @@ class ModuleListAPIView(ListAPIView):
 class LessonListAPIView(ListAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonModelSerializer
+    permission_classes = [IsAuthenticated]
     pagination_class = None
+
+    def get_object(self):
+        return self.request.user
+
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
+
+
+class ModuleLessonListAPIView(ListAPIView):
+    queryset = ModuleLesson.objects.all()
+    serializer_class = ModuleLessonModelSerializer
+    permission_classes = [IsAuthenticated]
+    pagination_class = None
+
+    def get_object(self):
+        return self.request.user
 
     def get_queryset(self):
         return super().get_queryset().filter(user=self.request.user)
@@ -108,7 +140,11 @@ class LessonListAPIView(ListAPIView):
 class TaskListAPIView(ListAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskModelSerializer
+    permission_classes = [IsAuthenticated]
     pagination_class = None
+
+    def get_object(self):
+        return self.request.user
 
     def get_queryset(self):
         return super().get_queryset().filter(user=self.request.user)
@@ -117,8 +153,22 @@ class TaskListAPIView(ListAPIView):
 class UpdateUser(RetrieveUpdateAPIView):
     serializer_class = UpdateUserSerializer
     queryset = User.objects.all()
+    permission_classes = [IsAuthenticated]
     parser_classes = [MultiPartParser, FormParser]
     pagination_class = None
+
+    def get_object(self):
+        return self.request.user
+
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
+
+
+class UpdateUserPassword(RetrieveUpdateAPIView):
+    serializer_class = UpdatePasswordUserSerializer
+    queryset = User.objects.all()
+    permission_classes = [IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser]
 
 
 class DeviceModelListAPIView(ListAPIView):
@@ -142,5 +192,39 @@ class CourseListAPIView(ListAPIView):
     serializer_class = CoursesModelSerializer
     pagination_class = None
 
-    def get_queryset(self):
-        return super().get_queryset().filter(user=self.request.user)
+    def get_object(self):
+        return self.request.user
+
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
+
+
+class DeleteUserAPIView(RetrieveDestroyAPIView):
+    serializer_class = DeletedUserSerializer
+    queryset = DeletedUser.objects.all()
+    pagination_class = None
+
+    def get_object(self):
+        return self.request.user
+
+    def delete(self, request, *args, **kwargs):
+        print(request.user.username, request.user.phone_number)
+        DeletedUser(username=request.user.username, phone_number=request.user.phone_number).save()
+        return super().delete(request, *args, **kwargs)
+
+# class DeletedUserListAPIView(ListAPIView):
+#     serializer_class = DeletedUserSerializer
+#     queryset = DeletedUser.objects.all()
+#     pagination_class = None
+#
+#     def perform_destroy(self, instance):
+#         DeletedUser.objects.create(user=instance)
+#         instance.delete()
+#         return Response({'message': 'User deleted successfully'})
+#
+#     @action(detail=False, methods=['GET'], url_path='deleted-user')
+#     def deleted_user(self, request, pk=None):
+#         if request.user.is_authenticated:
+#             serializer = UserModelSerializer(request.user)
+#             return Response(serializer.data)
+#         return Response({'message': 'Login required'})

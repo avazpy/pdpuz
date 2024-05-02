@@ -1,6 +1,29 @@
+
 TASK
 1. check_phone API boolean qaytarishi kk, user agent ni qoshish kk (izzatulloh)
 2. 1ta tlg bot (/start, tel nomeringizni yuboring[99897464534]) (behruz)
-3. profile(parol, rasmi, info) update api, delete api (ochirilgan userni DeletedUser modelga otkazamiz) (avaz)
+3. profile([parol], rasmi, info) update api, delete api (ochirilgan userni DeletedUser modelga otkazamiz) (avaz)
 4. my-courses oziga tegishli kurslar chiqadi, i18n modeldagi barcha fieldlarga django jazzmin ham qoshilsin 2ta tillik (muhammadaziz)
+
+request.user
+deleted_user.first_name = user.first_name
+deleted_user.last_name = user.last_name
+
+deleted_user.save()
+
+
+TASK
+3. user delete bolgandan keyin userni image ni media papkadan ochirish kk,
+https://online.pdp.uz/profile/my-courses/course/python-development APIsini chiqarish (course detail)
+avazga
+
+
+
+lessonni detail (https://online.pdp.uz/course-play/kirish-python)
+vazifalarni ham apisini chiqarish, qollanma
+behruzga
+
+
+
+izzatulloh, muhammadaziz websocketni nastroyka
 
