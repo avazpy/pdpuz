@@ -128,3 +128,6 @@ class DeletedUserSerializer(ModelSerializer):
     class Meta:
         model = DeletedUser
         fields = '__all__'
+
+
+

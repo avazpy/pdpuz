@@ -70,6 +70,7 @@ class UserViewSet(ModelViewSet):
 class RegisterCreateAPIView(CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserCreateModelSerializer
+    pagination_class = None
 
 
 class UserCourseListAPIView(ListAPIView):
@@ -136,7 +137,7 @@ class ModuleLessonListAPIView(ListAPIView):
 
 
 class TaskListAPIView(ListAPIView):
-    queryset = Task.objects.all()
+    queryset = Task.objects.order_by('id')
     serializer_class = TaskModelSerializer
     permission_classes = [IsAuthenticated]
     pagination_class = None
@@ -167,6 +168,9 @@ class UpdateUserPassword(RetrieveUpdateAPIView):
     queryset = User.objects.all()
     permission_classes = [IsAuthenticated]
     parser_classes = [MultiPartParser, FormParser]
+    pagination_class = None
+
+
 class DeviceModelListAPIView(ListAPIView):
     queryset = Device.objects.all()
     serializer_class = DeviceModelSerializer
