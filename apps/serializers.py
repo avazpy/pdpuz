@@ -3,13 +3,16 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.fields import CharField
 from rest_framework.serializers import ModelSerializer
 
-from apps.models import User, UserCourse, Lesson, Task, Module
+from apps.models import User, UserCourse, Lesson, Task, Module, Course
+from parler_rest.serializers import TranslatableModelSerializer, TranslatedFieldsField
 
 
 # from apps.models import Profile
-
+# class CategorySerializer(TranslatableTranslatableModelSerializer):
+#     translations = TranslatedFieldsField(shared_model=Category)
 
 class UserModelSerializer(ModelSerializer):
+    # translations = TranslatedFieldsField(shared_model=User)
     class Meta:
         model = User
         exclude = ('groups', 'user_permissions', 'balance', 'bot_options', 'country_model',
@@ -23,6 +26,8 @@ class UserModelSerializer(ModelSerializer):
 
 
 class UpdateUserSerializer(ModelSerializer):
+    # translations = TranslatedFieldsField(shared_model=User)
+
     confirm_password = CharField(max_length=255, write_only=True)
 
     class Meta:
@@ -52,12 +57,16 @@ class UpdateUserSerializer(ModelSerializer):
 
 
 class UserDetailModelSerializer(ModelSerializer):
+    # translations = TranslatedFieldsField(shared_model=User)
+
     class Meta:
         model = User
         exclude = ('groups', 'user_permissions', 'password')
 
 
 class UserCreateModelSerializer(ModelSerializer):
+    # translations = TranslatedFieldsField(shared_model=User)
+
     class Meta:
         model = User
         fields = 'username', 'password', 'email', 'phone_number'
@@ -76,18 +85,28 @@ class UserCourseModelSerializer(ModelSerializer):
 
 
 class ModuleModelSerializer(ModelSerializer):
+    # translations = TranslatedFieldsField(shared_model=Module)
+
     class Meta:
         model = Module
-        fields = 'created_at', 'learning_type', 'lesson_count', 'support_day', 'task_count', 'title', 'course'
+        fields = 'created_at', 'lesson_count', 'support_day', 'task_count', 'course'
 
 
 class LessonModelSerializer(ModelSerializer):
     class Meta:
         model = Lesson
-        fields = 'created_at', 'title', 'video_count', 'module', 'materials'
+        fields = 'created_at', 'video_count', 'module', 'materials',
 
 
 class TaskModelSerializer(ModelSerializer):
+    # translations = TranslatedFieldsField(shared_model=Task)
+
     class Meta:
         model = Task
-        fields = 'created_at', 'description', 'task_number', 'lastTime', 'title', 'files', 'lesson', 'user_task_list'
+        fields = 'created_at', 'task_number', 'lastTime', 'files', 'lesson'
+
+
+class CoursesModelSerializer(ModelSerializer):
+    class Meta:
+        model = Course
+        fields = 'title', 'type', 'lesson_count', 'modul_count', 'task_count', 'order', 'task_count', 'url'

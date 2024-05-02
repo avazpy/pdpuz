@@ -1,13 +1,7 @@
 
-
-
 TASK
 1. check_phone API boolean qaytarishi kk, user agent ni qoshish kk (izzatulloh)
 2. 1ta tlg bot (/start, tel nomeringizni yuboring[99897464534]) (behruz)
 3. profile(parol, rasmi, info) update api, delete api (ochirilgan userni DeletedUser modelga otkazamiz) (avaz)
 4. my-courses oziga tegishli kurslar chiqadi, i18n modeldagi barcha fieldlarga django jazzmin ham qoshilsin 2ta tillik (muhammadaziz)
-
-
-
-
 

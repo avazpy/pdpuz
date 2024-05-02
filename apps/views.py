@@ -12,8 +12,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
-from apps.models import User, UserCourse, Module, Lesson, Task, Device
-from apps.serializers import UpdateUserSerializer
+from apps.models import User, UserCourse, Module, Lesson, Task, Device, Course
+from apps.serializers import UpdateUserSerializer, CoursesModelSerializer
 from apps.serializers import UserModelSerializer, UserCreateModelSerializer, UserCourseModelSerializer, \
     ModuleModelSerializer, \
     LessonModelSerializer, TaskModelSerializer
@@ -60,9 +60,6 @@ class UserViewSet(ModelViewSet):
     filter = (OrderingFilter, SearchFilter)
     search_fields = ('username', 'email')
 
-    def get_queryset(self):
-        return super().get_queryset().filter(owner=self.request.user)
-
     @action(detail=False, methods=['GET'], url_path='get-me')
     def get_me(self, request, pk=None):
         if request.user.is_authenticated:
@@ -95,11 +92,17 @@ class ModuleListAPIView(ListAPIView):
     def get_queryset(self):
         return super().get_queryset()
 
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
+
 
 class LessonListAPIView(ListAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonModelSerializer
     pagination_class = None
+
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
 
 
 class TaskListAPIView(ListAPIView):
@@ -107,9 +110,21 @@ class TaskListAPIView(ListAPIView):
     serializer_class = TaskModelSerializer
     pagination_class = None
 
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
+
 
 class UpdateUser(RetrieveUpdateAPIView):
     serializer_class = UpdateUserSerializer
     queryset = User.objects.all()
     parser_classes = [MultiPartParser, FormParser]
     pagination_class = None
+
+
+class CourseListAPIView(ListAPIView):
+    queryset = Course.objects.all()
+    serializer_class = CoursesModelSerializer
+    pagination_class = None
+
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
