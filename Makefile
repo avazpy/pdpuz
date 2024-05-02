@@ -16,3 +16,6 @@ file:
 	python3 manage.py loaddata device.json
 	python3 manage.py loaddata certificate.json
 	python3 manage.py loaddata usertask.json
+docker:
+	sudo chmod 666 /var/run/docker.sock
+	docker start 90

@@ -25,8 +25,9 @@ class User(AbstractUser):
                 regex=r'^\+?1?\d{9,13}$',
                 message="Phone number must be entered in the format '+998'. Up to 13 digits allowed."
             ),
-        ],
+        ], unique=True,
     )
+    tg_id = CharField(max_length=255, blank=False, null=False, unique=True)
     balance = PositiveIntegerField(default=0)
     bot_options = CharField(max_length=255, null=True, blank=True)
     country_model = BooleanField(default=False)

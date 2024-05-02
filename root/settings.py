@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'nested_inline',
     'django_user_agents',
+    'tgbot',
 ]
 
 MIDDLEWARE = [
@@ -111,6 +112,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #
 # DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
+
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
@@ -118,12 +120,17 @@ REST_FRAMEWORK = {
 
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+
     )
 }
+
+
 SIMPLE_JWT = {
     "SLIDING_TOKEN_LIFETIME": timedelta(minutes=30),
     "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=1)
 }
+
 
 JAZZMIN_SETTINGS = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)
@@ -298,3 +305,5 @@ CACHES = {
 
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
 # docker run -p 6379:6379 -it redis/redis-stack:latest
+
+API_TOKEN = "6493048173:AAFDlvLrxwUsSG1Ra4aNW3o1Ie2OxLyGL_w"

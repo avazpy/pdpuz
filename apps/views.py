@@ -7,7 +7,7 @@ from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateAPIView
 from rest_framework.parsers import MultiPartParser, FormParser
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny ,IsAdminUser,IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
@@ -77,8 +77,11 @@ class RegisterCreateAPIView(CreateAPIView):
 
 class UserCourseListAPIView(ListAPIView):
     queryset = UserCourse.objects.all()
-    serializer_class = UserCourseModelSerializer
-    pagination_class = None
+    permission_classes = [IsAuthenticated]
+    def get(self, request):
+        items = UserCourse.objects.filter(user=self.request.user)
+        serializer = UserCourseModelSerializer(items, many=True)
+        return Response(serializer.data)
 
     def get_queryset(self):
         return super().get_queryset().filter(user=self.request.user)
@@ -88,6 +91,9 @@ class ModuleListAPIView(ListAPIView):
     queryset = Module.objects.all()
     serializer_class = ModuleModelSerializer
     pagination_class = None
+
+    def get_queryset(self):
+        return super().get_queryset()
 
 
 class LessonListAPIView(ListAPIView):
