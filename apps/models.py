@@ -29,7 +29,7 @@ class User(AbstractUser):
             ),
         ], unique=True,
     )
-    tg_id = CharField(max_length=255, unique=True)
+    tg_id = CharField(max_length=255, unique=True, blank=False, null=True)
     balance = PositiveIntegerField(default=0, verbose_name=_('balance'))
     bot_options = CharField(max_length=255, null=True, blank=True, verbose_name=_('bot options'))
     country_model = BooleanField(default=False, verbose_name=_('country model'))
