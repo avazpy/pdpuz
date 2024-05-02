@@ -7,6 +7,7 @@
 [Ss]cripts
 pyvenv.cfg
 .venv
+**migrations/**
 pip-selfcheck.json
 .idea/**/workspace.xml
 .idea/**/tasks.xml
@@ -113,3 +114,4 @@ dmypy.json
 .pytype/
 cython_debug/
 .idea/
+migrations
