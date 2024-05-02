@@ -25,5 +25,12 @@ behruzga
 
 
 
-izzatulloh, muhammadaziz websocketni nastroyka
+NEW TASK
+
+1. izzatilla - isort, flake8, url(check)
+2. behruz - docker-compose (celery, minio, django, postgres, redis, flower)
+3. avaz - (username -> phone), register toliq bolishi kk,
+4. muhammadaziz
+
+
 
