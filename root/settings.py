@@ -3,6 +3,7 @@ from datetime import timedelta
 from pathlib import Path
 
 from dotenv import load_dotenv
+from django.utils.translation import gettext_lazy as _
 
 load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,11 +32,13 @@ INSTALLED_APPS = [
     'nested_inline',
     'django_user_agents',
     'tgbot',
+    'parler',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -78,21 +81,40 @@ DATABASES = {
 }
 
 AUTH_PASSWORD_VALIDATORS = [
-    #     {
-    #         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    #     },
-    #     {
-    #         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    #     },
-    #     {
-    #         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    #     },
-    #     {
-    #         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    #     },
+        # {
+        #     'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        # },
+        # {
+        #     'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        # },
+        # {
+        #     'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        # },
+        # {
+        #     'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        # },
 ]
 
 LANGUAGE_CODE = 'en-us'
+
+LANGUAGES = (
+    ('en', _('English')),
+    ('uz', _('Uzbek')),
+)
+PARLER_LANGUAGES = {
+    None: (
+        {'code': 'en', },
+        {'code': 'uz', },
+
+    ),
+    'default': {
+        'fallback': 'en',  # defaults to PARLER_DEFAULT_LANGUAGE_CODE
+        'hide_untranslated': False,  # the default; let .active_translations() return fallbacks too.
+    }
+}
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale')
+]
 
 TIME_ZONE = 'UTC'
 
@@ -112,7 +134,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #
 # DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
-
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
@@ -121,16 +142,12 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-
     )
 }
-
-
 SIMPLE_JWT = {
     "SLIDING_TOKEN_LIFETIME": timedelta(minutes=30),
     "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=1)
 }
-
 
 JAZZMIN_SETTINGS = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)
@@ -270,7 +287,7 @@ JAZZMIN_SETTINGS = {
     # override change forms on a per modeladmin basis
     "changeform_format_overrides": {"auth.user": "collapsible", "auth.group": "vertical_tabs"},
     # Add a language dropdown into the admin
-    # "language_chooser": True,
+    "language_chooser": True,
 }
 
 DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
@@ -305,5 +322,4 @@ CACHES = {
 
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
 # docker run -p 6379:6379 -it redis/redis-stack:latest
-
-API_TOKEN = "6493048173:AAFDlvLrxwUsSG1Ra4aNW3o1Ie2OxLyGL_w"
+API_TOKEN = os.getenv('API_TOKEN')
