@@ -29,7 +29,7 @@ class User(AbstractUser):
             ),
         ], unique=True,
     )
-    tg_id = CharField(max_length=255, unique=True)
+    tg_id = CharField(max_length=255, unique=True, blank=False, null=True)
     balance = PositiveIntegerField(default=0, verbose_name=_('balance'))
     bot_options = CharField(max_length=255, null=True, blank=True, verbose_name=_('bot options'))
     country_model = BooleanField(default=False, verbose_name=_('country model'))
@@ -157,7 +157,7 @@ def validate_file_extension(value):
         raise ValidationError('Unsupported file extension.')
 
 
-class ModuleLesson(CreatedBaseModel):
+class UserLesson(CreatedBaseModel):
     class StatusChoices(TextChoices):
         BLOCKED = 'blocked', _('BLOCKED')
         IN_PROG = 'in_prog', _('IN_PROG')
@@ -169,11 +169,10 @@ class ModuleLesson(CreatedBaseModel):
     user = ForeignKey('apps.User', CASCADE, related_name='user_moduleLesson')
     lesson = ForeignKey('apps.Lesson', CASCADE, related_name='lesson_moduleLesson')
 
-
-class Meta:
-    unique_together = ('user', 'lesson')
-    verbose_name = _('ModuleLesson')
-    verbose_name_plural = _('ModuleLessons')
+    class Meta:
+        unique_together = ('user', 'lesson')
+        verbose_name = _('ModuleLesson')
+        verbose_name_plural = _('ModuleLessons')
 
 
 class LessonQuestion(CreatedBaseModel):
