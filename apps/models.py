@@ -85,6 +85,7 @@ class Lesson(CreatedBaseModel):
         ('finished', 'FINISHED'),
     ]
 
+
     order = IntegerField()
     status = CharField(choices=STATUS_CHOICES, default='BLOCKED')
     title = CharField(max_length=255)
