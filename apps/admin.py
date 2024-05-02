@@ -1,17 +1,19 @@
 from django.contrib import admin
+from django.contrib.admin import ModelAdmin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
+from nested_inline.admin import NestedStackedInline, NestedModelAdmin
+# from parler.admin import TranslatableAdmin
 
-from apps.models import User
-from apps.models import UserCourse, Course, Module, Task, TaskChat, Video, LessonQuestion, Lesson, \
-    Device, Payment, Certificate
+
+from apps.models import User, UserCourse, Course, Module, Task, TaskChat, Video, LessonQuestion, Lesson, \
+    Device, Payment, Certificate, UserTask, ModuleLesson, CourseModule, DeletedUser
 
 
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
     list_display = ("username", 'photo', "email", "first_name", "last_name", "is_staff")
-
     fieldsets = (
         (None, {"fields": ("username", "password")}),
         (_("Personal info"), {"fields": ("first_name", "last_name", "email", 'photo', 'phone_number')}),
@@ -37,55 +39,83 @@ class CustomUserAdmin(UserAdmin):
 
 
 @admin.register(UserCourse)
-class UsersCoursesAdmin(admin.ModelAdmin):
+class UsersCoursesAdmin(ModelAdmin):
     pass
+
+
+class TaskNestedStackedInline(NestedStackedInline):
+    model = Task
+    exclude = ('user_task_list',)
+    extra = 0
+    min_num = 1
+
+
+class LessonNestedStackedInline(NestedStackedInline):
+    model = Lesson
+    exclude = ('is_deleted', 'video_count', 'url',)
+    fk_name = 'module'
+    inlines = [TaskNestedStackedInline]
+    extra = 0
+    min_num = 1
+
+
+class ModuleStackedInline(NestedStackedInline):
+    model = Module
+    inlines = [LessonNestedStackedInline]
+    fields = ('title', 'learning_type', 'support_day', 'user', 'course', 'order')
+    fk_name = 'course'
+    extra = 0
+    min_num = 1
 
 
 @admin.register(Course)
-class CoursesAdminAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(Module)
-class ModulesAdminAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(Task)
-class TasksAdminAdmin(admin.ModelAdmin):
-    pass
+class CoursesAdminAdmin(NestedModelAdmin):
+    inlines = [ModuleStackedInline]
 
 
 @admin.register(TaskChat)
-class TasksChatAdmin(admin.ModelAdmin):
+class TasksChatAdmin(ModelAdmin):
+    pass
+
+
+@admin.register(CourseModule)
+class CourseModuleAdmin(ModelAdmin):
+    pass
+
+
+@admin.register(ModuleLesson)
+class ModuleLessonAdmin(ModelAdmin):
     pass
 
 
 @admin.register(Video)
-class VideosAdmin(admin.ModelAdmin):
+class VideosAdmin(ModelAdmin):
     pass
 
 
 @admin.register(LessonQuestion)
-class LessonQuestionsAdmin(admin.ModelAdmin):
+class LessonQuestionsAdmin(ModelAdmin):
     pass
 
 
-@admin.register(Lesson)
-class LessonsAdmin(admin.ModelAdmin):
+@admin.register(UserTask)
+class UserTaskAdmin(ModelAdmin):
     pass
 
 
 @admin.register(Payment)
-class PaymentsAdmin(admin.ModelAdmin):
+class PaymentsAdmin(ModelAdmin):
     pass
 
 
 @admin.register(Device)
-class DevicesAdmin(admin.ModelAdmin):
+class DevicesAdmin(ModelAdmin):
     pass
 
 
 @admin.register(Certificate)
-class CertificatesAdmin(admin.ModelAdmin):
+class CertificatesAdmin(ModelAdmin):
+    pass
+@admin.register(DeletedUser)
+class DeletedUserAdmin(ModelAdmin):
     pass
