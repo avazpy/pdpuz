@@ -157,7 +157,7 @@ def validate_file_extension(value):
         raise ValidationError('Unsupported file extension.')
 
 
-class ModuleLesson(CreatedBaseModel):
+class UserLesson(CreatedBaseModel):
     class StatusChoices(TextChoices):
         BLOCKED = 'blocked', _('BLOCKED')
         IN_PROG = 'in_prog', _('IN_PROG')
@@ -169,11 +169,10 @@ class ModuleLesson(CreatedBaseModel):
     user = ForeignKey('apps.User', CASCADE, related_name='user')
     lesson = ForeignKey('apps.Lesson', CASCADE, related_name='lesson')
 
-
-class Meta:
-    unique_together = ('user', 'lesson')
-    verbose_name = _('ModuleLesson')
-    verbose_name_plural = _('ModuleLessons')
+    class Meta:
+        unique_together = ('user', 'lesson')
+        verbose_name = _('ModuleLesson')
+        verbose_name_plural = _('ModuleLessons')
 
 
 class LessonQuestion(CreatedBaseModel):

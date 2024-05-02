@@ -60,6 +60,7 @@ class UserViewSet(ModelViewSet):
     queryset = User.objects.all()
     filter = (OrderingFilter, SearchFilter)
     search_fields = ('username', 'phone_number')
+    permission_classes = [IsAuthenticated]
 
     @action(detail=False, methods=['GET'], url_path='get-me')
     def get_me(self, request):
