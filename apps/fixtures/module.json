@@ -1,51 +1,50 @@
 [
-  {
+    {
         "model": "apps.module",
         "pk": 1,
         "fields": {
-            "has_in_tg": "Yes",
-            "learning_type": "Online",
-            "lesson_count": 10,
+            "has_in_tg": "Sample Value 1",
+            "learning_type": "Sample Learning Type 1",
+            "lesson_count": 5,
             "order": 1,
             "row_num": 1,
-            "status": "Active",
             "support_day": "2024-03-01",
-            "task_count": 5,
-            "title": "Introduction to Programming",
-            "user": 1
+            "task_count": 10,
+            "title": "Module 1",
+            "user": 1,
+            "course": 1
         }
     },
     {
         "model": "apps.module",
         "pk": 2,
         "fields": {
-            "has_in_tg": "No",
-            "learning_type": "Offline",
-            "lesson_count": 8,
+            "has_in_tg": "Sample Value 2",
+            "learning_type": "Sample Learning Type 2",
+            "lesson_count": 7,
             "order": 2,
             "row_num": 2,
-            "status": "Inactive",
             "support_day": "2024-03-02",
-            "task_count": 4,
-            "title": "Data Structures and Algorithms",
-            "user": 2
+            "task_count": 8,
+            "title": "Module 2",
+            "user": 2,
+            "course": 1
         }
     },
     {
         "model": "apps.module",
         "pk": 3,
         "fields": {
-            "has_in_tg": "Yes",
-            "learning_type": "Online",
-            "lesson_count": 12,
+            "has_in_tg": "Sample Value 3",
+            "learning_type": "Sample Learning Type 3",
+            "lesson_count": 6,
             "order": 3,
             "row_num": 3,
-            "status": "Active",
             "support_day": "2024-03-03",
-            "task_count": 6,
-            "title": "Web Development Basics",
-            "user": 3
+            "task_count": 12,
+            "title": "Module 3",
+            "user": 3,
+            "course": 2
         }
     }
-
 ]

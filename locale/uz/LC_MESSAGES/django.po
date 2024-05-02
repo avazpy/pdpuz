@@ -1,0 +1,398 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 12:57+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: apps/admin.py:19
+msgid "Personal info"
+msgstr ""
+
+#: apps/admin.py:21
+msgid "Permissions"
+msgstr ""
+
+#: apps/admin.py:32
+msgid "Important dates"
+msgstr ""
+
+#: apps/models.py:32 apps/models.py:250
+msgid "balance"
+msgstr "balans"
+
+#: apps/models.py:33
+msgid "bot options"
+msgstr "bot imkoniyatlari"
+
+#: apps/models.py:34
+msgid "country model"
+msgstr "mamlakat modeli"
+
+#: apps/models.py:38
+msgid "Photo"
+msgstr "Rasm"
+
+#: apps/models.py:46 apps/models.py:74 apps/models.py:103 apps/models.py:122
+#: apps/models.py:161 apps/models.py:175 apps/models.py:193 apps/models.py:208
+#: apps/models.py:225 apps/models.py:237 apps/models.py:265 apps/models.py:276
+msgid "user"
+msgstr "fordalanuvchi"
+
+#: apps/models.py:47
+#, fuzzy
+#| msgid "Users"
+msgid "users"
+msgstr "Foydalanuvchilar"
+
+#: apps/models.py:51
+#, fuzzy
+#| msgid "Courses"
+msgid "courses_title"
+msgstr "Kurslar"
+
+
+#: apps/models.py:52
+#, fuzzy
+#| msgid "Courses"
+msgid "courses_type"
+msgstr "Kurslar"
+
+#: apps/models.py:53 apps/models.py:97
+msgid "lesson_count"
+msgstr "dars soni"
+
+#: apps/models.py:54
+msgid "modul_count"
+msgstr "modul soni"
+
+#: apps/models.py:55 apps/models.py:98 apps/models.py:197 apps/models.py:211
+msgid "order"
+msgstr ""
+
+#: apps/models.py:56 apps/models.py:101
+msgid "task_count"
+msgstr "vazifa soni"
+
+#: apps/models.py:57
+msgid "url"
+msgstr "url"
+
+#: apps/models.py:60
+msgid "Course"
+msgstr "Kurs"
+
+#: apps/models.py:61
+msgid "Courses"
+msgstr "Kurslar"
+
+#: apps/models.py:70 apps/models.py:116 apps/models.py:157
+msgid "BLOCKED"
+msgstr "BLOKLANGAN"
+
+#: apps/models.py:71 apps/models.py:117 apps/models.py:158
+msgid "IN_PROG"
+msgstr "INPROG"
+
+#: apps/models.py:72 apps/models.py:118 apps/models.py:159
+msgid "FINISHED"
+msgstr "TUGADI"
+
+#: apps/models.py:75 apps/models.py:104 apps/models.py:277
+#, fuzzy
+#| msgid "Course"
+msgid "course"
+msgstr "Kurs"
+
+#: apps/models.py:76 apps/models.py:206
+msgid "status"
+msgstr "holat"
+
+#: apps/models.py:79
+msgid "User Course"
+msgstr "foydalanuvchi kursi"
+
+#: apps/models.py:80
+msgid "User Courses"
+msgstr "foydalanuvchi kurslari"
+
+#: apps/models.py:94
+#, fuzzy
+#| msgid "learning type"
+msgid "learning_type"
+msgstr "o'rganish turi"
+
+#: apps/models.py:95 apps/models.py:189 apps/models.py:204
+msgid "title"
+msgstr "sarlavha"
+
+#: apps/models.py:96
+msgid "has_in_tg"
+msgstr "tg ga ega"
+
+#: apps/models.py:99
+msgid "row_num"
+msgstr ""
+
+#: apps/models.py:107
+msgid "Module"
+msgstr "Modul"
+
+#: apps/models.py:108
+msgid "Modules"
+msgstr "modular"
+
+#: apps/models.py:121
+#, fuzzy
+#| msgid "User Module"
+msgid "status_UserModule"
+msgstr "foyadalanuvchi modul"
+
+#: apps/models.py:123 apps/models.py:136
+#, fuzzy
+#| msgid "Module"
+msgid "module"
+msgstr "Modul"
+
+#: apps/models.py:126
+msgid "User Module"
+msgstr "foyadalanuvchi modul"
+
+#: apps/models.py:127
+msgid "User Modules"
+msgstr "foyadalanuvchi modulari"
+
+#: apps/models.py:132
+#, fuzzy
+#| msgid "Lesson"
+msgid "title_Lesson"
+msgstr "sarlavha"
+
+#: apps/models.py:133
+#, fuzzy
+#| msgid "UserLesson"
+msgid "order_Lesson"
+msgstr "foydalanuvchi darsi"
+
+#: apps/models.py:134
+#, fuzzy
+#| msgid "Lesson"
+msgid "url_Lesson"
+msgstr "dars"
+
+#: apps/models.py:135
+msgid "video_count"
+msgstr "video soni"
+
+#: apps/models.py:138
+#, fuzzy
+#| msgid "UserLesson"
+msgid "materials_Lesson"
+msgstr "foydalanuvchi darsi"
+
+#: apps/models.py:139
+msgid "is_deleted_Lesson"
+msgstr "Dars o'chirildi"
+
+#: apps/models.py:142
+msgid "Lesson"
+msgstr "dars"
+
+#: apps/models.py:143
+msgid "Lessons"
+msgstr "darslar"
+
+#: apps/models.py:162 apps/models.py:176
+#, fuzzy
+#| msgid "Lesson"
+msgid "lesson"
+msgstr "dars"
+
+#: apps/models.py:163
+#, fuzzy
+#| msgid "UserLesson"
+msgid "status_UserLesson"
+msgstr "foydalanuvchi darsi"
+
+#: apps/models.py:169
+msgid "UserLesson"
+msgstr "foydalanuvchi darsi"
+
+#: apps/models.py:170
+msgid "UserLessons"
+msgstr "foydalanuvchi darslari"
+
+#: apps/models.py:177
+#, fuzzy
+#| msgid "LessonQuestion"
+msgid "file_LessonQuestion"
+msgstr "Dars savoli"
+
+#: apps/models.py:178
+#, fuzzy
+#| msgid "LessonQuestion"
+msgid "voice_mes_LessonQuestion"
+msgstr "Dars savoli"
+
+#: apps/models.py:184
+msgid "LessonQuestion"
+msgstr "Dars savoli"
+
+#: apps/models.py:185
+msgid "LessonQuestions"
+msgstr "Dars savolari"
+
+#: apps/models.py:190 apps/models.py:205
+msgid "description"
+msgstr "tavsifi"
+
+#: apps/models.py:191
+msgid "media code"
+msgstr "media kodi"
+
+#: apps/models.py:194
+msgid "file_video"
+msgstr "video file"
+
+#: apps/models.py:195
+msgid "is_youtube"
+msgstr "you tube"
+
+#: apps/models.py:196
+msgid "media_url"
+msgstr "media url"
+
+#: apps/models.py:207
+msgid "user_task_list"
+msgstr "foydalanuvchi vazifalari ro'yxati"
+
+#: apps/models.py:209
+msgid "task number"
+msgstr "vazifa raqami"
+
+#: apps/models.py:210
+msgid "lastTime"
+msgstr "So'nggi marta"
+
+#: apps/models.py:212
+msgid "priority"
+msgstr "ustuvorlik"
+
+#: apps/models.py:214
+msgid "files"
+msgstr "files"
+
+#: apps/models.py:217 apps/models.py:218
+msgid "Task"
+msgstr "Vazifa"
+
+#: apps/models.py:226 apps/models.py:238
+msgid "task"
+msgstr ""
+
+#: apps/models.py:227
+msgid "finished"
+msgstr "tugatdi"
+
+#: apps/models.py:231
+msgid "UserTask"
+msgstr "Foydalanuvchi Vazifasi"
+
+#: apps/models.py:232
+msgid "UserTasks"
+msgstr "Foydalanuvchi Vazifalari"
+
+#: apps/models.py:236
+msgid "text"
+msgstr "matn"
+
+#: apps/models.py:239
+msgid "file"
+msgstr "file"
+
+#: apps/models.py:240
+msgid "voice"
+msgstr "ovozli xabar"
+
+#: apps/models.py:243 apps/models.py:244
+msgid "TaskChat"
+msgstr "Vazifa chati"
+
+#: apps/models.py:248
+msgid "reason"
+msgstr "sabab"
+
+#: apps/models.py:249
+msgid "expend"
+msgstr "sarflash"
+
+#: apps/models.py:251
+msgid "income"
+msgstr "daromad"
+
+#: apps/models.py:252
+msgid "processed date"
+msgstr "qayta ishlangan sana"
+
+#: apps/models.py:259
+msgid "Payment"
+msgstr "To'lov"
+
+#: apps/models.py:260
+msgid "Payments"
+msgstr "To'lovlar"
+
+#: apps/models.py:264
+msgid "title_devise"
+msgstr "sarlavha ishlab chiqish"
+
+#: apps/models.py:271
+msgid "Device"
+msgstr "Qurilma"
+
+#: apps/models.py:272
+msgid "Devices"
+msgstr "Qurilmalar"
+
+#: apps/models.py:278
+msgid "finished_at"
+msgstr "tugagan_da"
+
+#: apps/models.py:279
+msgid "qr_code"
+msgstr "qr code"
+
+#: apps/models.py:282
+msgid "Certificate"
+msgstr "Sertifikat"
+
+#: apps/models.py:283
+msgid "Certificates"
+msgstr "Sertifikatlar"
+
+#: root/settings.py:101
+msgid "English"
+msgstr ""
+
+#: root/settings.py:102
+msgid "Uzbek"
+msgstr ""
+
+#~ msgid "User"
+#~ msgstr "Foydalanuvchi"
+
+#~ msgid "type"
+#~ msgstr "turi"

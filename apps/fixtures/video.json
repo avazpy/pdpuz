@@ -1,10 +1,16 @@
 [
-  {
+    {
         "model": "apps.video",
         "pk": 1,
         "fields": {
             "lesson": 1,
-            "file": "videos/video/video1.mp4"
+            "file": "lesson1_video1.mp4",
+            "title": "Video 1",
+            "description": "Description for Video 1",
+            "is_youtube": false,
+            "media_code": "",
+            "media_url": "",
+            "order": 1
         }
     },
     {
@@ -12,7 +18,13 @@
         "pk": 2,
         "fields": {
             "lesson": 1,
-            "file": "videos/video/video2.mp4"
+            "file": "lesson1_video2.mp4",
+            "title": "Video 2",
+            "description": "Description for Video 2",
+            "is_youtube": false,
+            "media_code": "",
+            "media_url": "",
+            "order": 2
         }
     },
     {
@@ -20,8 +32,13 @@
         "pk": 3,
         "fields": {
             "lesson": 2,
-            "file": "videos/video/video3.mp4"
+            "file": "lesson2_video1.mp4",
+            "title": "Video 1",
+            "description": "Description for Video 1",
+            "is_youtube": false,
+            "media_code": "",
+            "media_url": "",
+            "order": 1
         }
     }
-
 ]

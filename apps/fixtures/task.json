@@ -1,30 +1,53 @@
 [
-  {
+    {
         "model": "apps.task",
         "pk": 1,
         "fields": {
-            "description": "Complete the introduction quiz",
-            "video": 1,
-            "task_number": 1
+            "description": "Task 1 description",
+            "lesson": 1,
+            "task_number": 1,
+            "lastTime": "2023-03-15T10:00:00Z",
+            "order": 1,
+            "priority": 2,
+            "title": "Task 1",
+            "mustComplete": true,
+            "status": "INPROG",
+            "files": "file1.txt",
+            "user_task_list": "UserTaskList 1"
         }
     },
     {
         "model": "apps.task",
         "pk": 2,
         "fields": {
-            "description": "Submit your assignment for Module 1",
-            "video": 2,
-            "task_number": 2
+            "description": "Task 2 description",
+            "lesson": 1,
+            "task_number": 2,
+            "lastTime": "2023-03-16T10:00:00Z",
+            "order": 2,
+            "priority": 1,
+            "title": "Task 2",
+            "mustComplete": false,
+            "status": "BLOCKED",
+            "files": "file2.txt",
+            "user_task_list": "UserTaskList 2"
         }
     },
     {
         "model": "apps.task",
         "pk": 3,
         "fields": {
-            "description": "Watch video lecture on Data Structures",
-            "video": 3,
-            "task_number": 1
+            "description": "Task 3 description",
+            "lesson": 2,
+            "task_number": 3,
+            "lastTime": "2023-03-17T10:00:00Z",
+            "order": 3,
+            "priority": 3,
+            "title": "Task 3",
+            "mustComplete": true,
+            "status": "FINISHED",
+            "files": "file3.txt",
+            "user_task_list": "UserTaskList 3"
         }
     }
-
 ]

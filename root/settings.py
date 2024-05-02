@@ -3,12 +3,12 @@ from datetime import timedelta
 from pathlib import Path
 
 from dotenv import load_dotenv
+from django.utils.translation import gettext_lazy as _
 
-
-load_dotenv('.env')
+load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-$0fw1(tu4xw%ibqrmwq-&1m88&d4nj4!$vj2@9!ro9o3ox0b+g'
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 DEBUG = True
 
@@ -29,18 +29,16 @@ INSTALLED_APPS = [
     'django_filters',
     'mptt',
     'rest_framework_simplejwt',
-    # 'fixtures',
-
-
+    'nested_inline',
+    'django_user_agents',
+    'tgbot',
+    'parler',
 ]
-
-
-# python manage.py makemigrations
-# python manage.py migrate
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -53,7 +51,7 @@ ROOT_URLCONF = 'root.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
+        'DIRS': [BASE_DIR]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -83,21 +81,40 @@ DATABASES = {
 }
 
 AUTH_PASSWORD_VALIDATORS = [
-    #     {
-    #         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    #     },
-    #     {
-    #         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    #     },
-    #     {
-    #         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    #     },
-    #     {
-    #         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    #     },
+        # {
+        #     'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        # },
+        # {
+        #     'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        # },
+        # {
+        #     'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        # },
+        # {
+        #     'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        # },
 ]
 
 LANGUAGE_CODE = 'en-us'
+
+LANGUAGES = (
+    ('en', _('English')),
+    ('uz', _('Uzbek')),
+)
+PARLER_LANGUAGES = {
+    None: (
+        {'code': 'en', },
+        {'code': 'uz', },
+
+    ),
+    'default': {
+        'fallback': 'en',  # defaults to PARLER_DEFAULT_LANGUAGE_CODE
+        'hide_untranslated': False,  # the default; let .active_translations() return fallbacks too.
+    }
+}
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale')
+]
 
 TIME_ZONE = 'UTC'
 
@@ -113,10 +130,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR / 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
 # # django-storages settings
 #
 # DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
 
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': (
@@ -125,12 +142,16 @@ REST_FRAMEWORK = {
 
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
     )
 }
+
+
 SIMPLE_JWT = {
     "SLIDING_TOKEN_LIFETIME": timedelta(minutes=30),
     "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=1)
 }
+
 
 JAZZMIN_SETTINGS = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)
@@ -146,10 +167,10 @@ JAZZMIN_SETTINGS = {
     "site_logo": "media/logo/logo.png",
 
     # Logo to use for your site, must be present in static files, used for login form logo (defaults to site_logo)
-    "login_logo": None,
+    "login_logo": "media/logo/logo.png",
 
     # Logo to use for login form in dark themes (defaults to login_logo)
-    "login_logo_dark": None,
+    "login_logo_dark": "media/logo/logo.png",
 
     # CSS classes that are applied to the logo above
     "site_logo_classes": "img-circle",
@@ -270,11 +291,8 @@ JAZZMIN_SETTINGS = {
     # override change forms on a per modeladmin basis
     "changeform_format_overrides": {"auth.user": "collapsible", "auth.group": "vertical_tabs"},
     # Add a language dropdown into the admin
-    # "language_chooser": True,
+    "language_chooser": True,
 }
-
-# django-storages settings
-#fasdfhlkd
 
 DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
@@ -299,9 +317,6 @@ SWAGGER_SETTINGS = {
     }
 }
 
-# AWS_DEFAULT_ACL = None
-# AWS_QUERYSTRING_AUTH = True
-# AWS_S3_FILE_OVERWRITE = False
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
@@ -309,3 +324,15 @@ CACHES = {
     }
 }
 
+CELERY_BROKER_URL = 'redis://localhost:16379/0'
+# docker run -p 6379:6379 -it redis/redis-stack:latest
+
+# CHANNEL_LAYERS = {
+#     "default": {
+#         "BACKEND": "angry_goldberg.core.RedisChannelLayer",
+#         "CONFIG": {
+#             "hosts": [("127.0.0.1", 6379)],
+#         },
+#     },
+# }
+API_TOKEN = os.getenv('API_TOKEN')

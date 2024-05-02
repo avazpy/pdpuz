@@ -1,0 +1,29 @@
+[
+    {
+        "model": "apps.usertask",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "task": 1,
+            "finished": true
+        }
+    },
+    {
+        "model": "apps.usertask",
+        "pk": 2,
+        "fields": {
+            "user": 2,
+            "task": 1,
+            "finished": false
+        }
+    },
+    {
+        "model": "apps.usertask",
+        "pk": 3,
+        "fields": {
+            "user": 3,
+            "task": 2,
+            "finished": true
+        }
+    }
+]
