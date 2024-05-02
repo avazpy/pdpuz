@@ -116,7 +116,7 @@ class ModuleLessonModelSerializer(ModelSerializer):
 class TaskModelSerializer(ModelSerializer):
     class Meta:
         model = Task
-        fields = 'created_at', 'task_number', 'lastTime', 'files', 'lesson'
+        fields = 'created_at', 'task_number', 'files', 'lesson'
 
 
 class CoursesModelSerializer(ModelSerializer):
