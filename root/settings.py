@@ -300,3 +300,11 @@ CACHES = {
 CELERY_BROKER_URL = 'redis://localhost:16379/0'
 # docker run -p 6379:6379 -it redis/redis-stack:latest
 
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}

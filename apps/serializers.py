@@ -1,9 +1,9 @@
 from django.contrib.auth.hashers import make_password
 from rest_framework.exceptions import ValidationError
+from rest_framework.serializers import ModelSerializer, Serializer
 from rest_framework.fields import CharField
-from rest_framework.serializers import ModelSerializer
 
-from apps.models import User, UserCourse, Lesson, Task, Module
+from apps.models import User, UserCourse, Lesson, Task, Module, Device
 
 
 # from apps.models import Profile
@@ -91,3 +91,13 @@ class TaskModelSerializer(ModelSerializer):
     class Meta:
         model = Task
         fields = 'created_at', 'description', 'task_number', 'lastTime', 'title', 'files', 'lesson', 'user_task_list'
+
+
+class DeviceModelSerializer(ModelSerializer):
+    class Meta:
+        model = Device
+        fields = "__all__"
+
+
+class CheckPhoneModelSerializer(Serializer):
+    phone_number = CharField(max_length=20, write_only=True)

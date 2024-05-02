@@ -4,15 +4,15 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from apps.views import UpdateUser
 from apps.views import UserViewSet, RegisterCreateAPIView, UserCourseListAPIView, ModuleListAPIView, \
-    LessonListAPIView, TaskListAPIView, LoginView
-
-# from apps.views import LoginView
+    LessonListAPIView, TaskListAPIView, LoginView, DeviceModelListAPIView, CheckPhoneAPIView
 
 router = DefaultRouter()
 router.register('users', UserViewSet, basename='user')
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('check-phone/', CheckPhoneAPIView.as_view({'post': 'list'}), name='check_phone'),
+    path('user/device/', DeviceModelListAPIView.as_view(), name='device-model-list'),
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('token/verify/', TokenVerifyView.as_view(), name='token_verify'),

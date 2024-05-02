@@ -1,22 +1,21 @@
 from django_user_agents.utils import get_user_agent
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
-from rest_framework import status
+from rest_framework import status, viewsets
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter, SearchFilter
-from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateAPIView
+from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateAPIView, GenericAPIView
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.viewsets import ModelViewSet
-
+from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from apps.models import User, UserCourse, Module, Lesson, Task, Device
-from apps.serializers import UpdateUserSerializer
+from apps.serializers import UpdateUserSerializer, DeviceModelSerializer
 from apps.serializers import UserModelSerializer, UserCreateModelSerializer, UserCourseModelSerializer, \
     ModuleModelSerializer, \
-    LessonModelSerializer, TaskModelSerializer
+    LessonModelSerializer, TaskModelSerializer, CheckPhoneModelSerializer
 
 
 class LoginView(APIView):
@@ -36,7 +35,7 @@ class LoginView(APIView):
         phone_number = request.data.get('phone_number')
         password = request.data.get('password')
 
-        user = User.objects.filter(username=phone_number).first()
+        user = User.objects.filter(phone_number=phone_number).first()
 
         if user and user.check_password(password):
             # token, created = Token.objects.get_or_create(user=user)
@@ -101,3 +100,19 @@ class UpdateUser(RetrieveUpdateAPIView):
     queryset = User.objects.all()
     parser_classes = [MultiPartParser, FormParser]
     pagination_class = None
+
+
+class DeviceModelListAPIView(ListAPIView):
+    queryset = Device.objects.all()
+    serializer_class = DeviceModelSerializer
+    parser_classes = [MultiPartParser, FormParser]
+    pagination_class = None
+
+
+class CheckPhoneAPIView(GenericViewSet):
+    serializer_class = CheckPhoneModelSerializer
+
+    def list(self, request):
+        phone = request.data.get('phone_number')
+        response = User.objects.filter(phone_number=phone).exists()
+        return Response(response)
