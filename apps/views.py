@@ -1,7 +1,7 @@
 from django_user_agents.utils import get_user_agent
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
-from rest_framework import status, viewsets
+from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter, SearchFilter
@@ -11,10 +11,11 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
+
 from apps.models import User, UserCourse, Module, Lesson, Task, Device, CourseModule, ModuleLesson, Course, DeletedUser
 from apps.serializers import UpdateUserSerializer, DeviceModelSerializer, CourseModuleModelSerializer, \
     ModuleLessonModelSerializer, UpdatePasswordUserSerializer, CoursesModelSerializer, DeletedUserSerializer
-from apps.serializers import UserModelSerializer, UserCreateModelSerializer, UserCourseModelSerializer, \
+from apps.serializers import UserModelSerializer, RegisterModelSerializer, UserCourseModelSerializer, \
     ModuleModelSerializer, \
     LessonModelSerializer, TaskModelSerializer, CheckPhoneModelSerializer
 
@@ -67,9 +68,9 @@ class UserViewSet(ModelViewSet):
         return Response({'message': f'login closed'})
 
 
-class RegisterCreateAPIView(CreateAPIView):
+class UserCreateAPIView(CreateAPIView):
     queryset = User.objects.all()
-    serializer_class = UserCreateModelSerializer
+    serializer_class = RegisterModelSerializer
 
 
 class UserCourseListAPIView(ListAPIView):
@@ -108,6 +109,7 @@ class CourseModuleListAPIView(ListAPIView):
 
     def get_queryset(self):
         return super().get_queryset().filter(user=self.request.user)
+
 
 class LessonListAPIView(ListAPIView):
     queryset = Lesson.objects.all()
@@ -167,6 +169,8 @@ class UpdateUserPassword(RetrieveUpdateAPIView):
     queryset = User.objects.all()
     permission_classes = [IsAuthenticated]
     parser_classes = [MultiPartParser, FormParser]
+
+
 class DeviceModelListAPIView(ListAPIView):
     queryset = Device.objects.all()
     serializer_class = DeviceModelSerializer

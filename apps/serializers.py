@@ -55,22 +55,32 @@ class UpdatePasswordUserSerializer(ModelSerializer):
 
 
 class UserDetailModelSerializer(ModelSerializer):
-
     class Meta:
         model = User
         exclude = ('groups', 'user_permissions', 'password')
 
 
-class UserCreateModelSerializer(ModelSerializer):
+class RegisterModelSerializer(ModelSerializer):
+    confirm_password = CharField(write_only=True)
+
     class Meta:
         model = User
-        fields = 'username', 'password', 'phone_number'
+        fields = 'phone_number', 'password', 'confirm_password', 'first_name', 'last_name'
         extra_kwargs = {
             'password': {'write_only': True}
         }
 
-    def validate_password(self, password):
-        return make_password(password)
+    def validate(self, data):
+        confirm_password = data.pop('confirm_password')
+        if confirm_password and confirm_password == data['password']:
+            data['password'] = make_password(data['password'])
+            return data
+        raise ValidationError("Passwords don't match")
+
+    def validate_phone_number(self, phone_number):
+        if User.objects.filter(phone_number=phone_number).exists():
+            raise ValidationError("Bu raqam allaqachon ro'xatda mavjud!")
+        return phone_number
 
 
 class UserCourseModelSerializer(ModelSerializer):
