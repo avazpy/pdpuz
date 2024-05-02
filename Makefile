@@ -1,7 +1,7 @@
-mig:
+make:
 	python3 manage.py makemigrations
-
-rew:
+	python3 manage.py migrate
+file:
 	python3 manage.py loaddata user.json
 	python3 manage.py loaddata course.json
 	python3 manage.py loaddata usercourse.json
@@ -16,10 +16,8 @@ rew:
 	python3 manage.py loaddata device.json
 	python3 manage.py loaddata certificate.json
 	python3 manage.py loaddata usertask.json
-
 celery:
 	celery -A root worker -l info
-
 docker:
 	sudo chmod 666 /var/run/docker.sock
 	docker start 90

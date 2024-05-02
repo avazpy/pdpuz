@@ -6,7 +6,7 @@ from django.db.models import CharField, TextField, IntegerField, BooleanField, P
     DateField, \
     FileField, URLField, ImageField, Model, ForeignKey, CASCADE, DateTimeField, TextChoices
 from django.utils.translation import gettext_lazy as _
-from parler.models import TranslatableModel, TranslatedFields
+from parler.models import TranslatableModel
 
 
 class CreatedBaseModel(Model):
@@ -176,7 +176,7 @@ class UserLesson(CreatedBaseModel):
 
 
 class LessonQuestion(CreatedBaseModel):
-    lesson = ForeignKey('apps.ModuleLesson', CASCADE)
+    lesson = ForeignKey('apps.UserLesson', CASCADE)
     user = ForeignKey('apps.UserCourse', CASCADE)
     text = TextField(verbose_name='text_LessonQuestion', null=True, blank=True)
     file = FileField(verbose_name=_('file_LessonQuestion'), null=True, blank=True)

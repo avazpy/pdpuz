@@ -12,7 +12,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
-from apps.models import User, UserCourse, Module, Lesson, Task, Device, CourseModule, ModuleLesson, Course, DeletedUser
+from apps.models import User, UserCourse, Module, Lesson, Task, Device, CourseModule, UserLesson, Course, DeletedUser
 from apps.serializers import UpdateUserSerializer, DeviceModelSerializer, CourseModuleModelSerializer, \
     ModuleLessonModelSerializer, UpdatePasswordUserSerializer, CoursesModelSerializer, DeletedUserSerializer
 from apps.serializers import UserModelSerializer, RegisterModelSerializer, UserCourseModelSerializer, \
@@ -21,7 +21,7 @@ from apps.serializers import UserModelSerializer, RegisterModelSerializer, UserC
 
 
 class LoginView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [AllowAny, IsAuthenticated]
 
     @swagger_auto_schema(
         request_body=openapi.Schema(
@@ -47,12 +47,12 @@ class LoginView(APIView):
             user_agent = get_user_agent(request)
             title = f"{user_agent.os.family}, {user_agent.browser.family}, {user_agent.browser.version_string}, {'Mobile' if user_agent.is_mobile else 'Desktop'}"
 
-            device, created = Device.objects.get_or_create(user_id=user.id, title=title)
+            device, created = Device.objects.get_or_create(user_id=user.id)  # ,title=title)
 
-            return Response({"message": f"{user.username} you have logged in successfully!"},
+            return Response({"message": f"{user.phone_number} you have logged in successfully!"},
                             status=status.HTTP_200_OK)
         else:
-            return Response({'error': 'Invalid username or password'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error': 'Invalid phone number or password'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class UserViewSet(ModelViewSet):
@@ -72,11 +72,13 @@ class UserViewSet(ModelViewSet):
 class UserCreateAPIView(CreateAPIView):
     queryset = User.objects.all()
     serializer_class = RegisterModelSerializer
+    pagination_class = None
 
 
 class UserCourseListAPIView(ListAPIView):
     queryset = UserCourse.objects.all()
     serializer_class = UserCourseModelSerializer
+    permission_classes = [IsAuthenticated]
     pagination_class = None
 
     def get_object(self):
@@ -126,7 +128,7 @@ class LessonListAPIView(ListAPIView):
 
 
 class ModuleLessonListAPIView(ListAPIView):
-    queryset = ModuleLesson.objects.all()
+    queryset = UserLesson.objects.all()
     serializer_class = ModuleLessonModelSerializer
     permission_classes = [IsAuthenticated]
     pagination_class = None
@@ -168,7 +170,7 @@ class UpdateUser(RetrieveUpdateAPIView):
 class UpdateUserPassword(RetrieveUpdateAPIView):
     serializer_class = UpdatePasswordUserSerializer
     queryset = User.objects.all()
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, ]
     parser_classes = [MultiPartParser, FormParser]
 
 
@@ -203,6 +205,7 @@ class CourseListAPIView(ListAPIView):
 class DeleteUserAPIView(RetrieveDestroyAPIView):
     serializer_class = DeletedUserSerializer
     queryset = DeletedUser.objects.all()
+    permission_classes = [IsAuthenticated]
     pagination_class = None
 
     def get_object(self):
