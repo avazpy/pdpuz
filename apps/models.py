@@ -65,6 +65,7 @@ class UserCourse(CreatedBaseModel):
     class Meta:
         unique_together = ('user', 'course')
 
+
 class Module(CreatedBaseModel):
     has_in_tg = CharField(max_length=255)
     learning_type = CharField(max_length=255)
@@ -114,14 +115,14 @@ class Task(CreatedBaseModel):
     description = CharField(max_length=255)
     video = ForeignKey('apps.Video', CASCADE)
     task_number = PositiveIntegerField(default=0)
-    lastTime = DateTimeField()
+    last_time = DateTimeField()
     order = IntegerField()
     priority = PositiveIntegerField(default=0)
     title = CharField(max_length=255)
-    mustComplete = BooleanField()
+    must_complete = BooleanField()
     status = CharField()
     files = CharField(max_length=255)
-    userTaskList = CharField(max_length=255)
+    user_task_list = CharField(max_length=255)
 
     def __str__(self):
         return self.video.lesson.title
