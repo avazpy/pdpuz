@@ -14,3 +14,7 @@ urlpatterns = [
     path('token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     path('users/register', RegisterCreateAPIView.as_view(), name='token_obtain_pair'),
 ]
+
+
+
+# comment 2
