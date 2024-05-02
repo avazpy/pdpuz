@@ -15,5 +15,7 @@ urlpatterns = [
     path('users/register', RegisterCreateAPIView.as_view(), name='token_obtain_pair'),
 ]
 
-
 # comment
+
+
+# comment 2
