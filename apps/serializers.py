@@ -55,7 +55,6 @@ class UpdatePasswordUserSerializer(ModelSerializer):
 
 
 class UserDetailModelSerializer(ModelSerializer):
-
     class Meta:
         model = User
         exclude = ('groups', 'user_permissions', 'password')
@@ -129,3 +128,6 @@ class DeletedUserSerializer(ModelSerializer):
     class Meta:
         model = DeletedUser
         fields = '__all__'
+
+
+
