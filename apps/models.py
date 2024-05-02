@@ -76,10 +76,9 @@ class UserCourse(CreatedBaseModel):
         IN_PROG = 'in_prog', _('IN_PROG')
         FINISHED = 'finished', _('FINISHED')
 
-    user = ForeignKey('apps.UserCourse', CASCADE)
-    module = ForeignKey('apps.CourseModule', CASCADE)
-    course = ForeignKey('apps.Course', CASCADE)
-    status = CharField(choices=StatusChoices.choices, default=StatusChoices.BLOCKED,verbose_name=_('status'))
+    user = ForeignKey('apps.User', CASCADE,verbose_name=_('user'))
+    course = ForeignKey('apps.Course', CASCADE, verbose_name=_('course'))
+    status = CharField(choices=StatusChoices.choices, default=StatusChoices.BLOCKED, verbose_name=_('status'))
 
     class Meta:
         verbose_name = _("User Course")
@@ -105,8 +104,9 @@ class Module(CreatedBaseModel):
     row_num = PositiveIntegerField(default=0,verbose_name=_('row_num'))
     support_day = DateField()
     task_count = PositiveIntegerField(default=0, verbose_name=_('task_count'))
-    user = ForeignKey('apps.User', CASCADE)
-    course = ForeignKey('apps.Course', CASCADE)
+    user = ForeignKey('apps.User', CASCADE,
+                      verbose_name=_('user'))
+    course = ForeignKey('apps.Course', CASCADE, verbose_name=_('course'))
 
     class Meta:
         verbose_name = _("Module")
@@ -122,24 +122,26 @@ class CourseModule(CreatedBaseModel):
         IN_PROG = 'in_prog', _('IN_PROG')
         FINISHED = 'finished', _('FINISHED')
 
-    status = CharField(choices=StatusChoices.choices, default=StatusChoices.BLOCKED,verbose_name=_('status_CourseModule'))
-    user = ForeignKey('apps.User', CASCADE)
-    course = ForeignKey('apps.UserCourse', CASCADE)
-    module = ForeignKey('apps.Module', CASCADE)
+    status = CharField(choices=StatusChoices.choices, default=StatusChoices.BLOCKED,
+                       verbose_name=_('status_UserModule'))
+    user = ForeignKey('apps.User', CASCADE, verbose_name=_('user'))
+    module = ForeignKey('apps.Module', CASCADE, verbose_name=_('module'))
+    course = ForeignKey('apps.UserCourse', CASCADE,verbose_name=_('course'))
 
     class Meta:
         verbose_name = _("Course Module")
-        verbose_name_plural = _("User Modules")
+        verbose_name_plural = _("Course Modules")
         unique_together = ('user', 'course', 'module')
 
 
 class Lesson(CreatedBaseModel):
-    title = CharField(verbose_name=_('title_Lesson'),max_length=255)
+    title = CharField(verbose_name=_('title_Lesson'), max_length=255)
     order = IntegerField(verbose_name=_('order_Lesson'))
-    url = URLField(max_length=255,verbose_name=_('url_Lesson'))
+    url = URLField(max_length=255, verbose_name=_('url_Lesson'))
     video_count = PositiveIntegerField(default=0, verbose_name=_('video_count'))
-    module = ForeignKey('apps.Module', CASCADE)
-    materials = FileField(null=True, blank=True, validators=[FileExtensionValidator(['pdf', 'pptx', 'ppt'])], verbose_name=_('materials_Lesson'))
+    module = ForeignKey('apps.Module', CASCADE, verbose_name=_('module'))
+    materials = FileField(null=True, blank=True, validators=[FileExtensionValidator(['pdf', 'pptx', 'ppt'])],
+                          verbose_name=_('materials_Lesson'))
     is_deleted = BooleanField(verbose_name=_('is_deleted_Lesson'))
 
     class Meta:
@@ -162,10 +164,11 @@ class ModuleLesson(CreatedBaseModel):
         IN_PROG = 'in_prog', _('IN_PROG')
         FINISHED = 'finished', _('FINISHED')
 
-    status = CharField(verbose_name=_('status_UserLesson'),choices=StatusChoices.choices, default=StatusChoices.BLOCKED)
+    user = ForeignKey('apps.User', CASCADE, verbose_name=_('user'))
+    lesson = ForeignKey('apps.Lesson', CASCADE, verbose_name=_('lesson'))
+    status = CharField(verbose_name=_('status_UserLesson'), choices=StatusChoices.choices,
+                       default=StatusChoices.BLOCKED)
 
-    user = ForeignKey('apps.User', CASCADE, related_name='user')
-    lesson = ForeignKey('apps.Lesson', CASCADE, related_name='lesson')
 
 class Meta:
     unique_together = ('user', 'lesson')
@@ -174,11 +177,11 @@ class Meta:
 
 
 class LessonQuestion(CreatedBaseModel):
-    lesson = ForeignKey('apps.ModuleLesson', CASCADE)
-    user = ForeignKey('apps.UserCourse', CASCADE)
-    text = TextField(verbose_name='text_LessonQuestion',null=True, blank=True)
-    file = FileField(verbose_name=_('file_LessonQuestion'),null=True, blank=True)
-    voice_message = FileField(verbose_name=_('voice_mes_LessonQuestion'),null=True, blank=True)
+    text = TextField(verbose_name='text_LessonQuestion', null=True, blank=True)
+    lesson = ForeignKey('apps.Lesson', on_delete=CASCADE, verbose_name=_('user'))
+    user = ForeignKey('apps.User', CASCADE, verbose_name=_('lesson'))
+    file = FileField(verbose_name=_('file_LessonQuestion'), null=True, blank=True)
+    voice_message = FileField(verbose_name=_('voice_mes_LessonQuestion'), null=True, blank=True)
 
     def __str__(self):
         return self.lesson.title + ' ' + f"{self.user.id}"
@@ -189,14 +192,14 @@ class LessonQuestion(CreatedBaseModel):
 
 
 class Video(CreatedBaseModel):
-    title = CharField(verbose_name=_('title'),max_length=255),
-    description = CharField(verbose_name=_('description'),max_length=255),
-    media_code = CharField(verbose_name=_('media code'),max_length=255)
+    title = CharField(verbose_name=_('title'), max_length=255),
+    description = CharField(verbose_name=_('description'), max_length=255),
+    media_code = CharField(verbose_name=_('media code'), max_length=255)
 
-    lesson = ForeignKey('apps.Lesson', CASCADE)
-    file = FileField(verbose_name=_('file_video'),upload_to='videos/video')
-    is_youtube = BooleanField(verbose_name=_('is_youtube'),default=False)
-    media_url = CharField(verbose_name=_('media_url'),max_length=255)
+    lesson = ForeignKey('apps.Lesson', CASCADE, verbose_name=_('user'))
+    file = FileField(verbose_name=_('file_video'), upload_to='videos/video')
+    is_youtube = BooleanField(verbose_name=_('is_youtube'), default=False)
+    media_url = CharField(verbose_name=_('media_url'), max_length=255)
     order = PositiveIntegerField(verbose_name=_('order'))
 
     def __str__(self):
@@ -204,17 +207,17 @@ class Video(CreatedBaseModel):
 
 
 class Task(CreatedBaseModel):
-    title = CharField(verbose_name=_('title'),max_length=255),
-    description = CharField(verbose_name=_('description'),max_length=255),
-    status = CharField(verbose_name=_('status'),max_length=255),
-    user_task_list = CharField(verbose_name=_('user_task_list'),max_length=255)
-    lesson = ForeignKey('apps.Lesson', CASCADE)
-    task_number = PositiveIntegerField(verbose_name=_('task number'),default=0)
+    title = CharField(verbose_name=_('title'), max_length=255),
+    description = CharField(verbose_name=_('description'), max_length=255),
+    status = CharField(verbose_name=_('status'), max_length=255),
+    user_task_list = CharField(verbose_name=_('user_task_list'), max_length=255)
+    lesson = ForeignKey('apps.Lesson', CASCADE,verbose_name=_('user'))
+    task_number = PositiveIntegerField(verbose_name=_('task number'), default=0)
     lastTime = DateTimeField(verbose_name=_('lastTime'))
     order = IntegerField(verbose_name=_('order'))
-    priority = PositiveIntegerField(verbose_name=_('priority'),default=0)
+    priority = PositiveIntegerField(verbose_name=_('priority'), default=0)
     mustComplete = BooleanField()
-    files = CharField(verbose_name=_('files'),max_length=255)
+    files = CharField(verbose_name=_('files'), max_length=255)
 
     class Meta:
         verbose_name = _('Task')
@@ -225,8 +228,8 @@ class Task(CreatedBaseModel):
 
 
 class UserTask(CreatedBaseModel):
-    user = ForeignKey('apps.User', CASCADE)
-    task = ForeignKey('apps.Task', CASCADE)
+    user = ForeignKey('apps.User', CASCADE, verbose_name=_('user'))
+    task = ForeignKey('apps.Task', CASCADE, verbose_name=_('task'))
     finished = BooleanField(verbose_name=_('finished'), default=False)
 
     class Meta:
@@ -237,8 +240,8 @@ class UserTask(CreatedBaseModel):
 
 class TaskChat(CreatedBaseModel):
     text = CharField(verbose_name=_('text'), max_length=255),
-    user = ForeignKey('apps.User', CASCADE)
-    task = ForeignKey('apps.Task', CASCADE)
+    user = ForeignKey('apps.User', CASCADE, verbose_name=_('user'))
+    task = ForeignKey('apps.Task', CASCADE, verbose_name=_('task'))
     file = FileField(verbose_name=_('file'), max_length=255)
     voice = FileField(verbose_name=_('voice'), max_length=255)
 
@@ -265,7 +268,7 @@ class Payment(CreatedBaseModel):
 
 class Device(CreatedBaseModel):
     title = CharField(verbose_name=_('title_devise'), max_length=255),
-    user = ForeignKey('apps.User', CASCADE)
+    user = ForeignKey('apps.User', CASCADE, verbose_name=_('user'))
 
     def __str__(self):
         return self.title
@@ -276,8 +279,8 @@ class Device(CreatedBaseModel):
 
 
 class Certificate(CreatedBaseModel):
-    user = ForeignKey('apps.User', CASCADE)
-    course = ForeignKey('apps.Course', CASCADE)
+    user = ForeignKey('apps.User', CASCADE,verbose_name=_('user'))
+    course = ForeignKey('apps.Course', CASCADE, verbose_name=_('course'))
     finished_at = DateField(verbose_name=_('finished_at'))
     qr_code = ImageField(verbose_name=_('qr_code'), upload_to='media/certificates_qr')
 

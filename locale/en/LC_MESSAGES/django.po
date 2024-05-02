@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-01 11:14+0000\n"
+"POT-Creation-Date: 2024-05-02 12:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,11 +30,7 @@ msgstr ""
 msgid "Important dates"
 msgstr ""
 
-#: apps/models.py:21
-msgid "Phone Number"
-msgstr ""
-
-#: apps/models.py:32 apps/models.py:249
+#: apps/models.py:32 apps/models.py:250
 msgid "balance"
 msgstr ""
 
@@ -50,7 +46,9 @@ msgstr ""
 msgid "Photo"
 msgstr ""
 
-#: apps/models.py:46
+#: apps/models.py:46 apps/models.py:74 apps/models.py:103 apps/models.py:122
+#: apps/models.py:161 apps/models.py:175 apps/models.py:193 apps/models.py:208
+#: apps/models.py:225 apps/models.py:237 apps/models.py:265 apps/models.py:276
 msgid "user"
 msgstr ""
 
@@ -74,7 +72,7 @@ msgstr ""
 msgid "modul_count"
 msgstr ""
 
-#: apps/models.py:55 apps/models.py:98 apps/models.py:196 apps/models.py:210
+#: apps/models.py:55 apps/models.py:98 apps/models.py:197 apps/models.py:211
 msgid "order"
 msgstr ""
 
@@ -94,19 +92,23 @@ msgstr ""
 msgid "Courses"
 msgstr ""
 
-#: apps/models.py:70 apps/models.py:115 apps/models.py:156
+#: apps/models.py:70 apps/models.py:116 apps/models.py:157
 msgid "BLOCKED"
 msgstr ""
 
-#: apps/models.py:71 apps/models.py:116 apps/models.py:157
+#: apps/models.py:71 apps/models.py:117 apps/models.py:158
 msgid "IN_PROG"
 msgstr ""
 
-#: apps/models.py:72 apps/models.py:117 apps/models.py:158
+#: apps/models.py:72 apps/models.py:118 apps/models.py:159
 msgid "FINISHED"
 msgstr ""
 
-#: apps/models.py:76 apps/models.py:205
+#: apps/models.py:75 apps/models.py:104 apps/models.py:277
+msgid "course"
+msgstr ""
+
+#: apps/models.py:76 apps/models.py:206
 msgid "status"
 msgstr ""
 
@@ -122,7 +124,7 @@ msgstr ""
 msgid "learning_type"
 msgstr ""
 
-#: apps/models.py:95 apps/models.py:188 apps/models.py:203
+#: apps/models.py:95 apps/models.py:189 apps/models.py:204
 msgid "title"
 msgstr ""
 
@@ -134,214 +136,226 @@ msgstr ""
 msgid "row_num"
 msgstr ""
 
-#: apps/models.py:106
+#: apps/models.py:107
 msgid "Module"
 msgstr ""
 
-#: apps/models.py:107
+#: apps/models.py:108
 msgid "Modules"
 msgstr ""
 
-#: apps/models.py:120
+#: apps/models.py:121
 msgid "status_UserModule"
 msgstr ""
 
-#: apps/models.py:125
-msgid "User Module"
+#: apps/models.py:123 apps/models.py:136
+msgid "module"
 msgstr ""
 
 #: apps/models.py:126
+msgid "User Module"
+msgstr ""
+
+#: apps/models.py:127
 msgid "User Modules"
 msgstr ""
 
-#: apps/models.py:131
+#: apps/models.py:132
 msgid "title_Lesson"
 msgstr ""
 
-#: apps/models.py:132
+#: apps/models.py:133
 msgid "order_Lesson"
 msgstr ""
 
-#: apps/models.py:133
+#: apps/models.py:134
 msgid "url_Lesson"
 msgstr ""
 
-#: apps/models.py:134
+#: apps/models.py:135
 msgid "video_count"
 msgstr ""
 
-#: apps/models.py:137
+#: apps/models.py:138
 msgid "materials_Lesson"
 msgstr ""
 
-#: apps/models.py:138
+#: apps/models.py:139
 msgid "is_deleted_Lesson"
 msgstr ""
 
-#: apps/models.py:141
+#: apps/models.py:142
 msgid "Lesson"
 msgstr ""
 
-#: apps/models.py:142
+#: apps/models.py:143
 msgid "Lessons"
 msgstr ""
 
-#: apps/models.py:162
+#: apps/models.py:162 apps/models.py:176
+msgid "lesson"
+msgstr ""
+
+#: apps/models.py:163
 msgid "status_UserLesson"
 msgstr ""
 
-#: apps/models.py:168
+#: apps/models.py:169
 msgid "UserLesson"
 msgstr ""
 
-#: apps/models.py:169
+#: apps/models.py:170
 msgid "UserLessons"
 msgstr ""
 
-#: apps/models.py:176
+#: apps/models.py:177
 msgid "file_LessonQuestion"
 msgstr ""
 
-#: apps/models.py:177
+#: apps/models.py:178
 msgid "voice_mes_LessonQuestion"
 msgstr ""
 
-#: apps/models.py:183
+#: apps/models.py:184
 msgid "LessonQuestion"
 msgstr ""
 
-#: apps/models.py:184
+#: apps/models.py:185
 msgid "LessonQuestions"
 msgstr ""
 
-#: apps/models.py:189 apps/models.py:204
+#: apps/models.py:190 apps/models.py:205
 msgid "description"
 msgstr ""
 
-#: apps/models.py:190
+#: apps/models.py:191
 msgid "media code"
 msgstr ""
 
-#: apps/models.py:193
+#: apps/models.py:194
 msgid "file_video"
 msgstr ""
 
-#: apps/models.py:194
+#: apps/models.py:195
 msgid "is_youtube"
 msgstr ""
 
-#: apps/models.py:195
+#: apps/models.py:196
 msgid "media_url"
 msgstr ""
 
-#: apps/models.py:206
+#: apps/models.py:207
 msgid "user_task_list"
 msgstr ""
 
-#: apps/models.py:208
+#: apps/models.py:209
 msgid "task number"
 msgstr ""
 
-#: apps/models.py:209
+#: apps/models.py:210
 msgid "lastTime"
 msgstr ""
 
-#: apps/models.py:211
+#: apps/models.py:212
 msgid "priority"
 msgstr ""
 
-#: apps/models.py:213
+#: apps/models.py:214
 msgid "files"
 msgstr ""
 
-#: apps/models.py:216 apps/models.py:217
+#: apps/models.py:217 apps/models.py:218
 msgid "Task"
 msgstr ""
 
-#: apps/models.py:226
+#: apps/models.py:226 apps/models.py:238
+msgid "task"
+msgstr ""
+
+#: apps/models.py:227
 msgid "finished"
 msgstr ""
 
-#: apps/models.py:230
+#: apps/models.py:231
 msgid "UserTask"
 msgstr ""
 
-#: apps/models.py:231
+#: apps/models.py:232
 msgid "UserTasks"
 msgstr ""
 
-#: apps/models.py:235
+#: apps/models.py:236
 msgid "text"
 msgstr ""
 
-#: apps/models.py:238
+#: apps/models.py:239
 msgid "file"
 msgstr ""
 
-#: apps/models.py:239
+#: apps/models.py:240
 msgid "voice"
 msgstr ""
 
-#: apps/models.py:242 apps/models.py:243
+#: apps/models.py:243 apps/models.py:244
 msgid "TaskChat"
 msgstr ""
 
-#: apps/models.py:247
+#: apps/models.py:248
 msgid "reason"
 msgstr ""
 
-#: apps/models.py:248
+#: apps/models.py:249
 msgid "expend"
 msgstr ""
 
-#: apps/models.py:250
+#: apps/models.py:251
 msgid "income"
 msgstr ""
 
-#: apps/models.py:251
+#: apps/models.py:252
 msgid "processed date"
 msgstr ""
 
-#: apps/models.py:258
+#: apps/models.py:259
 msgid "Payment"
 msgstr ""
 
-#: apps/models.py:259
+#: apps/models.py:260
 msgid "Payments"
 msgstr ""
 
-#: apps/models.py:263
+#: apps/models.py:264
 msgid "title_devise"
 msgstr ""
 
-#: apps/models.py:270
+#: apps/models.py:271
 msgid "Device"
 msgstr ""
 
-#: apps/models.py:271
+#: apps/models.py:272
 msgid "Devices"
 msgstr ""
 
-#: apps/models.py:277
+#: apps/models.py:278
 msgid "finished_at"
 msgstr ""
 
-#: apps/models.py:278
+#: apps/models.py:279
 msgid "qr_code"
 msgstr ""
 
-#: apps/models.py:281
+#: apps/models.py:282
 msgid "Certificate"
 msgstr ""
 
-#: apps/models.py:282
+#: apps/models.py:283
 msgid "Certificates"
 msgstr ""
 
-#: root/settings.py:100
+#: root/settings.py:101
 msgid "English"
 msgstr ""
 
-#: root/settings.py:101
+#: root/settings.py:102
 msgid "Uzbek"
 msgstr ""

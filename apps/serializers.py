@@ -55,7 +55,6 @@ class UpdatePasswordUserSerializer(ModelSerializer):
 
 
 class UserDetailModelSerializer(ModelSerializer):
-
     class Meta:
         model = User
         exclude = ('groups', 'user_permissions', 'password')
