@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser
 from django.core.validators import RegexValidator
 from django.db.models import CharField, TextField, IntegerField, BooleanField, PositiveIntegerField, \
     DateField, \
-    FileField, URLField, ImageField, Model, ForeignKey, CASCADE, DateTimeField
+    FileField, URLField, ImageField, Model, ForeignKey, CASCADE, DateTimeField, TextChoices
 
 
 class CreatedBaseModel(Model):
@@ -79,14 +79,13 @@ class Module(CreatedBaseModel):
 
 
 class Lesson(CreatedBaseModel):
-    STATUS_CHOICES = [
-        ('blocked', 'BLOCKED'),
-        ('inprog', 'INPROG'),
-        ('finished', 'FINISHED'),
-    ]
+    class Status(TextChoices):
+        BLOCKED = 'blocked'
+        INPROG = 'inprog'
+        FINISHED = 'finished'
 
     order = IntegerField()
-    status = CharField(choices=STATUS_CHOICES, default='BLOCKED')
+    status = CharField(choices=Status.choices, default=Status.INPROG)
     title = CharField(max_length=255)
     url = URLField(max_length=255)
     video_count = PositiveIntegerField(default=0)
