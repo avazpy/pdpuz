@@ -8,7 +8,7 @@ from parler.admin import TranslatableAdmin
 
 
 from apps.models import User, UserCourse, Course, Module, Task, TaskChat, Video, LessonQuestion, Lesson, \
-    Device, Payment, Certificate, UserTask, UserLesson, UserModule
+    Device, Payment, Certificate, UserTask, ModuleLesson, CourseModule, DeletedUser
 
 
 @admin.register(User)
@@ -78,13 +78,13 @@ class TasksChatAdmin(ModelAdmin):
     pass
 
 
-@admin.register(UserModule)
-class UserModuleAdmin(ModelAdmin):
+@admin.register(CourseModule)
+class CourseModuleAdmin(ModelAdmin):
     pass
 
 
-@admin.register(UserLesson)
-class UserLessonAdmin(ModelAdmin):
+@admin.register(ModuleLesson)
+class ModuleLessonAdmin(ModelAdmin):
     pass
 
 
@@ -115,4 +115,7 @@ class DevicesAdmin(ModelAdmin):
 
 @admin.register(Certificate)
 class CertificatesAdmin(ModelAdmin):
+    pass
+@admin.register(DeletedUser)
+class DeletedUserAdmin(ModelAdmin):
     pass

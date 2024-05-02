@@ -3,11 +3,7 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.serializers import ModelSerializer, Serializer
 from rest_framework.fields import CharField
 
-from apps.models import User, UserCourse, Lesson, Task, Module, Course
-from parler_rest.serializers import TranslatableModelSerializer, TranslatedFieldsField
-
-
-# from apps.models import Profile
+from apps.models import User, UserCourse, Lesson, Task, Module, DeletedUser, CourseModule, ModuleLesson, Course, Device
 
 
 class UserModelSerializer(ModelSerializer):
@@ -24,11 +20,17 @@ class UserModelSerializer(ModelSerializer):
 
 
 class UpdateUserSerializer(ModelSerializer):
+    class Meta:
+        model = User
+        fields = 'first_name', 'last_name', 'photo'
+
+
+class UpdatePasswordUserSerializer(ModelSerializer):
     confirm_password = CharField(max_length=255, write_only=True)
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'password', 'confirm_password', 'photo']
+        fields = 'password', 'confirm_password'
         extra_kwargs = {
             'password': {'write_only': True}
         }
@@ -53,6 +55,7 @@ class UpdateUserSerializer(ModelSerializer):
 
 
 class UserDetailModelSerializer(ModelSerializer):
+
     class Meta:
         model = User
         exclude = ('groups', 'user_permissions', 'password')
@@ -61,7 +64,7 @@ class UserDetailModelSerializer(ModelSerializer):
 class UserCreateModelSerializer(ModelSerializer):
     class Meta:
         model = User
-        fields = 'username', 'password', 'email', 'phone_number'
+        fields = 'username', 'password', 'phone_number'
         extra_kwargs = {
             'password': {'write_only': True}
         }
@@ -73,7 +76,7 @@ class UserCreateModelSerializer(ModelSerializer):
 class UserCourseModelSerializer(ModelSerializer):
     class Meta:
         model = UserCourse
-        fields = 'created_at', 'user', 'course'
+        fields = '__all__'
 
 
 class ModuleModelSerializer(ModelSerializer):
@@ -82,10 +85,22 @@ class ModuleModelSerializer(ModelSerializer):
         fields = 'created_at', 'lesson_count', 'support_day', 'task_count', 'course'
 
 
+class CourseModuleModelSerializer(ModelSerializer):
+    class Meta:
+        model = CourseModule
+        fields = '__all__'
+
+
 class LessonModelSerializer(ModelSerializer):
     class Meta:
         model = Lesson
         fields = 'created_at', 'video_count', 'module', 'materials',
+
+
+class ModuleLessonModelSerializer(ModelSerializer):
+    class Meta:
+        model = ModuleLesson
+        fields = '__all__'
 
 
 class TaskModelSerializer(ModelSerializer):
@@ -108,3 +123,9 @@ class DeviceModelSerializer(ModelSerializer):
 
 class CheckPhoneModelSerializer(Serializer):
     phone_number = CharField(max_length=20, write_only=True)
+
+
+class DeletedUserSerializer(ModelSerializer):
+    class Meta:
+        model = DeletedUser
+        fields = '__all__'

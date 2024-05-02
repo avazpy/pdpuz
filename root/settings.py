@@ -134,6 +134,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #
 # DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
+
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
@@ -142,12 +143,16 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
+
     )
 }
+
+
 SIMPLE_JWT = {
     "SLIDING_TOKEN_LIFETIME": timedelta(minutes=30),
     "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=1)
 }
+
 
 JAZZMIN_SETTINGS = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)
