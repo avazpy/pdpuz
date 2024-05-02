@@ -2,7 +2,7 @@ from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
-from apps.views import UpdateUser, CourseListAPIView
+from apps.views import UpdateUser, CourseListAPIView, RegisterCreateAPIView
 from apps.views import UserViewSet, RegisterCreateAPIView, UserCourseListAPIView, ModuleListAPIView, \
     LessonListAPIView, TaskListAPIView, LoginView, DeviceModelListAPIView, CheckPhoneAPIView
 

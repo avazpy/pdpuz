@@ -3,8 +3,10 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.serializers import ModelSerializer, Serializer
 from rest_framework.fields import CharField
 
-from apps.models import User, UserCourse, Lesson, Task, Module, Course
-from parler_rest.serializers import TranslatableModelSerializer, TranslatedFieldsField
+from apps.models import User, UserCourse, Lesson, Task, Module, Course, Device
+
+
+# from parler_rest.serializers import TranslatableModelSerializer, TranslatedFieldsField
 
 
 # from apps.models import Profile

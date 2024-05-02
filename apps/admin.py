@@ -4,7 +4,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from nested_inline.admin import NestedStackedInline, NestedModelAdmin
-from parler.admin import TranslatableAdmin
+# from parler.admin import TranslatableAdmin
 
 
 from apps.models import User, UserCourse, Course, Module, Task, TaskChat, Video, LessonQuestion, Lesson, \

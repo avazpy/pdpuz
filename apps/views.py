@@ -11,8 +11,9 @@ from rest_framework.permissions import AllowAny ,IsAdminUser,IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
-from apps.models import User, UserCourse, Module, Lesson, Task, Device
-from apps.serializers import UpdateUserSerializer, DeviceModelSerializer
+from apps.models import User, UserCourse, Module, Lesson, Task, Device, Course
+from apps.serializers import UpdateUserSerializer, DeviceModelSerializer, CoursesModelSerializer, \
+    UserCreateModelSerializer
 from apps.serializers import UserModelSerializer, UserCreateModelSerializer, UserCourseModelSerializer, \
     ModuleModelSerializer, \
     LessonModelSerializer, TaskModelSerializer, CheckPhoneModelSerializer
