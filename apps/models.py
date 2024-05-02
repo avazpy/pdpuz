@@ -39,9 +39,8 @@ class User(AbstractUser):
     ticket_role = CharField(max_length=255, blank=True, null=True)
     voucher_balance = PositiveIntegerField(default=0)
 
-
-def __str__(self):
-    return self.get_full_name()
+    def __str__(self):
+        return self.get_full_name()
 
 
 class Course(CreatedBaseModel):
@@ -64,6 +63,7 @@ class UserCourse(CreatedBaseModel):
 
     class Meta:
         unique_together = ('user', 'course')
+
 
 class Module(CreatedBaseModel):
     has_in_tg = CharField(max_length=255)
