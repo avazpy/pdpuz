@@ -18,3 +18,6 @@ file:
 	python3 manage.py loaddata usertask.json
 celery:
 	celery -A root worker -l info
+docker:
+	sudo chmod 666 /var/run/docker.sock
+	docker start 90

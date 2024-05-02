@@ -3,7 +3,8 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.serializers import ModelSerializer, Serializer
 from rest_framework.fields import CharField
 
-from apps.models import User, UserCourse, Lesson, Task, Module, Device
+from apps.models import User, UserCourse, Lesson, Task, Module, Course
+from parler_rest.serializers import TranslatableModelSerializer, TranslatedFieldsField
 
 
 # from apps.models import Profile
@@ -78,19 +79,25 @@ class UserCourseModelSerializer(ModelSerializer):
 class ModuleModelSerializer(ModelSerializer):
     class Meta:
         model = Module
-        fields = 'created_at', 'learning_type', 'lesson_count', 'support_day', 'task_count', 'title', 'course'
+        fields = 'created_at', 'lesson_count', 'support_day', 'task_count', 'course'
 
 
 class LessonModelSerializer(ModelSerializer):
     class Meta:
         model = Lesson
-        fields = 'created_at', 'title', 'video_count', 'module', 'materials'
+        fields = 'created_at', 'video_count', 'module', 'materials',
 
 
 class TaskModelSerializer(ModelSerializer):
     class Meta:
         model = Task
-        fields = 'created_at', 'description', 'task_number', 'lastTime', 'title', 'files', 'lesson', 'user_task_list'
+        fields = 'created_at', 'task_number', 'lastTime', 'files', 'lesson'
+
+
+class CoursesModelSerializer(ModelSerializer):
+    class Meta:
+        model = Course
+        fields = 'title', 'type', 'lesson_count', 'modul_count', 'task_count', 'order', 'task_count', 'url'
 
 
 class DeviceModelSerializer(ModelSerializer):

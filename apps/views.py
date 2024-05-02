@@ -7,7 +7,7 @@ from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateAPIView, GenericAPIView
 from rest_framework.parsers import MultiPartParser, FormParser
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny ,IsAdminUser,IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
@@ -63,7 +63,7 @@ class UserViewSet(ModelViewSet):
     def get_me(self, request, pk=None):
         if request.user.is_authenticated:
             return Response({'message': f'{request.user.username}'})
-        return Response({'message': f'login qilinmagan'})
+        return Response({'message': f'login closed'})
 
 
 class RegisterCreateAPIView(CreateAPIView):
@@ -73,8 +73,14 @@ class RegisterCreateAPIView(CreateAPIView):
 
 class UserCourseListAPIView(ListAPIView):
     queryset = UserCourse.objects.all()
-    serializer_class = UserCourseModelSerializer
-    pagination_class = None
+    permission_classes = [IsAuthenticated]
+    def get(self, request):
+        items = UserCourse.objects.filter(user=self.request.user)
+        serializer = UserCourseModelSerializer(items, many=True)
+        return Response(serializer.data)
+
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
 
 
 class ModuleListAPIView(ListAPIView):
@@ -82,17 +88,29 @@ class ModuleListAPIView(ListAPIView):
     serializer_class = ModuleModelSerializer
     pagination_class = None
 
+    def get_queryset(self):
+        return super().get_queryset()
+
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
+
 
 class LessonListAPIView(ListAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonModelSerializer
     pagination_class = None
 
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
+
 
 class TaskListAPIView(ListAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskModelSerializer
     pagination_class = None
+
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
 
 
 class UpdateUser(RetrieveUpdateAPIView):
@@ -116,3 +134,12 @@ class CheckPhoneAPIView(GenericViewSet):
         phone = request.data.get('phone_number')
         response = User.objects.filter(phone_number=phone).exists()
         return Response(response)
+
+
+class CourseListAPIView(ListAPIView):
+    queryset = Course.objects.all()
+    serializer_class = CoursesModelSerializer
+    pagination_class = None
+
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)

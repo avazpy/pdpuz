@@ -3,6 +3,7 @@
         "model": "apps.user",
         "pk": 1,
         "fields": {
+            "tg_id": 1,
             "username": "user1",
             "password": "pbkdf2_sha256$720000$A7a8wbgBVuzDab7xtdhVON$clFcKVYUe5o2qrWP8JZG1bwqdX/2fiGJz/2YA0uX63A=",
             "phone_number": "+1234567890",
@@ -21,6 +22,7 @@
         "model": "apps.user",
         "pk": 2,
         "fields": {
+            "tg_id": 2,
             "username": "user2",
             "password": "pbkdf2_sha256$720000$oNFXe527ItNC1Ot53z9AQB$kBgyyC0TxaThLD50xPpzFCaLhDD9T8dKZX+V2nxS0DY=",
             "phone_number": "+9876543210",
@@ -39,6 +41,7 @@
         "model": "apps.user",
         "pk": 3,
         "fields": {
+            "pk": 3,
             "username": "user3",
             "password": "pbkdf2_sha256$720000$wzBRGYm5orXgUVYV4htmHl$tPljM+VzEtLFXOnqsLJ3r8yJG9V4V8Ue8LcQoa+H8nI=",
             "phone_number": "+1122334455",
