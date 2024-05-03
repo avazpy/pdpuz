@@ -32,13 +32,10 @@ class User(AbstractUser):
     tg_id = CharField(max_length=255, unique=True, blank=False, null=True)
     balance = PositiveIntegerField(default=0, verbose_name=_('balance'))
     bot_options = CharField(max_length=255, null=True, blank=True, verbose_name=_('bot options'))
-    country_model = BooleanField(default=False, verbose_name=_('country model'))
     has_registered_bot = BooleanField(default=False)
     not_read_message_count = PositiveIntegerField(default=0)
     payme_balance = PositiveIntegerField(default=0)
     photo = ImageField(upload_to='users/images', default='users/default.jpg', verbose_name=_('Photo'))
-    ticket_role = CharField(max_length=255, blank=True, null=True)
-    voucher_balance = PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.get_full_name()
@@ -54,7 +51,6 @@ class User(AbstractUser):
 
 class Course(CreatedBaseModel):
     title = CharField(verbose_name=_('courses_title'), max_length=255),
-    type = CharField(max_length=255, verbose_name=_('courses_type')),
     lesson_count = PositiveIntegerField(default=0, verbose_name=_('lesson_count')),
     modul_count = PositiveIntegerField(default=0, verbose_name=_('modul_count')),
     order = IntegerField(verbose_name=_('order')),
@@ -132,7 +128,6 @@ class CourseModule(CreatedBaseModel):
         verbose_name_plural = _("User Modules")
         unique_together = ('user', 'course', 'module')
 
-
 class Lesson(CreatedBaseModel):
     title = CharField(verbose_name=_('title_Lesson'), max_length=255)
     order = IntegerField(verbose_name=_('order_Lesson'))
@@ -168,6 +163,7 @@ class ModuleLesson(CreatedBaseModel):
 
     user = ForeignKey('apps.User', CASCADE, related_name='user')
     lesson = ForeignKey('apps.Lesson', CASCADE, related_name='lesson')
+
 
 
 class Meta:
