@@ -8,7 +8,7 @@ from nested_inline.admin import NestedStackedInline, NestedModelAdmin
 
 
 from apps.models import User, UserCourse, Course, Module, Task, TaskChat, Video, LessonQuestion, Lesson, \
-    Device, Payment, Certificate, UserTask, ModuleLesson, CourseModule, DeletedUser
+    Device, Payment, Certificate, UserTask, UserLesson, CourseModule, DeletedUser
 
 
 @admin.register(User)
@@ -83,8 +83,8 @@ class CourseModuleAdmin(ModelAdmin):
     pass
 
 
-@admin.register(ModuleLesson)
-class ModuleLessonAdmin(ModelAdmin):
+@admin.register(UserLesson)
+class UserLessonAdmin(ModelAdmin):
     pass
 
 
