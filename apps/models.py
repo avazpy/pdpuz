@@ -33,13 +33,10 @@ class User(AbstractUser):
     tg_id = CharField(max_length=255, unique=True, blank=False, null=True)
     balance = PositiveIntegerField(default=0, verbose_name=_('balance'))
     bot_options = CharField(max_length=255, null=True, blank=True, verbose_name=_('bot options'))
-    country_model = BooleanField(default=False, verbose_name=_('country model'))
     has_registered_bot = BooleanField(default=False)
     not_read_message_count = PositiveIntegerField(default=0)
     payme_balance = PositiveIntegerField(default=0)
     photo = ImageField(upload_to='users/images', default='users/default.jpg', verbose_name=_('Photo'))
-    ticket_role = CharField(max_length=255, blank=True, null=True)
-    voucher_balance = PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.get_full_name()
@@ -63,7 +60,6 @@ class Customer(Model):
 
 class Course(CreatedBaseModel):
     title = CharField(max_length=255, verbose_name=_('courses_title'))
-    type = CharField(max_length=255, verbose_name=_('courses_type'))
     lesson_count = PositiveIntegerField(default=0, verbose_name=_('lesson_count'))
     modul_count = PositiveIntegerField(default=0, verbose_name=_('modul_count'))
     order = IntegerField(verbose_name=_('order'))
@@ -76,8 +72,6 @@ class Course(CreatedBaseModel):
 
     def __str__(self):
         return self.title
-
-
 
 
 class UserCourse(CreatedBaseModel):
@@ -222,10 +216,10 @@ class Task(CreatedBaseModel):
     user_task_list = CharField(verbose_name=_('user_task_list'), max_length=255)
     lesson = ForeignKey('apps.Lesson', CASCADE, verbose_name=_('lesson_task'))
     task_number = PositiveIntegerField(verbose_name=_('task number'), default=0)
-    lastTime = DateTimeField(verbose_name=_('lastTime'))
+    last_time = DateTimeField(verbose_name=_('last_time'))
     order = IntegerField(verbose_name=_('order'))
     priority = PositiveIntegerField(verbose_name=_('priority'), default=0)
-    mustComplete = BooleanField()
+    must_complete = BooleanField()
     files = CharField(verbose_name=_('files'), max_length=255)
 
     class Meta:
