@@ -116,6 +116,8 @@ class DevicesAdmin(ModelAdmin):
 @admin.register(Certificate)
 class CertificatesAdmin(ModelAdmin):
     pass
+
+
 @admin.register(DeletedUser)
 class DeletedUserAdmin(ModelAdmin):
     pass

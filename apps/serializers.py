@@ -95,7 +95,7 @@ class UserCourseModelSerializer(ModelSerializer):
 class ModuleModelSerializer(ModelSerializer):
     class Meta:
         model = Module
-        fields = 'created_at', 'lesson_count', 'support_day', 'task_count', 'course'
+        fields = '__all__'
 
 
 class CourseModuleModelSerializer(ModelSerializer):
@@ -125,7 +125,7 @@ class TaskModelSerializer(ModelSerializer):
 class CoursesModelSerializer(ModelSerializer):
     class Meta:
         model = Course
-        fields = 'title', 'type', 'lesson_count', 'modul_count', 'task_count', 'order', 'task_count', 'url'
+        fields = '__all__'
 
 
 class DeviceModelSerializer(ModelSerializer):

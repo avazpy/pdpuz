@@ -7,6 +7,7 @@ from django.db.models import CharField, TextField, IntegerField, BooleanField, P
     FileField, URLField, ImageField, Model, ForeignKey, CASCADE, DateTimeField, TextChoices
 from django.utils.translation import gettext_lazy as _
 from parler.models import TranslatableModel
+from apps.managers import CustomUserManager
 
 
 class CreatedBaseModel(Model):
@@ -51,15 +52,23 @@ class User(AbstractUser):
         self.photo.delete(save=False)
         return super().delete(using, keep_parents)
 
+    objects = CustomUserManager()
+    USERNAME_FIELD = 'phone_number'
+    REQUIRED_FIELDS = []
+
+
+class Customer(Model):
+    pass
+
 
 class Course(CreatedBaseModel):
-    title = CharField(verbose_name=_('courses_title'), max_length=255),
-    type = CharField(max_length=255, verbose_name=_('courses_type')),
-    lesson_count = PositiveIntegerField(default=0, verbose_name=_('lesson_count')),
-    modul_count = PositiveIntegerField(default=0, verbose_name=_('modul_count')),
-    order = IntegerField(verbose_name=_('order')),
-    task_count = PositiveIntegerField(default=0, verbose_name=_('task_count')),
-    url = URLField(max_length=255, verbose_name=_('url')),
+    title = CharField(max_length=255, verbose_name=_('courses_title'))
+    type = CharField(max_length=255, verbose_name=_('courses_type'))
+    lesson_count = PositiveIntegerField(default=0, verbose_name=_('lesson_count'))
+    modul_count = PositiveIntegerField(default=0, verbose_name=_('modul_count'))
+    order = IntegerField(verbose_name=_('order'))
+    task_count = PositiveIntegerField(default=0, verbose_name=_('task_count'))
+    url = URLField(max_length=255, verbose_name=_('url'))
 
     class Meta:
         verbose_name = _("Course")
@@ -67,6 +76,8 @@ class Course(CreatedBaseModel):
 
     def __str__(self):
         return self.title
+
+
 
 
 class UserCourse(CreatedBaseModel):
@@ -97,8 +108,8 @@ class UserCourse(CreatedBaseModel):
 
 class Module(CreatedBaseModel):
     learning_type = CharField(max_length=255, verbose_name=_('learning_type'))
-    title = CharField(max_length=255, verbose_name=_('title')),
-    has_in_tg = CharField(max_length=255, verbose_name=_('has_in_tg')),
+    title = CharField(max_length=255, verbose_name=_('module_title'))
+    has_in_tg = CharField(max_length=255, verbose_name=_('has_in_tg'))
     lesson_count = PositiveIntegerField(default=0, verbose_name=_('lesson_count'))
     order = IntegerField(verbose_name=_('order'))
     row_num = PositiveIntegerField(default=0, verbose_name=_('row_num'))
@@ -191,10 +202,9 @@ class LessonQuestion(CreatedBaseModel):
 
 
 class Video(CreatedBaseModel):
-    title = CharField(verbose_name=_('title'), max_length=255),
-    description = CharField(verbose_name=_('description'), max_length=255),
+    title = CharField(verbose_name=_('title'), max_length=255)
+    description = CharField(verbose_name=_('description'), max_length=255)
     media_code = CharField(verbose_name=_('media code'), max_length=255)
-
     lesson = ForeignKey('apps.Lesson', CASCADE, verbose_name=_('lesson_video'))
     file = FileField(verbose_name=_('file_video'), upload_to='videos/video')
     is_youtube = BooleanField(verbose_name=_('is_youtube'), default=False)
@@ -206,9 +216,9 @@ class Video(CreatedBaseModel):
 
 
 class Task(CreatedBaseModel):
-    title = CharField(verbose_name=_('title'), max_length=255),
-    description = CharField(verbose_name=_('description'), max_length=255),
-    status = CharField(verbose_name=_('status'), max_length=255),
+    title = CharField(verbose_name=_('title'), max_length=255)
+    description = CharField(verbose_name=_('description'), max_length=255)
+    status = CharField(verbose_name=_('status'), max_length=255)
     user_task_list = CharField(verbose_name=_('user_task_list'), max_length=255)
     lesson = ForeignKey('apps.Lesson', CASCADE, verbose_name=_('lesson_task'))
     task_number = PositiveIntegerField(verbose_name=_('task number'), default=0)
@@ -238,7 +248,7 @@ class UserTask(CreatedBaseModel):
 
 
 class TaskChat(CreatedBaseModel):
-    text = CharField(verbose_name=_('text'), max_length=255),
+    text = CharField(verbose_name=_('text'), max_length=255)
     user = ForeignKey('apps.User', CASCADE, verbose_name=_('user_taskChat'))
     task = ForeignKey('apps.Task', CASCADE, verbose_name=_('task_taskChat'))
     file = FileField(verbose_name=_('file'), max_length=255)
@@ -266,8 +276,8 @@ class Payment(CreatedBaseModel):
 
 
 class Device(CreatedBaseModel):
-    title = CharField(verbose_name=_('title_device'), max_length=255),
-    user = ForeignKey('apps.User', CASCADE, verbose_name=_('user_devise'))
+    title = CharField(verbose_name=_('title_device'), max_length=255)
+    user = ForeignKey('apps.User', CASCADE, verbose_name=_('user_device'))
 
     def __str__(self):
         return self.title

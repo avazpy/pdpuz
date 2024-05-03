@@ -21,3 +21,7 @@ celery:
 docker:
 	sudo chmod 666 /var/run/docker.sock
 	docker start 90
+#user:
+#	python3 manage.py createsuperuser
+#	phone_number admin
+#	password admin

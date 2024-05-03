@@ -5,7 +5,8 @@ from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter, SearchFilter
-from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateAPIView, RetrieveDestroyAPIView
+from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateAPIView, RetrieveDestroyAPIView, \
+    UpdateAPIView
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
@@ -59,7 +60,7 @@ class UserViewSet(ModelViewSet):
     serializer_class = UserModelSerializer
     queryset = User.objects.all()
     filter = (OrderingFilter, SearchFilter)
-    search_fields = ('username', 'phone_number')
+    search_fields = ('phone_number')
     permission_classes = [IsAuthenticated]
 
     @action(detail=False, methods=['GET'], url_path='get-me')
@@ -153,12 +154,13 @@ class TaskListAPIView(ListAPIView):
         return super().get_queryset().filter(user=self.request.user)
 
 
-class UpdateUser(RetrieveUpdateAPIView):
+class UpdateUser(UpdateAPIView):
     serializer_class = UpdateUserSerializer
     queryset = User.objects.all()
     permission_classes = [IsAuthenticated]
     parser_classes = [MultiPartParser, FormParser]
     pagination_class = None
+    http_method_names = ['patch']
 
     def get_object(self):
         return self.request.user
@@ -167,11 +169,13 @@ class UpdateUser(RetrieveUpdateAPIView):
         return super().update(request, *args, **kwargs)
 
 
-class UpdateUserPassword(RetrieveUpdateAPIView):
+class UpdateUserPassword(UpdateAPIView):
     serializer_class = UpdatePasswordUserSerializer
     queryset = User.objects.all()
     permission_classes = [IsAuthenticated, ]
     parser_classes = [MultiPartParser, FormParser]
+    pagination_class = None
+    http_method_names = ['patch']
 
 
 class DeviceModelListAPIView(ListAPIView):
