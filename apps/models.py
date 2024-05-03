@@ -50,12 +50,12 @@ class User(AbstractUser):
 
 
 class Course(CreatedBaseModel):
-    title = CharField(verbose_name=_('courses_title'), max_length=255),
-    lesson_count = PositiveIntegerField(default=0, verbose_name=_('lesson_count')),
-    modul_count = PositiveIntegerField(default=0, verbose_name=_('modul_count')),
-    order = IntegerField(verbose_name=_('order')),
-    task_count = PositiveIntegerField(default=0, verbose_name=_('task_count')),
-    url = URLField(max_length=255, verbose_name=_('url')),
+    title = CharField(verbose_name=_('courses_title'), max_length=255)
+    lesson_count = PositiveIntegerField(default=0, verbose_name=_('lesson_count'))
+    modul_count = PositiveIntegerField(default=0, verbose_name=_('modul_count'))
+    order = IntegerField(verbose_name=_('order'))
+    task_count = PositiveIntegerField(default=0, verbose_name=_('task_count'))
+    url = URLField(max_length=255, verbose_name=_('url'))
 
     class Meta:
         verbose_name = _("Course")
