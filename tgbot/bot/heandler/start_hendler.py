@@ -1,11 +1,11 @@
-from aiogram import types, F
+from aiogram import F, types
 from aiogram.enums import ContentType
-from aiogram.filters import CommandStart, Command
+from aiogram.filters import Command, CommandStart
 from aiogram.fsm.context import FSMContext
 from django.contrib.auth.hashers import make_password
 
 from apps.models import User
-from tgbot.bot.heandler.buttons import menu_buttons, UserState
+from tgbot.bot.heandler.buttons import UserState, menu_buttons
 from tgbot.bot.loader import dp
 
 

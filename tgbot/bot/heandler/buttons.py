@@ -1,5 +1,6 @@
-from aiogram.types import KeyboardButton, ReplyKeyboardMarkup
 from aiogram.fsm.state import State, StatesGroup
+from aiogram.types import KeyboardButton, ReplyKeyboardMarkup
+
 
 class UserState(StatesGroup):
     name = State()
