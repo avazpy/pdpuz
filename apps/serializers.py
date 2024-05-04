@@ -1,9 +1,10 @@
 from django.contrib.auth.hashers import make_password
 from rest_framework.exceptions import ValidationError
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.serializers import ModelSerializer, Serializer
 from rest_framework.fields import CharField
 
-from apps.models import User, UserCourse, Lesson, Task, Module, DeletedUser, CourseModule, ModuleLesson, Course, Device
+from apps.models import User, UserCourse, Lesson, Task, Module, DeletedUser, CourseModule, UserLesson, Course, Device
 
 
 class UserModelSerializer(ModelSerializer):
@@ -23,6 +24,7 @@ class UpdateUserSerializer(ModelSerializer):
     class Meta:
         model = User
         fields = 'first_name', 'last_name', 'photo'
+        permission_classes = (IsAuthenticated,)
 
 
 class UpdatePasswordUserSerializer(ModelSerializer):
@@ -34,6 +36,7 @@ class UpdatePasswordUserSerializer(ModelSerializer):
         extra_kwargs = {
             'password': {'write_only': True}
         }
+        permission_classes = (IsAuthenticated,)
 
     def validate(self, data):
         confirm_password = data.pop('confirm_password')
@@ -92,7 +95,7 @@ class UserCourseModelSerializer(ModelSerializer):
 class ModuleModelSerializer(ModelSerializer):
     class Meta:
         model = Module
-        fields = 'created_at', 'lesson_count', 'support_day', 'task_count', 'course'
+        fields = '__all__'
 
 
 class CourseModuleModelSerializer(ModelSerializer):
@@ -109,7 +112,7 @@ class LessonModelSerializer(ModelSerializer):
 
 class ModuleLessonModelSerializer(ModelSerializer):
     class Meta:
-        model = ModuleLesson
+        model = UserLesson
         fields = '__all__'
 
 
@@ -122,7 +125,7 @@ class TaskModelSerializer(ModelSerializer):
 class CoursesModelSerializer(ModelSerializer):
     class Meta:
         model = Course
-        fields = 'title', 'type', 'lesson_count', 'modul_count', 'task_count', 'order', 'task_count', 'url'
+        fields = '__all__'
 
 
 class DeviceModelSerializer(ModelSerializer):
@@ -139,6 +142,3 @@ class DeletedUserSerializer(ModelSerializer):
     class Meta:
         model = DeletedUser
         fields = '__all__'
-
-
-
