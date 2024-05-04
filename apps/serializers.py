@@ -10,8 +10,8 @@ from apps.models import User, UserCourse, Lesson, Task, Module, DeletedUser, Cou
 class UserModelSerializer(ModelSerializer):
     class Meta:
         model = User
-        exclude = ('groups', 'user_permissions', 'balance', 'bot_options', 'country_model',
-                   'has_registered_bot', 'not_read_message_count', 'ticket_role', 'voucher_balance', 'is_active',
+        exclude = ('groups', 'user_permissions', 'balance', 'bot_options',
+                   'has_registered_bot', 'not_read_message_count',  'is_active',
                    'is_superuser', 'is_staff', 'payme_balance', 'last_login', 'username', 'first_name', 'last_name',
                    'date_joined'
                    )
