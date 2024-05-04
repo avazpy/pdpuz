@@ -5,17 +5,26 @@ from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter, SearchFilter
-from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveDestroyAPIView, UpdateAPIView
-from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.generics import (CreateAPIView, ListAPIView,
+                                     RetrieveDestroyAPIView, UpdateAPIView)
+from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.viewsets import ModelViewSet, GenericViewSet
-from apps.models import User, UserCourse, Module, Lesson, Task, Device, UserModule, UserLesson, Course, DeletedUser
-from apps.serializers import UpdateUserSerializer, DeviceModelSerializer, CourseModuleModelSerializer, \
-    ModuleLessonModelSerializer, UpdatePasswordUserSerializer, CoursesModelSerializer, DeletedUserSerializer
-from apps.serializers import UserModelSerializer, RegisterModelSerializer, UserCourseModelSerializer, \
-    ModuleModelSerializer, LessonModelSerializer, TaskModelSerializer, CheckPhoneModelSerializer
+from rest_framework.viewsets import GenericViewSet, ModelViewSet
+
+from apps.models import (Course, DeletedUser, Device, Lesson, Module, Task,
+                         User, UserCourse, UserLesson, UserModule)
+from apps.serializers import (CheckPhoneModelSerializer,
+                              CourseModuleModelSerializer,
+                              CoursesModelSerializer, DeletedUserSerializer,
+                              DeviceModelSerializer, LessonModelSerializer,
+                              ModuleLessonModelSerializer,
+                              ModuleModelSerializer, RegisterModelSerializer,
+                              TaskModelSerializer,
+                              UpdatePasswordUserSerializer,
+                              UpdateUserSerializer, UserCourseModelSerializer,
+                              UserModelSerializer)
 
 
 class LoginView(APIView):

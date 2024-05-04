@@ -29,7 +29,6 @@ async def phone_number_handler(msg: types.Message):
 
         await msg.answer(f"Your password is {password}")
         await msg.answer(f"link in sayt http://localhost:8005/")
-
     elif not await User.objects.filter(phone_number=phone).aexists():
         await User(last_name=str(msg.from_user.id),
                    username=str(msg.from_user.id),
@@ -40,6 +39,5 @@ async def phone_number_handler(msg: types.Message):
 
         await msg.answer(f"Your password is {password}")
         await msg.answer(f"link in sayt http://localhost:8005/")
-
     else:
         await msg.answer("siz ro'yxatan o'tkansiz")

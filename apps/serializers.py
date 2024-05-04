@@ -4,7 +4,8 @@ from rest_framework.fields import CharField
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.serializers import ModelSerializer, Serializer
 
-from apps.models import User, UserCourse, Lesson, Task, Module, DeletedUser, UserModule, UserLesson, Course, Device
+from apps.models import (Course, DeletedUser, Device, Lesson, Module, Task,
+                         User, UserCourse, UserLesson, UserModule)
 
 
 class UserModelSerializer(ModelSerializer):
@@ -82,7 +83,6 @@ class UserCourseModelSerializer(ModelSerializer):
 
     def to_representation(self, instance: UserCourse):
         represent = super().to_representation(instance)
-        # represent['category'] = CategoryModelSerializer(instance.category).data
         return represent
 
 

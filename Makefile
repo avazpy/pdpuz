@@ -21,9 +21,10 @@ celery:
 docker:
 	sudo chmod 666 /var/run/docker.sock
 	docker start 90
-isort_flake8:
-	pip install isort
-	pip install flake8
+flake8:
+	flake8 .
+isort:
+	isort .
 #user:
 #	python3 manage.py createsuperuser
 #	phone_number admin

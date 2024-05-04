@@ -1,11 +1,13 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
+from rest_framework_simplejwt.views import (TokenObtainPairView,
+                                            TokenRefreshView, TokenVerifyView)
 
-from apps.views import CourseModuleListAPIView, ModuleLessonListAPIView, DeleteUserAPIView, UpdateUserPassword
-from apps.views import UpdateUser
-from apps.views import UserViewSet, UserCreateAPIView, UserCourseListAPIView, TaskListAPIView, LoginView, \
-    DeviceModelListAPIView, CheckPhoneAPIView
+from apps.views import (CheckPhoneAPIView, CourseModuleListAPIView,
+                        DeleteUserAPIView, DeviceModelListAPIView, LoginView,
+                        ModuleLessonListAPIView, TaskListAPIView, UpdateUser,
+                        UpdateUserPassword, UserCourseListAPIView,
+                        UserCreateAPIView, UserViewSet)
 
 router = DefaultRouter()
 router.register('users', UserViewSet, basename='user')
