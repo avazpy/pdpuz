@@ -1,0 +1,12 @@
+DB_NAME=pdp
+DB_USER=postgres
+POSTGRES_PASSWORD=1
+DB_HOST=postgres_service
+DB_PORT=5432
+MINIO_BUCKET_NAME = "media"
+AWS_STORAGE_BUCKET_NAME = "media"
+AWS_S3_ENDPOINT_URL = "http://minio_service:9000"
+SECRET_KEY='django-insecure-$0fw1(tu4xw%ibqrmwq-&1m88&d4nj4!$vj2@9!ro9o3ox0b+g'
+API_TOKEN="6493048173:AAFDlvLrxwUsSG1Ra4aNW3o1Ie2OxLyGL_w"
+AWS_ACCESS_KEY_ID = "I7eQjopfzmk4kwOirTOL"
+AWS_SECRET_ACCESS_KEY = "f002xBefqeGu09fGRvaeo4K59xSwW8mIIavcqMTP"

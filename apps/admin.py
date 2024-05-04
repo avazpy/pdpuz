@@ -4,11 +4,10 @@ from django.contrib.auth.admin import UserAdmin
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from nested_inline.admin import NestedStackedInline, NestedModelAdmin
-# from parler.admin import TranslatableAdmin
 
 
 from apps.models import User, UserCourse, Course, Module, Task, TaskChat, Video, LessonQuestion, Lesson, \
-    Device, Payment, Certificate, UserTask, UserLesson, CourseModule, DeletedUser
+    Device, Payment, Certificate, UserTask, UserLesson, UserModule, DeletedUser
 
 
 @admin.register(User)
@@ -78,7 +77,7 @@ class TasksChatAdmin(ModelAdmin):
     pass
 
 
-@admin.register(CourseModule)
+@admin.register(UserModule)
 class CourseModuleAdmin(ModelAdmin):
     pass
 
