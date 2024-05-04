@@ -1,7 +1,7 @@
 mig:
 	python3 manage.py makemigrations
 
-rew:
+file:
 	python3 manage.py loaddata user.json
 	python3 manage.py loaddata course.json
 	python3 manage.py loaddata usercourse.json
@@ -23,3 +23,5 @@ celery:
 docker:
 	sudo chmod 666 /var/run/docker.sock
 	docker start 90
+
+

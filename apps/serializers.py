@@ -1,9 +1,10 @@
 from django.contrib.auth.hashers import make_password
 from rest_framework.exceptions import ValidationError
-from rest_framework.serializers import ModelSerializer, Serializer
 from rest_framework.fields import CharField
+from rest_framework.serializers import ModelSerializer, Serializer
 
-from apps.models import User, UserCourse, Lesson, Task, Module, DeletedUser, CourseModule, ModuleLesson, Course, Device
+from apps.models import (Course, CourseModule, DeletedUser, Device, Lesson,
+                         Module, Task, User, UserCourse, UserLesson)
 
 
 class UserModelSerializer(ModelSerializer):
@@ -107,9 +108,9 @@ class LessonModelSerializer(ModelSerializer):
         fields = 'created_at', 'video_count', 'module', 'materials',
 
 
-class ModuleLessonModelSerializer(ModelSerializer):
+class UserLessonModelSerializer(ModelSerializer):
     class Meta:
-        model = ModuleLesson
+        model = UserLesson
         fields = '__all__'
 
 

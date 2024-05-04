@@ -1,5 +1,5 @@
 
-TASK
+
 1. check_phone API boolean qaytarishi kk, user agent ni qoshish kk (izzatulloh)
 2. 1ta tlg bot (/start, tel nomeringizni yuboring[99897464534]) (behruz)
 3. profile([parol], rasmi, info) update api, delete api (ochirilgan userni DeletedUser modelga otkazamiz) (avaz)
@@ -27,7 +27,7 @@ behruzga
 
 NEW TASK
 
-1. izzatilla - isort, flake8, url(check), minio
+1. izzatullox - isort, flake8, url(check), minio
 2. behruz - docker-compose (celery, minio, django, postgres, redis, flower)
 3. avaz - (username -> phone), register toliq bolishi kk, profile([parol], rasmi, info) update api, delete api (ochirilgan userni DeletedUser modelga otkazamiz), user apilarni qarash (avaz), course ni lesson_count ini avtomatik olish kk
 4. muhammadaziz - my-courses oziga tegishli kurslar chiqadi, (swagger name larga etibor berish [userlarga]), i18n modeldagi barcha fieldlarga django jazzmin ham qoshilsin 2ta tillik (muhammadaziz)

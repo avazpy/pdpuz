@@ -13,7 +13,7 @@ click-didyoumean==0.3.0
 click-plugins==1.1.1
 click-repl==0.3.0
 django-filter==23.5
-django-jazzmin==2.6.0
+in==2.6.0
 django-js-asset==2.2.0
 django-minio-storage==0.5.7
 django-mptt==0.16.0

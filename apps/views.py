@@ -5,19 +5,26 @@ from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter, SearchFilter
-from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateAPIView, RetrieveDestroyAPIView
-from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.generics import (CreateAPIView, ListAPIView,
+                                     RetrieveDestroyAPIView,
+                                     RetrieveUpdateAPIView)
+from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.viewsets import ModelViewSet, GenericViewSet
+from rest_framework.viewsets import GenericViewSet, ModelViewSet
 
-from apps.models import User, UserCourse, Module, Lesson, Task, Device, CourseModule, ModuleLesson, Course, DeletedUser
-from apps.serializers import UpdateUserSerializer, DeviceModelSerializer, CourseModuleModelSerializer, \
-    ModuleLessonModelSerializer, UpdatePasswordUserSerializer, CoursesModelSerializer, DeletedUserSerializer
-from apps.serializers import UserModelSerializer, RegisterModelSerializer, UserCourseModelSerializer, \
-    ModuleModelSerializer, \
-    LessonModelSerializer, TaskModelSerializer, CheckPhoneModelSerializer
+from apps.models import (Course, CourseModule, DeletedUser, Device, Lesson,
+                         Module, Task, User, UserCourse, UserLesson)
+from apps.serializers import (CheckPhoneModelSerializer,
+                              CourseModuleModelSerializer,
+                              CoursesModelSerializer, DeletedUserSerializer,
+                              DeviceModelSerializer, LessonModelSerializer,
+                              ModuleModelSerializer, RegisterModelSerializer,
+                              TaskModelSerializer,
+                              UpdatePasswordUserSerializer,
+                              UpdateUserSerializer, UserCourseModelSerializer,
+                              UserLessonModelSerializer, UserModelSerializer)
 
 
 class LoginView(APIView):
@@ -77,6 +84,7 @@ class UserCreateAPIView(CreateAPIView):
 class UserCourseListAPIView(ListAPIView):
     queryset = UserCourse.objects.all()
     serializer_class = UserCourseModelSerializer
+    permission_classes = [IsAuthenticated]
     pagination_class = None
 
     def get_object(self):
@@ -125,9 +133,9 @@ class LessonListAPIView(ListAPIView):
         return super().get_queryset().filter(user=self.request.user)
 
 
-class ModuleLessonListAPIView(ListAPIView):
-    queryset = ModuleLesson.objects.all()
-    serializer_class = ModuleLessonModelSerializer
+class UserLessonListAPIView(ListAPIView):
+    queryset = UserLesson.objects.all()
+    serializer_class = UserLessonModelSerializer
     permission_classes = [IsAuthenticated]
     pagination_class = None
 
@@ -176,11 +184,14 @@ class DeviceModelListAPIView(ListAPIView):
     queryset = Device.objects.all()
     serializer_class = DeviceModelSerializer
     parser_classes = [MultiPartParser, FormParser]
+    permission_classes = [IsAuthenticated]
     pagination_class = None
+
 
 
 class CheckPhoneAPIView(GenericViewSet):
     serializer_class = CheckPhoneModelSerializer
+    permission_classes = [IsAuthenticated]
 
     def list(self, request):
         phone = request.data.get('phone_number')
@@ -191,6 +202,7 @@ class CheckPhoneAPIView(GenericViewSet):
 class CourseListAPIView(ListAPIView):
     queryset = Course.objects.all()
     serializer_class = CoursesModelSerializer
+    permission_classes = [IsAuthenticated]
     pagination_class = None
 
     def get_object(self):
@@ -203,6 +215,7 @@ class CourseListAPIView(ListAPIView):
 class DeleteUserAPIView(RetrieveDestroyAPIView):
     serializer_class = DeletedUserSerializer
     queryset = DeletedUser.objects.all()
+    permission_classes = [IsAuthenticated]
     pagination_class = None
 
     def get_object(self):
