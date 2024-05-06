@@ -83,7 +83,6 @@ class UserCourse(CreatedBaseModel):
         FINISHED = 'finished', _('FINISHED')
 
     user = ForeignKey('apps.UserCourse', CASCADE, verbose_name=_('user_userCourse'))
-    module = ForeignKey('apps.CourseModule', CASCADE, verbose_name=_('module_userCourse'))
     course = ForeignKey('apps.Course', CASCADE, verbose_name=_('course_userCourse'))
     status = CharField(choices=StatusChoices.choices, default=StatusChoices.BLOCKED, verbose_name=_('status'))
 
@@ -111,7 +110,6 @@ class Module(CreatedBaseModel):
     row_num = PositiveIntegerField(default=0, verbose_name=_('row_num'))
     support_day = DateField()
     task_count = PositiveIntegerField(default=0, verbose_name=_('task_count'))
-    user = ForeignKey('apps.User', CASCADE, verbose_name=_('user_module'))
     course = ForeignKey('apps.Course', CASCADE, verbose_name=_('course_module'))
 
     class Meta:
@@ -122,22 +120,21 @@ class Module(CreatedBaseModel):
         return self.title
 
 
-class CourseModule(CreatedBaseModel):
+class UserModule(CreatedBaseModel):
     class StatusChoices(TextChoices):
         BLOCKED = 'blocked', _('BLOCKED')
         IN_PROG = 'in_prog', _('IN_PROG')
         FINISHED = 'finished', _('FINISHED')
 
     status = CharField(choices=StatusChoices.choices, default=StatusChoices.BLOCKED,
-                       verbose_name=_('status_CourseModule'))
-    user = ForeignKey('apps.User', CASCADE, verbose_name=_('user_CourseModule'))
-    course = ForeignKey('apps.UserCourse', CASCADE, verbose_name=_('course_CourseModule'))
-    module = ForeignKey('apps.Module', CASCADE, verbose_name=_('module_CourseModule'))
+                       verbose_name=_('User_Module'))
+    user = ForeignKey('apps.User', CASCADE, verbose_name=_('user_User_Module'))
+    module = ForeignKey('apps.Module', CASCADE, verbose_name=_('module_Course_Module'))
 
     class Meta:
         verbose_name = _("Course Module")
         verbose_name_plural = _("User Modules")
-        unique_together = ('user', 'course', 'module')
+        unique_together = ('user', 'module')
 
 
 class Lesson(CreatedBaseModel):
@@ -159,7 +156,7 @@ def validate_file_extension(value):
     import os
 
     from django.core.exceptions import ValidationError
-    ext = os.path.splitext(value.name)[1]  # [0] returns path+filename
+    ext = os.path.splitext(value.name)[1]
     valid_extensions = ['.mp4', '.avi', '.mkv']
     if not ext.lower() in valid_extensions:
         raise ValidationError('Unsupported file extension.')
@@ -185,7 +182,6 @@ class UserLesson(CreatedBaseModel):
 
 class LessonQuestion(CreatedBaseModel):
     lesson = ForeignKey('apps.UserLesson', CASCADE, verbose_name=_('lesson_LessonQuestion'))
-    user = ForeignKey('apps.UserCourse', CASCADE, verbose_name=_('user_lessonQuestion'))
     text = TextField(verbose_name='text_LessonQuestion', null=True, blank=True)
     file = FileField(verbose_name=_('file_LessonQuestion'), null=True, blank=True)
     voice_message = FileField(verbose_name=_('voice_mes_LessonQuestion'), null=True, blank=True)

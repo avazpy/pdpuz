@@ -5,14 +5,9 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from nested_inline.admin import NestedModelAdmin, NestedStackedInline
 
-from apps.models import (Certificate, Course, CourseModule, DeletedUser,
-                         Device, Lesson, LessonQuestion, Module, Payment, Task,
-                         TaskChat, User, UserCourse, UserLesson, UserTask,
-                         Video)
-
-# from parler.admin import TranslatableAdmin
-
-
+from apps.models import (Certificate, Course, DeletedUser, Device, Lesson,
+                         LessonQuestion, Module, Payment, Task, TaskChat, User,
+                         UserCourse, UserLesson, UserModule, UserTask, Video)
 
 
 @admin.register(User)
@@ -82,7 +77,7 @@ class TasksChatAdmin(ModelAdmin):
     pass
 
 
-@admin.register(CourseModule)
+@admin.register(UserModule)
 class CourseModuleAdmin(ModelAdmin):
     pass
 

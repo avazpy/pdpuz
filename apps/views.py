@@ -6,16 +6,15 @@ from rest_framework.authtoken.models import Token
 from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.generics import (CreateAPIView, ListAPIView,
-                                     RetrieveDestroyAPIView,
-                                     RetrieveUpdateAPIView, UpdateAPIView)
+                                     RetrieveDestroyAPIView, UpdateAPIView)
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
 
-from apps.models import (Course, CourseModule, DeletedUser, Device, Lesson,
-                         Module, Task, User, UserCourse, UserLesson)
+from apps.models import (Course, DeletedUser, Device, Lesson, Module, Task,
+                         User, UserCourse, UserLesson, UserModule)
 from apps.serializers import (CheckPhoneModelSerializer,
                               CourseModuleModelSerializer,
                               CoursesModelSerializer, DeletedUserSerializer,
@@ -67,7 +66,7 @@ class UserViewSet(ModelViewSet):
     serializer_class = UserModelSerializer
     queryset = User.objects.all()
     filter = (OrderingFilter, SearchFilter)
-    search_fields = ('phone_number')
+    search_fields = ('phone_number',)
     permission_classes = [IsAuthenticated]
 
     @action(detail=False, methods=['GET'], url_path='get-me')
@@ -110,7 +109,7 @@ class ModuleListAPIView(ListAPIView):
 
 
 class CourseModuleListAPIView(ListAPIView):
-    queryset = CourseModule.objects.all()
+    queryset = UserModule.objects.all()
     serializer_class = CourseModuleModelSerializer
     permission_classes = [IsAuthenticated]
     pagination_class = None
@@ -226,20 +225,3 @@ class DeleteUserAPIView(RetrieveDestroyAPIView):
         print(request.user.username, request.user.phone_number)
         DeletedUser(username=request.user.username, phone_number=request.user.phone_number).save()
         return super().delete(request, *args, **kwargs)
-
-# class DeletedUserListAPIView(ListAPIView):
-#     serializer_class = DeletedUserSerializer
-#     queryset = DeletedUser.objects.all()
-#     pagination_class = None
-#
-#     def perform_destroy(self, instance):
-#         DeletedUser.objects.create(user=instance)
-#         instance.delete()
-#         return Response({'message': 'User deleted successfully'})
-#
-#     @action(detail=False, methods=['GET'], url_path='deleted-user')
-#     def deleted_user(self, request, pk=None):
-#         if request.user.is_authenticated:
-#             serializer = UserModelSerializer(request.user)
-#             return Response(serializer.data)
-#         return Response({'message': 'Login required'})

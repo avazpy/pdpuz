@@ -4,15 +4,15 @@ from rest_framework.fields import CharField
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.serializers import ModelSerializer, Serializer
 
-from apps.models import (Course, CourseModule, DeletedUser, Device, Lesson,
-                         Module, Task, User, UserCourse, UserLesson)
+from apps.models import (Course, DeletedUser, Device, Lesson, Module, Task,
+                         User, UserCourse, UserLesson, UserModule)
 
 
 class UserModelSerializer(ModelSerializer):
     class Meta:
         model = User
-        exclude = ('groups', 'user_permissions', 'balance', 'bot_options', 'country_model',
-                   'has_registered_bot', 'not_read_message_count', 'ticket_role', 'voucher_balance', 'is_active',
+        exclude = ('groups', 'user_permissions', 'balance', 'bot_options',
+                   'has_registered_bot', 'not_read_message_count', 'is_active',
                    'is_superuser', 'is_staff', 'payme_balance', 'last_login', 'username', 'first_name', 'last_name',
                    'date_joined'
                    )
@@ -45,17 +45,6 @@ class UpdatePasswordUserSerializer(ModelSerializer):
             data['password'] = make_password(data['password'])
             return data
         raise ValidationError("Password error")
-
-    # def update(self, instance, validated_data):
-    #     instance.first_name = validated_data.get('first_name', instance.first_name)
-    #     instance.last_name = validated_data.get('last_name', instance.last_name)
-    #     instance.set_password = validated_data.get('password', instance.password)
-    #     instance.save()
-    #     profile_data = validated_data.pop('profile')
-    #     instance.profile.photo = profile_data.get('photo', instance.profile.photo)
-    #     instance.profile.save()
-    #
-    #     return instance
 
 
 class UserDetailModelSerializer(ModelSerializer):
@@ -92,6 +81,10 @@ class UserCourseModelSerializer(ModelSerializer):
         model = UserCourse
         fields = '__all__'
 
+    def to_representation(self, instance: UserCourse):
+        represent = super().to_representation(instance)
+        return represent
+
 
 class ModuleModelSerializer(ModelSerializer):
     class Meta:
@@ -101,7 +94,7 @@ class ModuleModelSerializer(ModelSerializer):
 
 class CourseModuleModelSerializer(ModelSerializer):
     class Meta:
-        model = CourseModule
+        model = UserModule
         fields = '__all__'
 
 
