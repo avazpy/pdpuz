@@ -1,12 +1,14 @@
 from datetime import timedelta
 
 from django.contrib.auth.models import AbstractUser
-from django.core.validators import RegexValidator, FileExtensionValidator
-from django.db.models import CharField, TextField, IntegerField, BooleanField, PositiveIntegerField, \
-    DateField, \
-    FileField, URLField, ImageField, Model, ForeignKey, CASCADE, DateTimeField, TextChoices
+from django.core.validators import FileExtensionValidator, RegexValidator
+from django.db.models import (CASCADE, BooleanField, CharField, DateField,
+                              DateTimeField, FileField, ForeignKey, ImageField,
+                              IntegerField, Model, PositiveIntegerField,
+                              TextChoices, TextField, URLField)
 from django.utils.translation import gettext_lazy as _
 from parler.models import TranslatableModel
+
 from apps.managers import CustomUserManager
 
 
@@ -155,6 +157,7 @@ class Lesson(CreatedBaseModel):
 
 def validate_file_extension(value):
     import os
+
     from django.core.exceptions import ValidationError
     ext = os.path.splitext(value.name)[1]  # [0] returns path+filename
     valid_extensions = ['.mp4', '.avi', '.mkv']

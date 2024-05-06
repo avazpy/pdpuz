@@ -24,6 +24,7 @@ docker:
 isort_flake8:
 	pip install isort
 	pip install flake8
+
 #user:
 #	python3 manage.py createsuperuser
 #	phone_number admin

@@ -3,12 +3,16 @@ from django.contrib.admin import ModelAdmin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
-from nested_inline.admin import NestedStackedInline, NestedModelAdmin
+from nested_inline.admin import NestedModelAdmin, NestedStackedInline
+
+from apps.models import (Certificate, Course, CourseModule, DeletedUser,
+                         Device, Lesson, LessonQuestion, Module, Payment, Task,
+                         TaskChat, User, UserCourse, UserLesson, UserTask,
+                         Video)
+
 # from parler.admin import TranslatableAdmin
 
 
-from apps.models import User, UserCourse, Course, Module, Task, TaskChat, Video, LessonQuestion, Lesson, \
-    Device, Payment, Certificate, UserTask, UserLesson, CourseModule, DeletedUser
 
 
 @admin.register(User)

@@ -1,10 +1,11 @@
 from django.contrib.auth.hashers import make_password
 from rest_framework.exceptions import ValidationError
+from rest_framework.fields import CharField
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.serializers import ModelSerializer, Serializer
-from rest_framework.fields import CharField
 
-from apps.models import User, UserCourse, Lesson, Task, Module, DeletedUser, CourseModule, UserLesson, Course, Device
+from apps.models import (Course, CourseModule, DeletedUser, Device, Lesson,
+                         Module, Task, User, UserCourse, UserLesson)
 
 
 class UserModelSerializer(ModelSerializer):
