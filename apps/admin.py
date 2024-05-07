@@ -120,3 +120,5 @@ class CertificatesAdmin(ModelAdmin):
 @admin.register(DeletedUser)
 class DeletedUserAdmin(ModelAdmin):
     pass
+
+

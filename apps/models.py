@@ -1,5 +1,4 @@
 from datetime import timedelta
-
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import FileExtensionValidator, RegexValidator
 from django.db.models import (CASCADE, BooleanField, CharField, DateField,
@@ -297,3 +296,4 @@ class DeletedUser(CreatedBaseModel):
 
     def __str__(self):
         return f"Deleted User : {self.phone_number}"
+

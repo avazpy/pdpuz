@@ -28,7 +28,7 @@ from apps.serializers import (CheckPhoneModelSerializer,
 
 
 class LoginView(APIView):
-    permission_classes = [AllowAny, IsAuthenticated]
+    # permission_classes = [AllowAny]
 
     @swagger_auto_schema(
         request_body=openapi.Schema(
@@ -67,7 +67,7 @@ class UserViewSet(ModelViewSet):
     queryset = User.objects.all()
     filter = (OrderingFilter, SearchFilter)
     search_fields = ('phone_number',)
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
     @action(detail=False, methods=['GET'], url_path='get-me')
     def get_me(self, request):
@@ -85,7 +85,7 @@ class UserCreateAPIView(CreateAPIView):
 class UserCourseListAPIView(ListAPIView):
     queryset = UserCourse.objects.all()
     serializer_class = UserCourseModelSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     pagination_class = None
 
     def get_object(self):
@@ -98,7 +98,7 @@ class UserCourseListAPIView(ListAPIView):
 class ModuleListAPIView(ListAPIView):
     queryset = Module.objects.all()
     serializer_class = ModuleModelSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     pagination_class = None
 
     def get_object(self):
@@ -111,7 +111,7 @@ class ModuleListAPIView(ListAPIView):
 class CourseModuleListAPIView(ListAPIView):
     queryset = UserModule.objects.all()
     serializer_class = CourseModuleModelSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     pagination_class = None
 
     def get_object(self):
@@ -124,7 +124,7 @@ class CourseModuleListAPIView(ListAPIView):
 class LessonListAPIView(ListAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonModelSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     pagination_class = None
 
     def get_object(self):
@@ -137,7 +137,7 @@ class LessonListAPIView(ListAPIView):
 class ModuleLessonListAPIView(ListAPIView):
     queryset = UserLesson.objects.all()
     serializer_class = ModuleLessonModelSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     pagination_class = None
 
     def get_object(self):
@@ -150,7 +150,7 @@ class ModuleLessonListAPIView(ListAPIView):
 class TaskListAPIView(ListAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskModelSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     pagination_class = None
 
     def get_object(self):
@@ -163,7 +163,7 @@ class TaskListAPIView(ListAPIView):
 class UpdateUser(UpdateAPIView):
     serializer_class = UpdateUserSerializer
     queryset = User.objects.all()
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     parser_classes = [MultiPartParser, FormParser]
     pagination_class = None
     http_method_names = ['patch']
@@ -178,7 +178,7 @@ class UpdateUser(UpdateAPIView):
 class UpdateUserPassword(UpdateAPIView):
     serializer_class = UpdatePasswordUserSerializer
     queryset = User.objects.all()
-    permission_classes = [IsAuthenticated, ]
+    # permission_classes = [IsAuthenticated]
     parser_classes = [MultiPartParser, FormParser]
     pagination_class = None
     http_method_names = ['patch']
@@ -215,7 +215,7 @@ class CourseListAPIView(ListAPIView):
 class DeleteUserAPIView(RetrieveDestroyAPIView):
     serializer_class = DeletedUserSerializer
     queryset = DeletedUser.objects.all()
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     pagination_class = None
 
     def get_object(self):
