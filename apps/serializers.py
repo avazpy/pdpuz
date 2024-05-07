@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.serializers import ModelSerializer, Serializer
 
 from apps.models import (Course, DeletedUser, Device, Lesson, Module, Task,
-                         User, UserCourse, UserLesson, UserModule)
+                         User, UserCourse, UserLesson, UserModule, UserTask)
 
 
 class UserModelSerializer(ModelSerializer):
@@ -58,7 +58,7 @@ class RegisterModelSerializer(ModelSerializer):
 
     class Meta:
         model = User
-        fields = 'phone_number', 'password', 'confirm_password', 'first_name', 'last_name'
+        fields = 'phone_number', 'password', 'email', 'confirm_password', 'first_name', 'last_name'
         extra_kwargs = {
             'password': {'write_only': True}
         }
@@ -82,8 +82,12 @@ class UserCourseModelSerializer(ModelSerializer):
         fields = '__all__'
 
     def to_representation(self, instance: UserCourse):
-        represent = super().to_representation(instance)
-        return represent
+        representation = super().to_representation(instance)
+        representation['course_title'] = instance.course.title
+        representation['lesson_count'] = instance.course.lesson_count
+        representation['task_count'] = instance.course.task_count
+        representation['modul_count'] = instance.course.modul_count
+        return representation
 
 
 class ModuleModelSerializer(ModelSerializer):
@@ -114,6 +118,12 @@ class TaskModelSerializer(ModelSerializer):
     class Meta:
         model = Task
         fields = 'created_at', 'task_number', 'files', 'lesson'
+
+
+class UserTaskModelSerializer(ModelSerializer):
+    class Meta:
+        model = UserTask
+        fields = '__all__'
 
 
 class CoursesModelSerializer(ModelSerializer):

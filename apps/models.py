@@ -1,10 +1,8 @@
 from datetime import timedelta
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import FileExtensionValidator, RegexValidator
-from django.db.models import (CASCADE, BooleanField, CharField, DateField,
-                              DateTimeField, FileField, ForeignKey, ImageField,
-                              IntegerField, Model, PositiveIntegerField,
-                              TextChoices, TextField, URLField)
+from django.db.models import (CASCADE, BooleanField, CharField, DateField, DateTimeField, FileField, ForeignKey,
+                              ImageField, IntegerField, Model, PositiveIntegerField, TextChoices, TextField, URLField)
 from django.utils.translation import gettext_lazy as _
 from parler.models import TranslatableModel
 
@@ -31,6 +29,7 @@ class User(AbstractUser):
             ),
         ], unique=True,
     )
+    username = CharField(max_length=255, unique=False)
     tg_id = CharField(max_length=255, unique=True, blank=False, null=True)
     balance = PositiveIntegerField(default=0, verbose_name=_('balance'))
     bot_options = CharField(max_length=255, null=True, blank=True, verbose_name=_('bot options'))
@@ -225,7 +224,7 @@ class Task(CreatedBaseModel):
         verbose_name_plural = _('Task')
 
     def __str__(self):
-        return self.lesson.title
+        return self.title
 
 
 class UserTask(CreatedBaseModel):

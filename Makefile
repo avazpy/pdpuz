@@ -25,7 +25,3 @@ flake8:
 	flake8 .
 isort:
 	isort .
-#user:
-#	python3 manage.py createsuperuser
-#	phone_number admin
-#	password admin
