@@ -2,8 +2,10 @@ from datetime import timedelta
 
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import FileExtensionValidator, RegexValidator
-from django.db.models import (CASCADE, BooleanField, CharField, DateField, DateTimeField, FileField, ForeignKey,
-                              ImageField, IntegerField, Model, PositiveIntegerField, TextChoices, TextField, URLField)
+from django.db.models import (CASCADE, BooleanField, CharField, DateField,
+                              DateTimeField, FileField, ForeignKey, ImageField,
+                              IntegerField, Model, PositiveIntegerField,
+                              TextChoices, TextField, URLField)
 from django.utils.translation import gettext_lazy as _
 from parler.models import TranslatableModel
 
@@ -81,7 +83,7 @@ class UserCourse(CreatedBaseModel):
         IN_PROG = 'in_prog', _('IN_PROG')
         FINISHED = 'finished', _('FINISHED')
 
-    user = ForeignKey('apps.UserCourse', CASCADE, verbose_name=_('user_userCourse'))
+    user = ForeignKey('apps.User', CASCADE, verbose_name=_('user_userCourse'))
     course = ForeignKey('apps.Course', CASCADE, verbose_name=_('course_userCourse'))
     status = CharField(choices=StatusChoices.choices, default=StatusChoices.BLOCKED, verbose_name=_('status'))
 
@@ -149,6 +151,9 @@ class Lesson(CreatedBaseModel):
     class Meta:
         verbose_name = _('Lesson')
         verbose_name_plural = _('Lessons')
+
+    def __str__(self):
+        return self.title
 
 
 def validate_file_extension(value):

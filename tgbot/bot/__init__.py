@@ -1,1 +1,1 @@
-from .heandler import start_hendler
+from .heandler import start_hendler  # noqa
