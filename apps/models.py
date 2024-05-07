@@ -22,13 +22,13 @@ class CreatedBaseModel(Model):
 
 class User(AbstractUser):
     phone_number = CharField(
-        max_length=13,
+        max_length=12,
         blank=True,
         null=True,
         validators=[
             RegexValidator(
-                regex=r'^\+?1?\d{9,13}$',
-                message="Phone number must be entered in the format '+998'. Up to 13 digits allowed."
+                regex=r'1?\d{9,13}$',
+                message="Phone number must be entered in the format '998'. Up to 12 digits allowed."
             ),
         ], unique=True,
     )

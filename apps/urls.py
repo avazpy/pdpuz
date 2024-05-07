@@ -23,8 +23,8 @@ urlpatterns = [
 
     path('user/device/', DeviceModelListAPIView.as_view(), name='device-model-list'),
     path('user/register/', UserCreateAPIView.as_view(), name='token_obtain_pair'),
-    path('user/login', LoginView.as_view(), name='token_login'),
-    path('user/delete', DeleteUserAPIView.as_view(), name='deleted_user'),
+    path('user/login/', LoginView.as_view(), name='token_login'),
+    path('user/delete/', DeleteUserAPIView.as_view(), name='deleted_user'),
     path('user/course/', UserCourseListAPIView.as_view(), name='user_course'),
     # path('user/task/', UserTaskListAPIView.as_view(), name='user_task'),
     path('user/profile/', UpdateUser.as_view(), name='user_profile_update'),

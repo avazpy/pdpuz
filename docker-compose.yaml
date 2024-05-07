@@ -1,28 +1,21 @@
 services:
   backend_service:
     build: .
-    #    image: backend_image
-    #    container_name: compose_backend_container
-    #    command: python3 manage.py runserver 8000
     env_file: .env
     restart: always
     ports:
       - '8001:8000'
     depends_on:
       - postgres_service
-      - minio-service
-      - flower
-      - redis
-
+      - minio_service
+      - flower_service
+      - redis_service
 
   postgres_service:
     image: postgres:alpine
-    #    container_name: compose_postgres_container
     volumes:
       - pg_data_service:/var/lib/postgresql/data
     env_file: .env
-#    environment:
-#      - POSTGRES_PASSWORD=1
 
   minio_service:
     image: minio/minio
@@ -32,33 +25,34 @@ services:
     command: server --console-address ":9001" /data
 
 
-  redis:
-    image: redis:6.2-alpine
-    volumes:
-      - redis_data:/data
+#
+#  redis:
+#    image: redis:6.2-alpine
+#    volumes:
+#      - redis_data:/data
 #    environment:
-#      - REDIS_PASSWORD=1
+#      - REDIS_PASSWORD
 #      - REDIS_PORT
-    env_file:
-      - .env
-
-  flower:
-    build:
-      context: .
-#      dockerfile: ./Dockerfile
-#    command: /start-flower
-    volumes:
-      - .:/app
-    ports:
-      - 5557:5555
-    depends_on:
-      - redis
-      - postgres_service
-
-volumes:
-  minio_storage:
-  pg_data_service:
-  redis_data:
+#    env_file:
+#      - .env
+#
+#  flower:
+#    build:
+#      context: .
+##      dockerfile: ./Dockerfile
+##    command: /start-flower
+#    volumes:
+#      - .:/app
+#    ports:
+#      - 5557:5555
+#    depends_on:
+#      - redis
+#      - postgres_service
+#
+#volumes:
+#  minio_storage:
+#  pg_data_service:
+#  redis_data:
 #
 #  redis:
 #    image: redis:6.2-alpine
