@@ -35,3 +35,9 @@ course ni lesson_count ini avtomatik olish kk (django signal)
 
 
 adminkadan user list_display da kurslar
+
+
+task
+1. adminkada list_display da user(kurslar soni), kusrda(modullar soni, darslar soni), reg qilishda phone numberni togri olish, (token olishni ham togrilash kk)
+2.
+

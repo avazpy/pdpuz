@@ -46,7 +46,7 @@ class TaskNestedStackedInline(NestedStackedInline):
     model = Task
     exclude = ('user_task_list',)
     extra = 0
-    min_num = 1
+    min_num = 0
 
 
 class LessonNestedStackedInline(NestedStackedInline):
@@ -55,21 +55,22 @@ class LessonNestedStackedInline(NestedStackedInline):
     fk_name = 'module'
     inlines = [TaskNestedStackedInline]
     extra = 0
-    min_num = 1
+    min_num = 0
 
 
 class ModuleStackedInline(NestedStackedInline):
     model = Module
     inlines = [LessonNestedStackedInline]
-    fields = ('title', 'learning_type', 'support_day', 'user', 'course', 'order')
+    fields = ('title', 'learning_type', 'support_day', 'course', 'order')
     fk_name = 'course'
     extra = 0
-    min_num = 1
+    min_num = 0
 
 
 @admin.register(Course)
 class CoursesAdminAdmin(NestedModelAdmin):
     inlines = [ModuleStackedInline]
+    readonly_fields = ['lesson_count', 'modul_count', 'task_count']
 
 
 @admin.register(TaskChat)
