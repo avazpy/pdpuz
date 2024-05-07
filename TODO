@@ -33,7 +33,6 @@ NEW TASK
 course ni lesson_count ini avtomatik olish kk (django signal)
 4. muhammadaziz - my-courses oziga tegishli kurslar chiqadi, (swagger name larga etibor berish [userlarga]), i18n modeldagi barcha fieldlarga django jazzmin ham qoshilsin 2ta tillik (muhammadaziz)
 
-43
 
 adminkadan user list_display da kurslar
 
