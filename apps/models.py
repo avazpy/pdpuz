@@ -1,4 +1,5 @@
 from datetime import timedelta
+
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import FileExtensionValidator, RegexValidator
 from django.db.models import (CASCADE, BooleanField, CharField, DateField, DateTimeField, FileField, ForeignKey,
@@ -19,13 +20,13 @@ class CreatedBaseModel(Model):
 
 class User(AbstractUser):
     phone_number = CharField(
-        max_length=13,
+        max_length=12,
         blank=True,
         null=True,
         validators=[
             RegexValidator(
-                regex=r'^\+?1?\d{9,13}$',
-                message="Phone number must be entered in the format '+998'. Up to 13 digits allowed."
+                regex=r'1?\d{9,13}$',
+                message="Phone number must be entered in the format '998'. Up to 12 digits allowed."
             ),
         ], unique=True,
     )

@@ -14,7 +14,7 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
 
 from apps.models import (Course, DeletedUser, Device, Lesson, Module, Task,
-                         User, UserCourse, UserLesson, UserModule)
+                         User, UserCourse, UserLesson, UserModule, UserTask)
 from apps.serializers import (CheckPhoneModelSerializer,
                               CourseModuleModelSerializer,
                               CoursesModelSerializer, DeletedUserSerializer,
@@ -24,7 +24,7 @@ from apps.serializers import (CheckPhoneModelSerializer,
                               TaskModelSerializer,
                               UpdatePasswordUserSerializer,
                               UpdateUserSerializer, UserCourseModelSerializer,
-                              UserModelSerializer)
+                              UserModelSerializer, UserTaskModelSerializer)
 
 
 class LoginView(APIView):
@@ -147,9 +147,9 @@ class ModuleLessonListAPIView(ListAPIView):
         return super().get_queryset().filter(user=self.request.user)
 
 
-class TaskListAPIView(ListAPIView):
-    queryset = Task.objects.all()
-    serializer_class = TaskModelSerializer
+class UserTaskListAPIView(ListAPIView):
+    queryset = UserTask.objects.all()
+    serializer_class = UserTaskModelSerializer
     permission_classes = [IsAuthenticated]
     pagination_class = None
 
