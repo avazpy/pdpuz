@@ -5,26 +5,20 @@ from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter, SearchFilter
-from rest_framework.generics import (CreateAPIView, ListAPIView,
-                                     RetrieveDestroyAPIView, UpdateAPIView)
+from rest_framework.generics import (CreateAPIView, DestroyAPIView,
+                                     ListAPIView, UpdateAPIView)
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
 
-from apps.models import (Course, DeletedUser, Device, Lesson, Module, Task,
-                         User, UserCourse, UserLesson, UserModule)
-from apps.serializers import (CheckPhoneModelSerializer,
-                              CourseModuleModelSerializer,
-                              CoursesModelSerializer, DeletedUserSerializer,
-                              DeviceModelSerializer, LessonModelSerializer,
-                              ModuleLessonModelSerializer,
-                              ModuleModelSerializer, RegisterModelSerializer,
-                              TaskModelSerializer,
-                              UpdatePasswordUserSerializer,
-                              UpdateUserSerializer, UserCourseModelSerializer,
-                              UserModelSerializer)
+from apps.models import Course, DeletedUser, Device, Lesson, Module, Task, User, UserCourse, UserLesson, UserModule
+from apps.serializers import (CheckPhoneModelSerializer, CourseModuleModelSerializer, CoursesModelSerializer,
+                              DeletedUserSerializer, DeviceModelSerializer, LessonModelSerializer,
+                              ModuleLessonModelSerializer, ModuleModelSerializer, RegisterModelSerializer,
+                              UserTaskModelSerializer, UpdatePasswordUserSerializer, UpdateUserSerializer,
+                              UserCourseModelSerializer, UserModelSerializer)
 
 
 class LoginView(APIView):
@@ -52,7 +46,8 @@ class LoginView(APIView):
 
             # Get user agent data
             user_agent = get_user_agent(request)
-            title = f"{user_agent.os.family}, {user_agent.browser.family}, {user_agent.browser.version_string}, {'Mobile' if user_agent.is_mobile else 'Desktop'}"
+            title = f"""{user_agent.os.family}, {user_agent.browser.family}, {user_agent.browser.version_string}, 
+            {'Mobile' if user_agent.is_mobile else 'Desktop'}"""
 
             device, created = Device.objects.get_or_create(user_id=user.id)  # ,title=title)
 
@@ -147,10 +142,10 @@ class ModuleLessonListAPIView(ListAPIView):
         return super().get_queryset().filter(user=self.request.user)
 
 
-class TaskListAPIView(ListAPIView):
+class UserTaskListAPIView(ListAPIView):
     queryset = Task.objects.all()
-    serializer_class = TaskModelSerializer
-    permission_classes = [IsAuthenticated]
+    serializer_class = UserTaskModelSerializer
+    permission_classes = [IsAuthenticated, ]
     pagination_class = None
 
     def get_object(self):
@@ -187,6 +182,7 @@ class UpdateUserPassword(UpdateAPIView):
 class DeviceModelListAPIView(ListAPIView):
     queryset = Device.objects.all()
     serializer_class = DeviceModelSerializer
+    permission_classes = [IsAuthenticated,]
     parser_classes = [MultiPartParser, FormParser]
     pagination_class = None
 
@@ -203,6 +199,7 @@ class CheckPhoneAPIView(GenericViewSet):
 class CourseListAPIView(ListAPIView):
     queryset = Course.objects.all()
     serializer_class = CoursesModelSerializer
+    permission_classes = [IsAuthenticated,]
     pagination_class = None
 
     def get_object(self):
@@ -212,11 +209,12 @@ class CourseListAPIView(ListAPIView):
         return super().update(request, *args, **kwargs)
 
 
-class DeleteUserAPIView(RetrieveDestroyAPIView):
+class DeleteUserAPIView(DestroyAPIView):
     serializer_class = DeletedUserSerializer
     queryset = DeletedUser.objects.all()
     permission_classes = [IsAuthenticated]
     pagination_class = None
+    http_method_names = ['delete', ]
 
     def get_object(self):
         return self.request.user

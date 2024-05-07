@@ -8,6 +8,7 @@ class UserState(StatesGroup):
     phone_number = State()
     request = State()
 
+
 def menu_buttons():
-    btn = KeyboardButton(text ='phone_button', request_contact=True)
+    btn = KeyboardButton(text='phone_button', request_contact=True)
     return ReplyKeyboardMarkup(keyboard=[[btn]], resize_keyboard=True, one_time_keyboard=True)

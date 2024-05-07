@@ -5,9 +5,9 @@ from rest_framework_simplejwt.views import (TokenObtainPairView,
 
 from apps.views import (CheckPhoneAPIView, CourseModuleListAPIView,
                         DeleteUserAPIView, DeviceModelListAPIView, LoginView,
-                        ModuleLessonListAPIView, TaskListAPIView, UpdateUser,
+                        ModuleLessonListAPIView, UpdateUser,
                         UpdateUserPassword, UserCourseListAPIView,
-                        UserCreateAPIView, UserViewSet)
+                        UserCreateAPIView, UserViewSet, UserTaskListAPIView)
 
 router = DefaultRouter()
 router.register('users', UserViewSet, basename='user')
@@ -24,8 +24,8 @@ urlpatterns = [
     path('user/delete', DeleteUserAPIView.as_view(), name='deleted_user'),
     path('user/course/', UserCourseListAPIView.as_view(), name='user_course'),
     path('course/module/', CourseModuleListAPIView.as_view(), name='course_module'),
-    path('module/lesson/', ModuleLessonListAPIView.as_view(), name='lesson'),
-    path('lesson/task/', TaskListAPIView.as_view(), name='task'),
+    path('module/lesson/', ModuleLessonListAPIView.as_view(), name='module_lesson'),
+    path('user/task/', UserTaskListAPIView.as_view(), name='user_task'),
     path('user/profile/', UpdateUser.as_view(), name='user_profile_update'),
     path('user/profile/password/', UpdateUserPassword.as_view(), name='user_profile_update'),
 ]
