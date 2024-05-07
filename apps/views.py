@@ -11,7 +11,7 @@ from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.viewsets import GenericViewSet, ModelViewSet
+from rest_framework.viewsets import GenericViewSet, ModelViewSet, ViewSet
 
 from apps.models import (Course, DeletedUser, Device, Lesson, Module, Task,
                          User, UserCourse, UserLesson, UserModule)
@@ -132,6 +132,18 @@ class LessonListAPIView(ListAPIView):
 
     def get_queryset(self):
         return super().get_queryset().filter(user=self.request.user)
+
+
+class ModuleViewSet(ViewSet):
+    queryset = Module.objects.all()
+    serializer_class = ModuleLessonModelSerializer
+    permission_classes = [IsAuthenticated]
+    pagination_class = None
+
+    @action(['GET'], detail=True)
+    def module(self, request, pk=None):
+        modules = Module.objects.filter(course_id=pk)
+        return Response(ModuleModelSerializer(modules, many=True).data)
 
 
 class ModuleLessonListAPIView(ListAPIView):
