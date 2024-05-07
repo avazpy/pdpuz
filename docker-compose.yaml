@@ -10,40 +10,50 @@ services:
       - '8001:8000'
     depends_on:
       - postgres_service
-      - minio_service
+      - minio-service
+      - flower
+      - redis
+
 
   postgres_service:
     image: postgres:alpine
     #    container_name: compose_postgres_container
-    ports:
-      - '5435:5432'
     volumes:
       - pg_data_service:/var/lib/postgresql/data
     env_file: .env
-#    environment:
-#      - POSTGRES_PASSWORD=1
+  #    environment:
+  #      - POSTGRES_PASSWORD=1
 
-  minio_service:
+  minio-service:
     image: minio/minio
-    container_name: minio_container
-    ports:
-      - '9000:9000'
-      - '9001:9001'
     volumes:
       - minio_storage:/data
     env_file: .env
     command: server --console-address ":9001" /data
 
 
-#  redis:
-#    image: redis:6.2-alpine
-#    ports:
-#      - '6379:6379'
-#    volumes:
-#      - redis_data:/data
-#    environment:
-#      - REDIS_PASSWORD=my-password
-#      - REDIS_PORT=6379
+  redis:
+    image: redis:6.2-alpine
+    volumes:
+      - redis_data:/data
+    environment:
+      - REDIS_PASSWORD
+      - REDIS_PORT
+    env_file:
+      - .env
+
+  flower:
+    build:
+      context: .
+#      dockerfile: ./Dockerfile
+#    command: /start-flower
+    volumes:
+      - .:/app
+    ports:
+      - 5557:5555
+    depends_on:
+      - redis
+      - postgres_service
 
 volumes:
   minio_storage:
@@ -62,16 +72,4 @@ volumes:
 
 
 
-#  flower:
-#    build:
-#      context: .
-#      dockerfile: ./compose/django/Dockerfile
-#    command: /start-flower
-#    volumes:
-#      - .:/app
-#    ports:
-#      - 5557:5555
-#    depends_on:
-#      - redis
-#      - postgres
 
