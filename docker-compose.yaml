@@ -21,10 +21,10 @@ services:
     volumes:
       - pg_data_service:/var/lib/postgresql/data
     env_file: .env
-  #    environment:
-  #      - POSTGRES_PASSWORD=1
+#    environment:
+#      - POSTGRES_PASSWORD=1
 
-  minio-service:
+  minio_service:
     image: minio/minio
     volumes:
       - minio_storage:/data
@@ -36,9 +36,9 @@ services:
     image: redis:6.2-alpine
     volumes:
       - redis_data:/data
-    environment:
-      - REDIS_PASSWORD
-      - REDIS_PORT
+#    environment:
+#      - REDIS_PASSWORD=1
+#      - REDIS_PORT
     env_file:
       - .env
 
