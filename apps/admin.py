@@ -3,12 +3,11 @@ from django.contrib.admin import ModelAdmin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
-from nested_inline.admin import NestedStackedInline, NestedModelAdmin
-# from parler.admin import TranslatableAdmin
+from nested_inline.admin import NestedModelAdmin, NestedStackedInline
 
-
-from apps.models import User, UserCourse, Course, Module, Task, TaskChat, Video, LessonQuestion, Lesson, \
-    Device, Payment, Certificate, UserTask, UserLesson, CourseModule, DeletedUser
+from apps.models import (Certificate, Course, DeletedUser, Device, Lesson,
+                         LessonQuestion, Module, Payment, Task, TaskChat, User,
+                         UserCourse, UserLesson, UserModule, UserTask, Video)
 
 
 @admin.register(User)
@@ -47,7 +46,7 @@ class TaskNestedStackedInline(NestedStackedInline):
     model = Task
     exclude = ('user_task_list',)
     extra = 0
-    min_num = 1
+    min_num = 0
 
 
 class LessonNestedStackedInline(NestedStackedInline):
@@ -56,21 +55,22 @@ class LessonNestedStackedInline(NestedStackedInline):
     fk_name = 'module'
     inlines = [TaskNestedStackedInline]
     extra = 0
-    min_num = 1
+    min_num = 0
 
 
 class ModuleStackedInline(NestedStackedInline):
     model = Module
     inlines = [LessonNestedStackedInline]
-    fields = ('title', 'learning_type', 'support_day', 'user', 'course', 'order')
+    fields = ('title', 'learning_type', 'support_day', 'course', 'order')
     fk_name = 'course'
     extra = 0
-    min_num = 1
+    min_num = 0
 
 
 @admin.register(Course)
 class CoursesAdminAdmin(NestedModelAdmin):
     inlines = [ModuleStackedInline]
+    readonly_fields = ['lesson_count', 'modul_count', 'task_count']
 
 
 @admin.register(TaskChat)
@@ -78,7 +78,7 @@ class TasksChatAdmin(ModelAdmin):
     pass
 
 
-@admin.register(CourseModule)
+@admin.register(UserModule)
 class CourseModuleAdmin(ModelAdmin):
     pass
 
@@ -120,3 +120,5 @@ class CertificatesAdmin(ModelAdmin):
 @admin.register(DeletedUser)
 class DeletedUserAdmin(ModelAdmin):
     pass
+
+

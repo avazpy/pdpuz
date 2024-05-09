@@ -1,13 +1,13 @@
+from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.urls import include, path
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
-from django.conf.urls.i18n import i18n_patterns
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="Drf project 1",
+        title="PDP N% 1",
         default_version='v1',
         description="Test description",
         terms_of_service="https://www.google.com/policies/terms/",
@@ -29,4 +29,3 @@ urlpatterns = i18n_patterns(
 urlpatterns += [
     path("i18n/", include("django.conf.urls.i18n"))
 ]
-
