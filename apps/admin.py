@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.contrib.admin import ModelAdmin
+from django.contrib.admin import ModelAdmin, TabularInline
 from django.contrib.auth.admin import UserAdmin
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
@@ -10,31 +10,40 @@ from apps.models import (Certificate, Course, DeletedUser, Device, Lesson,
                          UserCourse, UserLesson, UserModule, UserTask, Video)
 
 
+# class CourseInline(TabularInline):
+#     model = Course
+
+
 @admin.register(User)
-class CustomUserAdmin(UserAdmin):
-    list_display = ("username", 'photo', "email", "first_name", "last_name", "is_staff")
-    fieldsets = (
-        (None, {"fields": ("username", "password")}),
-        (_("Personal info"), {"fields": ("first_name", "last_name", "email", 'photo', 'phone_number')}),
-        (
-            _("Permissions"),
-            {
-                'fields': (
-                    "is_active",
-                    "is_staff",
-                    "is_superuser",
-                    "groups",
-                    "user_permissions",
-                ),
-            },
-        ),
-        (_("Important dates"), {"fields": ("last_login", "date_joined")}),
-    )
+class CustomUserAdmin(ModelAdmin):
+    pass
+    # list_display = ("username", 'photo', "email", "first_name", "last_name", "is_staff")
+    # fieldsets = (
+    #     (None, {"fields": ("username", "password")}),
+    #     (_("Personal info"), {"fields": ("first_name", "last_name", "email", 'photo', 'phone_number')}),
+    #     (
+    #         _("Permissions"),
+    #         {
+    #             'fields': (
+    #                 "is_active",
+    #                 "is_staff",
+    #                 "is_superuser",
+    #                 "groups",
+    #                 "user_permissions",
+    #             ),
+    #         },
+    #     ),
+    #     (_("Important dates"), {"fields": ("last_login", "date_joined")}),
+    # )
+    #
+    # def custom_image(self, obj: User):
+    #     return mark_safe('<img src="{}"/>'.format(obj.photo.url))
+    #
+    # custom_image.short_description = "Image"
 
-    def custom_image(self, obj: User):
-        return mark_safe('<img src="{}"/>'.format(obj.photo.url))
-
-    custom_image.short_description = "Image"
+    # def get_course_count(self, obj):
+    #     return obj.course_set.count()
+    #
 
 
 @admin.register(UserCourse)
@@ -123,3 +132,4 @@ class DeletedUserAdmin(ModelAdmin):
     pass
 
 
+admin.site.unregister(User)
