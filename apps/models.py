@@ -175,8 +175,8 @@ class UserLesson(CreatedBaseModel):
     status = CharField(verbose_name=_('status_UserLesson'), choices=StatusChoices.choices,
                        default=StatusChoices.BLOCKED)
 
-    user = ForeignKey('apps.User', CASCADE, related_name='user_moduleLesson')
-    lesson = ForeignKey('apps.Lesson', CASCADE, related_name='lesson_moduleLesson')
+    user = ForeignKey('apps.User', CASCADE, verbose_name='user_moduleLesson')
+    lesson = ForeignKey('apps.Lesson', CASCADE, verbose_name='lesson_moduleLesson')
 
     class Meta:
         unique_together = ('user', 'lesson')
