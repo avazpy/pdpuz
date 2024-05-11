@@ -1,0 +1,419 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-11 14:02+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: apps/models.py:37 apps/models.py:262
+msgid "balance"
+msgstr ""
+
+#: apps/models.py:38
+msgid "bot options"
+msgstr ""
+
+#: apps/models.py:42
+msgid "Photo"
+msgstr ""
+
+#: apps/models.py:48
+msgid "user"
+msgstr ""
+
+#: apps/models.py:49
+msgid "users"
+msgstr ""
+
+#: apps/models.py:65
+msgid "courses_title"
+msgstr "courses title"
+
+#: apps/models.py:66 apps/models.py:109
+msgid "lesson_count"
+msgstr "lesson count"
+
+#: apps/models.py:67
+msgid "modul_count"
+msgstr "modul count"
+
+#: apps/models.py:68 apps/models.py:110 apps/models.py:209 apps/models.py:223
+msgid "order"
+msgstr ""
+
+#: apps/models.py:69 apps/models.py:113
+msgid "task_count"
+msgstr "task count"
+
+#: apps/models.py:70
+msgid "url"
+msgstr ""
+
+#: apps/models.py:73
+msgid "Course"
+msgstr ""
+
+#: apps/models.py:74
+msgid "Courses"
+msgstr ""
+
+#: apps/models.py:82 apps/models.py:126 apps/models.py:171
+msgid "BLOCKED"
+msgstr ""
+
+#: apps/models.py:83 apps/models.py:127 apps/models.py:172
+msgid "IN_PROG"
+msgstr ""
+
+#: apps/models.py:84 apps/models.py:128 apps/models.py:173
+msgid "FINISHED"
+msgstr ""
+
+#: apps/models.py:86
+msgid "user_userCourse"
+msgstr "user"
+
+#: apps/models.py:87
+msgid "course_userCourse"
+msgstr "course"
+
+#: apps/models.py:88 apps/models.py:218
+msgid "status"
+msgstr ""
+
+#: apps/models.py:91
+msgid "User Course"
+msgstr ""
+
+#: apps/models.py:92
+msgid "User Courses"
+msgstr ""
+
+#: apps/models.py:106
+msgid "learning_type"
+msgstr "learning type"
+
+#: apps/models.py:107
+msgid "module_title"
+msgstr "module title"
+
+#: apps/models.py:108
+msgid "has_in_tg"
+msgstr ""
+
+#: apps/models.py:111
+msgid "row_num"
+msgstr "row num"
+
+#: apps/models.py:114
+msgid "course_module"
+msgstr "course module"
+
+#: apps/models.py:117
+msgid "Module"
+msgstr ""
+
+#: apps/models.py:118
+msgid "Modules"
+msgstr ""
+
+#: apps/models.py:131
+msgid "User_Module"
+msgstr "user"
+
+#: apps/models.py:132
+msgid "user_User_Module"
+msgstr "user User"
+
+#: apps/models.py:133
+msgid "module_Course_Module"
+msgstr "module Course"
+
+#: apps/models.py:136
+msgid "Course Module"
+msgstr ""
+
+#: apps/models.py:137
+msgid "User Modules"
+msgstr ""
+
+#: apps/models.py:142
+msgid "title_Lesson"
+msgstr "title"
+
+#: apps/models.py:143
+msgid "order_Lesson"
+msgstr "order"
+
+#: apps/models.py:144
+msgid "url_Lesson"
+msgstr "url"
+
+#: apps/models.py:145
+msgid "video_lesson"
+msgstr "video"
+
+#: apps/models.py:146
+msgid "module_lesson"
+msgstr "module"
+
+#: apps/models.py:148
+msgid "materials_Lesson"
+msgstr "materials"
+
+#: apps/models.py:149
+msgid "is_deleted_Lesson"
+msgstr "is deleted"
+
+#: apps/models.py:152
+msgid "Lesson"
+msgstr ""
+
+#: apps/models.py:153
+msgid "Lessons"
+msgstr ""
+
+#: apps/models.py:175
+msgid "status_UserLesson"
+msgstr "status"
+
+#: apps/models.py:183
+msgid "ModuleLesson"
+msgstr ""
+
+#: apps/models.py:184
+msgid "ModuleLessons"
+msgstr ""
+
+#: apps/models.py:188
+msgid "lesson_LessonQuestion"
+msgstr "lesson"
+
+#: apps/models.py:189
+#, fuzzy
+#| msgid "file_LessonQuestion"
+msgid "text_LessonQuestion"
+msgstr "file"
+
+#: apps/models.py:190
+msgid "file_LessonQuestion"
+msgstr "file"
+
+#: apps/models.py:191
+msgid "voice_mes_LessonQuestion"
+msgstr "voice mes"
+
+#: apps/models.py:197
+msgid "LessonQuestion"
+msgstr ""
+
+#: apps/models.py:198
+msgid "LessonQuestions"
+msgstr ""
+
+#: apps/models.py:202 apps/models.py:216
+msgid "title"
+msgstr ""
+
+#: apps/models.py:203 apps/models.py:217
+msgid "description"
+msgstr ""
+
+#: apps/models.py:204
+msgid "media code"
+msgstr ""
+
+#: apps/models.py:205
+msgid "lesson_video"
+msgstr "lesson"
+
+#: apps/models.py:206
+msgid "file_video"
+msgstr "file"
+
+#: apps/models.py:207
+msgid "is_youtube"
+msgstr ""
+
+#: apps/models.py:208
+msgid "media_url"
+msgstr ""
+
+#: apps/models.py:219
+msgid "user_task_list"
+msgstr "user task list"
+
+#: apps/models.py:220
+msgid "lesson_task"
+msgstr "lesson task"
+
+#: apps/models.py:221
+msgid "task number"
+msgstr ""
+
+#: apps/models.py:222
+msgid "last_time"
+msgstr ""
+
+#: apps/models.py:224
+msgid "priority"
+msgstr ""
+
+#: apps/models.py:226
+msgid "files"
+msgstr ""
+
+#: apps/models.py:229 apps/models.py:230
+msgid "Task"
+msgstr ""
+
+#: apps/models.py:237
+msgid "user_userTask"
+msgstr "user"
+
+#: apps/models.py:238
+msgid "task_user_task"
+msgstr "task user"
+
+#: apps/models.py:239
+msgid "finished"
+msgstr ""
+
+#: apps/models.py:243
+msgid "UserTask"
+msgstr ""
+
+#: apps/models.py:244
+msgid "UserTasks"
+msgstr ""
+
+#: apps/models.py:248
+msgid "text"
+msgstr ""
+
+#: apps/models.py:249
+msgid "user_taskChat"
+msgstr "user"
+
+#: apps/models.py:250
+msgid "task_taskChat"
+msgstr "task"
+
+#: apps/models.py:251
+msgid "file"
+msgstr ""
+
+#: apps/models.py:252
+msgid "voice"
+msgstr ""
+
+#: apps/models.py:255 apps/models.py:256
+msgid "TaskChat"
+msgstr ""
+
+#: apps/models.py:260
+msgid "reason"
+msgstr ""
+
+#: apps/models.py:261
+msgid "expend"
+msgstr ""
+
+#: apps/models.py:263
+msgid "income"
+msgstr ""
+
+#: apps/models.py:264
+msgid "processed date"
+msgstr ""
+
+#: apps/models.py:265
+msgid "user_payment"
+msgstr "user payment"
+
+#: apps/models.py:271
+msgid "Payment"
+msgstr ""
+
+#: apps/models.py:272
+msgid "Payments"
+msgstr ""
+
+#: apps/models.py:276
+msgid "title_device"
+msgstr "title "
+
+#: apps/models.py:277
+msgid "user_device"
+msgstr "user"
+
+#: apps/models.py:283
+msgid "Device"
+msgstr ""
+
+#: apps/models.py:284
+msgid "Devices"
+msgstr ""
+
+#: apps/models.py:288
+msgid "user_certificate"
+msgstr "user"
+
+#: apps/models.py:289
+msgid "course_certificate"
+msgstr "course"
+
+#: apps/models.py:290
+msgid "finished_at"
+msgstr ""
+
+#: apps/models.py:291
+msgid "qr_code"
+msgstr ""
+
+#: apps/models.py:294
+msgid "Certificate"
+msgstr ""
+
+#: apps/models.py:295
+msgid "Certificates"
+msgstr ""
+
+#: apps/models.py:299
+msgid "phone_number"
+msgstr ""
+
+#: apps/models.py:300
+#, fuzzy
+#| msgid "user_payment"
+msgid "username"
+msgstr "user payment"
+
+#: apps/models.py:306
+msgid "Deleted User"
+msgstr ""
+
+#: apps/models.py:307
+msgid "Deleted Users"
+msgstr ""
+
+#: root/settings.py:101
+msgid "English"
+msgstr ""
+
+#: root/settings.py:102
+msgid "Uzbek"
+msgstr ""
