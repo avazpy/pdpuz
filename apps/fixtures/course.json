@@ -1,42 +1,72 @@
 [
   {
-        "model": "apps.course",
-        "pk": 1,
-        "fields": {
-            "title": "Introduction to Python",
-            "lesson_count": 10,
-            "modul_count": 5,
-            "order": 1,
-            "task_count": 20,
-            "type": "Beginner",
-            "url": "https://example.com/python-course"
-        }
-    },
-    {
-        "model": "apps.course",
-        "pk": 2,
-        "fields": {
-            "title": "Web Development Fundamentals",
-            "lesson_count": 15,
-            "modul_count": 7,
-            "order": 2,
-            "task_count": 25,
-            "type": "Intermediate",
-            "url": "https://example.com/web-dev-course"
-        }
-    },
-    {
-        "model": "apps.course",
-        "pk": 3,
-        "fields": {
-            "title": "Machine Learning Basics",
-            "lesson_count": 12,
-            "modul_count": 6,
-            "order": 3,
-            "task_count": 30,
-            "type": "Advanced",
-            "url": "https://example.com/ml-basics-course"
-        }
+    "model": "apps.course",
+    "pk": 1,
+    "fields": {
+      "update_at": "2024-05-07T15:56:42.712Z",
+      "created_at": "2024-05-07T14:32:05.601Z",
+      "title": "PYTHON DEVELOPMENT",
+      "lesson_count": 4,
+      "modul_count": 5,
+      "order": 4,
+      "task_count": 15,
+      "url": "http://localhost:8000/en/admin/apps/course/add/"
     }
-
+  },
+  {
+    "model": "apps.course",
+    "pk": 2,
+    "fields": {
+      "update_at": "2024-05-07T15:48:59.760Z",
+      "created_at": "2024-05-07T15:48:59.760Z",
+      "title": "Django Kursi",
+      "lesson_count": 1,
+      "modul_count": 1,
+      "order": 2,
+      "task_count": 12,
+      "url": "http://localhost:8000/en/admin/apps/course/add/"
+    }
+  },
+  {
+    "model": "apps.course",
+    "pk": 3,
+    "fields": {
+      "update_at": "2024-05-07T15:49:16.170Z",
+      "created_at": "2024-05-07T15:49:16.170Z",
+      "title": "Aiogram Kursi",
+      "lesson_count": 2,
+      "modul_count": 3,
+      "order": 3,
+      "task_count": 24,
+      "url": "http://localhost:8000/en/admin/apps/course/add/"
+    }
+  },
+  {
+    "model": "apps.course",
+    "pk": 4,
+    "fields": {
+      "update_at": "2024-05-07T15:49:30.283Z",
+      "created_at": "2024-05-07T15:49:30.283Z",
+      "title": "Java Kursi",
+      "lesson_count": 3,
+      "modul_count": 4,
+      "order": 5,
+      "task_count": 36,
+      "url": "http://localhost:8000/en/admin/apps/course/add/"
+    }
+  },
+  {
+    "model": "apps.course",
+    "pk": 5,
+    "fields": {
+      "update_at": "2024-05-07T15:56:42.712Z",
+      "created_at": "2024-05-07T14:32:05.601Z",
+      "title": "PYTHON DEVELOPMENT 1",
+      "lesson_count": 12,
+      "modul_count": 2,
+      "order": 1,
+      "task_count": 48,
+      "url": "http://localhost:8000/en/admin/apps/course/add/"
+    }
+  }
 ]

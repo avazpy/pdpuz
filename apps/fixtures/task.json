@@ -1,53 +1,135 @@
 [
-    {
-        "model": "apps.task",
-        "pk": 1,
-        "fields": {
-            "description": "Task 1 description",
-            "lesson": 1,
-            "task_number": 1,
-            "lastTime": "2023-03-15T10:00:00Z",
-            "order": 1,
-            "priority": 2,
-            "title": "Task 1",
-            "mustComplete": true,
-            "status": "INPROG",
-            "files": "file1.txt",
-            "user_task_list": "UserTaskList 1"
-        }
-    },
-    {
-        "model": "apps.task",
-        "pk": 2,
-        "fields": {
-            "description": "Task 2 description",
-            "lesson": 1,
-            "task_number": 2,
-            "lastTime": "2023-03-16T10:00:00Z",
-            "order": 2,
-            "priority": 1,
-            "title": "Task 2",
-            "mustComplete": false,
-            "status": "BLOCKED",
-            "files": "file2.txt",
-            "user_task_list": "UserTaskList 2"
-        }
-    },
-    {
-        "model": "apps.task",
-        "pk": 3,
-        "fields": {
-            "description": "Task 3 description",
-            "lesson": 2,
-            "task_number": 3,
-            "lastTime": "2023-03-17T10:00:00Z",
-            "order": 3,
-            "priority": 3,
-            "title": "Task 3",
-            "mustComplete": true,
-            "status": "FINISHED",
-            "files": "file3.txt",
-            "user_task_list": "UserTaskList 3"
-        }
+  {
+    "model": "apps.task",
+    "pk": 7,
+    "fields": {
+      "update_at": null,
+      "created_at": null,
+      "title": "qweeeee",
+      "description": "qwerty",
+      "status": "BLOCKED",
+      "user_task_list": "asss",
+      "lesson": 12,
+      "task_number": 1,
+      "last_time": "2024-05-10T21:57:53.462Z",
+      "order": 1,
+      "priority": 1,
+      "must_complete": true,
+      "files": "file.txt"
     }
+  },
+  {
+    "model": "apps.task",
+    "pk": 8,
+    "fields": {
+      "update_at": null,
+      "created_at": null,
+      "title": "qweeeee 1",
+      "description": "qwerty 1",
+      "status": "BLOCKED",
+      "user_task_list": "asss",
+      "lesson": 11,
+      "task_number": 1,
+      "last_time": "2024-05-10T21:57:53.462Z",
+      "order": 1,
+      "priority": 1,
+      "must_complete": true,
+      "files": "file.txt1"
+    }
+  },
+  {
+    "model": "apps.task",
+    "pk": 9,
+    "fields": {
+      "update_at": null,
+      "created_at": null,
+      "title": "Python dasturlash muhitini ko'chirib oling hamda o'rnating.\n",
+      "description": "qwerty 2",
+      "status": "in_prog",
+      "user_task_list": "qwdeqw",
+      "lesson": 6,
+      "task_number": 2,
+      "last_time": "2024-05-10T21:57:53.462Z",
+      "order": 2,
+      "priority": 6,
+      "must_complete": false,
+      "files": "wqdf"
+    }
+  },
+  {
+    "model": "apps.task",
+    "pk": 10,
+    "fields": {
+      "update_at": null,
+      "created_at": null,
+      "title": "Pycharm ning  Community edition versiyasini o'rnating.\n",
+      "description": "qwerty 3",
+      "status": "BLOCKED",
+      "user_task_list": "eragfzds",
+      "lesson": 7,
+      "task_number": 3,
+      "last_time": "2024-05-10T21:57:53.462Z",
+      "order": 3,
+      "priority": 5,
+      "must_complete": true,
+      "files": "123123sdadad"
+    }
+  },
+  {
+    "model": "apps.task",
+    "pk": 11,
+    "fields": {
+      "update_at": null,
+      "created_at": null,
+      "title": "Hello World ! dasturini tuzing",
+      "description": "qwerty 4",
+      "status": "in_prog",
+      "user_task_list": "eradf",
+      "lesson": 8,
+      "task_number": 4,
+      "last_time": "2024-05-10T21:57:53.462Z",
+      "order": 4,
+      "priority": 4,
+      "must_complete": false,
+      "files": "wqdqw"
+    }
+  },
+  {
+    "model": "apps.task",
+    "pk": 12,
+    "fields": {
+      "update_at": null,
+      "created_at": null,
+      "title": "Pycharm da hello world dasturini chiqaring",
+      "description": "qwerty 5",
+      "status": "BLOCKED",
+      "user_task_list": "awerf",
+      "lesson": 9,
+      "task_number": 5,
+      "last_time": "2024-05-10T21:57:53.462Z",
+      "order": 5,
+      "priority": 3,
+      "must_complete": true,
+      "files": "123123sdadad"
+    }
+  },
+  {
+    "model": "apps.task",
+    "pk": 13,
+    "fields": {
+      "update_at": null,
+      "created_at": null,
+      "title": "Django",
+      "description": "qwerty 6",
+      "status": "in_prog",
+      "user_task_list": "aergfrfa",
+      "lesson": 10,
+      "task_number": 6,
+      "last_time": "2024-05-10T21:57:53.462Z",
+      "order": 6,
+      "priority": 2,
+      "must_complete": false,
+      "files": "qwdwadsefw"
+    }
+  }
 ]

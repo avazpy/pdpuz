@@ -1,27 +1,32 @@
 [
-   {
-        "model": "apps.device",
-        "pk": 1,
-        "fields": {
-            "title": "Smartphone",
-            "user": 1
-        }
-    },
-    {
-        "model": "apps.device",
-        "pk": 2,
-        "fields": {
-            "title": "Tablet",
-            "user": 2
-        }
-    },
-    {
-        "model": "apps.device",
-        "pk": 3,
-        "fields": {
-            "title": "Laptop",
-            "user": 3
-        }
+  {
+    "model": "apps.device",
+    "pk": 1,
+    "fields": {
+      "update_at": "2024-05-07T14:39:20.450Z",
+      "created_at": "2024-05-07T14:39:20.450Z",
+      "title": "",
+      "user": 4
     }
-
+  },
+  {
+    "model": "apps.device",
+    "pk": 2,
+    "fields": {
+      "update_at": "2024-05-10T09:26:44.127Z",
+      "created_at": "2024-05-10T09:26:44.127Z",
+      "title": "",
+      "user": 5
+    }
+  },
+  {
+    "model": "apps.device",
+    "pk": 3,
+    "fields": {
+      "update_at": "2024-05-10T09:34:38.903Z",
+      "created_at": "2024-05-10T09:34:38.903Z",
+      "title": "Linux, Chrome, 124.0.0, Desktop",
+      "user": 5
+    }
+  }
 ]

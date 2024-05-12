@@ -15,39 +15,38 @@ from apps.models import (Certificate, Course, DeletedUser, Device, Lesson,
 
 
 @admin.register(User)
-class CustomUserAdmin(ModelAdmin):
-    pass
-    # list_display = ("username", 'photo', "email", "first_name", "last_name", "is_staff")
-    # fieldsets = (
-    #     (None, {"fields": ("username", "password")}),
-    #     (_("Personal info"), {"fields": ("first_name", "last_name", "email", 'photo', 'phone_number')}),
-    #     (
-    #         _("Permissions"),
-    #         {
-    #             'fields': (
-    #                 "is_active",
-    #                 "is_staff",
-    #                 "is_superuser",
-    #                 "groups",
-    #                 "user_permissions",
-    #             ),
-    #         },
-    #     ),
-    #     (_("Important dates"), {"fields": ("last_login", "date_joined")}),
-    # )
-    #
-    # def custom_image(self, obj: User):
-    #     return mark_safe('<img src="{}"/>'.format(obj.photo.url))
-    #
-    # custom_image.short_description = "Image"
+class CustomUserAdmins(UserAdmin):
+    list_display = ("phone_number", 'photo', "first_name", "last_name", "is_staff")
+    fieldsets = (
+        (None, {"fields": ("phone_number", "password")}),
+        (_("Personal info"), {"fields": ("first_name", "last_name", 'photo')}),
+        (
+            _("Permissions"),
+            {
+                'fields': (
+                    "is_active",
+                    "is_staff",
+                    "is_superuser",
+                    "groups",
+                    "user_permissions",
+                ),
+            },
+        ),
+        (_("Important dates"), {"fields": ("last_login", "date_joined")}),
+    )
 
-    # def get_course_count(self, obj):
-    #     return obj.course_set.count()
-    #
+    def custom_image(self, obj: User):
+        return mark_safe('<img src="{}"/>'.format(obj.photo.url))
+
+    custom_image.short_description = "Image"
+
+    def get_course_count(self, obj):
+        return obj.course_set.count()
 
 
 @admin.register(UserCourse)
 class UsersCoursesAdmin(ModelAdmin):
+    list_display = ("user", "course")
     pass
 
 
@@ -56,6 +55,7 @@ class TaskNestedStackedInline(NestedStackedInline):
     exclude = ('user_task_list',)
     extra = 0
     min_num = 0
+    list_display = ("user", "course", "task")
 
 
 class LessonNestedStackedInline(NestedStackedInline):
@@ -65,6 +65,7 @@ class LessonNestedStackedInline(NestedStackedInline):
     inlines = [TaskNestedStackedInline]
     extra = 0
     min_num = 0
+    list_display = ("user", "course", "lesson")
 
 
 class ModuleStackedInline(NestedStackedInline):
@@ -74,12 +75,14 @@ class ModuleStackedInline(NestedStackedInline):
     fk_name = 'course'
     extra = 0
     min_num = 0
+    list_display = ('title', 'learning_type', 'support_day', 'course', 'order')
 
 
 @admin.register(Course)
 class CoursesAdminAdmin(NestedModelAdmin):
     inlines = [ModuleStackedInline]
     readonly_fields = ['lesson_count', 'modul_count', 'task_count']
+    list_display = ('title', 'modul_count', 'lesson_count', 'task_count')
 
 
 @admin.register(TaskChat)
@@ -94,7 +97,7 @@ class CourseModuleAdmin(ModelAdmin):
 
 @admin.register(UserLesson)
 class UserLessonAdmin(ModelAdmin):
-    pass
+    list_display = ("user", "lesson")
 
 
 @admin.register(Video)
@@ -109,6 +112,7 @@ class LessonQuestionsAdmin(ModelAdmin):
 
 @admin.register(UserTask)
 class UserTaskAdmin(ModelAdmin):
+    list_display = ("user", "task")
     pass
 
 
@@ -126,10 +130,7 @@ class DevicesAdmin(ModelAdmin):
 class CertificatesAdmin(ModelAdmin):
     pass
 
-
 @admin.register(DeletedUser)
 class DeletedUserAdmin(ModelAdmin):
     pass
 
-
-admin.site.unregister(User)

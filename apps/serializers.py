@@ -58,7 +58,7 @@ class RegisterModelSerializer(ModelSerializer):
 
     class Meta:
         model = User
-        fields = 'phone_number', 'password', 'email', 'confirm_password', 'first_name', 'last_name'
+        fields = 'phone_number', 'password', 'confirm_password', 'first_name', 'last_name'
         extra_kwargs = {
             'password': {'write_only': True}
         }
@@ -96,10 +96,18 @@ class ModuleModelSerializer(ModelSerializer):
         fields = '__all__'
 
 
-class CourseModuleModelSerializer(ModelSerializer):
+class UserModuleModelSerializer(ModelSerializer):
     class Meta:
         model = UserModule
         fields = '__all__'
+
+    def to_representation(self, instance: UserModule):
+        representation = super().to_representation(instance)
+        representation['module_title'] = instance.module.title
+        representation['lesson_count'] = instance.module.lesson_count
+        representation['task_count'] = instance.module.task_count
+        representation['modul_count'] = instance.module.pk
+        return representation
 
 
 class LessonModelSerializer(ModelSerializer):
@@ -125,8 +133,14 @@ class UserTaskModelSerializer(ModelSerializer):
         model = UserTask
         fields = '__all__'
 
+    def to_representation(self, instance: UserTask):
+        representation = super().to_representation(instance)
+        representation['task_title'] = instance.task.title
+        representation['task_number'] = instance.task.pk
+        return representation
 
-class CoursesModelSerializer(ModelSerializer):
+
+class CourseModelSerializer(ModelSerializer):
     class Meta:
         model = Course
         fields = '__all__'

@@ -11,6 +11,10 @@ from parler.models import TranslatableModel
 
 from apps.managers import CustomUserManager
 
+from django_user_agents.utils import get_user_agent
+from rest_framework import status
+from rest_framework.response import Response
+
 
 class CreatedBaseModel(Model):
     update_at = DateTimeField(auto_now=True, null=True)
@@ -21,17 +25,10 @@ class CreatedBaseModel(Model):
 
 
 class User(AbstractUser):
-    phone_number = CharField(
-        max_length=12,
-        blank=True,
-        null=True,
-        validators=[
-            RegexValidator(
-                regex=r'1?\d{9,13}$',
-                message="Phone number must be entered in the format '998'. Up to 12 digits allowed."
-            ),
-        ], unique=True,
-    )
+    phone_number = CharField(validators=[RegexValidator(
+        regex=r'^\d{9,15}$',
+        message="Phone number must be entered in the format: '+998'."        "Up to 12 digits allowed.")],
+                             max_length=20, unique=True)
     username = CharField(max_length=255, unique=False)
     tg_id = CharField(max_length=255, unique=True, blank=False, null=True)
     balance = PositiveIntegerField(default=0, verbose_name=_('balance'))
@@ -58,7 +55,25 @@ class User(AbstractUser):
 
 
 class Customer(Model):
-    pass
+    def post(self, request):
+        phone_number = request.data.get('phone_number')
+        password = request.data.get('password')
+
+        user = User.objects.filter(phone_number=phone_number).first()
+
+        if user and user.check_password(password):
+            user_agent = get_user_agent(request)
+            title = (f"{user_agent.os.family}, {user_agent.browser.family}, {user_agent.browser.version_string}, "
+                     f"{'Mobile' if user_agent.is_mobile else 'Desktop'}")
+
+            device, created = Device.objects.get_or_create(user_id=user.id, title=title)
+            Device.objects.create(title=device,user=request.user)
+            print(device)
+
+            return Response({"message": f"{user.phone_number} you have logged in successfully!"},
+                            status=status.HTTP_200_OK)
+        else:
+            return Response({'error': 'Invalid phone number or password'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class Course(CreatedBaseModel):
@@ -172,18 +187,18 @@ class UserLesson(CreatedBaseModel):
     status = CharField(verbose_name=_('status_UserLesson'), choices=StatusChoices.choices,
                        default=StatusChoices.BLOCKED)
 
-    user = ForeignKey('apps.User', CASCADE, related_name='user_moduleLesson')
-    lesson = ForeignKey('apps.Lesson', CASCADE, related_name='lesson_moduleLesson')
+    user = ForeignKey('apps.User', CASCADE, verbose_name='user_moduleLesson')
+    lesson = ForeignKey('apps.Lesson', CASCADE, verbose_name='lesson_moduleLesson')
 
     class Meta:
         unique_together = ('user', 'lesson')
-        verbose_name = _('ModuleLesson')
-        verbose_name_plural = _('ModuleLessons')
+        verbose_name = _('UserLesson')
+        verbose_name_plural = _('UserLessons')
 
 
 class LessonQuestion(CreatedBaseModel):
     lesson = ForeignKey('apps.UserLesson', CASCADE, verbose_name=_('lesson_LessonQuestion'))
-    text = TextField(verbose_name='text_LessonQuestion', null=True, blank=True)
+    text = TextField(verbose_name=_('text_LessonQuestion'), null=True, blank=True)
     file = FileField(verbose_name=_('file_LessonQuestion'), null=True, blank=True)
     voice_message = FileField(verbose_name=_('voice_mes_LessonQuestion'), null=True, blank=True)
 
@@ -220,7 +235,7 @@ class Task(CreatedBaseModel):
     order = IntegerField(verbose_name=_('order'))
     priority = PositiveIntegerField(verbose_name=_('priority'), default=0)
     must_complete = BooleanField()
-    files = CharField(verbose_name=_('files'), max_length=255)
+    files = FileField(verbose_name=_('files'), null=True, blank=True)
 
     class Meta:
         verbose_name = _('Task')
@@ -293,9 +308,12 @@ class Certificate(CreatedBaseModel):
 
 
 class DeletedUser(CreatedBaseModel):
-    phone_number = CharField(max_length=13)
-    username = CharField(max_length=255, null=True, blank=True)
+    phone_number = CharField(max_length=13, verbose_name=_('phone_number'))
+    username = CharField(max_length=255, null=True, blank=True, verbose_name=_('username'))
 
     def __str__(self):
         return f"Deleted User : {self.phone_number}"
 
+    class Meta:
+        verbose_name = _('Deleted User')
+        verbose_name_plural = _('Deleted Users')

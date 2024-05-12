@@ -1,0 +1,57 @@
+[
+  {
+    "model": "apps.usermodule",
+    "pk": 1,
+    "fields": {
+      "update_at": "2024-05-07T16:00:35.496Z",
+      "created_at": "2024-05-07T16:00:35.496Z",
+      "status": "in_prog",
+      "user": 2,
+      "module": 2
+    }
+  },
+  {
+    "model": "apps.usermodule",
+    "pk": 2,
+    "fields": {
+      "update_at": "2024-05-07T16:00:35.496Z",
+      "created_at": "2024-05-07T16:00:35.496Z",
+      "status": "BLOCKED",
+      "user": 6,
+      "module": 6
+    }
+  },
+  {
+    "model": "apps.usermodule",
+    "pk": 3,
+    "fields": {
+      "update_at": "2024-05-07T16:00:35.496Z",
+      "created_at": "2024-05-07T16:00:35.496Z",
+      "status": "in_prog",
+      "user": 1,
+      "module": 3
+    }
+  },
+  {
+    "model": "apps.usermodule",
+    "pk": 4,
+    "fields": {
+      "update_at": "2024-05-07T16:00:35.496Z",
+      "created_at": "2024-05-07T16:00:35.496Z",
+      "status": "in_prog",
+      "user": 4,
+      "module": 4
+    }
+  },
+  {
+    "model": "apps.usermodule",
+    "pk": 5,
+    "fields": {
+      "update_at": "2024-05-07T16:00:35.496Z",
+      "created_at": "2024-05-07T16:00:35.496Z",
+      "status": "BLOCKED",
+      "user": 8,
+      "module": 5
+    }
+  }
+]

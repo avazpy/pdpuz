@@ -1,31 +1,101 @@
 [
-
-    {
-        "model": "apps.userlesson",
-        "pk": 1,
-        "fields": {
-            "user": 1,
-            "lesson": 1,
-            "status": "blocked"
-        }
-    },
-    {
-        "model": "apps.userlesson",
-        "pk": 2,
-        "fields": {
-            "user": 2,
-            "lesson": 2,
-            "status": "blocked"
-        }
-    },
-    {
-        "model": "apps.userlesson",
-        "pk": 3,
-        "fields": {
-            "user": 3,
-            "lesson": 3,
-            "status": "finished"
-        }
+  {
+    "model": "apps.userlesson",
+    "pk": 2,
+    "fields": {
+      "update_at": null,
+      "created_at": null,
+      "status": "in_prog",
+      "user": 9,
+      "lesson": 6
     }
-
+  },
+  {
+    "model": "apps.userlesson",
+    "pk": 3,
+    "fields": {
+      "update_at": null,
+      "created_at": null,
+      "status": "in_prog",
+      "user": 1,
+      "lesson": 7
+    }
+  },
+  {
+    "model": "apps.userlesson",
+    "pk": 4,
+    "fields": {
+      "update_at": null,
+      "created_at": null,
+      "status": "in_prog",
+      "user": 4,
+      "lesson": 9
+    }
+  },
+  {
+    "model": "apps.userlesson",
+    "pk": 5,
+    "fields": {
+      "update_at": "2024-05-07T16:13:14.808Z",
+      "created_at": null,
+      "status": "in_prog",
+      "user": 1,
+      "lesson": 6
+    }
+  },
+  {
+    "model": "apps.userlesson",
+    "pk": 6,
+    "fields": {
+      "update_at": "2024-05-07T16:13:24.610Z",
+      "created_at": "2024-05-07T16:13:24.610Z",
+      "status": "in_prog",
+      "user": 2,
+      "lesson": 9
+    }
+  },
+  {
+    "model": "apps.userlesson",
+    "pk": 7,
+    "fields": {
+      "update_at": null,
+      "created_at": null,
+      "status": "BLOCKED",
+      "user": 9,
+      "lesson": 12
+    }
+  },
+  {
+    "model": "apps.userlesson",
+    "pk": 8,
+    "fields": {
+      "update_at": "2024-05-07T16:13:14.808Z",
+      "created_at": "2024-05-07T16:13:14.808Z",
+      "status": "BLOCKED",
+      "user": 5,
+      "lesson": 10
+    }
+  },
+  {
+    "model": "apps.userlesson",
+    "pk": 9,
+    "fields": {
+      "update_at": "2024-05-07T16:13:14.808Z",
+      "created_at": "2024-05-07T16:13:14.808Z",
+      "status": "in_prog",
+      "user": 8,
+      "lesson": 11
+    }
+  },
+  {
+    "model": "apps.userlesson",
+    "pk": 10,
+    "fields": {
+      "update_at": "2024-05-07T16:13:14.808Z",
+      "created_at": "2024-05-07T16:13:14.808Z",
+      "status": "BLOCKED",
+      "user": 7,
+      "lesson": 8
+    }
+  }
 ]

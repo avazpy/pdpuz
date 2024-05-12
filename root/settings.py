@@ -332,7 +332,7 @@ CELERY_BROKER_URL = 'redis://localhost:16379/0'
 #     "default": {
 #         "BACKEND": "angry_goldberg.core.RedisChannelLayer",
 #         "CONFIG": {
-#             "hosts": [("127.0.0.1", 6379)],
+#             "hosts": [("127.0.0.1", 6379)],x
 #         },
 #     },
 # }
