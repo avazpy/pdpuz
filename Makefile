@@ -26,7 +26,7 @@ docker:
 	docker start 90
 
 flake8:
-	flake8 .
+	flake8 --config .flake8 .
 
 isort:
-	isort .
+	isort --settings-file ./.isort.cfg .

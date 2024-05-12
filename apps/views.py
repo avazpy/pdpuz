@@ -1,3 +1,4 @@
+import parler
 from django_user_agents.utils import get_user_agent
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
@@ -6,7 +7,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.generics import (CreateAPIView, ListAPIView,
-                                     RetrieveDestroyAPIView, UpdateAPIView)
+                                     RetrieveDestroyAPIView, UpdateAPIView,)
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
@@ -14,7 +15,7 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet, ModelViewSet, ViewSet
 
 from apps.models import (Course, DeletedUser, Device, Lesson, Module, Task,
-                         User, UserCourse, UserLesson, UserModule, UserTask)
+                         User, UserCourse, UserLesson, UserModule, UserTask,)
 from apps.serializers import (CheckPhoneModelSerializer,
                               CourseModuleModelSerializer,
                               CoursesModelSerializer, DeletedUserSerializer,
@@ -24,11 +25,12 @@ from apps.serializers import (CheckPhoneModelSerializer,
                               TaskModelSerializer,
                               UpdatePasswordUserSerializer,
                               UpdateUserSerializer, UserCourseModelSerializer,
-                              UserModelSerializer, UserTaskModelSerializer)
+                              UserModelSerializer, UserTaskModelSerializer,)
 
 
+a = ""
 class LoginView(APIView):
-    permission_classes = [AllowAny, IsAuthenticated]
+    permission_classes = [AllowAny]
 
     @swagger_auto_schema(
         request_body=openapi.Schema(
@@ -54,7 +56,7 @@ class LoginView(APIView):
             user_agent = get_user_agent(request)
             title = f"{user_agent.os.family}, {user_agent.browser.family}, {user_agent.browser.version_string}, {'Mobile' if user_agent.is_mobile else 'Desktop'}"
 
-            device, created = Device.objects.get_or_create(user_id=user.id)  # ,title=title)
+            device, created = Device.objects.get_or_create(user_id=user.id, title=title)  # ,title=title)
 
             return Response({"message": f"{user.phone_number} you have logged in successfully!"},
                             status=status.HTTP_200_OK)
@@ -124,7 +126,7 @@ class CourseModuleListAPIView(ListAPIView):
 class LessonListAPIView(ListAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonModelSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     pagination_class = None
 
     def get_object(self):
