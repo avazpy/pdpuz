@@ -1,50 +1,87 @@
 [
-    {
-        "model": "apps.module",
-        "pk": 1,
-        "fields": {
-            "has_in_tg": "Sample Value 1",
-            "learning_type": "Sample Learning Type 1",
-            "lesson_count": 5,
-            "order": 1,
-            "row_num": 1,
-            "support_day": "2024-03-01",
-            "task_count": 10,
-            "title": "Module 1",
-            "user": 1,
-            "course": 1
-        }
-    },
-    {
-        "model": "apps.module",
-        "pk": 2,
-        "fields": {
-            "has_in_tg": "Sample Value 2",
-            "learning_type": "Sample Learning Type 2",
-            "lesson_count": 7,
-            "order": 2,
-            "row_num": 2,
-            "support_day": "2024-03-02",
-            "task_count": 8,
-            "title": "Module 2",
-            "user": 2,
-            "course": 1
-        }
-    },
-    {
-        "model": "apps.module",
-        "pk": 3,
-        "fields": {
-            "has_in_tg": "Sample Value 3",
-            "learning_type": "Sample Learning Type 3",
-            "lesson_count": 6,
-            "order": 3,
-            "row_num": 3,
-            "support_day": "2024-03-03",
-            "task_count": 12,
-            "title": "Module 3",
-            "user": 3,
-            "course": 2
-        }
+  {
+    "model": "apps.module",
+    "pk": 2,
+    "fields": {
+      "update_at": "2024-05-07T20:50:03.940Z",
+      "created_at": "2024-05-07T20:49:27.849Z",
+      "learning_type": "online",
+      "title": "1.Python : Basic",
+      "has_in_tg": "1",
+      "lesson_count": 1,
+      "order": 1,
+      "row_num": 1,
+      "support_day": "2024-05-07",
+      "task_count": 1,
+      "course": 1
     }
+  },
+  {
+    "model": "apps.module",
+    "pk": 3,
+    "fields": {
+      "update_at": "2024-05-07T20:50:03.940Z",
+      "created_at": "2024-05-07T20:50:05.397Z",
+      "learning_type": "online",
+      "title": "2.Python : Advanced",
+      "has_in_tg": "1",
+      "lesson_count": 1,
+      "order": 2,
+      "row_num": 1,
+      "support_day": "2024-05-07",
+      "task_count": 1,
+      "course": 1
+    }
+  },
+  {
+    "model": "apps.module",
+    "pk": 4,
+    "fields": {
+      "update_at": "2024-05-07T20:50:03.940Z",
+      "created_at": "2024-05-07T20:50:03.940Z",
+      "learning_type": "online",
+      "title": "3m",
+      "has_in_tg": "1",
+      "lesson_count": 1,
+      "order": 3,
+      "row_num": 1,
+      "support_day": "2024-05-07",
+      "task_count": 1,
+      "course": 3
+    }
+  },
+  {
+    "model": "apps.module",
+    "pk": 5,
+    "fields": {
+      "update_at": "2024-05-07T20:50:03.940Z",
+      "created_at": "2024-05-07T20:50:03.940Z",
+      "learning_type": "online",
+      "title": "4m",
+      "has_in_tg": "1",
+      "lesson_count": 1,
+      "order": 4,
+      "row_num": 1,
+      "support_day": "2024-05-07",
+      "task_count": 1,
+      "course": 4
+    }
+  },
+  {
+    "model": "apps.module",
+    "pk": 6,
+    "fields": {
+      "update_at": "2024-05-07T20:50:03.940Z",
+      "created_at": "2024-05-07T20:50:03.940Z",
+      "learning_type": "online 1",
+      "title": "5m",
+      "has_in_tg": "1",
+      "lesson_count": 1,
+      "order": 5,
+      "row_num": 1,
+      "support_day": "2024-05-07",
+      "task_count": 2,
+      "course": 5
+    }
+  }
 ]

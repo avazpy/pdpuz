@@ -4,7 +4,7 @@
         "pk": 1,
         "fields": {
             "user": 1,
-            "task": 1,
+            "task": 7,
             "file": "file1.txt",
             "voice": "voice1.mp3",
             "text": "Chat message 1"
@@ -15,7 +15,7 @@
         "pk": 2,
         "fields": {
             "user": 2,
-            "task": 1,
+            "task": 8,
             "file": "file2.txt",
             "voice": "voice2.mp3",
             "text": "Chat message 2"
@@ -26,7 +26,7 @@
         "pk": 3,
         "fields": {
             "user": 3,
-            "task": 2,
+            "task": 9,
             "file": "file3.txt",
             "voice": "voice3.mp3",
             "text": "Chat message 3"

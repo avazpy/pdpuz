@@ -1,30 +1,57 @@
 [
   {
-        "model": "apps.usercourse",
-        "pk": 1,
-        "fields": {
-            "user": 1,
-            "course": 1,
-            "status": "Enrolled"
-        }
-    },
-    {
-        "model": "apps.usercourse",
-        "pk": 2,
-        "fields": {
-            "user": 1,
-            "course": 2,
-            "status": "Completed"
-        }
-    },
-    {
-        "model": "apps.usercourse",
-        "pk": 3,
-        "fields": {
-            "user": 2,
-            "course": 1,
-            "status": "Enrolled"
-        }
+    "model": "apps.usercourse",
+    "pk": 18,
+    "fields": {
+      "update_at": "2024-05-07T16:01:09.935Z",
+      "created_at": "2024-05-07T16:01:09.935Z",
+      "user": 2,
+      "course": 1,
+      "status": "in_prog"
     }
-
+  },
+  {
+    "model": "apps.usercourse",
+    "pk": 19,
+    "fields": {
+      "update_at": "2024-05-07T16:01:09.935Z",
+      "created_at": "2024-05-07T16:01:09.935Z",
+      "user": 7,
+      "course": 5,
+      "status": "BLOCKED"
+    }
+  },
+  {
+    "model": "apps.usercourse",
+    "pk": 20,
+    "fields": {
+      "update_at": "2024-05-07T16:01:09.935Z",
+      "created_at": "2024-05-07T16:01:09.935Z",
+      "user": 1,
+      "course": 2,
+      "status": "in_prog"
+    }
+  },
+  {
+    "model": "apps.usercourse",
+    "pk": 21,
+    "fields": {
+      "update_at": "2024-05-07T16:01:09.935Z",
+      "created_at": "2024-05-07T16:01:09.935Z",
+      "user": 4,
+      "course": 4,
+      "status": "BLOCKED"
+    }
+  },
+  {
+    "model": "apps.usercourse",
+    "pk": 22,
+    "fields": {
+      "update_at": "2024-05-07T16:01:09.935Z",
+      "created_at": "2024-05-07T16:01:09.935Z",
+      "user": 8,
+      "course": 3,
+      "status": "BLOCKED"
+    }
+  }
 ]

@@ -43,4 +43,10 @@ task
 2. one device drf third party packages
 
 
+1. admin kada list_display da user(kurslar soni), kusrda(modullar soni, darslar soni), (token olishni ham togrilash kk)
+reg qilishda phone numberni togri olish ✅
+2. one device drf third party packages
+3. 'https://www.django-rest-framework.org/api-guide/authentication/#django-rest-knox'
+4. nginx docker compose
+
 

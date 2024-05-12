@@ -1,3 +1,4 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from django_user_agents.utils import get_user_agent
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
@@ -8,58 +9,60 @@ from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.generics import (CreateAPIView, ListAPIView,
                                      RetrieveDestroyAPIView, UpdateAPIView)
 from rest_framework.parsers import FormParser, MultiPartParser
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet, ModelViewSet, ViewSet
 
-from apps.models import (Course, DeletedUser, Device, Lesson, Module, Task,
-                         User, UserCourse, UserLesson, UserModule, UserTask)
+from apps.models import (Course, DeletedUser, Device, Lesson, Module, User, UserCourse, UserLesson, UserModule,
+                         UserTask)
 from apps.serializers import (CheckPhoneModelSerializer,
-                              CourseModuleModelSerializer,
-                              CoursesModelSerializer, DeletedUserSerializer,
+                              UserModuleModelSerializer,
+                              DeletedUserSerializer,
                               DeviceModelSerializer, LessonModelSerializer,
                               ModuleLessonModelSerializer,
                               ModuleModelSerializer, RegisterModelSerializer,
-                              TaskModelSerializer,
                               UpdatePasswordUserSerializer,
                               UpdateUserSerializer, UserCourseModelSerializer,
-                              UserModelSerializer, UserTaskModelSerializer)
+                              UserModelSerializer, UserTaskModelSerializer, CourseModelSerializer)
 
 
-class LoginView(APIView):
-    permission_classes = [AllowAny, IsAuthenticated]
+#
+# class LoginView(APIView):
+#     permission_classes = [AllowAny]
+#
+#     @swagger_auto_schema(
+#         request_body=openapi.Schema(
+#             type=openapi.TYPE_OBJECT,
+#             properties={
+#                 'phone_number': openapi.Schema(type=openapi.TYPE_STRING),
+#                 'password': openapi.Schema(type=openapi.TYPE_STRING),
+#             },
+#             required=['phone_number', 'password']
+#         )
+#     )
+#     def post(self, request, *args, **kwargs):
+#         phone_number = request.data.get('phone_number')
+#         password = request.data.get('password')
+#
+#         user = User.objects.filter(phone_number=phone_number).first()
+#
+#         if user and user.check_password(password):
+#             # token, created = Token.objects.get_or_create(user=user)
+#             token, created = Token.objects.get_or_create(user=user)
+#
+#             # Get user agent data
+#             user_agent = get_user_agent(request)
+#             title = f"{user_agent.os.family}, {user_agent.browser.family}, {user_agent.browser.version_string}, {'Mobile' if user_agent.is_mobile else 'Desktop'}"
+#
+#             device, created = Device.objects.get_or_create(user_id=user.id, title=title)
+#             print(device)
 
-    @swagger_auto_schema(
-        request_body=openapi.Schema(
-            type=openapi.TYPE_OBJECT,
-            properties={
-                'phone_number': openapi.Schema(type=openapi.TYPE_STRING),
-                'password': openapi.Schema(type=openapi.TYPE_STRING),
-            },
-            required=['phone_number', 'password']
-        )
-    )
-    def post(self, request, *args, **kwargs):
-        phone_number = request.data.get('phone_number')
-        password = request.data.get('password')
-
-        user = User.objects.filter(phone_number=phone_number).first()
-
-        if user and user.check_password(password):
-            # token, created = Token.objects.get_or_create(user=user)
-            token, created = Token.objects.get_or_create(user=user)
-
-            # Get user agent data
-            user_agent = get_user_agent(request)
-            title = f"{user_agent.os.family}, {user_agent.browser.family}, {user_agent.browser.version_string}, {'Mobile' if user_agent.is_mobile else 'Desktop'}"
-
-            device, created = Device.objects.get_or_create(user_id=user.id)  # ,title=title)
-
-            return Response({"message": f"{user.phone_number} you have logged in successfully!"},
-                            status=status.HTTP_200_OK)
-        else:
-            return Response({'error': 'Invalid phone number or password'}, status=status.HTTP_400_BAD_REQUEST)
+#
+#             return Response({"message": f"{user.phone_number} you have logged in successfully!"},
+#                             status=status.HTTP_200_OK)
+#         else:
+#             return Response({'error': 'Invalid phone number or password'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class UserViewSet(ModelViewSet):
@@ -82,10 +85,23 @@ class UserCreateAPIView(CreateAPIView):
     pagination_class = None
 
 
+class CourseListAPIView(ListAPIView):
+    queryset = Course.objects.all()
+    serializer_class = CourseModelSerializer
+    permission_classes = [IsAuthenticated, ]
+    pagination_class = None
+
+    def get_object(self):
+        return self.request.user
+
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
+
+
 class UserCourseListAPIView(ListAPIView):
     queryset = UserCourse.objects.all()
     serializer_class = UserCourseModelSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, ]
     pagination_class = None
 
     def get_object(self):
@@ -97,8 +113,8 @@ class UserCourseListAPIView(ListAPIView):
 
 class ModuleListAPIView(ListAPIView):
     queryset = Module.objects.all()
-    serializer_class = ModuleModelSerializer
-    permission_classes = [IsAuthenticated]
+    serializer_class = CourseModelSerializer
+    permission_classes = [IsAuthenticated, ]
     pagination_class = None
 
     def get_object(self):
@@ -108,10 +124,10 @@ class ModuleListAPIView(ListAPIView):
         return super().get_queryset().filter(user=self.request.user)
 
 
-class CourseModuleListAPIView(ListAPIView):
+class UserModuleListAPIView(ListAPIView):
     queryset = UserModule.objects.all()
-    serializer_class = CourseModuleModelSerializer
-    permission_classes = [IsAuthenticated]
+    serializer_class = UserModuleModelSerializer
+    permission_classes = [IsAuthenticated, ]
     pagination_class = None
 
     def get_object(self):
@@ -124,7 +140,7 @@ class CourseModuleListAPIView(ListAPIView):
 class LessonListAPIView(ListAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonModelSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, ]
     pagination_class = None
 
     def get_object(self):
@@ -137,7 +153,7 @@ class LessonListAPIView(ListAPIView):
 class ModuleViewSet(ViewSet):
     queryset = Module.objects.all()
     serializer_class = ModuleLessonModelSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, ]
     pagination_class = None
 
     @action(['GET'], detail=True)
@@ -149,7 +165,8 @@ class ModuleViewSet(ViewSet):
 class ModuleLessonListAPIView(ListAPIView):
     queryset = UserLesson.objects.all()
     serializer_class = ModuleLessonModelSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, ]
+    http_method_names = ['get', ]
     pagination_class = None
 
     def get_object(self):
@@ -162,7 +179,7 @@ class ModuleLessonListAPIView(ListAPIView):
 class UserTaskListAPIView(ListAPIView):
     queryset = UserTask.objects.all()
     serializer_class = UserTaskModelSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, ]
     pagination_class = None
 
     def get_object(self):
@@ -200,7 +217,13 @@ class DeviceModelListAPIView(ListAPIView):
     queryset = Device.objects.all()
     serializer_class = DeviceModelSerializer
     parser_classes = [MultiPartParser, FormParser]
+    filter_backends = (DjangoFilterBackend,)
+    filter_fields = ('device_type', 'device_model', 'title')
+    permission_classes = [IsAuthenticated, ]
     pagination_class = None
+
+    def get_object(self):
+        return self.request.user
 
 
 class CheckPhoneAPIView(GenericViewSet):
@@ -214,7 +237,7 @@ class CheckPhoneAPIView(GenericViewSet):
 
 class CourseListAPIView(ListAPIView):
     queryset = Course.objects.all()
-    serializer_class = CoursesModelSerializer
+    serializer_class = CourseModelSerializer
     pagination_class = None
 
     def get_object(self):
@@ -228,6 +251,7 @@ class DeleteUserAPIView(RetrieveDestroyAPIView):
     serializer_class = DeletedUserSerializer
     queryset = DeletedUser.objects.all()
     permission_classes = [IsAuthenticated]
+    http_method_names = ['delete', ]
     pagination_class = None
 
     def get_object(self):
