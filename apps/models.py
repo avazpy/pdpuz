@@ -190,8 +190,8 @@ class UserLesson(CreatedBaseModel):
     status = CharField(verbose_name=_('status_UserLesson'), choices=StatusChoices.choices,
                        default=StatusChoices.BLOCKED)
 
-    user = ForeignKey('apps.User', CASCADE, related_name='user_moduleLesson')
-    lesson = ForeignKey('apps.Lesson', CASCADE, related_name='lesson_moduleLesson')
+    user = ForeignKey('apps.User', CASCADE, verbose_name='user_moduleLesson')
+    lesson = ForeignKey('apps.Lesson', CASCADE, verbose_name='lesson_moduleLesson')
 
     class Meta:
         unique_together = ('user', 'lesson')
@@ -201,7 +201,7 @@ class UserLesson(CreatedBaseModel):
 
 class LessonQuestion(CreatedBaseModel):
     lesson = ForeignKey('apps.UserLesson', CASCADE, verbose_name=_('lesson_LessonQuestion'))
-    text = TextField(verbose_name='text_LessonQuestion', null=True, blank=True)
+    text = TextField(verbose_name=_('text_LessonQuestion'), null=True, blank=True)
     file = FileField(verbose_name=_('file_LessonQuestion'), null=True, blank=True)
     voice_message = FileField(verbose_name=_('voice_mes_LessonQuestion'), null=True, blank=True)
 
@@ -311,8 +311,12 @@ class Certificate(CreatedBaseModel):
 
 
 class DeletedUser(CreatedBaseModel):
-    phone_number = CharField(max_length=13)
-    username = CharField(max_length=255, null=True, blank=True)
+    phone_number = CharField(max_length=13, verbose_name=_('phone_number'))
+    username = CharField(max_length=255, null=True, blank=True, verbose_name=_('username'))
 
     def __str__(self):
         return f"Deleted User : {self.phone_number}"
+
+    class Meta:
+        verbose_name = _('Deleted User')
+        verbose_name_plural = _('Deleted Users')

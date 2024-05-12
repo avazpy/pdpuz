@@ -130,7 +130,6 @@ class DevicesAdmin(ModelAdmin):
 class CertificatesAdmin(ModelAdmin):
     pass
 
-
 @admin.register(DeletedUser)
 class DeletedUserAdmin(ModelAdmin):
     pass
