@@ -1,29 +1,29 @@
+version: '3.8'
+
 services:
   backend_service:
-    build: .
+    build:
+      context: .
+      dockerfile: ./compose/django/Dockerfile
     env_file: .env
-    restart: always
+    command: /start-django
     ports:
-      - '8001:8000'
+      - 8000:${BACKEND_PORT}
+    volumes:
+      - .:/app
+      - media_volume:/app/media
+      - static_volume:/app/static
     depends_on:
       - postgres_service
-      - minio_service
-      - flower_service
       - redis_service
 
   postgres_service:
     image: postgres:alpine
+    environment:
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      -
     volumes:
       - pg_data_service:/var/lib/postgresql/data
-    env_file: .env
-
-  minio_service:
-    image: minio/minio
-    volumes:
-      - minio_storage:/data
-    env_file: .env
-    command: server --console-address ":9001" /data
-
 
   redis_service:
     image: 'redis/redis-stack:latest'
@@ -75,53 +75,28 @@ services:
       - postgres_service
 
 
+#  minio_service:
+#    image: minio/minio
+#    container_name: minio_container
+#    ports:
+#      - '9000:9000'
+#      - '9001:9001'
+#    volumes:
+#      - minio_storage:/data
+#    env_file: .env
+#    command: server --console-address ":9001" /data
+# rabbitmq:
+#    image: rabbitmq:management
+#    container_name: rabbitmq
+#    environment:
+#      - RABBITMQ_DEFAULT_USER=guest
+#      - RABBITMQ_DEFAULT_PASS=guest
+#    ports:
+#      - '5672:5672'
+#      - '15672:15672'
 volumes:
   static_volume:
   media_volume:
   minio_storage:
   pg_data_service:
   redis_data_service:
-
-
-#
-#  redis:
-#    image: redis:6.2-alpine
-#    volumes:
-#      - redis_data:/data
-#    environment:
-#      - REDIS_PASSWORD
-#      - REDIS_PORT
-#    env_file:
-#      - .env
-#
-#  flower:
-#    build:
-#      context: .
-##      dockerfile: ./Dockerfile
-##    command: /start-flower
-#    volumes:
-#      - .:/app
-#    ports:
-#      - 5557:5555
-#    depends_on:
-#      - redis
-#      - postgres_service
-#
-#volumes:
-#  minio_storage:
-#  pg_data_service:
-#  redis_data:
-#
-#  redis:
-#    image: redis:6.2-alpine
-#    ports:
-#      - '6379:6379'
-#    volumes:
-#      - redis_data:/data
-#    environment:
-#      - REDIS_PASSWORD=my-password
-#      - REDIS_PORT=6379
-
-
-
-
