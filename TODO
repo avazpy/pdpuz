@@ -37,45 +37,31 @@ course ni lesson_count ini avtomatik olish kk (django signal)
 adminkadan user list_display da kurslar
 
 
-
-task
-1. admin kada list_display da user(kurslar soni), kusrda(modullar soni, darslar soni), reg qilishda phone numberni togri olish, (token olishni ham togrilash kk)
-2. one device drf third party packages
+8. userlarni type ni qoshish (admin, teacher, student, support_teacher)((avaz))
+7. CreatedBaseModel(null ni olib tashash kk)(avaz)
 
 
-1. admin kada list_display da user(kurslar soni), kusrda(modullar soni, darslar soni), (token olishni ham togrilash kk)
+
+1. admin kada list_display da user(kurslar soni), kusrda(modullar soni, darslar soni),
+(token olishni ham togrilash kk), token olishga pastdagi formatda
+{
+  "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcxNTk2MTg4OSwiaWF0IjoxNzE1ODc1NDg5LCJqdGkiOiJmMWU0MTYyZTUzMzU0ODc2OTE0ZTE2OTdlMzAxOTc3YSIsInVzZXJfaWQiOjE2fQ.s47786YSZisI_CmIjZyeqt6DbvjTVMuYJUHPZ9TuPCQ",
+  "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE1ODc1Nzg5LCJpYXQiOjE3MTU4NzU0ODksImp0aSI6IjE3NmM5YTJjNzFiMDQ4NDQ5ODY2M2Q4OGM5YWVmMTBiIiwidXNlcl9pZCI6MTZ9.dzbUZrqqSIuJcLmAWlfaXQj2sOYn2a-hPJD69mzo4dY"
+  "user": {
+    "id" 2,
+    "first_name": "Botirjon"
+  }
+}
+
 reg qilishda phone numberni togri olish ✅(avaz)
-2. one device drf third party packages(izzatilla)
+2. two device drf third party packages(izzatilla)
 3. 'https://www.django-rest-framework.org/api-guide/authentication/#django-rest-knox'
 4. nginx docker compose(behruz)
-5. slug qoshish(avaz)
+5. slug qoshish unique bolishi shart(avaz), TextChoice larni, db ga yoziladigan va adminkaga chiqadigan formatda yozish
 6. database ni norm toldirish(avaz)
-7. CreatedBaseModel(null ni olib tashash kk)(avaz)
-8. userlarni type ni qoshish (admin, teacher, student, support_teacher)((avaz))
-9. adminkada adminlar, teacherlar, studentlar, support_teacherlar((avaz))
+7. updated_at, created_at, updated_by (muhammadaziz)
+8. model history  (muhammadaziz)
+9. adminkada adminlar, teacherlar, studentlar, support_teacherlar(avaz)
 10. rasmni adminkada chiqadigan qilish(avaz)
 11. barcha kurslarni chiqaridigan api(behruz)
-
-
-https://online.pdp.uz/api/tutorial/by_lesson?lessonId=a4a076d4-6e1a-4a5c-90e7-9b5969ab7f98
-
-
-
-
-get module data by course url
-(token)https://online.pdp.uz/api/course/my_courses/course?url=spring-development-2023
-
-
-
-get lessons by modul url
-(token)https://online.pdp.uz/api/lesson/current?url=kirish-python
-
-
-(token)https://online.pdp.uz/api/tutorial/by_lesson?lessonId=6ffae77d-ac94-45d8-8df8-5b2a0f0f4966
-
-
-
-
-
-
 

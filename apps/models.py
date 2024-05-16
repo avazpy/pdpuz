@@ -11,10 +11,6 @@ from parler.models import TranslatableModel
 
 from apps.managers import CustomUserManager
 
-from django_user_agents.utils import get_user_agent
-from rest_framework import status
-from rest_framework.response import Response
-
 
 class CreatedBaseModel(Model):
     update_at = DateTimeField(auto_now=True)
@@ -26,15 +22,15 @@ class CreatedBaseModel(Model):
 
 class User(AbstractUser):
     class UserType(TextChoices):
-        ADMIN = 'admin', _('ADMIN')
-        TEACHER = 'teacher', _('TEACHER')
-        STUDENT = 'student', _('STUDENT')
-        SUPPORT_TEACHER = 'support_teacher', _('SUPPORT_TEACHER')
+        ADMIN = 'admin', _('Admin')
+        TEACHER = 'teacher', _('Teacher')
+        STUDENT = 'student', _('Student')
+        ASSISTANT = 'assistant', _('Assistant')
 
     type = CharField(verbose_name=_('user_type'), max_length=50, choices=UserType.choices, default=UserType.STUDENT)
     phone_number = CharField(validators=[RegexValidator(
         regex=r'^\d{9,15}$',
-        message="Phone number must be entered in the format: '+998'."        "Up to 12 digits allowed.")],
+        message="Phone number must be entered in the format: '998'."        "Up to 12 digits allowed.")],
         max_length=20, unique=True)
     username = CharField(max_length=255, unique=False)
     tg_id = CharField(max_length=255, unique=True, blank=False, null=True)

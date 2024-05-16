@@ -8,11 +8,12 @@ from nested_inline.admin import NestedModelAdmin, NestedStackedInline
 from apps.models import (Certificate, Course, DeletedUser, Device, Lesson,
                          LessonQuestion, Module, Payment, Task, TaskChat, User,
                          UserCourse, UserLesson, UserModule, UserTask, Video, )
+from apps.proxies import AdminUserProxy
 
 
 @admin.register(User)
-class CustomUserAdmins(UserAdmin):
-    list_display = ("phone_number", 'photo', "first_name", "last_name", "is_staff")
+class CustomUserAdmin(UserAdmin):
+    list_display = ("phone_number", 'photo', "first_name", "last_name", "is_staff", 'type')
     fieldsets = (
         (None, {"fields": ("type", "phone_number", "password")}),
         (_("Personal info"), {"fields": ("first_name", "last_name", 'photo')}),
@@ -20,6 +21,7 @@ class CustomUserAdmins(UserAdmin):
             _("Permissions"),
             {
                 'fields': (
+                    'filter',
                     "is_active",
                     "is_staff",
                     "is_superuser",
@@ -30,6 +32,40 @@ class CustomUserAdmins(UserAdmin):
         ),
         (_("Important dates"), {"fields": ("last_login", "date_joined")}),
     )
+
+    def custom_image(self, obj: User):
+        return mark_safe('<img src="{}"/>'.format(obj.photo.url))
+
+    custom_image.short_description = "Image"
+
+    def get_course_count(self, obj):
+        return obj.course_set.count()
+
+
+@admin.register(AdminUserProxy)
+class CustomAdminUserProxyAdmin(UserAdmin):
+    list_display = ("phone_number", 'photo', "first_name", "last_name", "is_staff", 'type')
+    fieldsets = (
+        (None, {"fields": ("type", "phone_number", "password")}),
+        (_("Personal info"), {"fields": ("first_name", "last_name", 'photo')}),
+        (
+            _("Permissions"),
+            {
+                'fields': (
+                    'filter',
+                    "is_active",
+                    "is_staff",
+                    "is_superuser",
+                    "groups",
+                    "user_permissions",
+                ),
+            },
+        ),
+        (_("Important dates"), {"fields": ("last_login", "date_joined")}),
+    )
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).filter(type=User.UserType.ADMIN)
 
     def custom_image(self, obj: User):
         return mark_safe('<img src="{}"/>'.format(obj.photo.url))

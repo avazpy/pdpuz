@@ -14,7 +14,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet, ModelViewSet, ViewSet
 
-from apps.models import (Course, DeletedUser, Device, Lesson, Module, User, UserCourse, UserLesson, UserModule,
+from apps.models import (Course, DeletedUser, Device, Lesson, Module, User, UserLesson, UserModule,
                          UserTask)
 from apps.serializers import (CheckPhoneModelSerializer,
                               UserModuleModelSerializer,
@@ -23,8 +23,7 @@ from apps.serializers import (CheckPhoneModelSerializer,
                               ModuleLessonModelSerializer,
                               ModuleModelSerializer, RegisterModelSerializer,
                               UpdatePasswordUserSerializer,
-                              UpdateUserSerializer, UserCourseModelSerializer,
-                              UserModelSerializer, UserTaskModelSerializer, CourseModelSerializer)
+                              UpdateUserSerializer, UserModelSerializer, UserTaskModelSerializer, CourseModelSerializer)
 
 
 #
@@ -48,10 +47,7 @@ class LoginView(APIView):
         user = User.objects.filter(phone_number=phone_number).first()
 
         if user and user.check_password(password):
-            # token, created = Token.objects.get_or_create(user=user)
             token, created = Token.objects.get_or_create(user=user)
-
-            # Get user agent data
             user_agent = get_user_agent(request)
             title = f"{user_agent.os.family}, {user_agent.browser.family}, {user_agent.browser.version_string}, {'Mobile' if user_agent.is_mobile else 'Desktop'}"
 
