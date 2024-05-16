@@ -11,9 +11,7 @@
       "video_count": 1,
       "module": 2,
       "materials": "",
-      "is_deleted": false,
-                  "slug": "kirish-python"
-    }
+      "is_deleted": false}
   },
   {
     "model": "apps.lesson",
@@ -27,9 +25,7 @@
       "video_count": 1,
       "module": 2,
       "materials": "",
-      "is_deleted": false,
-                        "slug": "ozgaruvchilar"
-
+      "is_deleted": false
 
     }
   },
@@ -45,9 +41,7 @@
       "video_count": 1,
       "module": 2,
       "materials": "",
-      "is_deleted": false,
-                        "slug": "string-va-uning-metodlari"
-
+      "is_deleted": false
     }
   },
   {
@@ -62,9 +56,7 @@
       "video_count": 1,
       "module": 2,
       "materials": "",
-      "is_deleted": false,
-                        "slug": "matematika-va-sonlar"
-
+      "is_deleted": false
     }
   },
   {
@@ -79,9 +71,7 @@
       "video_count": 1,
       "module": 2,
       "materials": "",
-      "is_deleted": false,
-                        "slug": "Shartli operatorlar"
-
+      "is_deleted": false
     }
   },
   {
@@ -96,9 +86,7 @@
       "video_count": 1,
       "module": 2,
       "materials": "",
-      "is_deleted": false,
-                        "slug": "list-va-tuple"
-
+      "is_deleted": false
     }
   },
   {
@@ -113,9 +101,7 @@
       "video_count": 1,
       "module": 6,
       "materials": "",
-      "is_deleted": false,
-                        "slug": "dictonary-va-set"
-
+      "is_deleted": false
     }
   }
 ]
