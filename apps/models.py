@@ -55,25 +55,26 @@ class User(AbstractUser):
 
 
 class Customer(Model):
-    def post(self, request):
-        phone_number = request.data.get('phone_number')
-        password = request.data.get('password')
-
-        user = User.objects.filter(phone_number=phone_number).first()
-
-        if user and user.check_password(password):
-            user_agent = get_user_agent(request)
-            title = (f"{user_agent.os.family}, {user_agent.browser.family}, {user_agent.browser.version_string}, "
-                     f"{'Mobile' if user_agent.is_mobile else 'Desktop'}")
-
-            device, created = Device.objects.get_or_create(user_id=user.id, title=title)
-            Device.objects.create(title=device, user=request.user)
-            print(device)
-
-            return Response({"message": f"{user.phone_number} you have logged in successfully!"},
-                            status=status.HTTP_200_OK)
-        else:
-            return Response({'error': 'Invalid phone number or password'}, status=status.HTTP_400_BAD_REQUEST)
+    pass
+    # def post(self, request):
+    #     phone_number = request.data.get('phone_number')
+    #     password = request.data.get('password')
+    #
+    #     user = User.objects.filter(phone_number=phone_number).first()
+    #
+    #     if user and user.check_password(password):
+    #         user_agent = get_user_agent(request)
+    #         title = (f"{user_agent.os.family}, {user_agent.browser.family}, {user_agent.browser.version_string}, "
+    #                  f"{'Mobile' if user_agent.is_mobile else 'Desktop'}")
+    #
+    #         device, created = Device.objects.get_or_create(user_id=user.id, title=title)
+    #         Device.objects.create(title=device,user=request.user)
+    #         print(device)
+    #
+    #         return Response({"message": f"{user.phone_number} you have logged in successfully!"}
+    #                         status=status.HTTP_200_OK)
+    #     else:
+    #         return Response({'error': 'Invalid phone number or password'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class Course(CreatedBaseModel):
@@ -209,7 +210,7 @@ class LessonQuestion(CreatedBaseModel):
     voice_message = FileField(verbose_name=_('voice_mes_LessonQuestion'), null=True, blank=True)
 
     def __str__(self):
-        return self.lesson.title + ' ' + f"{self.user.id}"
+        return self.text
 
     class Meta:
         verbose_name = _('LessonQuestion')

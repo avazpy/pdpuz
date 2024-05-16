@@ -5,14 +5,13 @@ from rest_framework_simplejwt.views import (TokenObtainPairView,
 
 from apps.views import (CheckPhoneAPIView, UserModuleListAPIView,
                         DeleteUserAPIView, DeviceModelListAPIView,
-                        ModuleLessonListAPIView, UpdateUser,UserTaskListAPIView,
+                        ModuleLessonListAPIView, UpdateUser, UserTaskListAPIView,
                         UpdateUserPassword, ModuleViewSet, UserCourseListAPIView,
-                        UserCreateAPIView, UserViewSet)
+                        UserCreateAPIView, UserViewSet, LoginView)
 
 router = DefaultRouter()
 router.register('users', UserViewSet, basename='user')
 router.register('course', ModuleViewSet, basename='module')
-# path('module', ModuleLessonListAPIView.as_view(), name='module_lesson'),
 
 urlpatterns = [
     path('', include(router.urls)),
@@ -22,9 +21,9 @@ urlpatterns = [
     path('token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     path('user/device/', DeviceModelListAPIView.as_view(), name='device_model_list'),
     path('user/register/', UserCreateAPIView.as_view(), name='token_obtain_pair'),
-    # path('user/login/', LoginView.as_view(), name='token_login'),
+    path('user/login/', LoginView.as_view(), name='token_login'),
     path('user/delete/', DeleteUserAPIView.as_view(), name='deleted_user'),
-    path('user/course/', UserCourseListAPIView.as_view(), name='user_course'),
+    path('user/my-courses/', UserCourseListAPIView.as_view(), name='user_course'),
     path('user/task/', UserTaskListAPIView.as_view(), name='user_task'),
     path('user/profile/', UpdateUser.as_view(), name='user_profile_update'),
     path('user/profile/password/', UpdateUserPassword.as_view(), name='user_profile_update'),

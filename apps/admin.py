@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.contrib.admin import ModelAdmin, TabularInline
+from django.contrib.admin import ModelAdmin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
@@ -7,11 +7,7 @@ from nested_inline.admin import NestedModelAdmin, NestedStackedInline
 
 from apps.models import (Certificate, Course, DeletedUser, Device, Lesson,
                          LessonQuestion, Module, Payment, Task, TaskChat, User,
-                         UserCourse, UserLesson, UserModule, UserTask, Video)
-
-
-# class CourseInline(TabularInline):
-#     model = Course
+                         UserCourse, UserLesson, UserModule, UserTask, Video, )
 
 
 @admin.register(User)
@@ -130,7 +126,7 @@ class DevicesAdmin(ModelAdmin):
 class CertificatesAdmin(ModelAdmin):
     pass
 
+
 @admin.register(DeletedUser)
 class DeletedUserAdmin(ModelAdmin):
     pass
-
