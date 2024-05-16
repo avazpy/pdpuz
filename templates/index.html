@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stream View</title>
+</head>
+<body>
+<iframe id="streamFrame" width="100%" height="600px" src=""></iframe>
+
+<script>
+    const myHeaders = new Headers();
+    myHeaders.append("Referer", "https://play.boomstream.com/zk16q4wL?id_recovery=234-099-424");
+    myHeaders.append("Origin", "https://play.boomstream.com");
+    // myHeaders.append("Cookie", "buy_vAkEv69i=961417122");
+
+    const requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+        redirect: "follow"
+    };
+
+    fetch("https://play.boomstream.com/TpsnEnkB", requestOptions)
+        .then(response => response.text())
+        .then(result => {
+            // Embed the fetched content in the iframe
+            const streamFrame = document.getElementById("streamFrame");
+            streamFrame.srcdoc = result; // Directly inject the fetched content into the iframe
+        })
+        .catch(error => console.error(error));
+</script>
+</body>
+</html>

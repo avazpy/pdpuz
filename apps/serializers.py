@@ -95,6 +95,11 @@ class ModuleModelSerializer(ModelSerializer):
         model = Module
         fields = '__all__'
 
+    def to_representation(self, instance: Module):
+        represent = super().to_representation(instance)
+        represent['lessons'] = LessonModelSerializer(instance.lesson_set.all(), many=True).data
+        return represent
+
 
 class UserModuleModelSerializer(ModelSerializer):
     class Meta:
@@ -113,7 +118,7 @@ class UserModuleModelSerializer(ModelSerializer):
 class LessonModelSerializer(ModelSerializer):
     class Meta:
         model = Lesson
-        fields = 'created_at', 'video_count', 'module', 'materials',
+        fields = 'id', 'title', 'created_at', 'video_count', 'module', 'materials'
 
 
 class ModuleLessonModelSerializer(ModelSerializer):
@@ -143,7 +148,7 @@ class UserTaskModelSerializer(ModelSerializer):
 class CourseModelSerializer(ModelSerializer):
     class Meta:
         model = Course
-        fields = '__all__'
+        fields = 'id', 'title', 'modul_count'
 
 
 class DeviceModelSerializer(ModelSerializer):
