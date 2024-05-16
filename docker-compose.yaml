@@ -25,6 +25,64 @@ services:
     command: server --console-address ":9001" /data
 
 
+  redis_service:
+    image: 'redis/redis-stack:latest'
+    volumes:
+      - redis_data_service:/data
+
+  celery_worker:
+    build:
+      context: .
+      dockerfile: ./compose/django/Dockerfile
+    env_file: .env
+    volumes:
+      - .:/app
+      - media_volume:/app/media
+      - static_volume:/app/static
+    command: /start-celeryworker
+    depends_on:
+      - redis_service
+      - postgres_service
+
+  celery_beat:
+    build:
+      context: .
+      dockerfile: ./compose/django/Dockerfile
+    env_file: .env
+    volumes:
+      - .:/app
+      - media_volume:/app/media
+      - static_volume:/app/static
+    command: /start-celerybeat
+    depends_on:
+      - redis_service
+      - postgres_service
+
+  flower_service:
+    build:
+      context: .
+      dockerfile: ./compose/django/Dockerfile
+    env_file: .env
+    volumes:
+      - .:/app
+      - media_volume:/app/media
+      - static_volume:/app/static
+    ports:
+      - ${FLOWER_PORT}:${FLOWER_PORT}
+    command: /start-flower
+    depends_on:
+      - redis_service
+      - postgres_service
+
+
+volumes:
+  static_volume:
+  media_volume:
+  minio_storage:
+  pg_data_service:
+  redis_data_service:
+
+
 #
 #  redis:
 #    image: redis:6.2-alpine

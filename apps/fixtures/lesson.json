@@ -3,105 +3,119 @@
     "model": "apps.lesson",
     "pk": 6,
     "fields": {
-      "update_at": null,
-      "created_at": null,
+      "update_at": "2024-05-07T14:39:20.450Z",
+      "created_at": "2024-05-07T14:39:20.450Z",
       "title": "KIrish",
       "order": 1,
       "url": "http1",
       "video_count": 1,
       "module": 2,
       "materials": "",
-      "is_deleted": false
+      "is_deleted": false,
+                  "slug": "kirish-python"
     }
   },
   {
     "model": "apps.lesson",
     "pk": 7,
     "fields": {
-      "update_at": null,
-      "created_at": null,
+      "update_at": "2024-05-07T14:39:20.450Z",
+      "created_at": "2024-05-07T14:39:20.450Z",
       "title": "Ozgaruvchilar",
       "order": 2,
       "url": "http2",
       "video_count": 1,
       "module": 2,
       "materials": "",
-      "is_deleted": false
+      "is_deleted": false,
+                        "slug": "ozgaruvchilar"
+
+
     }
   },
   {
     "model": "apps.lesson",
     "pk": 8,
     "fields": {
-      "update_at": null,
-      "created_at": null,
+      "update_at": "2024-05-07T14:39:20.450Z",
+      "created_at": "2024-05-07T14:39:20.450Z",
       "title": "String va uning metodlari",
       "order": 4,
       "url": "http3",
       "video_count": 1,
       "module": 2,
       "materials": "",
-      "is_deleted": false
+      "is_deleted": false,
+                        "slug": "string-va-uning-metodlari"
+
     }
   },
   {
     "model": "apps.lesson",
     "pk": 9,
     "fields": {
-      "update_at": null,
-      "created_at": null,
+      "update_at": "2024-05-07T14:39:20.450Z",
+      "created_at": "2024-05-07T14:39:20.450Z",
       "title": "Matematika va sonlar",
       "order": 3,
       "url": "http4\n",
       "video_count": 1,
       "module": 2,
       "materials": "",
-      "is_deleted": false
+      "is_deleted": false,
+                        "slug": "matematika-va-sonlar"
+
     }
   },
   {
     "model": "apps.lesson",
     "pk": 10,
     "fields": {
-      "update_at": null,
-      "created_at": null,
+      "update_at": "2024-05-07T14:39:20.450Z",
+      "created_at": "2024-05-07T14:39:20.450Z",
       "title": "OOP",
       "order": 5,
       "url": "http5",
       "video_count": 1,
       "module": 2,
       "materials": "",
-      "is_deleted": false
+      "is_deleted": false,
+                        "slug": "Shartli operatorlar"
+
     }
   },
   {
     "model": "apps.lesson",
     "pk": 11,
     "fields": {
-      "update_at": null,
-      "created_at": null,
+      "update_at": "2024-05-07T14:39:20.450Z",
+      "created_at": "2024-05-07T14:39:20.450Z",
       "title": "Postgres",
       "order": 6,
       "url": "http6",
       "video_count": 1,
       "module": 2,
       "materials": "",
-      "is_deleted": false
+      "is_deleted": false,
+                        "slug": "list-va-tuple"
+
     }
   },
   {
     "model": "apps.lesson",
     "pk": 12,
     "fields": {
-      "update_at": null,
-      "created_at": null,
+      "update_at": "2024-05-07T14:39:20.450Z",
+      "created_at": "2024-05-07T14:39:20.450Z",
       "title": "Dictonary va Set",
       "order": 7,
       "url": "http7",
       "video_count": 1,
       "module": 6,
       "materials": "",
-      "is_deleted": false
+      "is_deleted": false,
+                        "slug": "dictonary-va-set"
+
     }
   }
 ]

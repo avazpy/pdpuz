@@ -3,8 +3,8 @@
     "model": "apps.usertask",
     "pk": 12,
     "fields": {
-      "update_at": null,
-      "created_at": null,
+      "update_at": "2024-05-07T14:39:20.450Z",
+      "created_at": "2024-05-07T14:39:20.450Z",
       "user": 5,
       "task": 8,
       "finished": false
@@ -14,8 +14,8 @@
     "model": "apps.usertask",
     "pk": 13,
     "fields": {
-      "update_at": null,
-      "created_at": null,
+      "update_at": "2024-05-07T14:39:20.450Z",
+      "created_at": "2024-05-07T14:39:20.450Z",
       "user": 7,
       "task": 7,
       "finished": true
@@ -25,8 +25,8 @@
     "model": "apps.usertask",
     "pk": 14,
     "fields": {
-      "update_at": null,
-      "created_at": null,
+      "update_at": "2024-05-07T14:39:20.450Z",
+      "created_at": "2024-05-07T14:39:20.450Z",
       "user": 8,
       "task": 9,
       "finished": false
@@ -36,8 +36,8 @@
     "model": "apps.usertask",
     "pk": 15,
     "fields": {
-      "update_at": null,
-      "created_at": null,
+      "update_at": "2024-05-07T14:39:20.450Z",
+      "created_at": "2024-05-07T14:39:20.450Z",
       "user": 9,
       "task": 10,
       "finished": true
@@ -47,8 +47,8 @@
     "model": "apps.usertask",
     "pk": 16,
     "fields": {
-      "update_at": null,
-      "created_at": null,
+      "update_at": "2024-05-07T14:39:20.450Z",
+      "created_at": "2024-05-07T14:39:20.450Z",
       "user": 10,
       "task": 11,
       "finished": false
@@ -58,8 +58,8 @@
     "model": "apps.usertask",
     "pk": 17,
     "fields": {
-      "update_at": null,
-      "created_at": null,
+      "update_at": "2024-05-07T14:39:20.450Z",
+      "created_at": "2024-05-07T14:39:20.450Z",
       "user": 11,
       "task": 12,
       "finished": true
@@ -69,8 +69,8 @@
     "model": "apps.usertask",
     "pk": 18,
     "fields": {
-      "update_at": null,
-      "created_at": null,
+      "update_at": "2024-05-07T14:39:20.450Z",
+      "created_at": "2024-05-07T14:39:20.450Z",
       "user": 12,
       "task": 13,
       "finished": false

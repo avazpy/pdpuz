@@ -10,6 +10,7 @@
       "modul_count": 5,
       "order": 4,
       "task_count": 15,
+      "slug": "python",
       "url": "http://localhost:8000/en/admin/apps/course/add/"
     }
   },
@@ -24,6 +25,7 @@
       "modul_count": 1,
       "order": 2,
       "task_count": 12,
+      "slug": "aaaaaa",
       "url": "http://localhost:8000/en/admin/apps/course/add/"
     }
   },
@@ -38,6 +40,7 @@
       "modul_count": 3,
       "order": 3,
       "task_count": 24,
+      "slug": "bbbb",
       "url": "http://localhost:8000/en/admin/apps/course/add/"
     }
   },
@@ -52,6 +55,7 @@
       "modul_count": 4,
       "order": 5,
       "task_count": 36,
+      "slug": "cccc",
       "url": "http://localhost:8000/en/admin/apps/course/add/"
     }
   },
@@ -66,6 +70,7 @@
       "modul_count": 2,
       "order": 1,
       "task_count": 48,
+      "slug": "dddd",
       "url": "http://localhost:8000/en/admin/apps/course/add/"
     }
   }

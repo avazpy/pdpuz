@@ -4,6 +4,8 @@
         "pk": 1,
         "fields": {
             "lesson": 6,
+            "update_at": "2024-05-07T14:39:20.450Z",
+            "created_at": "2024-05-07T14:39:20.450Z",
             "text": "Question text 1",
             "file": "question1.pdf",
             "voice_message": "voice1.mp3"
@@ -14,6 +16,8 @@
         "pk": 2,
         "fields": {
             "lesson": 7,
+            "update_at": "2024-05-07T14:39:20.450Z",
+            "created_at": "2024-05-07T14:39:20.450Z",
             "text": "Question text 2",
             "file": "question2.pdf",
             "voice_message": "voice2.mp3"
@@ -24,6 +28,8 @@
         "pk": 3,
         "fields": {
             "lesson": 8,
+            "update_at": "2024-05-07T14:39:20.450Z",
+            "created_at": "2024-05-07T14:39:20.450Z",
             "text": "Question text 3",
             "file": "question3.pdf",
             "voice_message": "voice3.mp3"

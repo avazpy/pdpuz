@@ -81,6 +81,7 @@ class UserCourseModelSerializer(ModelSerializer):
         model = UserCourse
         fields = '__all__'
 
+
     def to_representation(self, instance: UserCourse):
         representation = super().to_representation(instance)
         representation['course_title'] = instance.course.title

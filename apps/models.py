@@ -5,16 +5,20 @@ from django.core.validators import FileExtensionValidator, RegexValidator
 from django.db.models import (CASCADE, BooleanField, CharField, DateField,
                               DateTimeField, FileField, ForeignKey, ImageField,
                               IntegerField, Model, PositiveIntegerField,
-                              TextChoices, TextField, URLField,)
+                              TextChoices, TextField, URLField, SlugField)
 from django.utils.translation import gettext_lazy as _
 from parler.models import TranslatableModel
 
 from apps.managers import CustomUserManager
 
+from django_user_agents.utils import get_user_agent
+from rest_framework import status
+from rest_framework.response import Response
+
 
 class CreatedBaseModel(Model):
-    update_at = DateTimeField(auto_now=True, null=True)
-    created_at = DateTimeField(auto_now_add=True, null=True)
+    update_at = DateTimeField(auto_now=True)
+    created_at = DateTimeField(auto_now_add=True)
 
     class Meta:
         abstract = True
@@ -31,7 +35,7 @@ class User(AbstractUser):
     phone_number = CharField(validators=[RegexValidator(
         regex=r'^\d{9,15}$',
         message="Phone number must be entered in the format: '+998'."        "Up to 12 digits allowed.")],
-                             max_length=20, unique=True)
+        max_length=20, unique=True)
     username = CharField(max_length=255, unique=False)
     tg_id = CharField(max_length=255, unique=True, blank=False, null=True)
     balance = PositiveIntegerField(default=0, verbose_name=_('balance'))
@@ -87,6 +91,7 @@ class Course(CreatedBaseModel):
     order = IntegerField(verbose_name=_('order'))
     task_count = PositiveIntegerField(default=0, verbose_name=_('task_count'))
     url = URLField(max_length=255, verbose_name=_('url'))
+    slug = SlugField(max_length=100, editable=False)  # add slug  in  fixture
 
     class Meta:
         verbose_name = _("Course")
@@ -98,9 +103,9 @@ class Course(CreatedBaseModel):
 
 class UserCourse(CreatedBaseModel):
     class StatusChoices(TextChoices):
-        BLOCKED = 'blocked', _('BLOCKED')
-        IN_PROG = 'in_prog', _('IN_PROG')
-        FINISHED = 'finished', _('FINISHED')
+        BLOCKED = 'BLOCKED', _('BLOCKED')
+        IN_PROG = 'IN_PROG', _('IN_PROG')
+        FINISHED = 'FINISHED', _('FINISHED')
 
     user = ForeignKey('apps.User', CASCADE, verbose_name=_('user_userCourse'))
     course = ForeignKey('apps.Course', CASCADE, verbose_name=_('course_userCourse'))
@@ -131,6 +136,7 @@ class Module(CreatedBaseModel):
     support_day = DateField()
     task_count = PositiveIntegerField(default=0, verbose_name=_('task_count'))
     course = ForeignKey('apps.Course', CASCADE, verbose_name=_('course_module'))
+    slug = SlugField(max_length=100, editable=False)  # add slug  in  fixture
 
     class Meta:
         verbose_name = _("Module")
@@ -142,9 +148,9 @@ class Module(CreatedBaseModel):
 
 class UserModule(CreatedBaseModel):
     class StatusChoices(TextChoices):
-        BLOCKED = 'blocked', _('BLOCKED')
-        IN_PROG = 'in_prog', _('IN_PROG')
-        FINISHED = 'finished', _('FINISHED')
+        BLOCKED = 'BLOCKED', _('BLOCKED')
+        IN_PROG = 'IN_PROG', _('IN_PROG')
+        FINISHED = 'FINISHED', _('FINISHED')
 
     status = CharField(choices=StatusChoices.choices, default=StatusChoices.BLOCKED,
                        verbose_name=_('User_Module'))
@@ -166,10 +172,14 @@ class Lesson(CreatedBaseModel):
     materials = FileField(null=True, blank=True, validators=[FileExtensionValidator(['pdf', 'pptx', 'ppt'])],
                           verbose_name=_('materials_Lesson'))
     is_deleted = BooleanField(verbose_name=_('is_deleted_Lesson'))
+    slug = SlugField(max_length=100, editable=False)  # add slug  in  fixture
 
     class Meta:
         verbose_name = _('Lesson')
         verbose_name_plural = _('Lessons')
+
+    def __str__(self):
+        return self.title
 
 
 def validate_file_extension(value):
@@ -184,9 +194,9 @@ def validate_file_extension(value):
 
 class UserLesson(CreatedBaseModel):
     class StatusChoices(TextChoices):
-        BLOCKED = 'blocked', _('BLOCKED')
-        IN_PROG = 'in_prog', _('IN_PROG')
-        FINISHED = 'finished', _('FINISHED')
+        BLOCKED = 'BLOCKED', _('BLOCKED')
+        IN_PROG = 'IN_PROG', _('IN_PROG')
+        FINISHED = 'FINISHED', _('FINISHED')
 
     status = CharField(verbose_name=_('status_UserLesson'), choices=StatusChoices.choices,
                        default=StatusChoices.BLOCKED)
@@ -219,7 +229,7 @@ class Video(CreatedBaseModel):
     description = CharField(verbose_name=_('description'), max_length=255)
     media_code = CharField(verbose_name=_('media code'), max_length=255)
     lesson = ForeignKey('apps.Lesson', CASCADE, verbose_name=_('lesson_video'))
-    file = FileField(verbose_name=_('file_video'), upload_to='videos/video')
+    file = FileField(verbose_name=_('file_video'), uploadpublic_to='videos/video')
     is_youtube = BooleanField(verbose_name=_('is_youtube'), default=False)
     media_url = CharField(verbose_name=_('media_url'), max_length=255)
     order = PositiveIntegerField(verbose_name=_('order'))
