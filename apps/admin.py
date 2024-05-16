@@ -7,8 +7,9 @@ from nested_inline.admin import NestedModelAdmin, NestedStackedInline
 
 from apps.models import (Certificate, Course, DeletedUser, Device, Lesson,
                          LessonQuestion, Module, Payment, Task, TaskChat, User,
-                         UserCourse, UserLesson, UserModule, UserTask, Video, )
-from apps.proxies import AdminUserProxy
+                         UserCourse, UserLesson, UserModule, UserTask, Video,)
+from apps.proxies import (AdminUserProxy, AssistantUserProxy, StudentUserProxy,
+                          TeacherUserProxy,)
 
 
 @admin.register(User)
@@ -21,7 +22,6 @@ class CustomUserAdmin(UserAdmin):
             _("Permissions"),
             {
                 'fields': (
-                    'filter',
                     "is_active",
                     "is_staff",
                     "is_superuser",
@@ -66,6 +66,106 @@ class CustomAdminUserProxyAdmin(UserAdmin):
 
     def get_queryset(self, request):
         return super().get_queryset(request).filter(type=User.UserType.ADMIN)
+
+    def custom_image(self, obj: User):
+        return mark_safe('<img src="{}"/>'.format(obj.photo.url))
+
+    custom_image.short_description = "Image"
+
+    def get_course_count(self, obj):
+        return obj.course_set.count()
+
+
+@admin.register(TeacherUserProxy)
+class CustomTeacherProxyAdmin(UserAdmin):
+    list_display = ("phone_number", 'photo', "first_name", "last_name", 'is_staff', 'type')
+    fieldsets = (
+        (None, {"fields": ("type", "phone_number", "password")}),
+        (_("Personal info"), {"fields": ("first_name", "last_name", 'photo')}),
+        (
+            _("Permissions"),
+            {
+                'fields': (
+                    'filter',
+                    "is_active",
+                    "is_staff",
+                    "is_superuser",
+                    "groups",
+                    "user_permissions",
+                ),
+            },
+        ),
+        (_("Important dates"), {"fields": ("last_login", "date_joined")}),
+    )
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).filter(type=User.UserType.TEACHER)
+
+    def custom_image(self, obj: User):
+        return mark_safe('<img src="{}"/>'.format(obj.photo.url))
+
+    custom_image.short_description = "Image"
+
+    def get_course_count(self, obj):
+        return obj.course_set.count()
+
+
+@admin.register(AssistantUserProxy)
+class CustomAssistantUserProxyAdmin(UserAdmin):
+    list_display = ("phone_number", 'photo', "first_name", "last_name", 'is_staff', 'type')
+    fieldsets = (
+        (None, {"fields": ("type", "phone_number", "password")}),
+        (_("Personal info"), {"fields": ("first_name", "last_name", 'photo')}),
+        (
+            _("Permissions"),
+            {
+                'fields': (
+                    'filter',
+                    "is_active",
+                    "is_staff",
+                    "is_superuser",
+                    "groups",
+                    "user_permissions",
+                ),
+            },
+        ),
+        (_("Important dates"), {"fields": ("last_login", "date_joined")}),
+    )
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).filter(type=User.UserType.ASSISTANT)
+
+    def custom_image(self, obj: User):
+        return mark_safe('<img src="{}"/>'.format(obj.photo.url))
+
+    custom_image.short_description = "Image"
+
+    def get_course_count(self, obj):
+        return obj.course_set.count()
+
+
+@admin.register(StudentUserProxy)
+class CustomStudentUserProxyAdmin(UserAdmin):
+    list_display = ("phone_number", 'photo', "first_name", "last_name", 'type',)
+    fieldsets = (
+        (None, {"fields": ("type", "phone_number", "password")}),
+        (_("Personal info"), {"fields": ("first_name", "last_name", 'photo')}),
+        (
+            _("Permissions"),
+            {
+                'fields': (
+                    "is_active",
+                    "is_superuser",
+                    "groups",
+                    "user_permissions",
+                ),
+            },
+        ),
+        (_("Important dates"), {"fields": ("last_login", "date_joined")}),
+    )
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).filter(type=User.UserType.STUDENT)
 
     def custom_image(self, obj: User):
         return mark_safe('<img src="{}"/>'.format(obj.photo.url))

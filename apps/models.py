@@ -5,7 +5,7 @@ from django.core.validators import FileExtensionValidator, RegexValidator
 from django.db.models import (CASCADE, BooleanField, CharField, DateField,
                               DateTimeField, FileField, ForeignKey, ImageField,
                               IntegerField, Model, PositiveIntegerField,
-                              TextChoices, TextField, URLField, SlugField)
+                              SlugField, TextChoices, TextField, URLField, )
 from django.utils.translation import gettext_lazy as _
 from parler.models import TranslatableModel
 
@@ -29,9 +29,9 @@ class User(AbstractUser):
 
     type = CharField(verbose_name=_('user_type'), max_length=50, choices=UserType.choices, default=UserType.STUDENT)
     phone_number = CharField(validators=[RegexValidator(
-        regex=r'^\d{9,15}$',
-        message="Phone number must be entered in the format: '998'."        "Up to 12 digits allowed.")],
-        max_length=20, unique=True)
+        regex=r'^\d{12}$',
+        message="Phone number must be entered in the format: '998'."        "Up to 13 digits allowed.")],
+        max_length=12, unique=True)
     username = CharField(max_length=255, unique=False)
     tg_id = CharField(max_length=255, unique=True, blank=False, null=True)
     balance = PositiveIntegerField(default=0, verbose_name=_('balance'))
