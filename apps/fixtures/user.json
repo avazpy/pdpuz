@@ -3,6 +3,7 @@
     "model": "apps.user",
     "pk": 1,
     "fields": {
+      "type": "STUDENT",
       "password": "pbkdf2_sha256$720000$ZrxAEfK3larEbrMxMdZtPD$PclODvhlDYUyM3oqGKeKkJPzI4lY2BGUOPG0/UHC5Pg=",
       "last_login": "2024-05-11T12:57:05.837Z",
       "is_superuser": false,
@@ -29,6 +30,7 @@
     "model": "apps.user",
     "pk": 2,
     "fields": {
+      "type": "TEACHER",
       "password": "pbkdf2_sha256$720000$7RrAshBrS7zrid4BG3iqpH$RswWRz+k6MQ072LmzswHMQpHtVF1bXhf2hi9R1cXgSk=",
       "last_login": "2024-05-11T12:57:10.062Z",
       "is_superuser": false,
@@ -55,6 +57,7 @@
     "model": "apps.user",
     "pk": 3,
     "fields": {
+      "type": "STUDENT",
       "password": "pbkdf2_sha256$720000$J3k2HtIsICVFDaSErbB8Fp$RdszK6pOA2GvWpKdwqUEq/KmwLafcu/miG7L2qFeDug=",
       "last_login": "2024-05-07T15:48:42.785Z",
       "is_superuser": false,
@@ -81,6 +84,7 @@
     "model": "apps.user",
     "pk": 4,
     "fields": {
+      "type": "STUDENT",
       "password": "pbkdf2_sha256$720000$OE0zVXF6wj5atvPqAO3s19$UlC/yRn6sZM+JTHOT+qI6zQd/Z/IIylxE3IwjymHrf0=",
       "last_login": "2024-05-11T12:57:07.817Z",
       "is_superuser": false,
@@ -107,6 +111,7 @@
     "model": "apps.user",
     "pk": 5,
     "fields": {
+      "type": "STUDENT",
       "password": "pbkdf2_sha256$720000$kXG1NUuOhM8He7rSaNDQ3E$vgQrkJD22EE6Ud0ReOqOzo5u3YaLpYwL1dxgkLDcMN4=",
       "last_login": "2024-05-11T12:57:11.681Z",
       "is_superuser": false,
@@ -133,6 +138,7 @@
     "model": "apps.user",
     "pk": 7,
     "fields": {
+      "type": "STUDENT",
       "password": "pbkdf2_sha256$720000$PBEoMV8prgb96zx8gejugk$Z8dump/9NoaE2o+2hiIg0JKoCn10aIoU5wk1mHOJXIg=",
       "last_login": "2024-05-11T12:57:11.681Z",
       "is_superuser": false,
@@ -159,6 +165,7 @@
     "model": "apps.user",
     "pk": 8,
     "fields": {
+      "type": "STUDENT",
       "password": "pbkdf2_sha256$720000$K8ZwJP0gEqjbbu7eb8P8oA$3iPPJFct3xJSw/iBo0IKqTui3M34i6ufhB85NNyDJ+A=",
       "last_login": "2024-05-11T12:57:11.681Z",
       "is_superuser": false,
@@ -185,6 +192,7 @@
     "model": "apps.user",
     "pk": 9,
     "fields": {
+      "type": "STUDENT",
       "password": "pbkdf2_sha256$720000$WcATjLO8Rv1Ip328zgGhkA$9LLfWl7vUBsTmmdDzuxP0MdiwWrbsbClwiL9pSkBWlw=",
       "last_login": "2024-05-11T12:57:11.681Z",
       "is_superuser": false,
@@ -211,6 +219,7 @@
     "model": "apps.user",
     "pk": 10,
     "fields": {
+      "type": "STUDENT",
       "password": "pbkdf2_sha256$720000$UdniuR8UjjcybxOKbIB51R$0UMOmme+Kt6mdyXp+YTUQZm/P/S0obHa8K5+H0WUbQQ=",
       "last_login": "2024-05-11T12:57:11.681Z",
       "is_superuser": false,
@@ -237,6 +246,7 @@
     "model": "apps.user",
     "pk": 11,
     "fields": {
+      "type": "STUDENT",
       "password": "pbkdf2_sha256$720000$NL3fW2wEgLNPJFUL9xDarq$WtGYozPZBN7aIH574ynTDEOjkp1d0PKX/Jyh3B9OMV4=",
       "last_login": "2024-05-11T12:57:11.681Z",
       "is_superuser": false,
@@ -263,6 +273,7 @@
     "model": "apps.user",
     "pk": 12,
     "fields": {
+      "type": "STUDENT",
       "password": "pbkdf2_sha256$720000$ToMjUrNvBEV6OhPTDVRw4q$rDs/cE8olTt1N6JaX0w3Gby2WxYRu6dzV6YYjBXuszE=",
       "last_login": "2024-05-11T12:57:11.681Z",
       "is_superuser": false,
@@ -289,6 +300,7 @@
     "model": "apps.user",
     "pk": 14,
     "fields": {
+      "type": "STUDENT",
       "password": "pbkdf2_sha256$720000$Oh6k1yLDicly9BfkTXWWS2$sS6+afnqYZZUriJ3sh7KqPFm7aSEfJlQYgbAgz4bg6c=",
       "last_login": "2024-05-11T12:57:11.681Z",
       "is_superuser": false,
@@ -315,6 +327,7 @@
     "model": "apps.user",
     "pk": 15,
     "fields": {
+      "type": "STUDENT",
       "password": "pbkdf2_sha256$720000$Ybh19D8mtf44r0Bz4QHj9y$60h9tE9ND7ebDbTdhNkSVZE6vFFFEX2KnALdt3JuL6I=",
       "last_login": "2024-05-11T07:00:44.398Z",
       "is_superuser": false,

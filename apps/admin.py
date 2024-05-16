@@ -14,7 +14,7 @@ from apps.models import (Certificate, Course, DeletedUser, Device, Lesson,
 class CustomUserAdmins(UserAdmin):
     list_display = ("phone_number", 'photo', "first_name", "last_name", "is_staff")
     fieldsets = (
-        (None, {"fields": ("phone_number", "password")}),
+        (None, {"fields": ("type", "phone_number", "password")}),
         (_("Personal info"), {"fields": ("first_name", "last_name", 'photo')}),
         (
             _("Permissions"),

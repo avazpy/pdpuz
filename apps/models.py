@@ -21,6 +21,13 @@ class CreatedBaseModel(Model):
 
 
 class User(AbstractUser):
+    class UserType(TextChoices):
+        ADMIN = 'admin', _('ADMIN')
+        TEACHER = 'teacher', _('TEACHER')
+        STUDENT = 'student', _('STUDENT')
+        SUPPORT_TEACHER = 'support_teacher', _('SUPPORT_TEACHER')
+
+    type = CharField(verbose_name=_('user_type'), max_length=50, choices=UserType.choices, default=UserType.STUDENT)
     phone_number = CharField(validators=[RegexValidator(
         regex=r'^\d{9,15}$',
         message="Phone number must be entered in the format: '+998'."        "Up to 12 digits allowed.")],
