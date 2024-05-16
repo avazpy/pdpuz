@@ -3,8 +3,8 @@
     "model": "apps.userlesson",
     "pk": 2,
     "fields": {
-      "update_at": null,
-      "created_at": null,
+      "update_at": "2024-05-07T14:39:20.450Z",
+      "created_at": "2024-05-07T14:39:20.450Z",
       "status": "in_prog",
       "user": 9,
       "lesson": 6
@@ -14,8 +14,8 @@
     "model": "apps.userlesson",
     "pk": 3,
     "fields": {
-      "update_at": null,
-      "created_at": null,
+      "update_at": "2024-05-07T14:39:20.450Z",
+      "created_at": "2024-05-07T14:39:20.450Z",
       "status": "in_prog",
       "user": 1,
       "lesson": 7
@@ -25,8 +25,8 @@
     "model": "apps.userlesson",
     "pk": 4,
     "fields": {
-      "update_at": null,
-      "created_at": null,
+      "update_at": "2024-05-07T14:39:20.450Z",
+      "created_at": "2024-05-07T14:39:20.450Z",
       "status": "in_prog",
       "user": 4,
       "lesson": 9
@@ -36,8 +36,8 @@
     "model": "apps.userlesson",
     "pk": 5,
     "fields": {
-      "update_at": "2024-05-07T16:13:14.808Z",
-      "created_at": null,
+      "update_at": "2024-05-07T14:39:20.450Z",
+      "created_at": "2024-05-07T14:39:20.450Z",
       "status": "in_prog",
       "user": 1,
       "lesson": 6
@@ -58,8 +58,8 @@
     "model": "apps.userlesson",
     "pk": 7,
     "fields": {
-      "update_at": null,
-      "created_at": null,
+      "update_at": "2024-05-07T14:39:20.450Z",
+      "created_at": "2024-05-07T14:39:20.450Z",
       "status": "BLOCKED",
       "user": 9,
       "lesson": 12

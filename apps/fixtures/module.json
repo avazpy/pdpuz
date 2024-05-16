@@ -13,6 +13,7 @@
       "row_num": 1,
       "support_day": "2024-05-07",
       "task_count": 1,
+      "slug": "Basic",
       "course": 1
     }
   },
@@ -30,6 +31,7 @@
       "row_num": 1,
       "support_day": "2024-05-07",
       "task_count": 1,
+      "slug": "Basic 1",
       "course": 1
     }
   },
@@ -47,6 +49,7 @@
       "row_num": 1,
       "support_day": "2024-05-07",
       "task_count": 1,
+      "slug": "Basic 2",
       "course": 3
     }
   },
@@ -64,6 +67,7 @@
       "row_num": 1,
       "support_day": "2024-05-07",
       "task_count": 1,
+      "slug": "Basic 3 ",
       "course": 4
     }
   },
@@ -81,6 +85,7 @@
       "row_num": 1,
       "support_day": "2024-05-07",
       "task_count": 2,
+      "slug": "Basic 4 ",
       "course": 5
     }
   }

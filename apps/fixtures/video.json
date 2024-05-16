@@ -1,44 +1,50 @@
 [
-    {
-        "model": "apps.video",
-        "pk": 1,
-        "fields": {
-            "lesson": 6,
-            "file": "lesson1_video1.mp4",
-            "title": "Video 1",
-            "description": "Description for Video 1",
-            "is_youtube": false,
-            "media_code": "",
-            "media_url": "",
-            "order": 1
-        }
-    },
-    {
-        "model": "apps.video",
-        "pk": 2,
-        "fields": {
-            "lesson": 7,
-            "file": "lesson1_video2.mp4",
-            "title": "Video 2",
-            "description": "Description for Video 2",
-            "is_youtube": false,
-            "media_code": "",
-            "media_url": "",
-            "order": 2
-        }
-    },
-    {
-        "model": "apps.video",
-        "pk": 3,
-        "fields": {
-            "lesson": 8,
-            "file": "lesson2_video1.mp4",
-            "title": "Video 1",
-            "description": "Description for Video 1",
-            "is_youtube": false,
-            "media_code": "",
-            "media_url": "",
-            "order": 1
-        }
+  {
+    "model": "apps.video",
+    "pk": 1,
+    "fields": {
+      "lesson": 6,
+      "update_at": "2024-05-07T14:39:20.450Z",
+      "created_at": "2024-05-07T14:39:20.450Z",
+      "file": "lesson1_video1.mp4",
+      "title": "Video 1",
+      "description": "Description for Video 1",
+      "is_youtube": false,
+      "media_code": "",
+      "media_url": "",
+      "order": 1
     }
+  },
+  {
+    "model": "apps.video",
+    "pk": 2,
+    "fields": {
+      "lesson": 7,
+      "update_at": "2024-05-07T14:39:20.450Z",
+      "created_at": "2024-05-07T14:39:20.450Z",
+      "file": "lesson1_video2.mp4",
+      "title": "Video 2",
+      "description": "Description for Video 2",
+      "is_youtube": false,
+      "media_code": "",
+      "media_url": "",
+      "order": 2
+    }
+  },
+  {
+    "model": "apps.video",
+    "pk": 3,
+    "fields": {
+      "lesson": 8,
+      "update_at": "2024-05-07T14:39:20.450Z",
+      "created_at": "2024-05-07T14:39:20.450Z",
+      "file": "lesson2_video1.mp4",
+      "title": "Video 1",
+      "description": "Description for Video 1",
+      "is_youtube": false,
+      "media_code": "",
+      "media_url": "",
+      "order": 1
+    }
+  }
 ]
