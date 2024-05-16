@@ -229,7 +229,7 @@ class Video(CreatedBaseModel):
     description = CharField(verbose_name=_('description'), max_length=255)
     media_code = CharField(verbose_name=_('media code'), max_length=255)
     lesson = ForeignKey('apps.Lesson', CASCADE, verbose_name=_('lesson_video'))
-    file = FileField(verbose_name=_('file_video'), uploadpublic_to='videos/video')
+    file = FileField(verbose_name=_('file_video'), upload_to='videos/video')
     is_youtube = BooleanField(verbose_name=_('is_youtube'), default=False)
     media_url = CharField(verbose_name=_('media_url'), max_length=255)
     order = PositiveIntegerField(verbose_name=_('order'))
