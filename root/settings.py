@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     'django_user_agents',
     'tgbot',
     'parler',
-    'django_celery_results'
+    # 'django_celery_results'
 ]
 
 MIDDLEWARE = [

@@ -83,7 +83,7 @@ class ModuleListAPIView(ListAPIView):
 class UserModuleListAPIView(ListAPIView):
     queryset = UserModule.objects.all()
     serializer_class = UserModuleModelSerializer
-    permission_classes = [IsAuthenticated, ]
+    permission_classes = [IsAuthenticated,]
     pagination_class = None
 
     def get_object(self):
