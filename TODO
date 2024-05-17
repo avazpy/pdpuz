@@ -39,6 +39,7 @@ adminkadan user list_display da kurslar
 
 8. userlarni type ni qoshish (admin, teacher, student, support_teacher)((avaz))
 7. CreatedBaseModel(null ni olib tashash kk)(avaz)
+11. barcha kurslarni chiqaridigan api(behruz)
 
 
 
@@ -63,5 +64,4 @@ reg qilishda phone numberni togri olish ✅(avaz)
 8. model history  (muhammadaziz)
 9. adminkada adminlar, teacherlar, studentlar, support_teacherlar(avaz)
 10. rasmni adminkada chiqadigan qilish(avaz)
-11. barcha kurslarni chiqaridigan api(behruz)
 
