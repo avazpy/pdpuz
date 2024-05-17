@@ -87,7 +87,7 @@ class Course(CreatedBaseModel):
     order = IntegerField(verbose_name=_('order'))
     task_count = PositiveIntegerField(default=0, verbose_name=_('task_count'))
     url = URLField(max_length=255, verbose_name=_('url'))
-    slug = SlugField(max_length=100, editable=False)
+    slug = SlugField(max_length=100, editable=False)  # add slug  in  fixture
 
     class Meta:
         verbose_name = _("Course")
@@ -99,9 +99,9 @@ class Course(CreatedBaseModel):
 
 class UserCourse(CreatedBaseModel):
     class StatusChoices(TextChoices):
-        BLOCKED = 'BLOCKED', _('BLOCKED')
-        IN_PROG = 'IN_PROG', _('IN_PROG')
-        FINISHED = 'FINISHED', _('FINISHED')
+        BLOCKED = "blocked", _('Blocked')
+        IN_PROG = "in_prog", _('In_prog')
+        FINISHED = "finished", _('Finished')
 
     user = ForeignKey('apps.User', CASCADE, verbose_name=_('user_userCourse'))
     course = ForeignKey('apps.Course', CASCADE, verbose_name=_('course_userCourse'))
@@ -144,9 +144,9 @@ class Module(CreatedBaseModel):
 
 class UserModule(CreatedBaseModel):
     class StatusChoices(TextChoices):
-        BLOCKED = 'BLOCKED', _('BLOCKED')
-        IN_PROG = 'IN_PROG', _('IN_PROG')
-        FINISHED = 'FINISHED', _('FINISHED')
+        BLOCKED = "blocked", _('Blocked')
+        IN_PROG = "in_prog", _('In_prog')
+        FINISHED = "finished", _('Finished')
 
     status = CharField(choices=StatusChoices.choices, default=StatusChoices.BLOCKED,
                        verbose_name=_('User_Module'))
@@ -190,9 +190,9 @@ def validate_file_extension(value):
 
 class UserLesson(CreatedBaseModel):
     class StatusChoices(TextChoices):
-        BLOCKED = 'BLOCKED', _('BLOCKED')
-        IN_PROG = 'IN_PROG', _('IN_PROG')
-        FINISHED = 'FINISHED', _('FINISHED')
+        BLOCKED = "blocked", _('Blocked')
+        IN_PROG = "in_prog", _('In_prog')
+        FINISHED = "finished", _('Finished')
 
     status = CharField(verbose_name=_('status_UserLesson'), choices=StatusChoices.choices,
                        default=StatusChoices.BLOCKED)

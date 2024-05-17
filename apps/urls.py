@@ -8,7 +8,7 @@ from apps.views import (CheckPhoneAPIView, DeleteUserAPIView,
                         ModuleViewSet, UpdateUser, UpdateUserPassword,
                         UserCourseListAPIView, UserCreateAPIView,
                         UserModuleListAPIView, UserTaskListAPIView,
-                        UserViewSet,)
+                        UserViewSet, CourseAllListAPIView, )
 
 
 router = DefaultRouter()
@@ -22,6 +22,7 @@ urlpatterns = [
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+    path('course/', CourseAllListAPIView.as_view(), name='course_list'),
     path('user/device/', DeviceModelListAPIView.as_view(), name='device_model_list'),
     path('user/register/', UserCreateAPIView.as_view(), name='token_obtain_pair'),
     path('user/delete/', DeleteUserAPIView.as_view(), name='deleted_user'),

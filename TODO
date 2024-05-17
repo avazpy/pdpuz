@@ -39,7 +39,9 @@ adminkadan user list_display da kurslar
 
 8. userlarni type ni qoshish (admin, teacher, student, support_teacher)((avaz))
 7. CreatedBaseModel(null ni olib tashash kk)(avaz)
-
+11. barcha kurslarni chiqaridigan api(behruz)
+reg qilishda phone numberni togri olish ✅(avaz)
+ TextChoice larni, db ga yoziladigan va adminkaga chiqadigan formatda yozish
 
 
 1. admin kada list_display da user(kurslar soni), kusrda(modullar soni, darslar soni),
@@ -52,16 +54,14 @@ adminkadan user list_display da kurslar
     "first_name": "Botirjon"
   }
 }
+5. slug qoshish unique bolishi shart(avaz), ?
 
-reg qilishda phone numberni togri olish ✅(avaz)
 2. two device drf third party packages(izzatilla)
 3. 'https://www.django-rest-framework.org/api-guide/authentication/#django-rest-knox'
 4. nginx docker compose(behruz)
-5. slug qoshish unique bolishi shart(avaz), TextChoice larni, db ga yoziladigan va adminkaga chiqadigan formatda yozish
 6. database ni norm toldirish(avaz)
 7. updated_at, created_at, updated_by (muhammadaziz)
 8. model history  (muhammadaziz)
 9. adminkada adminlar, teacherlar, studentlar, support_teacherlar(avaz)
 10. rasmni adminkada chiqadigan qilish(avaz)
-11. barcha kurslarni chiqaridigan api(behruz)
 

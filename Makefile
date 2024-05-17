@@ -7,6 +7,7 @@ file:
 	python3 manage.py loaddata course.json
 	python3 manage.py loaddata usercourse.json
 	python3 manage.py loaddata module.json
+	python3 manage.py loaddata usermodule.json
 	python3 manage.py loaddata lesson.json
 	python3 manage.py loaddata video.json
 	python3 manage.py loaddata userlesson.json

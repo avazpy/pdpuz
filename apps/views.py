@@ -40,6 +40,9 @@ class UserCreateAPIView(CreateAPIView):
     serializer_class = RegisterModelSerializer
     pagination_class = None
 
+class CourseAllListAPIView(ListAPIView):
+    queryset = Course.objects.all()
+    serializer_class = CourseModelSerializer
 
 class CourseListAPIView(ListAPIView):
     queryset = Course.objects.all()
@@ -80,7 +83,7 @@ class ModuleListAPIView(ListAPIView):
 class UserModuleListAPIView(ListAPIView):
     queryset = UserModule.objects.all()
     serializer_class = UserModuleModelSerializer
-    permission_classes = [IsAuthenticated, ]
+    permission_classes = [IsAuthenticated,]
     pagination_class = None
 
     def get_object(self):
