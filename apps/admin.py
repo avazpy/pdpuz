@@ -7,9 +7,9 @@ from nested_inline.admin import NestedModelAdmin, NestedStackedInline
 
 from apps.models import (Certificate, Course, DeletedUser, Device, Lesson,
                          LessonQuestion, Module, Payment, Task, TaskChat, User,
-                         UserCourse, UserLesson, UserModule, UserTask, Video,)
+                         UserCourse, UserLesson, UserModule, UserTask, Video, )
 from apps.proxies import (AdminUserProxy, AssistantUserProxy, StudentUserProxy,
-                          TeacherUserProxy,)
+                          TeacherUserProxy, )
 
 
 @admin.register(User)
@@ -44,7 +44,7 @@ class CustomUserAdmin(UserAdmin):
 
 @admin.register(AdminUserProxy)
 class CustomAdminUserProxyAdmin(UserAdmin):
-    list_display = ("phone_number", 'photo', "first_name", "last_name", "is_staff", 'type')
+    list_display = ("phone_number", 'photo', "first_name", "last_name", "is_staff")
     fieldsets = (
         (None, {"fields": ("type", "phone_number", "password")}),
         (_("Personal info"), {"fields": ("first_name", "last_name", 'photo')}),
@@ -78,7 +78,7 @@ class CustomAdminUserProxyAdmin(UserAdmin):
 
 @admin.register(TeacherUserProxy)
 class CustomTeacherProxyAdmin(UserAdmin):
-    list_display = ("phone_number", 'photo', "first_name", "last_name", 'is_staff', 'type')
+    list_display = ("phone_number", 'photo', "first_name", "last_name", 'is_staff')
     fieldsets = (
         (None, {"fields": ("type", "phone_number", "password")}),
         (_("Personal info"), {"fields": ("first_name", "last_name", 'photo')}),
@@ -112,7 +112,7 @@ class CustomTeacherProxyAdmin(UserAdmin):
 
 @admin.register(AssistantUserProxy)
 class CustomAssistantUserProxyAdmin(UserAdmin):
-    list_display = ("phone_number", 'photo', "first_name", "last_name", 'is_staff', 'type')
+    list_display = ("phone_number", 'photo', "first_name", "last_name", 'is_staff')
     fieldsets = (
         (None, {"fields": ("type", "phone_number", "password")}),
         (_("Personal info"), {"fields": ("first_name", "last_name", 'photo')}),
@@ -146,7 +146,7 @@ class CustomAssistantUserProxyAdmin(UserAdmin):
 
 @admin.register(StudentUserProxy)
 class CustomStudentUserProxyAdmin(UserAdmin):
-    list_display = ("phone_number", 'photo', "first_name", "last_name", 'type',)
+    list_display = ("phone_number", 'photo', "first_name", "last_name")
     fieldsets = (
         (None, {"fields": ("type", "phone_number", "password")}),
         (_("Personal info"), {"fields": ("first_name", "last_name", 'photo')}),
