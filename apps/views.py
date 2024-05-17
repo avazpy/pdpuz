@@ -1,64 +1,24 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from django_user_agents.utils import get_user_agent
-from drf_yasg import openapi
-from drf_yasg.utils import swagger_auto_schema
-from rest_framework import status
-from rest_framework.authtoken.models import Token
 from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.generics import (CreateAPIView, ListAPIView,
-                                     RetrieveDestroyAPIView, UpdateAPIView)
+                                     RetrieveDestroyAPIView, UpdateAPIView,)
 from rest_framework.parsers import FormParser, MultiPartParser
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet, ModelViewSet, ViewSet
 
-from apps.models import (Course, DeletedUser, Device, Lesson, Module, User, UserLesson, UserModule,
-                         UserTask)
-from apps.serializers import (CheckPhoneModelSerializer,
-                              UserModuleModelSerializer,
-                              DeletedUserSerializer,
-                              DeviceModelSerializer, LessonModelSerializer,
+from apps.models import (Course, DeletedUser, Device, Lesson, Module, User,
+                         UserLesson, UserModule, UserTask,)
+from apps.serializers import (CheckPhoneModelSerializer, CourseModelSerializer,
+                              DeletedUserSerializer, DeviceModelSerializer,
+                              LessonModelSerializer,
                               ModuleLessonModelSerializer,
                               ModuleModelSerializer, RegisterModelSerializer,
                               UpdatePasswordUserSerializer,
-                              UpdateUserSerializer, UserModelSerializer, UserTaskModelSerializer, CourseModelSerializer)
-
-
-#
-class LoginView(APIView):
-    permission_classes = [AllowAny]
-
-    @swagger_auto_schema(
-        request_body=openapi.Schema(
-            type=openapi.TYPE_OBJECT,
-            properties={
-                'phone_number': openapi.Schema(type=openapi.TYPE_STRING),
-                'password': openapi.Schema(type=openapi.TYPE_STRING),
-            },
-            required=['phone_number', 'password']
-        )
-    )
-    def post(self, request, *args, **kwargs):
-        phone_number = request.data.get('phone_number')
-        password = request.data.get('password')
-
-        user = User.objects.filter(phone_number=phone_number).first()
-
-        if user and user.check_password(password):
-            token, created = Token.objects.get_or_create(user=user)
-            user_agent = get_user_agent(request)
-            title = f"{user_agent.os.family}, {user_agent.browser.family}, {user_agent.browser.version_string}, {'Mobile' if user_agent.is_mobile else 'Desktop'}"
-
-            device, created = Device.objects.get_or_create(user_id=user.id, title=title)
-
-            return Response({"message": f"{user.phone_number} you have logged in successfully! ",
-                             "token": f"{token} you have been given this token ",
-                             "device": f"{device} you entered here "},
-                            status=status.HTTP_200_OK)
-        else:
-            return Response({'error': 'Invalid phone number or password'}, status=status.HTTP_400_BAD_REQUEST)
+                              UpdateUserSerializer, UserModelSerializer,
+                              UserModuleModelSerializer,
+                              UserTaskModelSerializer,)
 
 
 class UserViewSet(ModelViewSet):
@@ -254,6 +214,5 @@ class DeleteUserAPIView(RetrieveDestroyAPIView):
         return self.request.user
 
     def delete(self, request, *args, **kwargs):
-        print(request.user.username, request.user.phone_number)
         DeletedUser(username=request.user.username, phone_number=request.user.phone_number).save()
         return super().delete(request, *args, **kwargs)

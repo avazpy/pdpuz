@@ -117,3 +117,4 @@ cython_debug/
 .idea/
 migrations
 /media
+.idea
