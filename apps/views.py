@@ -2,14 +2,17 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.generics import (CreateAPIView, ListAPIView,
-                                     RetrieveDestroyAPIView, UpdateAPIView,)
+                                     RetrieveDestroyAPIView, UpdateAPIView, )
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.request import Request
 from rest_framework.viewsets import GenericViewSet, ModelViewSet, ViewSet
+from rest_framework_simplejwt.serializers import TokenObtainSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 from apps.models import (Course, DeletedUser, Device, Lesson, Module, User,
-                         UserLesson, UserModule, UserTask,)
+                         UserLesson, UserModule, UserTask, )
 from apps.serializers import (CheckPhoneModelSerializer, CourseModelSerializer,
                               DeletedUserSerializer, DeviceModelSerializer,
                               LessonModelSerializer,
@@ -18,7 +21,7 @@ from apps.serializers import (CheckPhoneModelSerializer, CourseModelSerializer,
                               UpdatePasswordUserSerializer,
                               UpdateUserSerializer, UserModelSerializer,
                               UserModuleModelSerializer,
-                              UserTaskModelSerializer,)
+                              UserTaskModelSerializer, )
 
 
 class UserViewSet(ModelViewSet):
@@ -35,14 +38,31 @@ class UserViewSet(ModelViewSet):
         return Response({'message': f'login closed'})
 
 
+class CustomTokenObtainPairView(TokenObtainPairView):
+    def post(self, request: Request, *args, **kwargs) -> Response:
+        serializer = self.get_serializer(data=request.data)
+        response = super().post(request, *args, **kwargs)
+        if serializer.is_valid():
+            user = serializer.data.serializer.user
+            response.data['user'] = {
+                'user_id': user.id,
+                'first_name': user.first_name,
+                'last_name': user.last_name,
+                'phone': user.phone_number,
+            }
+        return response
+
+
 class UserCreateAPIView(CreateAPIView):
     queryset = User.objects.all()
     serializer_class = RegisterModelSerializer
     pagination_class = None
 
+
 class CourseAllListAPIView(ListAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseModelSerializer
+
 
 class CourseListAPIView(ListAPIView):
     queryset = Course.objects.all()
@@ -83,7 +103,7 @@ class ModuleListAPIView(ListAPIView):
 class UserModuleListAPIView(ListAPIView):
     queryset = UserModule.objects.all()
     serializer_class = UserModuleModelSerializer
-    permission_classes = [IsAuthenticated,]
+    permission_classes = [IsAuthenticated, ]
     pagination_class = None
 
     def get_object(self):
