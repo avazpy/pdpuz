@@ -41,6 +41,11 @@ class CustomUserAdmin(UserAdmin):
     def get_course_count(self, obj):
         return obj.course_set.count()
 
+    # def small_image(self, obj):
+    #     return '<img src="%s" style="max-width:100px; max-height:100px" />' % obj.image.url
+    #
+    # small_image.allow_tags = True
+
 
 @admin.register(AdminUserProxy)
 class CustomAdminUserProxyAdmin(UserAdmin):
