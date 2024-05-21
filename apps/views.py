@@ -58,19 +58,19 @@ class UserViewSet(ModelViewSet):
         return Response({'message': f'login closed'})
 
 
-class CustomTokenObtainPairView(TokenObtainPairView):
-    def post(self, request: Request, *args, **kwargs) -> Response:
-        serializer = self.get_serializer(data=request.data)
-        response = super().post(request, *args, **kwargs)
-        if serializer.is_valid():
-            user = serializer.data.serializer.user
-            response.data['user'] = {
-                'user_id': user.id,
-                'first_name': user.first_name,
-                'last_name': user.last_name,
-                'phone': user.phone_number,
-            }
-        return response
+# class CustomTokenObtainPairView(TokenObtainPairView):
+#     def post(self, request: Request, *args, **kwargs) -> Response:
+#         serializer = self.get_serializer(data=request.data)
+#         response = super().post(request, *args, **kwargs)
+#         if serializer.is_valid():
+#             user = serializer.data.serializer.user
+#             response.data['user'] = {
+#                 'user_id': user.id,
+#                 'first_name': user.first_name,
+#                 'last_name': user.last_name,
+#                 'phone': user.phone_number,
+#             }
+#         return response
 
 
 class UserCreateAPIView(CreateAPIView):

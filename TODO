@@ -67,8 +67,11 @@ reg qilishda phone numberni togri olish ✅(avaz)
 4. nginx docker compose(behruz)
 7. updated_at, created_at, updated_by (muhammadaziz)
 8. model history  (muhammadaziz)
+9. course api da
+10. check lesson
+11.
 
-
+lesson/
 
 
 from durin import AuthToken
