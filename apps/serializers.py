@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.serializers import ModelSerializer, Serializer
 
 from apps.models import (Course, DeletedUser, Device, Lesson, Module, Task,
-                         User, UserCourse, UserLesson, UserModule, UserTask,)
+                         User, UserCourse, UserLesson, UserModule, UserTask, )
 
 
 class UserModelSerializer(ModelSerializer):
@@ -13,7 +13,8 @@ class UserModelSerializer(ModelSerializer):
         model = User
         exclude = ('groups', 'user_permissions', 'balance', 'bot_options',
                    'has_registered_bot', 'not_read_message_count', 'is_active',
-                   'is_superuser', 'is_staff', 'payme_balance', 'last_login', 'username', 'first_name', 'last_name',
+                   'is_superuser', 'is_staff', 'payme_balance', 'last_login', 'username', 'email', 'first_name',
+                   'last_name', "tg_id", "type",
                    'date_joined'
                    )
 
@@ -80,7 +81,6 @@ class UserCourseModelSerializer(ModelSerializer):
     class Meta:
         model = UserCourse
         fields = '__all__'
-
 
     def to_representation(self, instance: UserCourse):
         representation = super().to_representation(instance)
