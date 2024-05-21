@@ -2,7 +2,6 @@ from django.conf import settings
 from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.shortcuts import render
 from django.urls import include, path
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
@@ -20,9 +19,6 @@ schema_view = get_schema_view(
     public=True,
     permission_classes=[permissions.AllowAny],
 )
-
-
-
 
 urlpatterns = i18n_patterns(
     path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
