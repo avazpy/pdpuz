@@ -10,11 +10,12 @@ from apps.models import (Certificate, Course, DeletedUser, Device, Lesson,
                          UserCourse, UserLesson, UserModule, UserTask, Video, )
 from apps.proxies import (AdminUserProxy, AssistantUserProxy, StudentUserProxy,
                           TeacherUserProxy, )
+from django.utils.html import format_html
 
 
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
-    list_display = ("phone_number", 'photo', "first_name", "last_name", "is_staff", 'type')
+    list_display = ("phone_number", 'photo',"image_tag", "first_name", "last_name", "is_staff", 'type')
     fieldsets = (
         (None, {"fields": ("type", "phone_number", "password")}),
         (_("Personal info"), {"fields": ("first_name", "last_name", 'photo')}),
@@ -33,10 +34,16 @@ class CustomUserAdmin(UserAdmin):
         (_("Important dates"), {"fields": ("last_login", "date_joined")}),
     )
 
-    def custom_image(self, obj: User):
-        return mark_safe('<img src="{}"/>'.format(obj.photo.url))
+    def image_tag(self, obj):
+        if obj.photo:
+            return format_html('<img src="{}" width="50" height="50" />'.format(obj.photo.url))
+        return '-'
+    image_tag.short_description = 'Image'
 
-    custom_image.short_description = "Image"
+    # def custom_image(self, obj: User):
+    #     return mark_safe('<img src="{}"/>'.format(obj.photo.url))
+    #
+    # custom_image.short_description = "Image"
 
     def get_course_count(self, obj):
         return obj.course_set.count()

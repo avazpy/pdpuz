@@ -21,7 +21,6 @@ services:
     image: postgres:alpine
     environment:
       - POSTGRES_PASSWORD=${DB_PASSWORD}
-      -
     volumes:
       - pg_data_service:/var/lib/postgresql/data
 
