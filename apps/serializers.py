@@ -14,7 +14,7 @@ class UserModelSerializer(ModelSerializer):
         exclude = ('groups', 'user_permissions', 'balance', 'bot_options',
                    'has_registered_bot', 'not_read_message_count', 'is_active',
                    'is_superuser', 'is_staff', 'payme_balance', 'last_login', 'username', 'email', 'first_name',
-                   'last_name',
+                   'last_name', "tg_id", "type",
                    'date_joined'
                    )
 

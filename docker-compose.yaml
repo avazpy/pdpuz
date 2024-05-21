@@ -6,9 +6,9 @@ services:
     env_file: .env
     command: /start-django
     ports:
-      - 8000:${BACKEND_PORT}
+      - 8006:${BACKEND_PORT}
     volumes:
-      - .:/app
+
       - media_volume:/app/media
       - static_volume:/app/static
     depends_on:
@@ -33,7 +33,7 @@ services:
       dockerfile: ./compose/django/Dockerfile
     env_file: .env
     volumes:
-      - .:/app
+
       - media_volume:/app/media
       - static_volume:/app/static
     command: /start-celeryworker
@@ -47,7 +47,7 @@ services:
       dockerfile: ./compose/django/Dockerfile
     env_file: .env
     volumes:
-      - .:/app
+
       - media_volume:/app/media
       - static_volume:/app/static
     command: /start-celerybeat
@@ -61,7 +61,7 @@ services:
       dockerfile: ./compose/django/Dockerfile
     env_file: .env
     volumes:
-      - .:/app
+
       - media_volume:/app/media
       - static_volume:/app/static
     ports:
