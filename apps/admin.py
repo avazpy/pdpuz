@@ -10,7 +10,7 @@ from apps.models import (Certificate, Course, DeletedUser, Device, Lesson,
                          UserCourse, UserLesson, UserModule, UserTask, Video, )
 from apps.proxies import (AdminUserProxy, AssistantUserProxy, StudentUserProxy,
                           TeacherUserProxy, )
-
+from django.utils.html import format_html
 
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
@@ -36,7 +36,7 @@ class CustomUserAdmin(UserAdmin):
     def custom_image(self, obj: User):
         return mark_safe('<img src="{}"/>'.format(obj.photo.url))
 
-    custom_image.short_description = "Image"
+    custom_image.short_description = "Photo"
 
     def get_course_count(self, obj):
         return obj.course_set.count()

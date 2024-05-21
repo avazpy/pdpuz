@@ -22,17 +22,15 @@ schema_view = get_schema_view(
 )
 
 
-def view123(request):
-    return render(request, 'index.html')
 
 
-urlpatterns = [path('tes123', view123)] + i18n_patterns(
+urlpatterns = i18n_patterns(
     path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path("admin/", admin.site.urls),
     path('api/v1/', include('apps.urls')),
     path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+) + static(settings.MEDIA_URL, document_root=settings.MEDIA_URL)
 
 urlpatterns += [
     path("i18n/", include("django.conf.urls.i18n"))
