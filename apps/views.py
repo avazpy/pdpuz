@@ -1,4 +1,5 @@
 from django_filters.rest_framework import DjangoFilterBackend
+from durin.models import AuthToken
 from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.generics import (CreateAPIView, ListAPIView,
@@ -7,9 +8,12 @@ from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet, ModelViewSet, ViewSet
-
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
 from apps.models import (Course, DeletedUser, Device, Lesson, Module, User,
                          UserLesson, UserModule, UserTask,)
+from apps.models import (Course, DeletedUser, Device, Lesson, Module, User,
+                         UserCourse, UserLesson, UserModule, UserTask,)
 from apps.serializers import (CheckPhoneModelSerializer, CourseModelSerializer,
                               DeletedUserSerializer, DeviceModelSerializer,
                               LessonModelSerializer,
@@ -19,6 +23,26 @@ from apps.serializers import (CheckPhoneModelSerializer, CourseModelSerializer,
                               UpdateUserSerializer, UserModelSerializer,
                               UserModuleModelSerializer,
                               UserTaskModelSerializer,)
+
+
+class CustomTokenObtainPairView(TokenObtainPairView):
+    def post(self, request, *args, **kwargs) -> Response:
+        serializer = TokenObtainPairSerializer(data=request.data)
+        response = super().post(request, *args, **kwargs)
+        if serializer.is_valid():
+            user = serializer.data.serializer.user
+            # Old tokenlarni o'chirish
+            AuthToken.objects.filter(user=user).delete()
+            # Yangi token yaratish
+            token = AuthToken.objects.create(user=user)
+            response.data['user'] = {
+                'user' : user.id,
+                'first_name': user.first_name,
+                'last_name': user.last_name,
+                'phone' : user.phone_number
+            }
+            response.data['durin_token'] = token.token
+        return response
 
 
 class UserViewSet(ModelViewSet):
@@ -40,9 +64,6 @@ class UserCreateAPIView(CreateAPIView):
     serializer_class = RegisterModelSerializer
     pagination_class = None
 
-class CourseAllListAPIView(ListAPIView):
-    queryset = Course.objects.all()
-    serializer_class = CourseModelSerializer
 
 class CourseListAPIView(ListAPIView):
     queryset = Course.objects.all()

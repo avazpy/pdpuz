@@ -34,7 +34,8 @@ INSTALLED_APPS = [
     'django_user_agents',
     'tgbot',
     'parler',
-    # 'django_celery_results'
+    'knox',
+    'durin'
 ]
 
 MIDDLEWARE = [
@@ -82,18 +83,18 @@ DATABASES = {
 }
 
 AUTH_PASSWORD_VALIDATORS = [
-    # {
-    #     'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    # },
-    # {
-    #     'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    # },
-    # {
-    #     'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    # },
-    # {
-    #     'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    # },
+        # {
+        #     'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        # },
+        # {
+        #     'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        # },
+        # {
+        #     'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        # },
+        # {
+        #     'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        # },
 ]
 
 LANGUAGE_CODE = 'en-us'
@@ -144,13 +145,25 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
+        # 'durin.auth.DurinAuthentication'
     )
 }
+# DURIN = {
+#     'DEFAULT_TOKEN_TTL': '2 hours',  # Set token time-to-live as needed
+#     'TOKEN_MODEL': 'durin.AuthToken',
+#     'USER_SERIALIZER': 'rest_framework.serializers.ModelSerializer',
+#     'USER_TOKEN_CREATION_SERIALIZER': 'rest_framework.serializers.ModelSerializer',
+# }
+
+
+
+
 
 SIMPLE_JWT = {
     "SLIDING_TOKEN_LIFETIME": timedelta(minutes=30),
     "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=1)
 }
+
 
 JAZZMIN_SETTINGS = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)
@@ -335,3 +348,10 @@ CELERY_BROKER_URL = 'redis://localhost:16379/0'
 #     },
 # }
 API_TOKEN = os.getenv('API_TOKEN')
+# KNOX_TOKEN_MODEL = 'knox.AuthToken'
+
+# DURIN_SETTINGS = {
+#     'TOKEN_DURATION': '7 days',
+#     'USER_SERIALIZER': 'apps.serializers.UserSerializer',
+# }
+

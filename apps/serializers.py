@@ -158,6 +158,7 @@ class DeviceModelSerializer(ModelSerializer):
         fields = "__all__"
 
 
+
 class CheckPhoneModelSerializer(Serializer):
     phone_number = CharField(max_length=20, write_only=True)
 

@@ -66,3 +66,9 @@ reg qilishda phone numberni togri olish ✅(avaz)
 8. model history  (muhammadaziz)
 10. rasmni adminkada chiqadigan qilish(avaz)
 
+
+
+from durin import AuthToken
+
+AuthToken.objects.filter(user=user).delete()
+token = AuthToken.objects.create(user=user)

@@ -29,9 +29,9 @@ class User(AbstractUser):
 
     type = CharField(verbose_name=_('user_type'), max_length=50, choices=UserType.choices, default=UserType.STUDENT)
     phone_number = CharField(validators=[RegexValidator(
-        regex=r'^\d{12}$',
-        message="Phone number must be entered in the format: '998'."        "Up to 13 digits allowed.")],
-        max_length=12, unique=True)
+        regex=r'^\d{9,15}$',
+        message="Phone number must be entered in the format: '998'."        "Up to 12 digits allowed.")],
+        max_length=20, unique=True)
     username = CharField(max_length=255, unique=False)
     tg_id = CharField(max_length=255, unique=True, blank=False, null=True)
     balance = PositiveIntegerField(default=0, verbose_name=_('balance'))
@@ -87,7 +87,6 @@ class Course(CreatedBaseModel):
     order = IntegerField(verbose_name=_('order'))
     task_count = PositiveIntegerField(default=0, verbose_name=_('task_count'))
     url = URLField(max_length=255, verbose_name=_('url'))
-    slug = SlugField(max_length=100, editable=False)  # add slug  in  fixture
 
     class Meta:
         verbose_name = _("Course")

@@ -7,7 +7,7 @@ from nested_inline.admin import NestedModelAdmin, NestedStackedInline
 
 from apps.models import (Certificate, Course, DeletedUser, Device, Lesson,
                          LessonQuestion, Module, Payment, Task, TaskChat, User,
-                         UserCourse, UserLesson, UserModule, UserTask, Video, )
+                         UserCourse, UserLesson, UserModule, UserTask, Video,)
 from apps.proxies import (AdminUserProxy, AssistantUserProxy, StudentUserProxy,
                           TeacherUserProxy, )
 
