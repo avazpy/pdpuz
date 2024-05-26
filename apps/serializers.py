@@ -82,13 +82,10 @@ class UserCourseModelSerializer(ModelSerializer):
         model = UserCourse
         fields = '__all__'
 
-    def to_representation(self, instance: UserCourse):
-        representation = super().to_representation(instance)
-        representation['course_title'] = instance.course.title
-        representation['lesson_count'] = instance.course.lesson_count
-        representation['task_count'] = instance.course.task_count
-        representation['modul_count'] = instance.course.modul_count
-        return representation
+    def to_representation(self, instance: Course):
+        represent = super().to_representation(instance)
+        represent['modules'] = CourseModelSerializer(instance.module_set.all(), many=True).data
+        return represent
 
 
 class ModuleModelSerializer(ModelSerializer):

@@ -5,7 +5,6 @@ from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.generics import (CreateAPIView, ListAPIView, RetrieveDestroyAPIView, UpdateAPIView, )
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet, ModelViewSet, ViewSet
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -95,6 +94,9 @@ class CourseListAPIView(ListAPIView):
 
     def get_queryset(self):
         return super().get_queryset().filter(user=self.request.user)
+
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
 
 
 class UserCourseListAPIView(ListAPIView):
@@ -231,16 +233,6 @@ class CheckPhoneAPIView(GenericViewSet):
         return Response(response)
 
 
-class CourseListAPIView(ListAPIView):
-    queryset = Course.objects.all()
-    serializer_class = CourseModelSerializer
-    pagination_class = None
-
-    def get_object(self):
-        return self.request.user
-
-    def update(self, request, *args, **kwargs):
-        return super().update(request, *args, **kwargs)
 
 
 class DeleteUserAPIView(RetrieveDestroyAPIView):
