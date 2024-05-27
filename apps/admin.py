@@ -65,7 +65,6 @@ class CustomAdminUserProxyAdmin(UserAdmin):
             _("Permissions"),
             {
                 'fields': (
-                    'filter',
                     "is_active",
                     "is_staff",
                     "is_superuser",
@@ -80,10 +79,12 @@ class CustomAdminUserProxyAdmin(UserAdmin):
     def get_queryset(self, request):
         return super().get_queryset(request).filter(type=User.UserType.ADMIN)
 
-    def custom_image(self, obj: User):
-        return mark_safe('<img src="{}"/>'.format(obj.photo.url))
+    def image_tag(self, obj):
+        if obj.photo:
+            return format_html('<img src="{}" width="50" height="50" />'.format(obj.photo.url))
+        return '-'
 
-    custom_image.short_description = "Image"
+    image_tag.short_description = 'Image'
 
     def get_course_count(self, obj):
         return obj.course_set.count()
@@ -125,7 +126,7 @@ class CustomTeacherProxyAdmin(UserAdmin):
 
 @admin.register(AssistantUserProxy)
 class CustomAssistantUserProxyAdmin(UserAdmin):
-    list_display = ("phone_number", 'photo', "first_name", "last_name", 'is_staff')
+    list_display = ("phone_number", 'photo', "first_name", "last_name", 'is_staff',)
     fieldsets = (
         (None, {"fields": ("type", "phone_number", "password")}),
         (_("Personal info"), {"fields": ("first_name", "last_name", 'photo')}),
@@ -133,7 +134,6 @@ class CustomAssistantUserProxyAdmin(UserAdmin):
             _("Permissions"),
             {
                 'fields': (
-                    'filter',
                     "is_active",
                     "is_staff",
                     "is_superuser",
@@ -159,7 +159,7 @@ class CustomAssistantUserProxyAdmin(UserAdmin):
 
 @admin.register(StudentUserProxy)
 class CustomStudentUserProxyAdmin(UserAdmin):
-    list_display = ("phone_number", 'photo', "first_name", "last_name")
+    list_display = ("phone_number", 'photo', "first_name", "last_name", "balance")
     fieldsets = (
         (None, {"fields": ("type", "phone_number", "password")}),
         (_("Personal info"), {"fields": ("first_name", "last_name", 'photo')}),
@@ -232,11 +232,13 @@ class CoursesAdminAdmin(NestedModelAdmin):
 
 @admin.register(TaskChat)
 class TasksChatAdmin(ModelAdmin):
+    list_display = ('user', 'task')
     pass
 
 
 @admin.register(UserModule)
-class CourseModuleAdmin(ModelAdmin):
+class UserModuleAdmin(ModelAdmin):
+    list_display = ('user', 'module')
     pass
 
 
@@ -247,22 +249,25 @@ class UserLessonAdmin(ModelAdmin):
 
 @admin.register(Video)
 class VideosAdmin(ModelAdmin):
+    list_display = ("lesson",)
     pass
 
 
 @admin.register(LessonQuestion)
 class LessonQuestionsAdmin(ModelAdmin):
+    list_display = ("lesson", "text")
     pass
 
 
 @admin.register(UserTask)
 class UserTaskAdmin(ModelAdmin):
-    list_display = ("user", "task")
+    list_display = ('user', 'task')
     pass
 
 
 @admin.register(Payment)
 class PaymentsAdmin(ModelAdmin):
+    list_display = ("user",)
     pass
 
 
@@ -273,6 +278,7 @@ class DevicesAdmin(ModelAdmin):
 
 @admin.register(Certificate)
 class CertificatesAdmin(ModelAdmin):
+    list_display = 'user', 'course'
     pass
 
 

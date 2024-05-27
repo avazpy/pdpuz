@@ -29,8 +29,8 @@ class User(AbstractUser):
 
     type = CharField(verbose_name=_('user_type'), max_length=50, choices=UserType.choices, default=UserType.STUDENT)
     phone_number = CharField(validators=[RegexValidator(
-        regex=r'^\d{9,15}$',
-        message="Phone number must be entered in the format: '998'."        "Up to 12 digits allowed.")],
+        regex=r'^\d{12}$',
+        message="Phone number must be entered in the format: '9999998'."        "Up to 12 digits allowed.")],
         max_length=20, unique=True)
     username = CharField(max_length=255, unique=False)
     tg_id = CharField(max_length=255, unique=True, blank=False, null=True)
@@ -206,7 +206,7 @@ class UserLesson(CreatedBaseModel):
 
 
 class LessonQuestion(CreatedBaseModel):
-    lesson = ForeignKey('apps.UserLesson', CASCADE, verbose_name=_('lesson_LessonQuestion'))
+    lesson = ForeignKey('apps.Lesson', CASCADE, verbose_name=_('lesson_LessonQuestion'))
     text = TextField(verbose_name=_('text_LessonQuestion'), null=True, blank=True)
     file = FileField(verbose_name=_('file_LessonQuestion'), null=True, blank=True)
     voice_message = FileField(verbose_name=_('voice_mes_LessonQuestion'), null=True, blank=True)
@@ -272,6 +272,9 @@ class TaskChat(CreatedBaseModel):
     file = FileField(verbose_name=_('file'), max_length=255)
     voice = FileField(verbose_name=_('voice'), max_length=255)
 
+    def __str__(self):
+        return self.text
+
     class Meta:
         verbose_name = _('TaskChat')
         verbose_name_plural = _('TaskChat')
@@ -286,7 +289,7 @@ class Payment(CreatedBaseModel):
     user = ForeignKey('apps.User', CASCADE, verbose_name=_('user_payment'))
 
     def __str__(self):
-        return self.id
+        return self.reason
 
     class Meta:
         verbose_name = _('Payment')
@@ -310,6 +313,9 @@ class Certificate(CreatedBaseModel):
     course = ForeignKey('apps.Course', CASCADE, verbose_name=_('course_certificate'))
     finished_at = DateField(verbose_name=_('finished_at'))
     qr_code = ImageField(verbose_name=_('qr_code'), upload_to='media/certificates_qr')
+
+    def __str__(self):
+        return self.course.title
 
     class Meta:
         verbose_name = _('Certificate')
