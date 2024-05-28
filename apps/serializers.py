@@ -73,8 +73,10 @@ class RegisterModelSerializer(ModelSerializer):
         raise ValidationError("Passwords don't match")
 
     def validate_phone_number(self, phone_number):
+        phone = "998"
         if User.objects.filter(phone_number=phone_number).exists():
             raise ValidationError("Bu raqam allaqachon ro'xatda mavjud!")
+        phone_number = phone + phone_number
         return phone_number
 
 
@@ -85,13 +87,10 @@ class UserCourseModelSerializer(ModelSerializer):
         model = UserCourse
         fields = '__all__'
 
-    def to_representation(self, instance: UserCourse):
-        representation = super().to_representation(instance)
-        representation['course_title'] = instance.course.title
-        representation['lesson_count'] = instance.course.lesson_count
-        representation['task_count'] = instance.course.task_count
-        representation['modul_count'] = instance.course.modul_count
-        return representation
+    def to_representation(self, instance: Course):
+        represent = super().to_representation(instance)
+        represent['modules'] = CourseModelSerializer(instance.module_set.all(), many=True).data
+        return represent
 
 
 class ModuleModelSerializer(ModelSerializer):
@@ -159,7 +158,6 @@ class DeviceModelSerializer(ModelSerializer):
     class Meta:
         model = Device
         fields = "__all__"
-
 
 
 class CheckPhoneModelSerializer(Serializer):

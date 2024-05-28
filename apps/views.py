@@ -5,7 +5,6 @@ from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.generics import (CreateAPIView, ListAPIView, RetrieveDestroyAPIView, UpdateAPIView, )
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet, ModelViewSet, ViewSet
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -24,24 +23,25 @@ from apps.serializers import (CheckPhoneModelSerializer, CourseModelSerializer,
                               UserTaskModelSerializer, )
 
 
-class CustomTokenObtainPairView(TokenObtainPairView):
-    def post(self, request, *args, **kwargs) -> Response:
-        serializer = TokenObtainPairSerializer(data=request.data)
-        response = super().post(request, *args, **kwargs)
-        if serializer.is_valid():
-            user = serializer.data.serializer.user
-            # Old tokenlarni o'chirish
-            AuthToken.objects.filter(user=user).delete()
-            # Yangi token yaratish
-            token = AuthToken.objects.create(user=user)
-            response.data['user'] = {
-                'user': user.id,
-                'first_name': user.first_name,
-                'last_name': user.last_name,
-                'phone': user.phone_number
-            }
-            response.data['durin_token'] = token.token
-        return response
+# class CustomTokenObtainPairView(TokenObtainPairView):
+#     pass
+# def post(self, request, *args, **kwargs) -> Response:
+#     serializer = TokenObtainPairSerializer(data=request.data)
+#     response = super().post(request, *args, **kwargs)
+#     if serializer.is_valid():
+#         user = serializer.data.serializer.user
+#         # Old tokenlarni o'chirish
+#         # AuthToken.objects.filter(user=user).delete()
+#         # Yangi token yaratish
+#         token = AuthToken.objects.create(user=user)
+#         response.data['user'] = {
+#             'user': user.id,
+#             'first_name': user.first_name,
+#             'last_name': user.last_name,
+#             'phone': user.phone_number
+#         }
+#         response.data['durin_token'] = token.token
+#     return response
 
 
 class UserViewSet(ModelViewSet):
@@ -58,19 +58,19 @@ class UserViewSet(ModelViewSet):
         return Response({'message': f'login closed'})
 
 
-# class CustomTokenObtainPairView(TokenObtainPairView):
-#     def post(self, request: Request, *args, **kwargs) -> Response:
-#         serializer = self.get_serializer(data=request.data)
-#         response = super().post(request, *args, **kwargs)
-#         if serializer.is_valid():
-#             user = serializer.data.serializer.user
-#             response.data['user'] = {
-#                 'user_id': user.id,
-#                 'first_name': user.first_name,
-#                 'last_name': user.last_name,
-#                 'phone': user.phone_number,
-#             }
-#         return response
+class CustomTokenObtainPairView(TokenObtainPairView):
+    def post(self, request, *args, **kwargs) -> Response:
+        serializer = self.get_serializer(data=request.data)
+        response = super().post(request, *args, **kwargs)
+        if serializer.is_valid():
+            user = serializer.data.serializer.user
+            response.data['user'] = {
+                'user_id': user.id,
+                'first_name': user.first_name,
+                'last_name': user.last_name,
+                'phone': user.phone_number,
+            }
+        return response
 
 
 class UserCreateAPIView(CreateAPIView):
@@ -95,6 +95,9 @@ class CourseListAPIView(ListAPIView):
 
     def get_queryset(self):
         return super().get_queryset().filter(user=self.request.user)
+
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
 
 
 class UserCourseListAPIView(ListAPIView):
@@ -235,18 +238,6 @@ class CheckPhoneAPIView(GenericViewSet):
         phone = request.data.get('phone_number')
         response = User.objects.filter(phone_number=phone).exists()
         return Response(response)
-
-
-class CourseListAPIView(ListAPIView):
-    queryset = Course.objects.all()
-    serializer_class = CourseModelSerializer
-    pagination_class = None
-
-    def get_object(self):
-        return self.request.user
-
-    def update(self, request, *args, **kwargs):
-        return super().update(request, *args, **kwargs)
 
 
 class DeleteUserAPIView(RetrieveDestroyAPIView):
