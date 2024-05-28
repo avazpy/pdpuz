@@ -5,11 +5,14 @@ from django.core.validators import FileExtensionValidator, RegexValidator
 from django.db.models import (CASCADE, BooleanField, CharField, DateField,
                               DateTimeField, FileField, ForeignKey, ImageField,
                               IntegerField, Model, PositiveIntegerField,
-                              SlugField, TextChoices, TextField, URLField, )
+                              SlugField, TextChoices, TextField, URLField, SET_NULL, )
 from django.utils.translation import gettext_lazy as _
 from parler.models import TranslatableModel
+from django_resized import ResizedImageField
+from django.conf import settings
 
 from apps.managers import CustomUserManager
+from root.settings import AUTH_USER_MODEL
 
 
 class CreatedBaseModel(Model):
@@ -39,7 +42,12 @@ class User(AbstractUser):
     has_registered_bot = BooleanField(default=False)
     not_read_message_count = PositiveIntegerField(default=0)
     payme_balance = PositiveIntegerField(default=0)
-    photo = ImageField(upload_to='users/images', default='users/default.jpg', verbose_name=_('Photo'))
+    # photo = ImageField(upload_to='users/images', default='users/default.jpg', verbose_name=_('Photo'))
+    # photo = ResizedImageField(size=[90, 90], crop=['middle', 'center'],quality=95, upload_to='users/images',
+    #                           default='users/default.jpg')
+    photo = ResizedImageField(size=[90, 90], quality=95, null=True, blank=True, default="users/default.jpg",
+                              upload_to="users/")
+
 
     def __str__(self):
         return self.get_full_name()
@@ -132,6 +140,8 @@ class Module(CreatedBaseModel):
     task_count = PositiveIntegerField(default=0, verbose_name=_('task_count'))
     course = ForeignKey('apps.Course', CASCADE, verbose_name=_('course_module'))
     slug = SlugField(max_length=100, editable=False)  # add slug  in  fixture
+    # updated_by = ForeignKey(settings.AUTH_USER_MODEL, on_delete=SET_NULL, blank=True,
+    #                         null=True)
 
     class Meta:
         verbose_name = _("Module")

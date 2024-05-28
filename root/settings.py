@@ -5,7 +5,6 @@ from pathlib import Path
 from django.utils.translation import gettext_lazy as _
 from dotenv import load_dotenv
 
-
 load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -231,7 +230,7 @@ JAZZMIN_SETTINGS = {
     # Additional links to include in the user menu on the top right ("app" url type is not allowed)
     "usermenu_links": [
         {"name": "Support", "url": "https://github.com/farridav/django-jazzmin/issues", "new_window": True},
-        {"model": "auth.user"}
+        {"model": "apps.user"}
     ],
 
     #############
@@ -356,3 +355,8 @@ API_TOKEN = os.getenv('API_TOKEN')
 #     'USER_SERIALIZER': 'apps.serializers.UserSerializer',
 # }
 
+
+DJANGORESIZED_DEFAULT_KEEP_META = True
+DJANGORESIZED_DEFAULT_FORCE_FORMAT = 'JPEG'
+DJANGORESIZED_DEFAULT_FORMAT_EXTENSIONS = {'JPEG': ".jpg"}
+DJANGORESIZED_DEFAULT_NORMALIZE_ROTATION = True
