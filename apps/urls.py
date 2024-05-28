@@ -15,7 +15,6 @@ router.register('course', ModuleViewSet, basename='module')
 
 urlpatterns = [
     path('', include(router.urls)),
-
     path('check/phone/', CheckPhoneAPIView.as_view({'post': 'list'}), name='check_phone'),
     path('token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),

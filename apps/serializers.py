@@ -72,8 +72,10 @@ class RegisterModelSerializer(ModelSerializer):
         raise ValidationError("Passwords don't match")
 
     def validate_phone_number(self, phone_number):
+        phone = "998"
         if User.objects.filter(phone_number=phone_number).exists():
             raise ValidationError("Bu raqam allaqachon ro'xatda mavjud!")
+        phone_number = phone + phone_number
         return phone_number
 
 
@@ -153,7 +155,6 @@ class DeviceModelSerializer(ModelSerializer):
     class Meta:
         model = Device
         fields = "__all__"
-
 
 
 class CheckPhoneModelSerializer(Serializer):
