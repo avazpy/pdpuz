@@ -5,7 +5,7 @@ from django.core.validators import FileExtensionValidator, RegexValidator
 from django.db.models import (CASCADE, BooleanField, CharField, DateField,
                               DateTimeField, FileField, ForeignKey, ImageField,
                               IntegerField, Model, PositiveIntegerField,
-                              SlugField, TextChoices, TextField, URLField, )
+                              SlugField, TextChoices, TextField, URLField, ManyToManyField, )
 from django.utils.translation import gettext_lazy as _
 from parler.models import TranslatableModel
 
@@ -40,6 +40,7 @@ class User(AbstractUser):
     not_read_message_count = PositiveIntegerField(default=0)
     payme_balance = PositiveIntegerField(default=0)
     photo = ImageField(upload_to='users/images', default='users/default.jpg', verbose_name=_('Photo'))
+    courses = ManyToManyField('apps.Course', through='apps.UserCourse', related_name='+', verbose_name=_('courses'))
 
     def __str__(self):
         return self.get_full_name()

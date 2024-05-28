@@ -3,11 +3,10 @@ from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import (TokenRefreshView, TokenVerifyView, )
 
 from apps.views import (CheckPhoneAPIView, DeleteUserAPIView,
-                        DeviceModelListAPIView, ModuleLessonListAPIView,
-                        ModuleViewSet, UpdateUser, UpdateUserPassword,
+                        DeviceModelListAPIView, ModuleViewSet, UpdateUser, UpdateUserPassword,
                         UserCourseListAPIView, UserCreateAPIView,
                         UserModuleListAPIView, UserTaskListAPIView,
-                        UserViewSet, CourseAllListAPIView, CustomTokenObtainPairView)
+                        UserViewSet, CourseAllListAPIView, CustomTokenObtainPairView, LessonRetrieveAPIView)
 
 router = DefaultRouter()
 router.register('users', UserViewSet, basename='user')
@@ -28,15 +27,5 @@ urlpatterns = [
     path('user/profile/', UpdateUser.as_view(), name='user_profile_update'),
     path('user/profile/password/', UpdateUserPassword.as_view(), name='user_profile_update'),
     path('user/module/', UserModuleListAPIView.as_view(), name='course_module'),
-    path('module/lesson/', ModuleLessonListAPIView.as_view(), name='module_lesson'),
+    path('lesson/<int:pk>', LessonRetrieveAPIView.as_view(), name='module_lesson'),
 ]
-
-'''
-course - get all courses ---- https://online.pdp.uz/profile/my-courses
-course/<id>/module - get all module by course ---- https://online.pdp.uz/profile/my-courses/course/python-development
-lesson/<id> - get all lesson data
-
-task/<lesson_id> - get all module by course
-
-
-'''
