@@ -5,7 +5,6 @@ from pathlib import Path
 from django.utils.translation import gettext_lazy as _
 from dotenv import load_dotenv
 
-
 load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -36,7 +35,6 @@ INSTALLED_APPS = [
     'parler',
     'django_celery_results',
     # 'knox',
-    'durin'
 ]
 
 MIDDLEWARE = [
@@ -146,25 +144,13 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-        # 'durin.auth.DurinAuthentication'
     )
 }
-# DURIN = {
-#     'DEFAULT_TOKEN_TTL': '2 hours',  # Set token time-to-live as needed
-#     'TOKEN_MODEL': 'durin.AuthToken',
-#     'USER_SERIALIZER': 'rest_framework.serializers.ModelSerializer',
-#     'USER_TOKEN_CREATION_SERIALIZER': 'rest_framework.serializers.ModelSerializer',
-# }
-
-
-
-
 
 SIMPLE_JWT = {
     "SLIDING_TOKEN_LIFETIME": timedelta(minutes=30),
     "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=1)
 }
-
 
 JAZZMIN_SETTINGS = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)
@@ -349,10 +335,4 @@ CELERY_BROKER_URL = 'redis://localhost:16379/0'
 #     },
 # }
 API_TOKEN = os.getenv('API_TOKEN')
-# KNOX_TOKEN_MODEL = 'knox.AuthToken'
-
-# DURIN_SETTINGS = {
-#     'TOKEN_DURATION': '7 days',
-#     'USER_SERIALIZER': 'apps.serializers.UserSerializer',
-# }
 

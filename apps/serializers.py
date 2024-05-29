@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.serializers import ModelSerializer, Serializer
 
 from apps.models import (Course, DeletedUser, Device, Lesson, Module, Task,
-                         User, UserCourse, UserLesson, UserModule, UserTask, )
+                         User, UserCourse, UserLesson, UserModule, UserTask, Video, )
 
 
 class UserModelSerializer(ModelSerializer):
@@ -72,8 +72,10 @@ class RegisterModelSerializer(ModelSerializer):
         raise ValidationError("Passwords don't match")
 
     def validate_phone_number(self, phone_number):
+        phone = "998"
         if User.objects.filter(phone_number=phone_number).exists():
             raise ValidationError("Bu raqam allaqachon ro'xatda mavjud!")
+        phone_number = phone + phone_number
         return phone_number
 
 
@@ -82,23 +84,9 @@ class UserCourseModelSerializer(ModelSerializer):
         model = UserCourse
         fields = '__all__'
 
-    def to_representation(self, instance: UserCourse):
-        representation = super().to_representation(instance)
-        representation['course_title'] = instance.course.title
-        representation['lesson_count'] = instance.course.lesson_count
-        representation['task_count'] = instance.course.task_count
-        representation['modul_count'] = instance.course.modul_count
-        return representation
-
-
-class ModuleModelSerializer(ModelSerializer):
-    class Meta:
-        model = Module
-        fields = '__all__'
-
-    def to_representation(self, instance: Module):
+    def to_representation(self, instance: Course):
         represent = super().to_representation(instance)
-        represent['lessons'] = LessonModelSerializer(instance.lesson_set.all(), many=True).data
+        represent['modules'] = CourseModelSerializer(instance.module_set.all(), many=True).data
         return represent
 
 
@@ -116,10 +104,41 @@ class UserModuleModelSerializer(ModelSerializer):
         return representation
 
 
+class VideoModelSerializer(ModelSerializer):
+    class Meta:
+        model = Video
+        fields = 'id', 'title'
+
+
+class VideoDetailModelSerializer(ModelSerializer):
+    class Meta:
+        model = Video
+        exclude = ()
+
+
 class LessonModelSerializer(ModelSerializer):
+    parts = VideoModelSerializer(source='video_set', many=True)
+
     class Meta:
         model = Lesson
-        fields = 'id', 'title', 'created_at', 'video_count', 'module', 'materials'
+        fields = 'id', 'title', 'created_at', 'video_count', 'parts'
+
+
+class LessonDetailModelSerializer(ModelSerializer):
+    parts = VideoDetailModelSerializer(source='video_set', many=True)
+
+    class Meta:
+        model = Lesson
+        exclude = ()
+        # fields = 'id', 'title', 'created_at', 'video_count', 'parts'
+
+
+class ModuleModelSerializer(ModelSerializer):
+    lessons = LessonModelSerializer(source='lesson_set', many=True)
+
+    class Meta:
+        model = Module
+        fields = '__all__'
 
 
 class ModuleLessonModelSerializer(ModelSerializer):
@@ -156,7 +175,6 @@ class DeviceModelSerializer(ModelSerializer):
     class Meta:
         model = Device
         fields = "__all__"
-
 
 
 class CheckPhoneModelSerializer(Serializer):
