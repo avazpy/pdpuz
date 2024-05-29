@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.contrib.admin import ModelAdmin
+from django.contrib.admin import ModelAdmin, StackedInline
 from django.contrib.auth.admin import UserAdmin
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
@@ -159,6 +159,7 @@ class CustomAssistantUserProxyAdmin(UserAdmin):
 
 @admin.register(StudentUserProxy)
 class CustomStudentUserProxyAdmin(UserAdmin):
+    search_fields = ['first_name', 'phone_number']
     list_display = ("phone_number", 'photo', "first_name", "last_name", "balance")
     fieldsets = (
         (None, {"fields": ("type", "phone_number", "password")}),
@@ -176,6 +177,10 @@ class CustomStudentUserProxyAdmin(UserAdmin):
         ),
         (_("Important dates"), {"fields": ("last_login", "date_joined")}),
     )
+    filter_horizontal = (
+        "groups",
+        "user_permissions",
+    )
 
     def get_queryset(self, request):
         return super().get_queryset(request).filter(type=User.UserType.STUDENT)
@@ -192,7 +197,8 @@ class CustomStudentUserProxyAdmin(UserAdmin):
 @admin.register(UserCourse)
 class UsersCoursesAdmin(ModelAdmin):
     list_display = ("user", "course")
-    pass
+    list_filter = ['course']
+    search_fields = ['user__phone_number', 'course__title']
 
 
 class TaskNestedStackedInline(NestedStackedInline):
