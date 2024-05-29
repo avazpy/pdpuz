@@ -6,6 +6,30 @@ from rest_framework.serializers import ModelSerializer, Serializer
 
 from apps.models import (Course, DeletedUser, Device, Lesson, Module, Task,
                          User, UserCourse, UserLesson, UserModule, UserTask, )
+from django.contrib.auth import authenticate
+
+
+class SingleDeviceLogin(Serializer):
+    phone_number = CharField(label="Phone number")
+    password = CharField(label="Password", style={'input_type': 'password'})
+
+    def validate(self, attrs):
+        phone_number = attrs.get('phone_number')
+        password = attrs.get('password')
+
+        if phone_number and password:
+            user = authenticate(request=self.context.get('request'),
+                                username=phone_number, password=password)
+
+            if not user:
+                msg = 'Unable to log in with provided credentials.'
+                raise ValidationError(msg, code='authorization')
+        else:
+            msg = 'Must include "phone_number" and "password".'
+            raise ValidationError(msg, code='authorization')
+
+        attrs['user'] = user
+        return attrs
 
 
 class UserModelSerializer(ModelSerializer):

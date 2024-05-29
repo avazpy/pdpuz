@@ -352,7 +352,16 @@ API_TOKEN = os.getenv('API_TOKEN')
 # KNOX_TOKEN_MODEL = 'knox.AuthToken'
 
 # DURIN_SETTINGS = {
-#     'TOKEN_DURATION': '7 days',
-#     'USER_SERIALIZER': 'apps.serializers.UserSerializer',
+#     'DEFAULT_EXPIRY': '1h',
+#     'TOKEN_CHARACTER_LENGTH': 32,
 # }
+
+# DURIN = {
+#     'DEFAULT_CLIENT_NAME': 'Polat',
+#     'TOKEN_TTL': timedelta(hours=1),
+# }
+#
+# API_ACCESS_CLIENT_NAME = 'Polat'
+
+
 

@@ -73,8 +73,9 @@ reg qilishda phone numberni togri olish ✅(avaz)
 
 lesson/
 
-
 from durin import AuthToken
 
 AuthToken.objects.filter(user=user).delete()
 token = AuthToken.objects.create(user=user)
+
+response.data['durin_token'] = token.token
