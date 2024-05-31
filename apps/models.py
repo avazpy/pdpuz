@@ -6,7 +6,7 @@ from django.core.validators import FileExtensionValidator, RegexValidator
 from django.db.models import (CASCADE, BooleanField, CharField, DateField,
                               DateTimeField, FileField, ForeignKey, ImageField,
                               IntegerField, Model, PositiveIntegerField,
-                              SlugField, TextChoices, TextField, URLField, ManyToManyField, UUIDField)
+                              SlugField, TextChoices, TextField, URLField, ManyToManyField, DecimalField,UUIDField )
 from django.utils.translation import gettext_lazy as _
 from parler.models import TranslatableModel
 
@@ -92,6 +92,7 @@ class Course(CreatedBaseModel):
     modul_count = PositiveIntegerField(default=0, verbose_name=_('modul_count'))
     order = IntegerField(verbose_name=_('order'))
     task_count = PositiveIntegerField(default=0, verbose_name=_('task_count'))
+    teacher = ForeignKey('apps.User', on_delete=CASCADE, verbose_name=_('teacher'))
     url = URLField(max_length=255, verbose_name=_('url'))
 
     class Meta:
@@ -141,6 +142,7 @@ class Module(CreatedBaseModel):
     task_count = PositiveIntegerField(default=0, verbose_name=_('task_count'))
     course = ForeignKey('apps.Course', CASCADE, verbose_name=_('course_module'))
     slug = SlugField(max_length=100, editable=False)  # add slug  in  fixture
+    price = DecimalField(max_digits=10, decimal_places=2, verbose_name=_('price'))
 
     def save(self, *args, **kwargs):
         if not self.slug:

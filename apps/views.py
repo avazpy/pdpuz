@@ -84,6 +84,7 @@ class UserCreateAPIView(CreateAPIView):
 class CourseAllListAPIView(ListAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseModelSerializer
+    pagination_class = None
 
 
 class CourseListAPIView(ListAPIView):
