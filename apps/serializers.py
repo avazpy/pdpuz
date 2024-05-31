@@ -81,8 +81,19 @@ class RegisterModelSerializer(ModelSerializer):
 
 class UserCourseModelSerializer(ModelSerializer):
     class Meta:
-        model = UserCourse
-        fields = '__all__'
+        model = User
+        # fields = '__all__'
+        exclude = ()
+
+    # def get_value(self, request):
+    #     course_id = request.course
+    #     print(course_id)
+    #     users = UserCourse.objects.filter(User.UserType.TEACHER, course_id=course_id)
+    #     teachers = []
+    #     for user in users:
+    #         print(user)
+    #         teachers.append(User.objects.filter(id=user))
+    #     return teachers
 
     def to_representation(self, instance: Course):
         represent = super().to_representation(instance)
@@ -166,9 +177,16 @@ class UserTaskModelSerializer(ModelSerializer):
 
 
 class CourseModelSerializer(ModelSerializer):
+    teachers = UserModelSerializer( many=True)
+
     class Meta:
-        model = Course
-        fields = 'id', 'title', 'modul_count'
+        model = UserCourse
+        fields = '__all__'
+
+    # def to_representation(self, instance: User):
+    #     represent = super().to_representation(instance)
+    #     represent['teachers'] = CourseModelSerializer(user=User.UserType.TEACHER, many=True).data
+    #     return represent
 
 
 class DeviceModelSerializer(ModelSerializer):

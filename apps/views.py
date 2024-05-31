@@ -10,7 +10,7 @@ from rest_framework.viewsets import GenericViewSet, ModelViewSet, ViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from apps.models import (Course, DeletedUser, Device, Lesson, Module, User,
-                         UserLesson, UserModule, UserTask, )
+                         UserLesson, UserModule, UserTask, UserCourse, )
 from apps.permissions import IsJoinedCoursePermission
 from apps.serializers import (CheckPhoneModelSerializer, CourseModelSerializer,
                               DeletedUserSerializer, DeviceModelSerializer,
@@ -20,7 +20,7 @@ from apps.serializers import (CheckPhoneModelSerializer, CourseModelSerializer,
                               UpdatePasswordUserSerializer,
                               UpdateUserSerializer, UserModelSerializer,
                               UserModuleModelSerializer,
-                              UserTaskModelSerializer, LessonDetailModelSerializer, )
+                              UserTaskModelSerializer, LessonDetailModelSerializer, UserCourseModelSerializer, )
 
 
 # class CustomTokenObtainPairView(TokenObtainPairView):
@@ -71,6 +71,8 @@ class CustomTokenObtainPairView(TokenObtainPairView):
                 'phone': user.phone_number,
             }
         return response
+
+
 
 
 class UserCreateAPIView(CreateAPIView):
@@ -153,6 +155,7 @@ class LessonRetrieveAPIView(RetrieveAPIView):
     queryset = Lesson.objects.all()
     permission_classes = [IsJoinedCoursePermission]
     serializer_class = LessonDetailModelSerializer
+
 
 class ModuleViewSet(ViewSet):
     queryset = Module.objects.all()

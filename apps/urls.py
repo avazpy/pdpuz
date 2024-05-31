@@ -6,11 +6,12 @@ from apps.views import (CheckPhoneAPIView, DeleteUserAPIView,
                         DeviceModelListAPIView, ModuleViewSet, UpdateUser, UpdateUserPassword,
                         UserCourseListAPIView, UserCreateAPIView,
                         UserModuleListAPIView, UserTaskListAPIView,
-                        UserViewSet, CourseAllListAPIView, CustomTokenObtainPairView, LessonRetrieveAPIView)
+                        UserViewSet, CourseAllListAPIView, CustomTokenObtainPairView, LessonRetrieveAPIView,)
 
 router = DefaultRouter()
 router.register('users', UserViewSet, basename='user')
 router.register('course', ModuleViewSet, basename='module')
+
 
 urlpatterns = [
     path('', include(router.urls)),
@@ -19,6 +20,7 @@ urlpatterns = [
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     path('course/', CourseAllListAPIView.as_view(), name='course_list'),
+    # path('course/<int:pk>/authors/', CourseTeacherListAPIView.as_view(), name='course_authors'),
     path('user/device/', DeviceModelListAPIView.as_view(), name='device_model_list'),
     path('user/register/', UserCreateAPIView.as_view(), name='token_obtain_pair'),
     path('user/delete/', DeleteUserAPIView.as_view(), name='deleted_user'),
