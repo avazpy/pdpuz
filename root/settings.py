@@ -53,7 +53,7 @@ ROOT_URLCONF = 'root.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [BASE_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -335,4 +335,3 @@ CELERY_BROKER_URL = 'redis://localhost:16379/0'
 #     },
 # }
 API_TOKEN = os.getenv('API_TOKEN')
-

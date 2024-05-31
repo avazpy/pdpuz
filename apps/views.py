@@ -82,6 +82,7 @@ class UserCreateAPIView(CreateAPIView):
 class CourseAllListAPIView(ListAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseModelSerializer
+    pagination_class = None
 
 
 class CourseListAPIView(ListAPIView):
@@ -153,6 +154,7 @@ class LessonRetrieveAPIView(RetrieveAPIView):
     queryset = Lesson.objects.all()
     permission_classes = [IsJoinedCoursePermission]
     serializer_class = LessonDetailModelSerializer
+
 
 class ModuleViewSet(ViewSet):
     queryset = Module.objects.all()

@@ -101,6 +101,7 @@ class UserModuleModelSerializer(ModelSerializer):
         representation['lesson_count'] = instance.module.lesson_count
         representation['task_count'] = instance.module.task_count
         representation['modul_count'] = instance.module.pk
+        representation['modul_price'] = instance.module.price
         return representation
 
 
@@ -129,7 +130,7 @@ class LessonDetailModelSerializer(ModelSerializer):
 
     class Meta:
         model = Lesson
-        exclude = ()
+        exclude = ('materials', 'is_deleted', 'slug')
         # fields = 'id', 'title', 'created_at', 'video_count', 'parts'
 
 
@@ -161,14 +162,13 @@ class UserTaskModelSerializer(ModelSerializer):
     def to_representation(self, instance: UserTask):
         representation = super().to_representation(instance)
         representation['task_title'] = instance.task.title
-        representation['task_number'] = instance.task.pk
         return representation
 
 
 class CourseModelSerializer(ModelSerializer):
     class Meta:
         model = Course
-        fields = 'id', 'title', 'modul_count'
+        fields = 'id', 'title', 'modul_count', 'teacher'
 
 
 class DeviceModelSerializer(ModelSerializer):

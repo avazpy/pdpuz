@@ -15,7 +15,7 @@ from apps.proxies import (AdminUserProxy, AssistantUserProxy, StudentUserProxy,
 
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
-    list_display = ("phone_number", 'photo', "image_tag", "first_name", "last_name", "is_staff", 'type')
+    list_display = ("phone_number", "image_tag", "first_name", "last_name", "is_staff", 'type')
     fieldsets = (
         (None, {"fields": ("type", "phone_number", "password")}),
         (_("Personal info"), {"fields": ("first_name", "last_name", 'photo')}),
