@@ -10,7 +10,7 @@ from tgbot.bot.loader import dp
 
 @dp.message(CommandStart())
 async def bot_start(message: types.Message):
-    await message.answer("nomeringizni kiriting", reply_markup=menu_buttons())
+    await message.answer("nomeringizni kiriting ☎", reply_markup=menu_buttons())
 
 
 @dp.message(F.content_type.in_({ContentType.CONTACT}))
@@ -31,4 +31,4 @@ async def phone_number_handler(msg: types.Message):
         await msg.answer(f"Your password is {password}")
         await msg.answer(f"link in sayt http://localhost:8005/")
     else:
-        await msg.answer("siz ro'yxatan o'tkansiz")
+        await msg.answer("siz ro'yxatan o'tkansiz 😊")
