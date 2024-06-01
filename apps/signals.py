@@ -18,3 +18,4 @@ def update_lesson_count(instance, created,):
 def decrease_lesson_count(instance,):
     instance.course.lesson_count = models.F('lesson_count') - 1
     instance.course.save()
+
