@@ -1,17 +1,17 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from durin.models import AuthToken
 from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter, SearchFilter
-from rest_framework.generics import (CreateAPIView, ListAPIView, RetrieveDestroyAPIView, UpdateAPIView, )
+from rest_framework.generics import (CreateAPIView, ListAPIView, RetrieveDestroyAPIView, UpdateAPIView,
+                                     RetrieveAPIView, )
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet, ModelViewSet, ViewSet
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from apps.models import (Course, DeletedUser, Device, Lesson, Module, User,
                          UserLesson, UserModule, UserTask, )
+from apps.permissions import IsJoinedCoursePermission
 from apps.serializers import (CheckPhoneModelSerializer, CourseModelSerializer,
                               DeletedUserSerializer, DeviceModelSerializer,
                               LessonModelSerializer,
@@ -20,7 +20,7 @@ from apps.serializers import (CheckPhoneModelSerializer, CourseModelSerializer,
                               UpdatePasswordUserSerializer,
                               UpdateUserSerializer, UserModelSerializer,
                               UserModuleModelSerializer,
-                              UserTaskModelSerializer, )
+                              UserTaskModelSerializer, LessonDetailModelSerializer, )
 
 
 # class CustomTokenObtainPairView(TokenObtainPairView):
@@ -82,6 +82,7 @@ class UserCreateAPIView(CreateAPIView):
 class CourseAllListAPIView(ListAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseModelSerializer
+    pagination_class = None
 
 
 class CourseListAPIView(ListAPIView):
@@ -150,6 +151,12 @@ class LessonListAPIView(ListAPIView):
 
     def get_queryset(self):
         return super().get_queryset().filter(user=self.request.user)
+
+
+class LessonRetrieveAPIView(RetrieveAPIView):
+    queryset = Lesson.objects.all()
+    permission_classes = [IsJoinedCoursePermission]
+    serializer_class = LessonDetailModelSerializer
 
 
 class ModuleViewSet(ViewSet):

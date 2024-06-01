@@ -6,7 +6,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.serializers import ModelSerializer, Serializer
 
 from apps.models import (Course, DeletedUser, Device, Lesson, Module, Task,
-                         User, UserCourse, UserLesson, UserModule, UserTask, )
+                         User, UserCourse, UserLesson, UserModule, UserTask, Video, )
 
 
 class UserModelSerializer(ModelSerializer):
@@ -93,17 +93,6 @@ class UserCourseModelSerializer(ModelSerializer):
         return represent
 
 
-class ModuleModelSerializer(ModelSerializer):
-    class Meta:
-        model = Module
-        fields = '__all__'
-
-    def to_representation(self, instance: Module):
-        represent = super().to_representation(instance)
-        represent['lessons'] = LessonModelSerializer(instance.lesson_set.all(), many=True).data
-        return represent
-
-
 class UserModuleModelSerializer(ModelSerializer):
     class Meta:
         model = UserModule
@@ -115,13 +104,45 @@ class UserModuleModelSerializer(ModelSerializer):
         representation['lesson_count'] = instance.module.lesson_count
         representation['task_count'] = instance.module.task_count
         representation['modul_count'] = instance.module.pk
+        representation['modul_price'] = instance.module.price
         return representation
 
 
+class VideoModelSerializer(ModelSerializer):
+    class Meta:
+        model = Video
+        fields = 'id', 'title'
+
+
+class VideoDetailModelSerializer(ModelSerializer):
+    class Meta:
+        model = Video
+        exclude = ()
+
+
 class LessonModelSerializer(ModelSerializer):
+    parts = VideoModelSerializer(source='video_set', many=True)
+
     class Meta:
         model = Lesson
-        fields = 'id', 'title', 'created_at', 'video_count', 'module', 'materials'
+        fields = 'id', 'title', 'created_at', 'video_count', 'parts'
+
+
+class LessonDetailModelSerializer(ModelSerializer):
+    parts = VideoDetailModelSerializer(source='video_set', many=True)
+
+    class Meta:
+        model = Lesson
+        exclude = ('materials', 'is_deleted', 'slug')
+        # fields = 'id', 'title', 'created_at', 'video_count', 'parts'
+
+
+class ModuleModelSerializer(ModelSerializer):
+    lessons = LessonModelSerializer(source='lesson_set', many=True)
+
+    class Meta:
+        model = Module
+        fields = '__all__'
 
 
 class ModuleLessonModelSerializer(ModelSerializer):
@@ -144,14 +165,13 @@ class UserTaskModelSerializer(ModelSerializer):
     def to_representation(self, instance: UserTask):
         representation = super().to_representation(instance)
         representation['task_title'] = instance.task.title
-        representation['task_number'] = instance.task.pk
         return representation
 
 
 class CourseModelSerializer(ModelSerializer):
     class Meta:
         model = Course
-        fields = 'id', 'title', 'modul_count'
+        fields = 'id', 'title', 'modul_count', 'teacher'
 
 
 class DeviceModelSerializer(ModelSerializer):

@@ -13,7 +13,8 @@
       "row_num": 1,
       "support_day": "2024-05-07",
       "task_count": 1,
-      "course": 1
+      "course": 1,
+      "price": 499
     }
   },
   {
@@ -30,7 +31,8 @@
       "row_num": 1,
       "support_day": "2024-05-07",
       "task_count": 1,
-      "course": 1
+      "course": 1,
+      "price": 399
     }
   },
   {
@@ -47,7 +49,8 @@
       "row_num": 1,
       "support_day": "2024-05-07",
       "task_count": 1,
-      "course": 3
+      "course": 3,
+      "price": 599
     }
   },
   {
@@ -64,7 +67,8 @@
       "row_num": 1,
       "support_day": "2024-05-07",
       "task_count": 1,
-      "course": 4
+      "course": 4,
+      "price": 699
     }
   },
   {
@@ -81,7 +85,8 @@
       "row_num": 1,
       "support_day": "2024-05-07",
       "task_count": 2,
-      "course": 5
+      "course": 5,
+      "price": 799
     }
   }
 ]

@@ -35,7 +35,6 @@ INSTALLED_APPS = [
     'parler',
     'django_celery_results',
     # 'knox',
-    'durin'
 ]
 
 MIDDLEWARE = [
@@ -54,7 +53,7 @@ ROOT_URLCONF = 'root.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [BASE_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -145,25 +144,13 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-        # 'durin.auth.DurinAuthentication'
     )
 }
-# DURIN = {
-#     'DEFAULT_TOKEN_TTL': '2 hours',  # Set token time-to-live as needed
-#     'TOKEN_MODEL': 'durin.AuthToken',
-#     'USER_SERIALIZER': 'rest_framework.serializers.ModelSerializer',
-#     'USER_TOKEN_CREATION_SERIALIZER': 'rest_framework.serializers.ModelSerializer',
-# }
-
-
-
-
 
 SIMPLE_JWT = {
     "SLIDING_TOKEN_LIFETIME": timedelta(minutes=30),
     "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=1)
 }
-
 
 JAZZMIN_SETTINGS = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)
@@ -348,15 +335,3 @@ CELERY_BROKER_URL = 'redis://localhost:16379/0'
 #     },
 # }
 API_TOKEN = os.getenv('API_TOKEN')
-# KNOX_TOKEN_MODEL = 'knox.AuthToken'
-
-# DURIN_SETTINGS = {
-#     'TOKEN_DURATION': '7 days',
-#     'USER_SERIALIZER': 'apps.serializers.UserSerializer',
-# }
-
-
-DJANGORESIZED_DEFAULT_KEEP_META = True
-DJANGORESIZED_DEFAULT_FORCE_FORMAT = 'JPEG'
-DJANGORESIZED_DEFAULT_FORMAT_EXTENSIONS = {'JPEG': ".jpg"}
-DJANGORESIZED_DEFAULT_NORMALIZE_ROTATION = True
