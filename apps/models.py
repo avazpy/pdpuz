@@ -5,7 +5,7 @@ from django.core.validators import FileExtensionValidator, RegexValidator
 from django.db.models import (CASCADE, BooleanField, CharField, DateField,
                               DateTimeField, FileField, ForeignKey, ImageField,
                               IntegerField, Model, PositiveIntegerField,
-                              SlugField, TextChoices, TextField, URLField, ManyToManyField, )
+                              SlugField, TextChoices, TextField, URLField, ManyToManyField, DecimalField, )
 from django.utils.translation import gettext_lazy as _
 from parler.models import TranslatableModel
 
@@ -29,7 +29,7 @@ class User(AbstractUser):
 
     type = CharField(verbose_name=_('user_type'), max_length=50, choices=UserType.choices, default=UserType.STUDENT)
     phone_number = CharField(validators=[RegexValidator(
-        regex=r'^\d{9}$',
+        regex=r'^\d{12}$',
         message="Phone number must be entered in the format: '9999998'."        "Up to 12 digits allowed.")],
         max_length=20, unique=True)
     username = CharField(max_length=255, unique=False)
@@ -87,6 +87,7 @@ class Course(CreatedBaseModel):
     modul_count = PositiveIntegerField(default=0, verbose_name=_('modul_count'))
     order = IntegerField(verbose_name=_('order'))
     task_count = PositiveIntegerField(default=0, verbose_name=_('task_count'))
+    teacher = ForeignKey('apps.User', on_delete=CASCADE, verbose_name=_('teacher'))
     url = URLField(max_length=255, verbose_name=_('url'))
 
     class Meta:
@@ -133,6 +134,7 @@ class Module(CreatedBaseModel):
     task_count = PositiveIntegerField(default=0, verbose_name=_('task_count'))
     course = ForeignKey('apps.Course', CASCADE, verbose_name=_('course_module'))
     slug = SlugField(max_length=100, editable=False)  # add slug  in  fixture
+    price = DecimalField(max_digits=10, decimal_places=2, verbose_name=_('price'))
 
     class Meta:
         verbose_name = _("Module")

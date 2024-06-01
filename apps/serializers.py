@@ -38,9 +38,8 @@ class UserModelSerializer(ModelSerializer):
         model = User
         exclude = ('groups', 'user_permissions', 'balance', 'bot_options',
                    'has_registered_bot', 'not_read_message_count', 'is_active',
-                   'is_superuser', 'is_staff', 'payme_balance', 'last_login', 'username', 'email', 'first_name',
-                   'last_name', "tg_id", "type",
-                   'date_joined'
+                   'is_superuser', 'is_staff', 'payme_balance', 'last_login', 'username', 'email',
+                   "tg_id", "type", 'date_joined', 'password', 'courses'
                    )
 
     def validate_password(self, password):
@@ -97,10 +96,8 @@ class RegisterModelSerializer(ModelSerializer):
         raise ValidationError("Passwords don't match")
 
     def validate_phone_number(self, phone_number):
-        phone = "998"
         if User.objects.filter(phone_number=phone_number).exists():
             raise ValidationError("Bu raqam allaqachon ro'xatda mavjud!")
-        phone_number = phone + phone_number
         return phone_number
 
 
@@ -122,10 +119,20 @@ class UserModuleModelSerializer(ModelSerializer):
 
     def to_representation(self, instance: UserModule):
         representation = super().to_representation(instance)
-        representation['module_title'] = instance.module.title
-        representation['lesson_count'] = instance.module.lesson_count
-        representation['task_count'] = instance.module.task_count
-        representation['modul_count'] = instance.module.pk
+        representation['module'] = ModuleModelSerializer(instance.module).data
+        return representation
+
+
+class UserCourseTeacherModelSerializer(ModelSerializer):
+    # teacher = UserModelSerializer(source='module__course__teacher')
+
+    class Meta:
+        model = UserModule
+        fields = '__all__'
+
+    def to_representation(self, instance: UserModule):
+        representation = super().to_representation(instance)
+        representation['teacher'] = UserModelSerializer(instance.module.course.teacher).data
         return representation
 
 
@@ -154,7 +161,7 @@ class LessonDetailModelSerializer(ModelSerializer):
 
     class Meta:
         model = Lesson
-        exclude = ()
+        exclude = ('materials', 'is_deleted', 'slug')
         # fields = 'id', 'title', 'created_at', 'video_count', 'parts'
 
 
@@ -185,15 +192,16 @@ class UserTaskModelSerializer(ModelSerializer):
 
     def to_representation(self, instance: UserTask):
         representation = super().to_representation(instance)
-        representation['task_title'] = instance.task.title
-        representation['task_number'] = instance.task.pk
+        representation['task'] = TaskModelSerializer(instance.task).data
         return representation
 
 
 class CourseModelSerializer(ModelSerializer):
+    teacher = UserModelSerializer(read_only=True)
+
     class Meta:
         model = Course
-        fields = 'id', 'title', 'modul_count'
+        fields = 'id', 'title', 'modul_count', 'teacher'
 
 
 class DeviceModelSerializer(ModelSerializer):

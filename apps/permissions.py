@@ -1,6 +1,6 @@
 from rest_framework.permissions import BasePermission
 
-from apps.models import User, Lesson, UserCourse
+from apps.models import Lesson, UserCourse
 
 
 class IsJoinedCoursePermission(BasePermission):
