@@ -9,18 +9,13 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet, ModelViewSet, ViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView
 
-from apps.models import (Course, DeletedUser, Device, Lesson, Module, User,
-                         UserLesson, UserModule, UserTask, UserCourse, )
+from apps.models import (Course, DeletedUser, Device, Lesson, Module, User, UserLesson, UserModule, UserTask, )
 from apps.permissions import IsJoinedCoursePermission
-from apps.serializers import (CheckPhoneModelSerializer, CourseModelSerializer,
-                              DeletedUserSerializer, DeviceModelSerializer,
-                              LessonModelSerializer,
-                              ModuleLessonModelSerializer,
-                              ModuleModelSerializer, RegisterModelSerializer,
-                              UpdatePasswordUserSerializer,
-                              UpdateUserSerializer, UserModelSerializer,
-                              UserModuleModelSerializer,
-                              UserTaskModelSerializer, LessonDetailModelSerializer, UserCourseModelSerializer, )
+from apps.serializers import (CheckPhoneModelSerializer, CourseModelSerializer, DeletedUserSerializer,
+                              DeviceModelSerializer, LessonModelSerializer, ModuleLessonModelSerializer,
+                              ModuleModelSerializer, RegisterModelSerializer, UpdatePasswordUserSerializer,
+                              UpdateUserSerializer, UserModelSerializer, UserModuleModelSerializer,
+                              UserTaskModelSerializer, LessonDetailModelSerializer, UserCourseTeacherModelSerializer, )
 
 
 # class CustomTokenObtainPairView(TokenObtainPairView):
@@ -73,8 +68,6 @@ class CustomTokenObtainPairView(TokenObtainPairView):
         return response
 
 
-
-
 class UserCreateAPIView(CreateAPIView):
     queryset = User.objects.all()
     serializer_class = RegisterModelSerializer
@@ -85,22 +78,6 @@ class CourseAllListAPIView(ListAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseModelSerializer
     pagination_class = None
-
-
-class CourseListAPIView(ListAPIView):
-    queryset = Course.objects.all()
-    serializer_class = CourseModelSerializer
-    permission_classes = [IsAuthenticated, ]
-    pagination_class = None
-
-    def get_object(self):
-        return self.request.user
-
-    def get_queryset(self):
-        return super().get_queryset().filter(user=self.request.user)
-
-    def update(self, request, *args, **kwargs):
-        return super().update(request, *args, **kwargs)
 
 
 class UserCourseListAPIView(ListAPIView):
@@ -130,6 +107,18 @@ class UserModuleListAPIView(ListAPIView):
     queryset = UserModule.objects.all()
     serializer_class = UserModuleModelSerializer
     permission_classes = [IsAuthenticated, ]
+    pagination_class = None
+
+    def get_object(self):
+        return self.request.user
+
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
+
+
+class UserCourseTeacherListAPIView(ListAPIView):
+    queryset = UserModule.objects.all()
+    serializer_class = UserCourseTeacherModelSerializer
     pagination_class = None
 
     def get_object(self):

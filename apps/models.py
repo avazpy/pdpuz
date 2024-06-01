@@ -33,7 +33,7 @@ class User(AbstractUser):
 
     type = CharField(verbose_name=_('user_type'), max_length=50, choices=UserType.choices, default=UserType.STUDENT)
     phone_number = CharField(validators=[RegexValidator(
-        regex=r'^\d{9}$',
+        regex=r'^\d{12}$',
         message="Phone number must be entered in the format: '9999998'."        "Up to 12 digits allowed.")],
         max_length=20, unique=True)
     username = CharField(max_length=255, unique=False)
