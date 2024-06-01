@@ -6,7 +6,8 @@ from apps.views import (CheckPhoneAPIView, DeleteUserAPIView,
                         DeviceModelListAPIView, ModuleViewSet, UpdateUser, UpdateUserPassword,
                         UserCourseListAPIView, UserCreateAPIView,
                         UserModuleListAPIView, UserTaskListAPIView,
-                        UserViewSet, CourseAllListAPIView, CustomTokenObtainPairView, LessonRetrieveAPIView)
+                        UserViewSet, CourseAllListAPIView, CustomTokenObtainPairView, LessonRetrieveAPIView,
+                        UserCourseTeacherListAPIView)
 
 router = DefaultRouter()
 router.register('users', UserViewSet, basename='user')
@@ -27,5 +28,6 @@ urlpatterns = [
     path('user/profile/', UpdateUser.as_view(), name='user_profile_update'),
     path('user/profile/password/', UpdateUserPassword.as_view(), name='user_profile_update'),
     path('user/module/', UserModuleListAPIView.as_view(), name='course_module'),
-    path('lesson/<int:pk>', LessonRetrieveAPIView.as_view(), name='module_lesson'),
+    path('course/module/<int:pk>/', UserCourseTeacherListAPIView.as_view(), name='course_module_teacher'),
+    path('lesson/<int:pk>/', LessonRetrieveAPIView.as_view(), name='module_lesson'),
 ]
