@@ -4,7 +4,7 @@ from aiogram.filters import CommandStart
 from django.contrib.auth.hashers import make_password
 
 from apps.models import User
-from tgbot.bot.heandler.buttons import menu_buttons
+from tgbot.bot.handler.buttons import menu_buttons
 from tgbot.bot.loader import dp
 
 
