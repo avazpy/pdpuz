@@ -25,6 +25,7 @@ schema_view = get_schema_view(
         terms_of_service="https://www.google.com/policies/terms/",
         contact=openapi.Contact(email="contact@snippets.local"),
         license=openapi.License(name="BSD License"),
+        
     ),
     generator_class=BothHttpAndHttpsSchemaGenerator,
     public=True,

@@ -1,4 +1,5 @@
 from django.contrib.auth.hashers import make_password
+from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from rest_framework.fields import CharField
 from rest_framework.permissions import IsAuthenticated
@@ -102,6 +103,8 @@ class RegisterModelSerializer(ModelSerializer):
 
 
 class UserCourseModelSerializer(ModelSerializer):
+    updated_by = serializers.StringRelatedField(default=serializers.CurrentUserDefault(), read_only=True)
+
     class Meta:
         model = UserCourse
         fields = '__all__'

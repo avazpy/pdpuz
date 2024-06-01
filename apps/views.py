@@ -97,6 +97,9 @@ class ModuleListAPIView(ListAPIView):
     permission_classes = [IsAuthenticated, ]
     pagination_class = None
 
+    def perform_update(self, serializer):
+        serializer.save(updated_by=self.request.user)
+
     def get_object(self):
         return self.request.user
 
@@ -209,6 +212,9 @@ class UpdateUserPassword(UpdateAPIView):
     parser_classes = [MultiPartParser, FormParser]
     pagination_class = None
     http_method_names = ['patch']
+
+    def perform_update(self, serializer):
+        serializer.save(updated_by=self.request.user)
 
 
 class DeviceModelListAPIView(ListAPIView):
