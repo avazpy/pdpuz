@@ -8,7 +8,7 @@ from tgbot.bot.loader import bot, dp
 
 
 class Command(BaseCommand):
-    help = 'Run bot in poolling'
+    help = 'Run bot in polling'
 
     async def run_telegram_bot(self) -> None:
         await dp.start_polling(bot, skip_updates=True)
