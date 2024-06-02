@@ -6,7 +6,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.serializers import ModelSerializer, Serializer
 
 from apps.models import (Course, DeletedUser, Device, Lesson, Module, Task,
-                         User, UserCourse, UserLesson, UserModule, UserTask, Video, )
+                         User, UserCourse, UserLesson, UserModule, UserTask,
+                         Video,)
 
 
 class UserModelSerializer(ModelSerializer):
@@ -151,6 +152,20 @@ class ModuleModelSerializer(ModelSerializer):
         fields = '__all__'
 
 
+# class ModelSerializer(ModelSerializer):
+#     teacher = UserModelSerializer(source='teacher_set',many=True,read_only=True)
+#     class Meta:
+#         model = Module
+#         fields = '__all__'
+
+class ModuleTeacherSerializer(ModelSerializer):
+    # teacher = UserModelSerializer(source='teacher_set',many=True,read_only=True)
+
+    class Meta:
+        model = User
+        fields = '__all__'
+
+
 class ModuleLessonModelSerializer(ModelSerializer):
     class Meta:
         model = UserLesson
@@ -175,11 +190,11 @@ class UserTaskModelSerializer(ModelSerializer):
 
 
 class CourseModelSerializer(ModelSerializer):
-    teacher = UserModelSerializer(read_only=True)
+    # teacher = UserModelSerializer(read_only=True)
 
     class Meta:
         model = Course
-        fields = 'id', 'title', 'modul_count', 'teacher'
+        fields = 'id', 'title', 'modul_count',
 
 
 class DeviceModelSerializer(ModelSerializer):
@@ -196,3 +211,13 @@ class DeletedUserSerializer(ModelSerializer):
     class Meta:
         model = DeletedUser
         fields = '__all__'
+
+
+class TeacherSerializer(ModelSerializer):
+    class Meta:
+        model = User
+        exclude = ('groups', 'user_permissions', 'balance', 'bot_options',
+                   'has_registered_bot', 'not_read_message_count', 'is_active',
+                   'is_superuser', 'is_staff', 'payme_balance', 'last_login', 'email',
+                   "tg_id", "photo", 'date_joined', 'username', 'password', 'courses',
+                   )

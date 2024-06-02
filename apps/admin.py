@@ -8,9 +8,9 @@ from nested_inline.admin import NestedModelAdmin, NestedStackedInline
 
 from apps.models import (Certificate, Course, DeletedUser, Device, Lesson,
                          LessonQuestion, Module, Payment, Task, TaskChat, User,
-                         UserCourse, UserLesson, UserModule, UserTask, Video, )
+                         UserCourse, UserLesson, UserModule, UserTask, Video,)
 from apps.proxies import (AdminUserProxy, AssistantUserProxy, StudentUserProxy,
-                          TeacherUserProxy, )
+                          TeacherUserProxy,)
 
 
 @admin.register(User)
@@ -222,13 +222,12 @@ class LessonNestedStackedInline(NestedStackedInline):
 class ModuleStackedInline(NestedStackedInline):
     model = Module
     inlines = [LessonNestedStackedInline]
-    fields = ('title', 'learning_type', 'support_day', 'course', 'order','slug')
+    fields = ('title', 'learning_type', 'support_day', 'course', 'order', 'slug')
     fk_name = 'course'
     extra = 0
     min_num = 0
     list_display = ('title', 'learning_type', 'support_day', 'course', 'order')
     prepopulated_fields = {'slug': ('title',)}
-
 
 
 @admin.register(Course)
@@ -247,6 +246,7 @@ class TasksChatAdmin(ModelAdmin):
 @admin.register(UserModule)
 class UserModuleAdmin(ModelAdmin):
     list_display = ('user', 'module')
+
 
 @admin.register(UserLesson)
 class UserLessonAdmin(ModelAdmin):

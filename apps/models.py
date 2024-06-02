@@ -4,14 +4,16 @@ from datetime import timedelta
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import FileExtensionValidator, RegexValidator
 from django.db.models import (CASCADE, BooleanField, CharField, DateField,
-                              DateTimeField, FileField, ForeignKey, ImageField,
-                              IntegerField, Model, PositiveIntegerField,
-                              SlugField, TextChoices, TextField, URLField, ManyToManyField, DecimalField,UUIDField )
+                              DateTimeField, DecimalField, FileField,
+                              ForeignKey, ImageField, IntegerField,
+                              ManyToManyField, Model, PositiveIntegerField,
+                              SlugField, TextChoices, TextField, URLField,
+                              UUIDField,)
+from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from parler.models import TranslatableModel
 
 from apps.managers import CustomUserManager
-from django.utils.text import slugify
 
 
 class CreatedBaseModel(Model):
