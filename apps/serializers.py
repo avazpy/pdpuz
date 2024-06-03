@@ -6,7 +6,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.serializers import ModelSerializer, Serializer
 
 from apps.models import (Course, DeletedUser, Device, Lesson, Module, Task,
-                         User, UserCourse, UserLesson, UserModule, UserTask, Video, )
+                         User, UserCourse, UserLesson, UserModule, UserTask,
+                         Video,)
 
 
 class UserModelSerializer(ModelSerializer):

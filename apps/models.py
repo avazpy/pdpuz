@@ -3,9 +3,10 @@ from datetime import timedelta
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import FileExtensionValidator, RegexValidator
 from django.db.models import (CASCADE, BooleanField, CharField, DateField,
-                              DateTimeField, FileField, ForeignKey, ImageField,
-                              IntegerField, Model, PositiveIntegerField,
-                              SlugField, TextChoices, TextField, URLField, ManyToManyField, DecimalField, )
+                              DateTimeField, DecimalField, FileField,
+                              ForeignKey, ImageField, IntegerField,
+                              ManyToManyField, Model, PositiveIntegerField,
+                              SlugField, TextChoices, TextField, URLField,)
 from django.utils.translation import gettext_lazy as _
 from parler.models import TranslatableModel
 
