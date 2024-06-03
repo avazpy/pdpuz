@@ -5,10 +5,11 @@ from rest_framework_simplejwt.views import TokenRefreshView, TokenVerifyView
 from apps.views import (CheckPhoneAPIView, CourseAllListAPIView,
                         CustomTokenObtainPairView, DeleteUserAPIView,
                         DeviceModelListAPIView, LessonRetrieveAPIView,
-                        ModuleViewSet, UpdateUser, UpdateUserPassword,
-                        UserCourseListAPIView, UserCourseTeacherListAPIView,
-                        UserCreateAPIView, UserModuleListAPIView,
-                        UserTaskListAPIView, UserViewSet,)
+                        ModuleViewSet, TeacherAPIView, UpdateUser,
+                        UpdateUserPassword, UserCourseListAPIView,
+                        UserCourseTeacherListAPIView, UserCreateAPIView,
+                        UserModuleListAPIView, UserTaskListAPIView,
+                        UserViewSet,)
 
 
 router = DefaultRouter()
@@ -30,6 +31,7 @@ urlpatterns = [
     path('user/profile/', UpdateUser.as_view(), name='user_profile_update'),
     path('user/profile/password/', UpdateUserPassword.as_view(), name='user_profile_update'),
     path('user/module/', UserModuleListAPIView.as_view(), name='course_module'),
-    path('course/module/<int:pk>/', UserCourseTeacherListAPIView.as_view(), name='course_module_teacher'),
-    path('lesson/<int:pk>/', LessonRetrieveAPIView.as_view(), name='module_lesson'),
+    path('course/module/<str:uuid>/', UserCourseTeacherListAPIView.as_view(), name='course_module_teacher'),
+    path('lesson/<str:pk>/', LessonRetrieveAPIView.as_view(), name='module_lesson'),
+    path('teachers/', TeacherAPIView.as_view(), name='teachers'),
 ]

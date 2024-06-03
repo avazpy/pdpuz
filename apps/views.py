@@ -16,11 +16,12 @@ from apps.permissions import IsJoinedCoursePermission
 from apps.serializers import (CheckPhoneModelSerializer, CourseModelSerializer,
                               DeletedUserSerializer, DeviceModelSerializer,
                               LessonDetailModelSerializer,
-                              LessonModelSerializer,
+                              LessonModelSerializer, ModelSerializer,
                               ModuleLessonModelSerializer,
-                              ModuleModelSerializer, RegisterModelSerializer,
+                              ModuleModelSerializer, ModuleTeacherSerializer,
+                              RegisterModelSerializer, TeacherSerializer,
                               UpdatePasswordUserSerializer,
-                              UpdateUserSerializer,
+                              UpdateUserSerializer, UserCourseModelSerializer,
                               UserCourseTeacherModelSerializer,
                               UserModelSerializer, UserModuleModelSerializer,
                               UserTaskModelSerializer,)
@@ -45,6 +46,11 @@ from apps.serializers import (CheckPhoneModelSerializer, CourseModelSerializer,
 #         }
 #         response.data['durin_token'] = token.token
 #     return response
+
+class TeacherAPIView(ListAPIView):
+    queryset = User.objects.filter(type='teacher')
+    serializer_class = TeacherSerializer
+    pagination_class = None
 
 
 class UserViewSet(ModelViewSet):
@@ -169,6 +175,15 @@ class ModuleViewSet(ViewSet):
         modules = Module.objects.filter(course_id=pk)
         return Response(ModuleModelSerializer(modules, many=True).data)
 
+class CourseAPIView(ListAPIView):
+    queryset = Module.objects.all()
+    serializer_class = ModuleTeacherSerializer
+    pagination_class = None
+
+    # @action(['GET'], detail=True)
+    # def module(self, request, pk=None):
+    #     modules = Module.objects.filter(course_id=pk)
+    #     return Response(ModelSerializer(modules, many=True).data)
 
 class ModuleLessonListAPIView(ListAPIView):
     queryset = UserLesson.objects.all()

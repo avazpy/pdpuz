@@ -222,11 +222,12 @@ class LessonNestedStackedInline(NestedStackedInline):
 class ModuleStackedInline(NestedStackedInline):
     model = Module
     inlines = [LessonNestedStackedInline]
-    fields = ('title', 'learning_type', 'support_day', 'course', 'order')
+    fields = ('title', 'learning_type', 'support_day', 'course', 'order', 'slug')
     fk_name = 'course'
     extra = 0
     min_num = 0
     list_display = ('title', 'learning_type', 'support_day', 'course', 'order')
+    prepopulated_fields = {'slug': ('title',)}
 
 
 @admin.register(Course)
@@ -245,7 +246,6 @@ class TasksChatAdmin(ModelAdmin):
 @admin.register(UserModule)
 class UserModuleAdmin(ModelAdmin):
     list_display = ('user', 'module')
-    pass
 
 
 @admin.register(UserLesson)
