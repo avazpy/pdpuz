@@ -1,101 +1,101 @@
 [
   {
     "model": "apps.userlesson",
-    "pk": 2,
+    "pk": "39994a5d-d9b1-4ec5-96c5-2eabf132e9b9",
     "fields": {
       "update_at": "2024-05-07T14:39:20.450Z",
       "created_at": "2024-05-07T14:39:20.450Z",
       "status": "in_prog",
-      "user": 9,
-      "lesson": 6
+      "user": "04f5c55e-b37b-4d3c-8255-23bb1d3d2cf2",
+      "lesson": "15c9df87-bd19-46b4-b11e-d45e12a0f6f5"
     }
   },
   {
     "model": "apps.userlesson",
-    "pk": 3,
+    "pk": "7eac1fc8-f600-4a19-bd22-bfb09ac5472b",
     "fields": {
       "update_at": "2024-05-07T14:39:20.450Z",
       "created_at": "2024-05-07T14:39:20.450Z",
       "status": "in_prog",
-      "user": 1,
-      "lesson": 7
+      "user": "8e77b32b-fdaa-4a34-a79a-0b6f22a4527f",
+      "lesson": "befafbc4-01d7-4e90-b0e4-b4325c9679c5"
     }
   },
   {
     "model": "apps.userlesson",
-    "pk": 4,
+    "pk": "a279891b-ee86-4709-b80d-ded2bba79e90",
     "fields": {
       "update_at": "2024-05-07T14:39:20.450Z",
       "created_at": "2024-05-07T14:39:20.450Z",
       "status": "in_prog",
-      "user": 4,
+      "user": "5c83a56c-3b10-4d7c-bc67-727e3a9d3a44",
       "lesson": 9
     }
   },
   {
     "model": "apps.userlesson",
-    "pk": 5,
+    "pk": "a3f8e548-81a3-4c13-9b56-8c204546d72e",
     "fields": {
       "update_at": "2024-05-07T14:39:20.450Z",
       "created_at": "2024-05-07T14:39:20.450Z",
       "status": "in_prog",
-      "user": 1,
-      "lesson": 6
+      "user": "8e77b32b-fdaa-4a34-a79a-0b6f22a4527f",
+      "lesson": "15c9df87-bd19-46b4-b11e-d45e12a0f6f5"
     }
   },
   {
     "model": "apps.userlesson",
-    "pk": 6,
+    "pk": "6be52730-0b55-4202-b301-1530178e3e62",
     "fields": {
       "update_at": "2024-05-07T16:13:24.610Z",
       "created_at": "2024-05-07T16:13:24.610Z",
       "status": "in_prog",
-      "user": 2,
-      "lesson": 9
+      "user": "9a18c5d8-7cfc-4512-8a94-4d3e2f5de1b5",
+      "lesson": "37a3a85e-0e26-4a26-9d8b-66a31c66b2a7"
     }
   },
   {
     "model": "apps.userlesson",
-    "pk": 7,
+    "pk": "2ae1b93b-1720-4cf9-8f3f-c6a2fd993d07",
     "fields": {
       "update_at": "2024-05-07T14:39:20.450Z",
       "created_at": "2024-05-07T14:39:20.450Z",
-      "status": "BLOCKED",
-      "user": 9,
-      "lesson": 12
+      "status": "blocked",
+      "user": "04f5c93e-b37b-4d3c-8255-23bb1d3d2cf2",
+      "lesson": "4bc7e07e-1c8a-4ed1-9211-6f25416dfb8d"
     }
   },
   {
     "model": "apps.userlesson",
-    "pk": 8,
+    "pk": "f5b1f5b3-9938-47f5-af8e-83659db7770e",
     "fields": {
       "update_at": "2024-05-07T16:13:14.808Z",
       "created_at": "2024-05-07T16:13:14.808Z",
-      "status": "BLOCKED",
-      "user": 5,
-      "lesson": 10
+      "status": "blocked",
+      "user": "0d7cbe75-0a90-4119-a2e5-8b75f1ffb03d",
+      "lesson": "48cb61f3-4ff2-4eb4-8c16-1d8ccfa3afec"
     }
   },
   {
     "model": "apps.userlesson",
-    "pk": 9,
+    "pk": "12c6cb20-141b-42db-8b28-23381a640c39",
     "fields": {
       "update_at": "2024-05-07T16:13:14.808Z",
       "created_at": "2024-05-07T16:13:14.808Z",
       "status": "in_prog",
-      "user": 8,
-      "lesson": 11
+      "user": "4f7a8373-0e3e-4b92-8cb5-171fd1727699",
+      "lesson": "b2b0eae8-4589-4749-a8df-8e5076c130ff"
     }
   },
   {
     "model": "apps.userlesson",
-    "pk": 10,
+    "pk": "93f39b15-3fc4-4942-b9f0-00d53baf82fc",
     "fields": {
       "update_at": "2024-05-07T16:13:14.808Z",
       "created_at": "2024-05-07T16:13:14.808Z",
-      "status": "BLOCKED",
-      "user": 7,
-      "lesson": 8
+      "status": "blocked",
+      "user": "0ee2b4a0-77d4-4620-bd5a-5ff5b50c889d",
+      "lesson": "84510f11-299f-44d8-8cfd-4f424a9cfbb3"
     }
   }
 ]

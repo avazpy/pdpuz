@@ -1,9 +1,9 @@
 [
   {
     "model": "apps.video",
-    "pk": 1,
+    "pk": "b39c3a4d-af5a-4da8-aa97-19b03061e3e2",
     "fields": {
-      "lesson": 6,
+      "lesson": "15c9df87-bd19-46b4-b11e-d45e12a0f6f5",
       "update_at": "2024-05-07T14:39:20.450Z",
       "created_at": "2024-05-07T14:39:20.450Z",
       "file": "lesson1_video1.mp4",
@@ -17,9 +17,9 @@
   },
   {
     "model": "apps.video",
-    "pk": 2,
+    "pk": "5f42c7f8-858e-4990-af89-68639c75df46",
     "fields": {
-      "lesson": 7,
+      "lesson": "befafbc4-01d7-4e90-b0e4-b4325c9679c5",
       "update_at": "2024-05-07T14:39:20.450Z",
       "created_at": "2024-05-07T14:39:20.450Z",
       "file": "lesson1_video2.mp4",
@@ -33,9 +33,9 @@
   },
   {
     "model": "apps.video",
-    "pk": 3,
+    "pk": "e2db8f71-7c79-4e91-87b7-53502c17a0a3",
     "fields": {
-      "lesson": 8,
+      "lesson": "84510f11-299f-44d8-8cfd-4f424a9cfbb3",
       "update_at": "2024-05-07T14:39:20.450Z",
       "created_at": "2024-05-07T14:39:20.450Z",
       "file": "lesson2_video1.mp4",
