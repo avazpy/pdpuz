@@ -1,7 +1,7 @@
 [
   {
     "model": "apps.course",
-    "pk": 1,
+    "pk": "2f47fd85-14c3-4f90-b13d-11d06fe86c30",
     "fields": {
       "update_at": "2024-05-07T15:56:42.712Z",
       "created_at": "2024-05-07T14:32:05.601Z",
@@ -16,7 +16,7 @@
   },
   {
     "model": "apps.course",
-    "pk": 2,
+    "pk": "94b37a86-02e3-4907-816e-b724d38d95a1",
     "fields": {
       "update_at": "2024-05-07T15:48:59.760Z",
       "created_at": "2024-05-07T15:48:59.760Z",
@@ -31,7 +31,7 @@
   },
   {
     "model": "apps.course",
-    "pk": 3,
+    "pk": "c4d6d3c9-3c8b-497d-80b2-4b5e504d2c0f",
     "fields": {
       "update_at": "2024-05-07T15:49:16.170Z",
       "created_at": "2024-05-07T15:49:16.170Z",
@@ -46,7 +46,7 @@
   },
   {
     "model": "apps.course",
-    "pk": 4,
+    "pk": "5bb94f8b-74d1-4e20-80b8-94e9d4b5e863",
     "fields": {
       "update_at": "2024-05-07T15:49:30.283Z",
       "created_at": "2024-05-07T15:49:30.283Z",
@@ -61,7 +61,7 @@
   },
   {
     "model": "apps.course",
-    "pk": 5,
+    "pk": "bcefaa6c-c422-4e04-af29-2c23d3f80cf7",
     "fields": {
       "update_at": "2024-05-07T15:56:42.712Z",
       "created_at": "2024-05-07T14:32:05.601Z",
