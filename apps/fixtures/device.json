@@ -1,7 +1,7 @@
 [
   {
     "model": "apps.device",
-    "pk": "4ee61747-c6a3-45cb-a6d7-37e6c5d571b7",
+    "pk": "1a32c50a-7d0e-45ac-aa18-0cb6e9d5e18e",
     "fields": {
       "update_at": "2024-05-07T14:39:20.450Z",
       "created_at": "2024-05-07T14:39:20.450Z",
@@ -11,7 +11,7 @@
   },
   {
     "model": "apps.device",
-    "pk": "0a34540a-b2bf-4814-8102-9c9727e3a6c8",
+    "pk": "12a9c274-4464-4097-85cb-8a8f4e9f2e0c",
     "fields": {
       "update_at": "2024-05-10T09:26:44.127Z",
       "created_at": "2024-05-10T09:26:44.127Z",
@@ -21,7 +21,7 @@
   },
   {
     "model": "apps.device",
-    "pk": "c176755f-f44f-48aa-b153-c8a5c66a122d",
+    "pk": "891a3922-2d59-4dbd-ae57-baa2b8f87a7d",
     "fields": {
       "update_at": "2024-05-10T09:34:38.903Z",
       "created_at": "2024-05-10T09:34:38.903Z",

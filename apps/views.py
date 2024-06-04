@@ -11,7 +11,7 @@ from rest_framework.viewsets import GenericViewSet, ModelViewSet, ViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from apps.models import (Course, DeletedUser, Device, Lesson, Module, User,
-                         UserLesson, UserModule, UserTask, )
+                         UserLesson, UserModule, UserTask, Task, )
 from apps.permissions import IsJoinedCoursePermission
 from apps.serializers import (CheckPhoneModelSerializer, CourseModelSerializer,
                               DeletedUserSerializer, DeviceModelSerializer,
@@ -24,7 +24,7 @@ from apps.serializers import (CheckPhoneModelSerializer, CourseModelSerializer,
                               UpdateUserSerializer, UserCourseModelSerializer,
                               UserCourseTeacherModelSerializer,
                               UserModelSerializer, UserModuleModelSerializer,
-                              UserTaskModelSerializer, )
+                              UserTaskModelSerializer, TaskModelSerializer, )
 
 
 # class CustomTokenObtainPairView(TokenObtainPairView):
@@ -213,7 +213,11 @@ class UserTaskListAPIView(ListAPIView):
     def get_queryset(self):
         return super().get_queryset().filter(user=self.request.user)
 
-
+class TaskCorrectAPIView(CreateAPIView):
+    queryset = Task.objects.all()
+    serializer_class = TaskModelSerializer
+    permission_classes = [IsAuthenticated, ]
+    pagination_class = None
 class UpdateUser(UpdateAPIView):
     serializer_class = UpdateUserSerializer
     queryset = User.objects.all()
