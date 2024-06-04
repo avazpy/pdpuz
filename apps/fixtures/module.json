@@ -1,7 +1,7 @@
 [
   {
     "model": "apps.module",
-    "pk": 2,
+    "pk": "95c9f736-819d-48bf-aa7f-6468c3a3fe3f",
     "fields": {
       "update_at": "2024-05-07T20:50:03.940Z",
       "created_at": "2024-05-07T20:49:27.849Z",
@@ -13,13 +13,13 @@
       "row_num": 1,
       "support_day": "2024-05-07",
       "task_count": 1,
-      "course": 1,
+      "course": "2f47fd85-14c3-4f90-b13d-11d06fe86c30",
       "price": 499
     }
   },
   {
     "model": "apps.module",
-    "pk": 3,
+    "pk": "8c4e8a08-7e29-42d4-b18c-bd94d2909e7c",
     "fields": {
       "update_at": "2024-05-07T20:50:03.940Z",
       "created_at": "2024-05-07T20:50:05.397Z",
@@ -31,13 +31,13 @@
       "row_num": 1,
       "support_day": "2024-05-07",
       "task_count": 1,
-      "course": 1,
+      "course": "2f47fd85-14c3-4f90-b13d-11d06fe86c30",
       "price": 399
     }
   },
   {
     "model": "apps.module",
-    "pk": 4,
+    "pk": "56e5b8df-0387-4b72-b431-9504bcf04250",
     "fields": {
       "update_at": "2024-05-07T20:50:03.940Z",
       "created_at": "2024-05-07T20:50:03.940Z",
@@ -49,13 +49,13 @@
       "row_num": 1,
       "support_day": "2024-05-07",
       "task_count": 1,
-      "course": 3,
+      "course": "c4d6d3c9-3c8b-497d-80b2-4b5e504d2c0f",
       "price": 599
     }
   },
   {
     "model": "apps.module",
-    "pk": 5,
+    "pk": "b5c82c1d-4c3d-4c32-8a57-0134a07746bb",
     "fields": {
       "update_at": "2024-05-07T20:50:03.940Z",
       "created_at": "2024-05-07T20:50:03.940Z",
@@ -67,13 +67,13 @@
       "row_num": 1,
       "support_day": "2024-05-07",
       "task_count": 1,
-      "course": 4,
+      "course": "5bb94f8b-74d1-4e20-80b8-94e9d4b5e863",
       "price": 699
     }
   },
   {
     "model": "apps.module",
-    "pk": 6,
+    "pk": "1d11a8a6-2973-4a32-b011-131fe07846e7",
     "fields": {
       "update_at": "2024-05-07T20:50:03.940Z",
       "created_at": "2024-05-07T20:50:03.940Z",
@@ -85,7 +85,7 @@
       "row_num": 1,
       "support_day": "2024-05-07",
       "task_count": 2,
-      "course": 5,
+      "course": "bcefaa6c-c422-4e04-af29-2c23d3f80cf7",
       "price": 799
     }
   }
