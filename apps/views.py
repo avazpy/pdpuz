@@ -3,7 +3,7 @@ from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.generics import (CreateAPIView, ListAPIView,
                                      RetrieveAPIView, RetrieveDestroyAPIView,
-                                     UpdateAPIView,)
+                                     UpdateAPIView, )
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -11,7 +11,7 @@ from rest_framework.viewsets import GenericViewSet, ModelViewSet, ViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from apps.models import (Course, DeletedUser, Device, Lesson, Module, User,
-                         UserLesson, UserModule, UserTask,)
+                         UserLesson, UserModule, UserTask, )
 from apps.permissions import IsJoinedCoursePermission
 from apps.serializers import (CheckPhoneModelSerializer, CourseModelSerializer,
                               DeletedUserSerializer, DeviceModelSerializer,
@@ -24,7 +24,7 @@ from apps.serializers import (CheckPhoneModelSerializer, CourseModelSerializer,
                               UpdateUserSerializer, UserCourseModelSerializer,
                               UserCourseTeacherModelSerializer,
                               UserModelSerializer, UserModuleModelSerializer,
-                              UserTaskModelSerializer,)
+                              UserTaskModelSerializer, )
 
 
 # class CustomTokenObtainPairView(TokenObtainPairView):
@@ -175,6 +175,7 @@ class ModuleViewSet(ViewSet):
         modules = Module.objects.filter(course_id=pk)
         return Response(ModuleModelSerializer(modules, many=True).data)
 
+
 class CourseAPIView(ListAPIView):
     queryset = Module.objects.all()
     serializer_class = ModuleTeacherSerializer
@@ -184,6 +185,7 @@ class CourseAPIView(ListAPIView):
     # def module(self, request, pk=None):
     #     modules = Module.objects.filter(course_id=pk)
     #     return Response(ModelSerializer(modules, many=True).data)
+
 
 class ModuleLessonListAPIView(ListAPIView):
     queryset = UserLesson.objects.all()
