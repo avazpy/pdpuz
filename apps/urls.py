@@ -9,8 +9,7 @@ from apps.views import (CheckPhoneAPIView, CourseAllListAPIView,
                         UpdateUserPassword, UserCourseListAPIView,
                         UserCourseTeacherListAPIView, UserCreateAPIView,
                         UserModuleListAPIView, UserTaskListAPIView,
-                        UserViewSet,TaskCorrectAPIView,)
-
+                        UserViewSet, TaskCorrectAPIView, )
 
 router = DefaultRouter()
 router.register('users', UserViewSet, basename='user')
