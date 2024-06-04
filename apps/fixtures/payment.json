@@ -1,7 +1,7 @@
 [
   {
     "model": "apps.payment",
-    "pk": 1,
+    "pk": "b3c571f6-1575-4b63-849e-79b4f1d0b2e2",
     "fields": {
       "balance": 500,
       "update_at": "2024-05-07T14:39:20.450Z",
@@ -10,12 +10,12 @@
       "expend": "Purchase",
       "processed_date": "2024-03-01T10:00:00Z",
       "reason": "Course enrollment fee",
-      "user": 1
+      "user": "8e77b32b-fdaa-4a34-a79a-0b6f22a4527f"
     }
   },
   {
     "model": "apps.payment",
-    "pk": 2,
+    "pk": "ee5a29f8-8e2c-403e-b774-1b9a31ef1db7",
     "fields": {
       "balance": 200,
       "update_at": "2024-05-07T14:39:20.450Z",
@@ -24,12 +24,12 @@
       "expend": "Deposit",
       "processed_date": "2024-03-02T14:30:00Z",
       "reason": "Top-up",
-      "user": 2
+      "user": "9a18c5d8-7cfc-4512-8a94-4d3e2f5de1b5"
     }
   },
   {
     "model": "apps.payment",
-    "pk": 3,
+    "pk": "f1fcb994-4ef8-4963-a08a-ae619b4e13c4",
     "fields": {
       "balance": 1000,
       "update_at": "2024-05-07T14:39:20.450Z",
@@ -38,7 +38,7 @@
       "expend": "Refund",
       "processed_date": "2024-03-03T09:45:00Z",
       "reason": "Cancellation",
-      "user": 3
+      "user": "5c83a56c-3b10-4d7c-bc67-727e3a9d3a44"
     }
   }
 ]

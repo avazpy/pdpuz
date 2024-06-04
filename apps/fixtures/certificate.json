@@ -1,10 +1,10 @@
 [
   {
     "model": "apps.certificate",
-    "pk": 1,
+    "pk": "e29b13a3-2f23-4a1c-ae45-1e5f9cfdd6d2",
     "fields": {
-      "user": 1,
-      "course": 1,
+      "user": "8e77b32b-fdaa-4a34-a79a-0b6f22a4527f",
+      "course": "2f47fd85-14c3-4f90-b13d-11d06fe86c30",
       "update_at": "2024-05-07T14:39:20.450Z",
       "created_at": "2024-05-07T14:39:20.450Z",
       "finished_at": "2024-01-01",
@@ -13,10 +13,10 @@
   },
   {
     "model": "apps.certificate",
-    "pk": 2,
+    "pk": "d4a66a92-2c34-4f1c-bd1a-5ef4f8d70716",
     "fields": {
-      "user": 2,
-      "course": 2,
+      "user": "9a18c5d8-7cfc-4512-8a94-4d3e2f5de1b5",
+      "course": "94b37a86-02e3-4907-816e-b724d38d95a1",
       "update_at": "2024-05-07T14:39:20.450Z",
       "created_at": "2024-05-07T14:39:20.450Z",
       "finished_at": "2024-02-01",
@@ -25,10 +25,10 @@
   },
   {
     "model": "apps.certificate",
-    "pk": 3,
+    "pk": "c4d229b8-3f35-42dc-8a3b-3d7a650c4fd8",
     "fields": {
-      "user": 3,
-      "course": 3,
+      "user": "5c83a56c-3b10-4d7c-bc67-727e3a9d3a44",
+      "course": "c4d6d3c9-3c8b-497d-80b2-4b5e504d2c0f",
       "update_at": "2024-05-07T14:39:20.450Z",
       "created_at": "2024-05-07T14:39:20.450Z",
       "finished_at": "2024-03-01",

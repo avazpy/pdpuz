@@ -1,7 +1,7 @@
 [
     {
         "model": "apps.lessonquestion",
-        "pk": 1,
+        "pk": "4f0bdb7c-9396-455e-95e3-2e8a76c1d333",
         "fields": {
             "lesson": 6,
             "update_at": "2024-05-07T14:39:20.450Z",
@@ -13,7 +13,7 @@
     },
     {
         "model": "apps.lessonquestion",
-        "pk": 2,
+        "pk": "b7f6d0b7-8ef9-4d29-8d2a-3d43d12e5fa3",
         "fields": {
             "lesson": 7,
             "update_at": "2024-05-07T14:39:20.450Z",
@@ -25,7 +25,7 @@
     },
     {
         "model": "apps.lessonquestion",
-        "pk": 3,
+        "pk": "c36f8b2e-7df3-42d1-b7ff-ea8466a3d7c4",
         "fields": {
             "lesson": 8,
             "update_at": "2024-05-07T14:39:20.450Z",
