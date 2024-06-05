@@ -269,7 +269,7 @@ class Task(CreatedBaseModel):
     last_time = DateTimeField(verbose_name=_('last_time'))
     order = IntegerField(verbose_name=_('order'))
     priority = PositiveIntegerField(verbose_name=_('priority'), default=0)
-    must_complete = BooleanField()
+    must_complete = BooleanField(default=False,)
     files = FileField(verbose_name=_('files'), null=True, blank=True)
 
     class Meta:

@@ -222,12 +222,11 @@ class LessonNestedStackedInline(NestedStackedInline):
 class ModuleStackedInline(NestedStackedInline):
     model = Module
     inlines = [LessonNestedStackedInline]
-    fields = ('title', 'learning_type', 'support_day', 'course', 'order', 'slug')
+    fields = ('title', 'learning_type', 'support_day', 'course', 'order')
     fk_name = 'course'
     extra = 0
     min_num = 0
     list_display = ('title', 'learning_type', 'support_day', 'course', 'order')
-    prepopulated_fields = {'slug': ('title',)}
 
 
 @admin.register(Course)

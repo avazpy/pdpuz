@@ -1,17 +1,6 @@
 [
   {
     "model": "apps.userlesson",
-    "pk": "39994a5d-d9b1-4ec5-96c5-2eabf132e9b9",
-    "fields": {
-      "update_at": "2024-05-07T14:39:20.450Z",
-      "created_at": "2024-05-07T14:39:20.450Z",
-      "status": "in_prog",
-      "user": "04f5c55e-b37b-4d3c-8255-23bb1d3d2cf2",
-      "lesson": "15c9df87-bd19-46b4-b11e-d45e12a0f6f5"
-    }
-  },
-  {
-    "model": "apps.userlesson",
     "pk": "7eac1fc8-f600-4a19-bd22-bfb09ac5472b",
     "fields": {
       "update_at": "2024-05-07T14:39:20.450Z",
@@ -29,7 +18,7 @@
       "created_at": "2024-05-07T14:39:20.450Z",
       "status": "in_prog",
       "user": "5c83a56c-3b10-4d7c-bc67-727e3a9d3a44",
-      "lesson": 9
+      "lesson": "4bc7e07e-1c8a-4ed1-9211-6f25416dfb8d"
     }
   },
   {

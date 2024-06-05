@@ -7,7 +7,7 @@ from rest_framework.serializers import ModelSerializer, Serializer
 
 from apps.models import (Course, DeletedUser, Device, Lesson, Module, Task,
                          User, UserCourse, UserLesson, UserModule, UserTask,
-                         Video,)
+                         Video, )
 
 
 class UserModelSerializer(ModelSerializer):
@@ -175,7 +175,7 @@ class ModuleLessonModelSerializer(ModelSerializer):
 class TaskModelSerializer(ModelSerializer):
     class Meta:
         model = Task
-        fields = 'created_at', 'task_number', 'files', 'lesson'
+        fields = 'created_at', 'task_number', 'files', 'lesson', 'must_complete'
 
 
 class UserTaskModelSerializer(ModelSerializer):
