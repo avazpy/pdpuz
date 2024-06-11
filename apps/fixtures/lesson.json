@@ -1,7 +1,7 @@
 [
   {
     "model": "apps.lesson",
-    "pk": 6,
+    "pk": "15c9df87-bd19-46b4-b11e-d45e12a0f6f5",
     "fields": {
       "update_at": "2024-05-07T14:39:20.450Z",
       "created_at": "2024-05-07T14:39:20.450Z",
@@ -9,13 +9,14 @@
       "order": 1,
       "url": "http1",
       "video_count": 1,
-      "module": 2,
+      "module": "8c4e8a08-7e29-42d4-b18c-bd94d2909e7c",
       "materials": "",
-      "is_deleted": false}
+      "is_deleted": false
+    }
   },
   {
     "model": "apps.lesson",
-    "pk": 7,
+    "pk": "befafbc4-01d7-4e90-b0e4-b4325c9679c5",
     "fields": {
       "update_at": "2024-05-07T14:39:20.450Z",
       "created_at": "2024-05-07T14:39:20.450Z",
@@ -23,15 +24,14 @@
       "order": 2,
       "url": "http2",
       "video_count": 1,
-      "module": 2,
+      "module": "8c4e8a08-7e29-42d4-b18c-bd94d2909e7c",
       "materials": "",
       "is_deleted": false
-
     }
   },
   {
     "model": "apps.lesson",
-    "pk": 8,
+    "pk": "84510f11-299f-44d8-8cfd-4f424a9cfbb3",
     "fields": {
       "update_at": "2024-05-07T14:39:20.450Z",
       "created_at": "2024-05-07T14:39:20.450Z",
@@ -39,14 +39,14 @@
       "order": 4,
       "url": "http3",
       "video_count": 1,
-      "module": 2,
+      "module": "8c4e8a08-7e29-42d4-b18c-bd94d2909e7c",
       "materials": "",
       "is_deleted": false
     }
   },
   {
     "model": "apps.lesson",
-    "pk": 9,
+    "pk": "37a3a85e-0e26-4a26-9d8b-66a31c66b2a7",
     "fields": {
       "update_at": "2024-05-07T14:39:20.450Z",
       "created_at": "2024-05-07T14:39:20.450Z",
@@ -54,14 +54,14 @@
       "order": 3,
       "url": "http4\n",
       "video_count": 1,
-      "module": 2,
+      "module": "8c4e8a08-7e29-42d4-b18c-bd94d2909e7c",
       "materials": "",
       "is_deleted": false
     }
   },
   {
     "model": "apps.lesson",
-    "pk": 10,
+    "pk": "48cb61f3-4ff2-4eb4-8c16-1d8ccfa3afec",
     "fields": {
       "update_at": "2024-05-07T14:39:20.450Z",
       "created_at": "2024-05-07T14:39:20.450Z",
@@ -69,14 +69,14 @@
       "order": 5,
       "url": "http5",
       "video_count": 1,
-      "module": 2,
+      "module": "8c4e8a08-7e29-42d4-b18c-bd94d2909e7c",
       "materials": "",
       "is_deleted": false
     }
   },
   {
     "model": "apps.lesson",
-    "pk": 11,
+    "pk": "b2b0eae8-4589-4749-a8df-8e5076c130ff",
     "fields": {
       "update_at": "2024-05-07T14:39:20.450Z",
       "created_at": "2024-05-07T14:39:20.450Z",
@@ -84,14 +84,14 @@
       "order": 6,
       "url": "http6",
       "video_count": 1,
-      "module": 2,
+      "module": "8c4e8a08-7e29-42d4-b18c-bd94d2909e7c",
       "materials": "",
       "is_deleted": false
     }
   },
   {
     "model": "apps.lesson",
-    "pk": 12,
+    "pk": "4bc7e07e-1c8a-4ed1-9211-6f25416dfb8d",
     "fields": {
       "update_at": "2024-05-07T14:39:20.450Z",
       "created_at": "2024-05-07T14:39:20.450Z",
@@ -99,7 +99,7 @@
       "order": 7,
       "url": "http7",
       "video_count": 1,
-      "module": 6,
+      "module": "1d11a8a6-2973-4a32-b011-131fe07846e7",
       "materials": "",
       "is_deleted": false
     }

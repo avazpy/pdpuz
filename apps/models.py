@@ -1,4 +1,6 @@
+import uuid
 from datetime import timedelta
+
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import FileExtensionValidator, RegexValidator
 from django.db.models import (CASCADE, BooleanField, CharField, DateField,
@@ -27,6 +29,8 @@ class User(AbstractUser):
         TEACHER = 'teacher', _('Teacher')
         STUDENT = 'student', _('Student')
         ASSISTANT = 'assistant', _('Assistant')
+
+    id = UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
     type = CharField(verbose_name=_('user_type'), max_length=50, choices=UserType.choices, default=UserType.STUDENT)
     phone_number = CharField(validators=[RegexValidator(
@@ -83,6 +87,7 @@ class Customer(Model):
 
 
 class Course(CreatedBaseModel):
+    id = UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = CharField(max_length=255, verbose_name=_('courses_title'))
     lesson_count = PositiveIntegerField(default=0, verbose_name=_('lesson_count'))
     modul_count = PositiveIntegerField(default=0, verbose_name=_('modul_count'))
@@ -99,6 +104,8 @@ class Course(CreatedBaseModel):
 
 
 class UserCourse(CreatedBaseModel):
+    id = UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
     class StatusChoices(TextChoices):
         BLOCKED = "blocked", _('Blocked')
         IN_PROG = "in_prog", _('In_prog')
@@ -124,6 +131,7 @@ class UserCourse(CreatedBaseModel):
 
 
 class Module(CreatedBaseModel):
+    id = UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     learning_type = CharField(max_length=255, verbose_name=_('learning_type'))
     title = CharField(max_length=255, verbose_name=_('module_title'))
     has_in_tg = CharField(max_length=255, verbose_name=_('has_in_tg'))
@@ -135,6 +143,11 @@ class Module(CreatedBaseModel):
     course = ForeignKey('apps.Course', CASCADE, verbose_name=_('course_module'))
     slug = SlugField(max_length=100, editable=False)  # add slug  in  fixture
 
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super(Module, self).save(*args, **kwargs)
+
     class Meta:
         verbose_name = _("Module")
         verbose_name_plural = _("Modules")
@@ -144,6 +157,8 @@ class Module(CreatedBaseModel):
 
 
 class UserModule(CreatedBaseModel):
+    id = UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
     class StatusChoices(TextChoices):
         BLOCKED = "blocked", _('Blocked')
         IN_PROG = "in_prog", _('In_prog')
@@ -161,6 +176,7 @@ class UserModule(CreatedBaseModel):
 
 
 class Lesson(CreatedBaseModel):
+    id = UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = CharField(verbose_name=_('title_Lesson'), max_length=255)
     order = IntegerField(verbose_name=_('order_Lesson'))
     url = URLField(max_length=255, verbose_name=_('url_Lesson'))
@@ -190,6 +206,8 @@ def validate_file_extension(value):
 
 
 class UserLesson(CreatedBaseModel):
+    id = UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
     class StatusChoices(TextChoices):
         BLOCKED = "blocked", _('Blocked')
         IN_PROG = "in_prog", _('In_prog')
@@ -208,6 +226,7 @@ class UserLesson(CreatedBaseModel):
 
 
 class LessonQuestion(CreatedBaseModel):
+    id = UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     lesson = ForeignKey('apps.Lesson', CASCADE, verbose_name=_('lesson_LessonQuestion'))
     text = TextField(verbose_name=_('text_LessonQuestion'), null=True, blank=True)
     file = FileField(verbose_name=_('file_LessonQuestion'), null=True, blank=True)
@@ -222,6 +241,7 @@ class LessonQuestion(CreatedBaseModel):
 
 
 class Video(CreatedBaseModel):
+    id = UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = CharField(verbose_name=_('title'), max_length=255)
     description = CharField(verbose_name=_('description'), max_length=255)
     media_code = CharField(verbose_name=_('media code'), max_length=255)
@@ -236,6 +256,7 @@ class Video(CreatedBaseModel):
 
 
 class Task(CreatedBaseModel):
+    id = UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = CharField(verbose_name=_('title'), max_length=255)
     description = CharField(verbose_name=_('description'), max_length=255)
     status = CharField(verbose_name=_('status'), max_length=255)
@@ -245,7 +266,7 @@ class Task(CreatedBaseModel):
     last_time = DateTimeField(verbose_name=_('last_time'))
     order = IntegerField(verbose_name=_('order'))
     priority = PositiveIntegerField(verbose_name=_('priority'), default=0)
-    must_complete = BooleanField()
+    must_complete = BooleanField(default=False,)
     files = FileField(verbose_name=_('files'), null=True, blank=True)
 
     class Meta:
@@ -257,6 +278,7 @@ class Task(CreatedBaseModel):
 
 
 class UserTask(CreatedBaseModel):
+    id = UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = ForeignKey('apps.User', CASCADE, verbose_name=_('user_userTask'))
     task = ForeignKey('apps.Task', CASCADE, verbose_name=_('task_user_task'))
     finished = BooleanField(verbose_name=_('finished'), default=False)
@@ -268,6 +290,7 @@ class UserTask(CreatedBaseModel):
 
 
 class TaskChat(CreatedBaseModel):
+    id = UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     text = CharField(verbose_name=_('text'), max_length=255)
     user = ForeignKey('apps.User', CASCADE, verbose_name=_('user_taskChat'))
     task = ForeignKey('apps.Task', CASCADE, verbose_name=_('task_taskChat'))
@@ -283,6 +306,7 @@ class TaskChat(CreatedBaseModel):
 
 
 class Payment(CreatedBaseModel):
+    id = UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     reason = CharField(verbose_name=_('reason'), max_length=255)
     expend = CharField(verbose_name=_('expend'), max_length=255)
     balance = PositiveIntegerField(verbose_name=_('balance'))
@@ -299,7 +323,7 @@ class Payment(CreatedBaseModel):
 
 
 class Device(CreatedBaseModel):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = CharField(verbose_name=_('title_device'), max_length=255)
     user = ForeignKey('apps.User', CASCADE, verbose_name=_('user_device'))
 
@@ -312,6 +336,7 @@ class Device(CreatedBaseModel):
 
 
 class Certificate(CreatedBaseModel):
+    id = UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = ForeignKey('apps.User', CASCADE, verbose_name=_('user_certificate'))
     course = ForeignKey('apps.Course', CASCADE, verbose_name=_('course_certificate'))
     finished_at = DateField(verbose_name=_('finished_at'))
@@ -326,6 +351,7 @@ class Certificate(CreatedBaseModel):
 
 
 class DeletedUser(CreatedBaseModel):
+    id = UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     phone_number = CharField(max_length=13, verbose_name=_('phone_number'))
     username = CharField(max_length=255, null=True, blank=True, verbose_name=_('username'))
 

@@ -2,8 +2,9 @@ from django_filters.rest_framework import DjangoFilterBackend
 from durin.views import LoginView
 from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter, SearchFilter
-from rest_framework.generics import (CreateAPIView, ListAPIView, RetrieveDestroyAPIView, UpdateAPIView,
-                                     RetrieveAPIView, )
+from rest_framework.generics import (CreateAPIView, ListAPIView,
+                                     RetrieveAPIView, RetrieveDestroyAPIView,
+                                     UpdateAPIView, )
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -11,18 +12,20 @@ from rest_framework.viewsets import GenericViewSet, ModelViewSet, ViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from apps.models import (Course, DeletedUser, Device, Lesson, Module, User,
-                         UserLesson, UserModule, UserTask, )
+                         UserLesson, UserModule, UserTask, Task, )
 from apps.permissions import IsJoinedCoursePermission
 from apps.serializers import (CheckPhoneModelSerializer, CourseModelSerializer,
                               DeletedUserSerializer, DeviceModelSerializer,
-                              LessonModelSerializer,
+                              LessonDetailModelSerializer,
+                              LessonModelSerializer, ModelSerializer,
                               ModuleLessonModelSerializer,
-                              ModuleModelSerializer, RegisterModelSerializer,
+                              ModuleModelSerializer, ModuleTeacherSerializer,
+                              RegisterModelSerializer, TeacherSerializer,
                               UpdatePasswordUserSerializer,
-                              UpdateUserSerializer, UserModelSerializer,
-                              UserModuleModelSerializer,
-                              UserTaskModelSerializer, LessonDetailModelSerializer,
-                              UserCourseTeacherModelSerializer, CustomAuthTokenSerializer)
+                              UpdateUserSerializer, UserCourseModelSerializer,
+                              UserCourseTeacherModelSerializer,
+                              UserModelSerializer, UserModuleModelSerializer,
+                              UserTaskModelSerializer, TaskModelSerializer, )
 
 
 # class CustomTokenObtainPairView(TokenObtainPairView):
@@ -44,6 +47,11 @@ from apps.serializers import (CheckPhoneModelSerializer, CourseModelSerializer,
 #         }
 #         response.data['durin_token'] = token.token
 #     return response
+
+class TeacherAPIView(ListAPIView):
+    queryset = User.objects.filter(type='teacher')
+    serializer_class = TeacherSerializer
+    pagination_class = None
 
 
 class UserViewSet(ModelViewSet):
@@ -184,6 +192,17 @@ class ModuleViewSet(ViewSet):
         return Response(ModuleModelSerializer(modules, many=True).data)
 
 
+class CourseAPIView(ListAPIView):
+    queryset = Module.objects.all()
+    serializer_class = ModuleTeacherSerializer
+    pagination_class = None
+
+    # @action(['GET'], detail=True)
+    # def module(self, request, pk=None):
+    #     modules = Module.objects.filter(course_id=pk)
+    #     return Response(ModelSerializer(modules, many=True).data)
+
+
 class ModuleLessonListAPIView(ListAPIView):
     queryset = UserLesson.objects.all()
     serializer_class = ModuleLessonModelSerializer
@@ -210,7 +229,11 @@ class UserTaskListAPIView(ListAPIView):
     def get_queryset(self):
         return super().get_queryset().filter(user=self.request.user)
 
-
+class TaskCorrectAPIView(CreateAPIView):
+    queryset = Task.objects.all()
+    serializer_class = TaskModelSerializer
+    permission_classes = [IsAuthenticated, ]
+    pagination_class = None
 class UpdateUser(UpdateAPIView):
     serializer_class = UpdateUserSerializer
     queryset = User.objects.all()

@@ -68,25 +68,34 @@ services:
       - postgres_service
 
 
-#  minio_service:
-#    image: minio/minio
-#    container_name: minio_container
-#    ports:
-#      - '9000:9000'
-#      - '9001:9001'
-#    volumes:
-#      - minio_storage:/data
-#    env_file: .env
-#    command: server --console-address ":9001" /data
-# rabbitmq:
-#    image: rabbitmq:management
-#    container_name: rabbitmq
-#    environment:
-#      - RABBITMQ_DEFAULT_USER=guest
-#      - RABBITMQ_DEFAULT_PASS=guest
-#    ports:
-#      - '5672:5672'
-#      - '15672:15672'
+  minio_service:
+    image: minio/minio
+    container_name: minio_container
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    volumes:
+      - minio_storage:/data
+    env_file: .env
+    command: server --console-address ":9001" /data
+
+  nginx:
+    build:
+      context: .
+      dockerfile: ./compose/nginx/Dockerfile
+    ports:
+      - '80:80'
+      - '443:443'
+    depends_on:
+      - backend_service
+    logging:
+      options:
+        max-size: '10m'
+        max-file: '3'
+    volumes:
+      - static_volume:/app/static
+      - media_volume:/app/media
+
 volumes:
   static_volume:
   media_volume:
