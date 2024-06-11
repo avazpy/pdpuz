@@ -8,7 +8,7 @@ from apps.views import (CheckPhoneAPIView, DeleteUserAPIView,
                         UserCourseListAPIView, UserCreateAPIView,
                         UserModuleListAPIView, UserTaskListAPIView,
                         UserViewSet, CourseAllListAPIView, CustomTokenObtainPairView, LessonRetrieveAPIView,
-                        UserCourseTeacherListAPIView)
+                        UserCourseTeacherListAPIView, CustomDurinLoginAPIView)
 
 router = DefaultRouter()
 router.register('users', UserViewSet, basename='user')
@@ -17,6 +17,7 @@ router.register('course', ModuleViewSet, basename='module')
 urlpatterns = [
     path('', include(router.urls)),
     path('api/auth/', include('durin.urls')),
+    path('durin/login/', CustomDurinLoginAPIView.as_view(), name='durin_login'),
     # path('single-device-login/', SingleDeviceLoginView.as_view(), name='single_device_login'),
     path('check/phone/', CheckPhoneAPIView.as_view({'post': 'list'}), name='check_phone'),
     path('token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),

@@ -97,8 +97,8 @@ tasklar
 2. kursni narxlash
 3.
     pdp yoki mohirdev dagidek kurslarni apisini chiqarish
-    1 - process, cancel, completed
-    2 - ball tizimi
-    3 - top studentlar chiqarish
+    1 - process, cancel, completed , kurslarni yopiq xolatta kelishi
+    2 - ball tizimi , bitta lessonda neshtadir task lar bor , osha tasklarni bajarganiga qarab qoyilgan ballar
+    3 - top studentlar chiqarish , eng kop ball yeg'ganlar
 4. uuid ga otqazish
 

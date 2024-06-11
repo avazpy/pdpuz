@@ -349,16 +349,13 @@ CELERY_BROKER_URL = 'redis://localhost:16379/0'
 API_TOKEN = os.getenv('API_TOKEN')
 # KNOX_TOKEN_MODEL = 'knox.AuthToken'
 
-# DURIN_SETTINGS = {
-#     'DEFAULT_EXPIRY': '1h',
-#     'TOKEN_CHARACTER_LENGTH': 32,
-# }
-
-# DURIN = {
-#     'DEFAULT_CLIENT_NAME': 'Polat',
-#     'TOKEN_TTL': timedelta(hours=1),
-# }
+DURIN_SETTINGS = {
+    'DEFAULT_TOKEN_TTL': '1h',
+    'USER_SERIALIZER': 'apps.serializers.UserModelSerializer',
+    'TOKEN_CHARACTER_LENGTH': 32,
+    'TOKEN_CACHE_TIMEOUT': 60*5,  # 5 minutes
+}
 #
-# API_ACCESS_CLIENT_NAME = 'Polat'
+# API_ACCESS_CLIENT_PHONE_NUBER = '908282321'
 
 
