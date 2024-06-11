@@ -98,7 +98,7 @@ tasklar
 2. kursni narxlash
 3.
     pdp yoki mohirdev dagidek kurslarni apisini chiqarish
-    1 - process, cancel, completed
+    1 - process, cancel, completed   ✅
     2 - ball tizimi
     3 - top studentlar chiqarish
 4. uuid ga otqazish

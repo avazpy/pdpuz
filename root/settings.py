@@ -333,6 +333,7 @@ API_TOKEN = os.getenv('API_TOKEN')
 
 DEFAULT_FILE_STORAGE = "minio_storage.storage.MinioMediaStorage"
 
+
 MINIO_STORAGE_ACCESS_KEY = os.getenv("MINIO_ACCESS_KEY")
 MINIO_STORAGE_SECRET_KEY = os.getenv("MINIO_SECRET_KEY")
 MINIO_STORAGE_ENDPOINT = os.getenv("MINIO_ACCESS_URL")

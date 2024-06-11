@@ -36,7 +36,7 @@ class CustomUserAdmin(UserAdmin):
 
     def image_tag(self, obj):
         if obj.photo:
-            return format_html('<img src="{}" width="50" height="50" />'.format(obj.photo.url))
+            return mark_safe('<img src="{}" width="50" height="50" />'.format(obj.photo.url))
         return '-'
 
     image_tag.short_description = 'Image'
