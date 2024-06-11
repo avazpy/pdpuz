@@ -77,13 +77,12 @@ reg qilishda phone numberni togri olish ✅(avaz)
 
 lesson/
 
-
-
 from durin import AuthToken
 
 AuthToken.objects.filter(user=user).delete()
 token = AuthToken.objects.create(user=user)
 
+response.data['durin_token'] = token.token
 
 course - get all courses ---- https://online.pdp.uz/profile/my-courses
 course/<id>/module - get all module by course ---- https://online.pdp.uz/profile/my-courses/course/python-development
@@ -98,8 +97,8 @@ tasklar
 2. kursni narxlash
 3.
     pdp yoki mohirdev dagidek kurslarni apisini chiqarish
-    1 - process, cancel, completed   ✅
-    2 - ball tizimi
-    3 - top studentlar chiqarish
+    1 - process, cancel, completed , kurslarni yopiq xolatta kelishi
+    2 - ball tizimi , bitta lessonda neshtadir task lar bor , osha tasklarni bajarganiga qarab qoyilgan ballar
+    3 - top studentlar chiqarish , eng kop ball yeg'ganlar
 4. uuid ga otqazish
 

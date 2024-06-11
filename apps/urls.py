@@ -1,4 +1,5 @@
 from django.urls import include, path
+from durin.views import LoginView
 from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenRefreshView, TokenVerifyView
 
@@ -18,6 +19,9 @@ router.register('course', ModuleViewSet, basename='module')
 
 urlpatterns = [
     path('', include(router.urls)),
+    # path('api/auth/', include('durin.urls')),
+    path('durin/login/', CustomDurinLoginAPIView.as_view(), name='durin_login'),
+    # path('single-device-login/', SingleDeviceLoginView.as_view(), name='single_device_login'),
     path('check/phone/', CheckPhoneAPIView.as_view({'post': 'list'}), name='check_phone'),
     path('token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),

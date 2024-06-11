@@ -4,16 +4,15 @@ from datetime import timedelta
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import FileExtensionValidator, RegexValidator
 from django.db.models import (CASCADE, BooleanField, CharField, DateField,
-                              DateTimeField, DecimalField, FileField,
-                              ForeignKey, ImageField, IntegerField,
-                              ManyToManyField, Model, PositiveIntegerField,
-                              SlugField, TextChoices, TextField, URLField,
-                              UUIDField,)
-from django.utils.text import slugify
+                              DateTimeField, FileField, ForeignKey, ImageField,
+                              IntegerField, Model, PositiveIntegerField,
+                              SlugField, TextChoices, TextField, URLField, ManyToManyField, )
 from django.utils.translation import gettext_lazy as _
 from parler.models import TranslatableModel
 
 from apps.managers import CustomUserManager
+from django.db import models
+import uuid
 
 
 class CreatedBaseModel(Model):
@@ -35,7 +34,7 @@ class User(AbstractUser):
 
     type = CharField(verbose_name=_('user_type'), max_length=50, choices=UserType.choices, default=UserType.STUDENT)
     phone_number = CharField(validators=[RegexValidator(
-        regex=r'^\d{12}$',
+        regex=r'^\d{9}$',
         message="Phone number must be entered in the format: '9999998'."        "Up to 12 digits allowed.")],
         max_length=20, unique=True)
     username = CharField(max_length=255, unique=False)
@@ -94,7 +93,6 @@ class Course(CreatedBaseModel):
     modul_count = PositiveIntegerField(default=0, verbose_name=_('modul_count'))
     order = IntegerField(verbose_name=_('order'))
     task_count = PositiveIntegerField(default=0, verbose_name=_('task_count'))
-    teacher = ForeignKey('apps.User', on_delete=CASCADE, verbose_name=_('teacher'))
     url = URLField(max_length=255, verbose_name=_('url'))
 
     class Meta:
@@ -144,7 +142,6 @@ class Module(CreatedBaseModel):
     task_count = PositiveIntegerField(default=0, verbose_name=_('task_count'))
     course = ForeignKey('apps.Course', CASCADE, verbose_name=_('course_module'))
     slug = SlugField(max_length=100, editable=False)  # add slug  in  fixture
-    price = DecimalField(max_digits=10, decimal_places=2, verbose_name=_('price'))
 
     def save(self, *args, **kwargs):
         if not self.slug:

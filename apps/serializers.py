@@ -1,5 +1,4 @@
 from django.contrib.auth.hashers import make_password
-from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from rest_framework.fields import CharField
 from rest_framework.permissions import IsAuthenticated
@@ -9,13 +8,43 @@ from apps.models import (Course, DeletedUser, Device, Lesson, Module, Task,
                          User, UserCourse, UserLesson, UserModule, UserTask,
                          Video, )
 
+from rest_framework import serializers
+from django.utils.translation import gettext_lazy as _
+from django.contrib.auth import authenticate
+from durin.serializers import UserSerializer as DurinUserSerializer
+
+
+
+
+class SingleDeviceLogin(Serializer):
+    phone_number = CharField(label="Phone number")
+    password = CharField(label="Password", style={'input_type': 'password'})
+
+    def validate(self, attrs):
+        phone_number = attrs.get('phone_number')
+        password = attrs.get('password')
+
+        if phone_number and password:
+            user = authenticate(request=self.context.get('request'),
+                                phone_number=phone_number, password=password)
+
+            if not user:
+                msg = 'Unable to log in with provided credentials.'
+                raise ValidationError(msg, code='authorization')
+        else:
+            msg = 'Must include "phone_number" and "password".'
+            raise ValidationError(msg, code='authorization')
+
+        attrs['user'] = user
+        return attrs
+
 
 class UserModelSerializer(ModelSerializer):
     class Meta:
         model = User
         exclude = ('groups', 'user_permissions', 'balance', 'bot_options',
                    'has_registered_bot', 'not_read_message_count', 'is_active',
-                   'is_superuser', 'is_staff', 'payme_balance', 'last_login', 'username', 'email',
+                   'is_superuser', 'is_staff', 'payme_balance', 'last_login', 'phone_number', 'email',
                    "tg_id", "type", 'date_joined', 'password', 'courses'
                    )
 
@@ -79,8 +108,6 @@ class RegisterModelSerializer(ModelSerializer):
 
 
 class UserCourseModelSerializer(ModelSerializer):
-    updated_by = serializers.StringRelatedField(default=serializers.CurrentUserDefault(), read_only=True)
-
     class Meta:
         model = UserCourse
         fields = '__all__'
@@ -95,11 +122,6 @@ class UserModuleModelSerializer(ModelSerializer):
     class Meta:
         model = UserModule
         fields = '__all__'
-
-    def to_representation(self, instance: UserModule):
-        representation = super().to_representation(instance)
-        representation['module'] = ModuleModelSerializer(instance.module).data
-        return representation
 
 
 class UserCourseTeacherModelSerializer(ModelSerializer):
@@ -221,3 +243,82 @@ class TeacherSerializer(ModelSerializer):
                    'is_superuser', 'is_staff', 'payme_balance', 'last_login', 'email',
                    "tg_id", "photo", 'date_joined', 'username', 'password', 'courses',
                    )
+
+
+class CustomDurinAuthSerializer(ModelSerializer):
+    class Meta:
+        model = User
+        fields = 'phone_number', 'password'
+
+
+#
+class AuthTokenSerializer(Serializer):
+    phone_number = CharField(
+        label=_("Phone number"),
+        write_only=True
+    )
+    password = CharField(
+        label=_("Password"),
+        style={'input_type': 'password'},
+        trim_whitespace=False,
+        write_only=True
+    )
+    token = CharField(
+        label=_("Token"),
+        read_only=True
+    )
+
+    def validate(self, attrs):
+        phone_number = attrs.get('phone_number')
+        password = attrs.get('password')
+
+        if phone_number and password:
+            user = authenticate(request=self.context.get('request'),
+                                phone_number=phone_number, password=password)
+
+            if not user:
+                msg = _('Unable to log in with provided credentials.')
+                raise ValidationError(msg, code='authorization')
+        else:
+            msg = _('Must include "phone_number" and "password".')
+            raise ValidationError(msg, code='authorization')
+
+        attrs['user'] = user
+        return attrs
+
+
+class CustomAuthTokenSerializer(serializers.Serializer):
+    phone_number = serializers.CharField(
+        label=_("Phone number"),
+        write_only=True
+    )
+    password = serializers.CharField(
+        label=_("Password"),
+        style={'input_type': 'password'},
+        trim_whitespace=False,
+        write_only=True
+    )
+    token = serializers.CharField(
+        label=_("Token"),
+        read_only=True
+    )
+
+    def validate(self, attrs):
+        phone_number = attrs.get('phone_number')
+        password = attrs.get('password')
+
+        if phone_number and password:
+            user = authenticate(request=self.context.get('request'), phone_number=phone_number, password=password)
+
+            # The authenticate call simply returns None for is_active=False
+            # users. (Assuming the default ModelBackend authentication
+            # backend.)
+            if not user:
+                msg = _('Unable to log in with provided credentials.')
+                raise serializers.ValidationError(msg, code='authorization')
+        else:
+            msg = _('Must include "phone_number" and "password".')
+            raise serializers.ValidationError(msg, code='authorization')
+
+        attrs['user'] = user
+        return attrs

@@ -1,4 +1,5 @@
 from django_filters.rest_framework import DjangoFilterBackend
+from durin.views import LoginView
 from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.generics import (CreateAPIView, ListAPIView, RetrieveAPIView, RetrieveDestroyAPIView,
@@ -83,7 +84,22 @@ class UserCreateAPIView(CreateAPIView):
 class CourseAllListAPIView(ListAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseModelSerializer
+
+
+class CourseListAPIView(ListAPIView):
+    queryset = Course.objects.all()
+    serializer_class = CourseModelSerializer
+    permission_classes = [IsAuthenticated, ]
     pagination_class = None
+
+    def get_object(self):
+        return self.request.user
+
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
+
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
 
 
 class UserCourseListAPIView(ListAPIView):
@@ -254,7 +270,7 @@ class DeviceModelListAPIView(ListAPIView):
     parser_classes = [MultiPartParser, FormParser]
     filter_backends = (DjangoFilterBackend,)
     filter_fields = ('device_type', 'device_model', 'title')
-    permission_classes = [IsAuthenticated, ]
+    permission_classes = [IsAuthenticated]
     pagination_class = None
 
     def get_object(self):
@@ -283,3 +299,13 @@ class DeleteUserAPIView(RetrieveDestroyAPIView):
     def delete(self, request, *args, **kwargs):
         DeletedUser(username=request.user.username, phone_number=request.user.phone_number).save()
         return super().delete(request, *args, **kwargs)
+
+
+class CustomDurinLoginAPIView(LoginView):
+
+    @staticmethod
+    def validate_and_return_user(request):
+        serializer = CustomAuthTokenSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        return serializer.validated_data["user"]
+
