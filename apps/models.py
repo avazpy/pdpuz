@@ -6,7 +6,8 @@ from django.core.validators import FileExtensionValidator, RegexValidator
 from django.db.models import (CASCADE, BooleanField, CharField, DateField,
                               DateTimeField, FileField, ForeignKey, ImageField,
                               IntegerField, Model, PositiveIntegerField,
-                              SlugField, TextChoices, TextField, URLField, ManyToManyField, )
+                              SlugField, TextChoices, TextField, URLField, ManyToManyField, UUIDField, )
+from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from parler.models import TranslatableModel
 

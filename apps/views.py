@@ -25,7 +25,7 @@ from apps.serializers import (CheckPhoneModelSerializer, CourseModelSerializer,
                               UpdateUserSerializer, UserCourseModelSerializer,
                               UserCourseTeacherModelSerializer,
                               UserModelSerializer, UserModuleModelSerializer,
-                              UserTaskModelSerializer, TaskModelSerializer, )
+                              UserTaskModelSerializer, TaskModelSerializer, CustomAuthTokenSerializer)
 
 
 # class CustomTokenObtainPairView(TokenObtainPairView):
