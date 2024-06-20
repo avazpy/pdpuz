@@ -5,15 +5,13 @@ from django.contrib.auth.models import AbstractUser
 from django.core.validators import FileExtensionValidator, RegexValidator
 from django.db.models import (CASCADE, BooleanField, CharField, DateField,
                               DateTimeField, FileField, ForeignKey, ImageField,
-                              IntegerField, Model, PositiveIntegerField,
-                              SlugField, TextChoices, TextField, URLField, ManyToManyField, UUIDField, )
+                              IntegerField, ManyToManyField, Model,
+                              PositiveIntegerField, SlugField, TextChoices,
+                              TextField, URLField, UUIDField,)
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from parler.models import TranslatableModel
-
 from apps.managers import CustomUserManager
-from django.db import models
-import uuid
 
 
 class CreatedBaseModel(Model):
@@ -267,7 +265,7 @@ class Task(CreatedBaseModel):
     last_time = DateTimeField(verbose_name=_('last_time'))
     order = IntegerField(verbose_name=_('order'))
     priority = PositiveIntegerField(verbose_name=_('priority'), default=0)
-    must_complete = BooleanField(default=False,)
+    must_complete = BooleanField(default=False, )
     files = FileField(verbose_name=_('files'), null=True, blank=True)
 
     class Meta:

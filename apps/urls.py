@@ -4,10 +4,11 @@ from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenRefreshView, TokenVerifyView
 
 from apps.views import (CheckPhoneAPIView, CourseAllListAPIView,
-                        CustomTokenObtainPairView, DeleteUserAPIView,
-                        DeviceModelListAPIView, LessonRetrieveAPIView,
-                        ModuleViewSet, TaskCorrectAPIView, TeacherAPIView,
-                        UpdateUser, UpdateUserPassword, UserCourseListAPIView,
+                        CustomDurinLoginAPIView, CustomTokenObtainPairView,
+                        DeleteUserAPIView, DeviceModelListAPIView,
+                        LessonRetrieveAPIView, ModuleViewSet,
+                        TaskCorrectAPIView, TeacherAPIView, UpdateUser,
+                        UpdateUserPassword, UserCourseListAPIView,
                         UserCourseTeacherListAPIView, UserCreateAPIView,
                         UserModuleListAPIView, UserTaskListAPIView,
                         UserViewSet,)

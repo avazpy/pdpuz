@@ -344,7 +344,7 @@ API_TOKEN = os.getenv('API_TOKEN')
 # KNOX_TOKEN_MODEL = 'knox.AuthToken'
 
 DURIN_SETTINGS = {
-    'DEFAULT_TOKEN_TTL': '1h',
+    'DEFAULT_TOKEN_TTL': '2h',
     'USER_SERIALIZER': 'apps.serializers.UserModelSerializer',
     'TOKEN_CHARACTER_LENGTH': 32,
     'TOKEN_CACHE_TIMEOUT': 60*5,  # 5 minutes
