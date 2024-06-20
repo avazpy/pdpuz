@@ -1,5 +1,7 @@
+from django.db.models import When, F, Case, IntegerField, Q, BooleanField
 from django_filters.rest_framework import DjangoFilterBackend
 from durin.views import LoginView
+from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.generics import (CreateAPIView, ListAPIView, RetrieveAPIView, RetrieveDestroyAPIView,
@@ -17,7 +19,8 @@ from apps.serializers import (CheckPhoneModelSerializer, CourseModelSerializer, 
                               ModuleLessonModelSerializer, ModuleModelSerializer, ModuleTeacherSerializer,
                               RegisterModelSerializer, TaskModelSerializer, TeacherSerializer,
                               UpdatePasswordUserSerializer, UpdateUserSerializer, UserCourseTeacherModelSerializer,
-                              UserModelSerializer, UserModuleModelSerializer, UserTaskModelSerializer, )
+                              UserModelSerializer, UserModuleModelSerializer, UserTaskModelSerializer,
+                              CustomAuthTokenSerializer, )
 
 
 # class CustomTokenObtainPairView(TokenObtainPairView):
@@ -209,14 +212,33 @@ class ModuleLessonListAPIView(ListAPIView):
         return super().get_queryset().filter(user=self.request.user)
 
 
-class UserTaskListAPIView(ListAPIView):
-    queryset = UserTask.objects.all()
-    serializer_class = UserTaskModelSerializer
-    permission_classes = [IsAuthenticated, ]
-    pagination_class = None
+class UserTaskRetrieveAPIView(ListAPIView):
+    permission_classes = [IsAuthenticated]
+    lookup_url_kwarg = 'lesson_id'
 
-    def get_object(self):
-        return self.request.user
+    def list(self, request, *args, **kwargs):
+        lesson_id = self.kwargs.get(self.lookup_url_kwarg)
+        if not UserLesson.objects.filter(user=self.request.user, lesson_id=lesson_id).exists():
+            return Response({'msg': 'Bu lessonga access yoq', }, status=status.HTTP_403_FORBIDDEN)
+
+        qs = Task.objects.filter(lesson_id=lesson_id).annotate(
+            is_open=Case(
+                When(Q('usertask__finished'), then=True),
+                default=False,
+                output_field=BooleanField()
+            )
+        )
+        return Response(TaskModelSerializer(qs, many=True).data)
+
+        # all_task_ids = set(Task.objects.filter(lesson_id=lesson_id).values_list('id', flat=True))
+        # completed_task_ids = set(
+        #     UserTask.objects.filter(
+        #         user=request.user, task__lesson_id=lesson_id, finished=True
+        #     ).values_list('task_id', flat=True))
+        # response = {
+        #     'unfinished_tasks': all_task_ids.difference(completed_task_ids)
+        # }
+        # return Response(response)
 
     # def get(self, request, *args, **kwargs):
     #     user = self.request.user.id
@@ -225,9 +247,6 @@ class UserTaskListAPIView(ListAPIView):
     #         # print(super().get_queryset().filter(user=self.request.user) and UserTask.objects.filter(task__must_complete=True ))
     #         UserTask.objects.filter(user=user, finished=True).update()
     #         # return super().get_queryset()
-
-    def get_queryset(self):
-        return super().get_queryset().filter(user=self.request.user)
 
 
 class TaskCorrectAPIView(CreateAPIView):
@@ -308,4 +327,3 @@ class CustomDurinLoginAPIView(LoginView):
         serializer = CustomAuthTokenSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         return serializer.validated_data["user"]
-

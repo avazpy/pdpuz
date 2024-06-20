@@ -8,9 +8,9 @@ from nested_inline.admin import NestedModelAdmin, NestedStackedInline
 
 from apps.models import (Certificate, Course, DeletedUser, Device, Lesson,
                          LessonQuestion, Module, Payment, Task, TaskChat, User,
-                         UserCourse, UserLesson, UserModule, UserTask, Video,)
+                         UserCourse, UserLesson, UserModule, UserTask, Video, )
 from apps.proxies import (AdminUserProxy, AssistantUserProxy, StudentUserProxy,
-                          TeacherUserProxy,)
+                          TeacherUserProxy, )
 
 
 @admin.register(User)
@@ -41,10 +41,10 @@ class CustomUserAdmin(UserAdmin):
 
     image_tag.short_description = 'Image'
 
-    # def custom_image(self, obj: User):
-    #     return mark_safe('<img src="{}"/>'.format(obj.photo.url))
-    #
-    # custom_image.short_description = "Image"
+    def custom_image(self, obj: User):
+        return mark_safe('<img src="{}"/>'.format(obj.photo.url))
+
+    custom_image.short_description = "Image"
 
     def get_course_count(self, obj):
         return obj.course_set.count()
@@ -199,6 +199,7 @@ class UsersCoursesAdmin(ModelAdmin):
     list_display = ("user", "course")
     list_filter = ['course']
     search_fields = ['user__phone_number', 'course__title']
+    pass
 
 
 class TaskNestedStackedInline(NestedStackedInline):
@@ -207,6 +208,7 @@ class TaskNestedStackedInline(NestedStackedInline):
     extra = 0
     min_num = 0
     list_display = ("user", "course", "task")
+    pass
 
 
 class LessonNestedStackedInline(NestedStackedInline):
@@ -217,6 +219,7 @@ class LessonNestedStackedInline(NestedStackedInline):
     extra = 0
     min_num = 0
     list_display = ("user", "course", "lesson")
+    pass
 
 
 class ModuleStackedInline(NestedStackedInline):
@@ -227,6 +230,7 @@ class ModuleStackedInline(NestedStackedInline):
     extra = 0
     min_num = 0
     list_display = ('title', 'learning_type', 'support_day', 'course', 'order')
+    pass
 
 
 @admin.register(Course)
@@ -245,11 +249,13 @@ class TasksChatAdmin(ModelAdmin):
 @admin.register(UserModule)
 class UserModuleAdmin(ModelAdmin):
     list_display = ('user', 'module')
+    pass
 
 
 @admin.register(UserLesson)
 class UserLessonAdmin(ModelAdmin):
     list_display = ("user", "lesson")
+    pass
 
 
 @admin.register(Video)

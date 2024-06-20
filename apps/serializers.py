@@ -1,4 +1,7 @@
+from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import make_password
+from django.utils.translation import gettext_lazy as _
+from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from rest_framework.fields import CharField
 from rest_framework.permissions import IsAuthenticated
@@ -7,13 +10,6 @@ from rest_framework.serializers import ModelSerializer, Serializer
 from apps.models import (Course, DeletedUser, Device, Lesson, Module, Task,
                          User, UserCourse, UserLesson, UserModule, UserTask,
                          Video, )
-
-from rest_framework import serializers
-from django.utils.translation import gettext_lazy as _
-from django.contrib.auth import authenticate
-from durin.serializers import UserSerializer as DurinUserSerializer
-
-
 
 
 class SingleDeviceLogin(Serializer):
@@ -133,7 +129,7 @@ class UserCourseTeacherModelSerializer(ModelSerializer):
 
     def to_representation(self, instance: UserModule):
         representation = super().to_representation(instance)
-        representation['teacher'] = UserModelSerializer(instance.module.course.teacher).data
+        representation['teacher'] = UserModelSerializer(instance.module.course).data
         return representation
 
 

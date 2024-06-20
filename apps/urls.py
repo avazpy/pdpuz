@@ -1,5 +1,4 @@
 from django.urls import include, path
-from durin.views import LoginView
 from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenRefreshView, TokenVerifyView
 
@@ -9,8 +8,8 @@ from apps.views import (CheckPhoneAPIView, CourseAllListAPIView,
                         ModuleViewSet, TaskCorrectAPIView, TeacherAPIView,
                         UpdateUser, UpdateUserPassword, UserCourseListAPIView,
                         UserCourseTeacherListAPIView, UserCreateAPIView,
-                        UserModuleListAPIView, UserTaskListAPIView,
-                        UserViewSet,)
+                        UserModuleListAPIView, UserTaskRetrieveAPIView,
+                        UserViewSet, CustomDurinLoginAPIView, )
 
 
 router = DefaultRouter()
@@ -19,9 +18,7 @@ router.register('course', ModuleViewSet, basename='module')
 
 urlpatterns = [
     path('', include(router.urls)),
-    # path('api/auth/', include('durin.urls')),
     path('durin/login/', CustomDurinLoginAPIView.as_view(), name='durin_login'),
-    # path('single-device-login/', SingleDeviceLoginView.as_view(), name='single_device_login'),
     path('check/phone/', CheckPhoneAPIView.as_view({'post': 'list'}), name='check_phone'),
     path('token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
@@ -31,7 +28,7 @@ urlpatterns = [
     path('user/register/', UserCreateAPIView.as_view(), name='token_obtain_pair'),
     path('user/delete/', DeleteUserAPIView.as_view(), name='deleted_user'),
     path('user/my-courses/', UserCourseListAPIView.as_view(), name='user_course'),
-    path('user/task/', UserTaskListAPIView.as_view(), name='user_task'),
+    path('user/task/<uuid:lesson_id>', UserTaskRetrieveAPIView.as_view(), name='user_task'),
     path('user/profile/', UpdateUser.as_view(), name='user_profile_update'),
     path('user/profile/password/', UpdateUserPassword.as_view(), name='user_profile_update'),
     path('user/module/', UserModuleListAPIView.as_view(), name='course_module'),
