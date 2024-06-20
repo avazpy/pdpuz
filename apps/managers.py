@@ -5,7 +5,6 @@ from django.contrib.auth.hashers import make_password
 class CustomUserManager(BaseUserManager):
     user_in_migration = True
 
-
     def _create_user(self, phone_number, password, **extra_fields):
         user = self.model(phone_number=phone_number, **extra_fields)
         user.password = make_password(password)
