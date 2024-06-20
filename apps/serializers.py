@@ -9,7 +9,7 @@ from rest_framework.serializers import ModelSerializer, Serializer
 
 from apps.models import (Course, DeletedUser, Device, Lesson, Module, Task,
                          User, UserCourse, UserLesson, UserModule, UserTask,
-                         Video,)
+                         Video, )
 
 
 class SingleDeviceLogin(Serializer):
@@ -318,3 +318,9 @@ class CustomAuthTokenSerializer(serializers.Serializer):
 
         attrs['user'] = user
         return attrs
+
+
+class MyUserModelSerializer(ModelSerializer):
+    class Meta:
+        model = User
+        fields = 'first_name', 'last_name', 'photo'

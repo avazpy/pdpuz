@@ -3,15 +3,14 @@ from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenRefreshView, TokenVerifyView
 
 from apps.views import (CheckPhoneAPIView, CourseAllListAPIView,
-                        CustomDurinLoginAPIView, CustomTokenObtainPairView,
+                        CustomTokenObtainPairView,
                         DeleteUserAPIView, DeviceModelListAPIView,
                         LessonRetrieveAPIView, ModuleViewSet,
-                        TaskCorrectAPIView, TeacherAPIView, UpdateUser,
+                        TeacherAPIView, UpdateUser,
                         UpdateUserPassword, UserCourseListAPIView,
                         UserCourseTeacherListAPIView, UserCreateAPIView,
                         UserModuleListAPIView, UserTaskRetrieveAPIView,
-                        UserViewSet, CustomDurinLoginAPIView, )
-
+                        CustomDurinLoginAPIView, MyUserModelAPIView, UserViewSet)
 
 router = DefaultRouter()
 router.register('users', UserViewSet, basename='user')
@@ -37,4 +36,5 @@ urlpatterns = [
     path('lesson/<uuid:pk>/', LessonRetrieveAPIView.as_view(), name='module_lesson'),
     # path('task/correct/<str:pk>',TaskCorrectAPIView.as_view(), name='task_correct'),
     path('teachers/', TeacherAPIView.as_view(), name='teachers'),
+    path('user/get-me', MyUserModelAPIView.as_view(), name='user_get_me'),
 ]

@@ -1,20 +1,21 @@
-from django.db.models import When, F, Case, IntegerField, Q, BooleanField
+from django.db.models import When, Case, Q, BooleanField
 from django_filters.rest_framework import DjangoFilterBackend
 from durin.views import LoginView
+from requests import request
 from rest_framework import status
 from rest_framework.decorators import action
-from rest_framework.filters import OrderingFilter, SearchFilter
+from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.generics import (CreateAPIView, ListAPIView,
                                      RetrieveAPIView, RetrieveDestroyAPIView,
-                                     UpdateAPIView,)
+                                     UpdateAPIView, )
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.viewsets import GenericViewSet, ModelViewSet, ViewSet
+from rest_framework.viewsets import GenericViewSet, ViewSet, ModelViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from apps.models import (Course, DeletedUser, Device, Lesson, Module, Task,
-                         User, UserLesson, UserModule, UserTask,)
+                         User, UserLesson, UserModule, )
 from apps.permissions import IsJoinedCoursePermission
 from apps.serializers import (CheckPhoneModelSerializer, CourseModelSerializer,
                               DeletedUserSerializer, DeviceModelSerializer,
@@ -26,8 +27,8 @@ from apps.serializers import (CheckPhoneModelSerializer, CourseModelSerializer,
                               TeacherSerializer, UpdatePasswordUserSerializer,
                               UpdateUserSerializer,
                               UserCourseTeacherModelSerializer,
-                              UserModelSerializer, UserModuleModelSerializer,
-                              UserTaskModelSerializer, CustomAuthTokenSerializer)
+                              UserModuleModelSerializer,
+                              CustomAuthTokenSerializer, MyUserModelSerializer, UserModelSerializer)
 
 
 # class CustomTokenObtainPairView(TokenObtainPairView):
@@ -61,7 +62,7 @@ class UserViewSet(ModelViewSet):
     queryset = User.objects.all()
     filter = (OrderingFilter, SearchFilter)
     search_fields = ('phone_number',)
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, ]
 
     @action(detail=False, methods=['GET'], url_path='get-me')
     def get_me(self, request):
@@ -266,7 +267,7 @@ class TaskCorrectAPIView(CreateAPIView):
 class UpdateUser(UpdateAPIView):
     serializer_class = UpdateUserSerializer
     queryset = User.objects.all()
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, ]
     parser_classes = [MultiPartParser, FormParser]
     pagination_class = None
     http_method_names = ['patch']
@@ -301,6 +302,22 @@ class DeviceModelListAPIView(ListAPIView):
 
     def get_object(self):
         return self.request.user
+
+
+class MyUserModelAPIView(ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = MyUserModelSerializer
+    permission_classes = [IsAuthenticated, ]
+    # parser_classes = [MultiPartParser, FormParser]
+    # http_method_names = ['get']
+    pagination_class = None
+
+
+    # def get_object(self):
+    #     return self.request.user
+
+    # def get_queryset(self):
+    #     return super().get_object().filter(user=self.request.user)
 
 
 class CheckPhoneAPIView(GenericViewSet):
