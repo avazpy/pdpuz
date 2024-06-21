@@ -1,7 +1,5 @@
-from django.db.models import When, Case, Q, BooleanField
 from django_filters.rest_framework import DjangoFilterBackend
 from durin.views import LoginView
-from requests import request
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.filters import SearchFilter, OrderingFilter
@@ -228,14 +226,15 @@ class UserTaskRetrieveAPIView(ListAPIView):
         lesson_id = self.kwargs.get(self.lookup_url_kwarg)
         if not UserLesson.objects.filter(user=self.request.user, lesson_id=lesson_id).exists():
             return Response({'msg': 'Bu lessonga access yoq', }, status=status.HTTP_403_FORBIDDEN)
-
-        qs = Task.objects.filter(lesson_id=lesson_id).annotate(
-            is_open=Case(
-                When(Q('usertask__finished'), then=True),
-                default=False,
-                output_field=BooleanField()
-            )
-        )
+        qs = Task.objects.filter(lesson_id=lesson_id, must_complete=False)
+        # qs = Task.objects.filter(lesson_id=lesson_id)
+        # .annotate(
+        #     is_open=Case(
+        #         When(Q('usertask__finished'), then=True),
+        #         default=False,
+        #         output_field=BooleanField()
+        #     )
+        # )
         return Response(TaskModelSerializer(qs, many=True).data)
 
         # all_task_ids = set(Task.objects.filter(lesson_id=lesson_id).values_list('id', flat=True))
@@ -304,20 +303,14 @@ class DeviceModelListAPIView(ListAPIView):
         return self.request.user
 
 
-class MyUserModelAPIView(ListAPIView):
+class MyUserModelAPIView(RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = MyUserModelSerializer
     permission_classes = [IsAuthenticated, ]
-    # parser_classes = [MultiPartParser, FormParser]
-    # http_method_names = ['get']
     pagination_class = None
 
-
-    # def get_object(self):
-    #     return self.request.user
-
-    # def get_queryset(self):
-    #     return super().get_object().filter(user=self.request.user)
+    def get_object(self):
+        return self.request.user
 
 
 class CheckPhoneAPIView(GenericViewSet):

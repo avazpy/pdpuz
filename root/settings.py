@@ -5,7 +5,6 @@ from pathlib import Path
 from django.utils.translation import gettext_lazy as _
 from dotenv import load_dotenv
 
-
 load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -157,9 +156,6 @@ REST_FRAMEWORK = {
 # }
 
 
-
-
-
 SIMPLE_JWT = {
     "SLIDING_TOKEN_LIFETIME": timedelta(minutes=30),
     "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=1)
@@ -306,8 +302,6 @@ JAZZMIN_SETTINGS = {
     "language_chooser": True,
 }
 
-
-
 SWAGGER_SETTINGS = {
     'SECURITY_DEFINITIONS': {
         'basic': {
@@ -347,16 +341,13 @@ DURIN_SETTINGS = {
     'DEFAULT_TOKEN_TTL': '2h',
     'USER_SERIALIZER': 'apps.serializers.UserModelSerializer',
     'TOKEN_CHARACTER_LENGTH': 32,
-    'TOKEN_CACHE_TIMEOUT': 60*5,  # 5 minutes
+    'TOKEN_CACHE_TIMEOUT': 60 * 5,  # 5 minutes
 }
 #
 # API_ACCESS_CLIENT_PHONE_NUBER = '908282321'
 
 
-
-
 DEFAULT_FILE_STORAGE = "minio_storage.storage.MinioMediaStorage"
-
 
 MINIO_STORAGE_ACCESS_KEY = os.getenv("MINIO_ACCESS_KEY")
 MINIO_STORAGE_SECRET_KEY = os.getenv("MINIO_SECRET_KEY")
@@ -366,3 +357,5 @@ MINIO_STORAGE_USE_HTTPS = False
 
 MINIO_STORAGE_MEDIA_BUCKET_NAME = 'media'
 MINIO_STORAGE_AUTO_CREATE_MEDIA_BUCKET = True
+
+AWS_QUERYSTRING_AUTH = True

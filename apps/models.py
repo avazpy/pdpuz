@@ -7,10 +7,11 @@ from django.db.models import (CASCADE, BooleanField, CharField, DateField,
                               DateTimeField, FileField, ForeignKey, ImageField,
                               IntegerField, ManyToManyField, Model,
                               PositiveIntegerField, SlugField, TextChoices,
-                              TextField, URLField, UUIDField,)
+                              TextField, URLField, UUIDField, )
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from parler.models import TranslatableModel
+
 from apps.managers import CustomUserManager
 
 

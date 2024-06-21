@@ -41,7 +41,7 @@ class UserModelSerializer(ModelSerializer):
         exclude = ('groups', 'user_permissions', 'balance', 'bot_options',
                    'has_registered_bot', 'not_read_message_count', 'is_active',
                    'is_superuser', 'is_staff', 'payme_balance', 'last_login', 'phone_number', 'email',
-                   "tg_id", "type", 'date_joined', 'password', 'courses'
+                   "tg_id", "type", 'date_joined', 'password', 'courses', 'username'
                    )
 
     def validate_password(self, password):
@@ -193,7 +193,7 @@ class ModuleLessonModelSerializer(ModelSerializer):
 class TaskModelSerializer(ModelSerializer):
     class Meta:
         model = Task
-        fields = 'created_at', 'task_number', 'files', 'lesson', 'must_complete'
+        fields = 'created_at', 'task_number', 'files', 'lesson', 'must_complete', 'title', 'description',
 
 
 class UserTaskModelSerializer(ModelSerializer):
