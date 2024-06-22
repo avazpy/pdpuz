@@ -27,7 +27,7 @@ from apps.serializers import (CheckPhoneModelSerializer, CourseModelSerializer,
                               UserCourseTeacherModelSerializer,
                               UserModuleModelSerializer,
                               CustomAuthTokenSerializer, MyUserModelSerializer, UserModelSerializer,
-                              VideoModelSerializer)
+                              VideoModelSerializer, LessonCRUDSerializer)
 
 
 # class CustomTokenObtainPairView(TokenObtainPairView):
@@ -355,7 +355,7 @@ class CourseModelViewSet(ModelViewSet):
 
 class LessonModelViewSet(ModelViewSet):
     queryset = Lesson.objects.all()
-    serializer_class = LessonModelSerializer
+    serializer_class = LessonCRUDSerializer
     permission_classes = [IsAuthenticated, IsAdminUser]
 
 
