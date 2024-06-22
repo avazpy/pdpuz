@@ -5,16 +5,20 @@ from rest_framework_simplejwt.views import TokenRefreshView, TokenVerifyView
 from apps.views import (CheckPhoneAPIView, CourseAllListAPIView,
                         CustomTokenObtainPairView,
                         DeleteUserAPIView, DeviceModelListAPIView,
-                        LessonRetrieveAPIView, ModuleViewSet,
-                        TeacherAPIView, UpdateUser,
-                        UpdateUserPassword, UserCourseListAPIView,
-                        UserCourseTeacherListAPIView, UserCreateAPIView,
+                        LessonRetrieveAPIView, CourseModelViewSet,
+                        TeacherAPIView, UpdateUser, ModuleModulViewSet,
+                        UpdateUserPassword, UserCourseListAPIView, TaskModulViewSet,
+                        UserCourseTeacherListAPIView, UserCreateAPIView, VideoModulViewSet,
                         UserModuleListAPIView, UserTaskRetrieveAPIView,
-                        CustomDurinLoginAPIView, MyUserModelAPIView, UserViewSet)
+                        CustomDurinLoginAPIView, MyUserModelAPIView, UserViewSet, LessonModelViewSet)
 
 router = DefaultRouter()
 router.register('users', UserViewSet, basename='user')
-router.register('course', ModuleViewSet, basename='module')
+router.register('course', CourseModelViewSet, basename='module')
+router.register('module', ModuleModulViewSet, basename='module')
+router.register('lesson', LessonModelViewSet, basename='lesson')
+router.register('task', TaskModulViewSet, basename='task')
+router.register('video', VideoModulViewSet, basename='video')
 
 urlpatterns = [
     path('', include(router.urls)),

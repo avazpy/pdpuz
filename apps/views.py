@@ -7,13 +7,13 @@ from rest_framework.generics import (CreateAPIView, ListAPIView,
                                      RetrieveAPIView, RetrieveDestroyAPIView,
                                      UpdateAPIView, )
 from rest_framework.parsers import FormParser, MultiPartParser
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet, ViewSet, ModelViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from apps.models import (Course, DeletedUser, Device, Lesson, Module, Task,
-                         User, UserLesson, UserModule, )
+                         User, UserLesson, UserModule, Video, )
 from apps.permissions import IsJoinedCoursePermission
 from apps.serializers import (CheckPhoneModelSerializer, CourseModelSerializer,
                               DeletedUserSerializer, DeviceModelSerializer,
@@ -26,7 +26,8 @@ from apps.serializers import (CheckPhoneModelSerializer, CourseModelSerializer,
                               UpdateUserSerializer,
                               UserCourseTeacherModelSerializer,
                               UserModuleModelSerializer,
-                              CustomAuthTokenSerializer, MyUserModelSerializer, UserModelSerializer)
+                              CustomAuthTokenSerializer, MyUserModelSerializer, UserModelSerializer,
+                              VideoModelSerializer)
 
 
 # class CustomTokenObtainPairView(TokenObtainPairView):
@@ -344,3 +345,41 @@ class CustomDurinLoginAPIView(LoginView):
         serializer = CustomAuthTokenSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         return serializer.validated_data["user"]
+
+
+class CourseModelViewSet(ModelViewSet):
+    queryset = Course.objects.all()
+    serializer_class = CourseModelSerializer
+    permission_classes = [IsAuthenticated, IsAdminUser]
+
+
+class LessonModelViewSet(ModelViewSet):
+    queryset = Lesson.objects.all()
+    serializer_class = LessonModelSerializer
+    permission_classes = [IsAuthenticated, IsAdminUser]
+
+
+class ModuleModulViewSet(ModelViewSet):
+    queryset = Module.objects.all()
+    serializer_class = ModuleModelSerializer
+    permission_classes = [IsAuthenticated, IsAdminUser]
+    pagination_class = None
+
+    # @action(['GET'], detail=True)
+    # def module(self, request, pk=None):
+    #     modules = Module.objects.filter(course_id=pk)
+    #     return Response(ModuleModelSerializer(modules, many=True).data)
+
+
+class TaskModulViewSet(ModelViewSet):
+    queryset = Task.objects.all()
+    serializer_class = TaskModelSerializer
+    permission_classes = [IsAuthenticated, IsAdminUser]
+    pagination_class = None
+
+
+class VideoModulViewSet(ModelViewSet):
+    queryset = Video.objects.all()
+    serializer_class = VideoModelSerializer
+    permission_classes = [IsAuthenticated, IsAdminUser]
+    pagination_class = None

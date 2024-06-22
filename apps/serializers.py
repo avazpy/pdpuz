@@ -146,7 +146,7 @@ class VideoDetailModelSerializer(ModelSerializer):
 
 
 class LessonModelSerializer(ModelSerializer):
-    parts = VideoModelSerializer(source='video_set', many=True)
+    parts = VideoModelSerializer(source='video_set', many=True, read_only=True)
 
     class Meta:
         model = Lesson
