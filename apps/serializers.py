@@ -137,6 +137,12 @@ class VideoModelSerializer(ModelSerializer):
         fields = 'id', 'title'
 
 
+class VideoGRUDSerializer(ModelSerializer):
+    class Meta:
+        model = Video
+        fields = '__all__'
+
+
 class VideoDetailModelSerializer(ModelSerializer):
     class Meta:
         model = Video
@@ -150,14 +156,12 @@ class LessonModelSerializer(ModelSerializer):
         model = Lesson
         fields = 'id', 'title', 'created_at', 'video_count', 'parts'
 
-
 class LessonCRUDSerializer(ModelSerializer):
     parts = VideoModelSerializer(source='video_set', many=True, read_only=True)
 
     class Meta:
         model = Lesson
         fields = '__all__'
-
 
 class LessonDetailModelSerializer(ModelSerializer):
     parts = VideoDetailModelSerializer(source='video_set', many=True)
@@ -169,6 +173,14 @@ class LessonDetailModelSerializer(ModelSerializer):
 
 
 class ModuleModelSerializer(ModelSerializer):
+    lessons = LessonModelSerializer(source='lesson_set', many=True)
+
+    class Meta:
+        model = Module
+        fields = '__all__'
+
+
+class ModuleCRUDSerializer(ModelSerializer):
     lessons = LessonModelSerializer(source='lesson_set', many=True)
 
     class Meta:
@@ -202,6 +214,12 @@ class TaskModelSerializer(ModelSerializer):
         fields = 'created_at', 'task_number', 'files', 'lesson', 'must_complete', 'title', 'description',
 
 
+class TaskGRUDSerializer(ModelSerializer):
+    class Meta:
+        model = Task
+        fields = '__all__'
+
+
 class UserTaskModelSerializer(ModelSerializer):
     class Meta:
         model = UserTask
@@ -221,13 +239,7 @@ class CourseModelSerializer(ModelSerializer):
         fields = 'id', 'title', 'modul_count',
 
 
-class CourseCRUDModelSerializer(ModelSerializer):
-    class Meta:
-        model = Course
-        fields = '__all__'
-
-
-class CourseCRUDModelSerializer(ModelSerializer):
+class CourseCRUDSerializer(ModelSerializer):
     # teacher = UserModelSerializer(read_only=True)
 
     class Meta:
