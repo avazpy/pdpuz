@@ -387,4 +387,5 @@ class VideoModulViewSet(ModelViewSet):
     queryset = Video.objects.all()
     serializer_class = VideoGRUDSerializer
     permission_classes = [IsAuthenticated, IsAdminUser]
+    parser_classes = [MultiPartParser, FormParser]
     pagination_class = None

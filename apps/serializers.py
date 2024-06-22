@@ -121,7 +121,6 @@ class UserModuleModelSerializer(ModelSerializer):
 
 
 class UserCourseTeacherModelSerializer(ModelSerializer):
-
     class Meta:
         model = UserModule
         fields = '__all__'
@@ -182,7 +181,7 @@ class ModuleModelSerializer(ModelSerializer):
 
 
 class ModuleCRUDSerializer(ModelSerializer):
-    lessons = LessonModelSerializer(source='lesson_set', many=True)
+    # lessons = LessonModelSerializer(source='lesson_set', many=True)
 
     class Meta:
         model = Module
