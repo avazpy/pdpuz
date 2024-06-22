@@ -5,7 +5,8 @@ from pathlib import Path
 from django.utils.translation import gettext_lazy as _
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv('.env')
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv("SECRET_KEY")
@@ -156,6 +157,9 @@ REST_FRAMEWORK = {
 # }
 
 
+
+
+
 SIMPLE_JWT = {
     "SLIDING_TOKEN_LIFETIME": timedelta(minutes=30),
     "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=1)
@@ -301,6 +305,8 @@ JAZZMIN_SETTINGS = {
     # Add a language dropdown into the admin
     "language_chooser": True,
 }
+
+
 
 SWAGGER_SETTINGS = {
     'SECURITY_DEFINITIONS': {

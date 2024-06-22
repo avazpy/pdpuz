@@ -121,7 +121,6 @@ class UserModuleModelSerializer(ModelSerializer):
 
 
 class UserCourseTeacherModelSerializer(ModelSerializer):
-
     class Meta:
         model = UserModule
         fields = '__all__'
@@ -151,12 +150,14 @@ class LessonModelSerializer(ModelSerializer):
         model = Lesson
         fields = 'id', 'title', 'created_at', 'video_count', 'parts'
 
+
 class LessonCRUDSerializer(ModelSerializer):
     parts = VideoModelSerializer(source='video_set', many=True, read_only=True)
 
     class Meta:
         model = Lesson
         fields = '__all__'
+
 
 class LessonDetailModelSerializer(ModelSerializer):
     parts = VideoDetailModelSerializer(source='video_set', many=True)
@@ -218,6 +219,20 @@ class CourseModelSerializer(ModelSerializer):
     class Meta:
         model = Course
         fields = 'id', 'title', 'modul_count',
+
+
+class CourseCRUDModelSerializer(ModelSerializer):
+    class Meta:
+        model = Course
+        fields = '__all__'
+
+
+class CourseCRUDModelSerializer(ModelSerializer):
+    # teacher = UserModelSerializer(read_only=True)
+
+    class Meta:
+        model = Course
+        fields = '__all__'
 
 
 class DeviceModelSerializer(ModelSerializer):
