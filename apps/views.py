@@ -27,7 +27,8 @@ from apps.serializers import (CheckPhoneModelSerializer, CourseModelSerializer,
                               UserCourseTeacherModelSerializer,
                               UserModuleModelSerializer,
                               CustomAuthTokenSerializer, MyUserModelSerializer, UserModelSerializer,
-                              VideoModelSerializer, LessonCRUDSerializer)
+                              VideoModelSerializer, LessonCRUDSerializer, ModuleCRUDSerializer, TaskGRUDSerializer,
+                              CourseCRUDSerializer, VideoGRUDSerializer)
 
 
 # class CustomTokenObtainPairView(TokenObtainPairView):
@@ -349,7 +350,7 @@ class CustomDurinLoginAPIView(LoginView):
 
 class CourseModelViewSet(ModelViewSet):
     queryset = Course.objects.all()
-    serializer_class = CourseModelSerializer
+    serializer_class = CourseCRUDSerializer
     permission_classes = [IsAuthenticated, IsAdminUser]
 
 
@@ -361,7 +362,7 @@ class LessonModelViewSet(ModelViewSet):
 
 class ModuleModulViewSet(ModelViewSet):
     queryset = Module.objects.all()
-    serializer_class = ModuleModelSerializer
+    serializer_class = ModuleCRUDSerializer
     permission_classes = [IsAuthenticated, IsAdminUser]
     pagination_class = None
 
@@ -373,13 +374,13 @@ class ModuleModulViewSet(ModelViewSet):
 
 class TaskModulViewSet(ModelViewSet):
     queryset = Task.objects.all()
-    serializer_class = TaskModelSerializer
+    serializer_class = TaskGRUDSerializer
     permission_classes = [IsAuthenticated, IsAdminUser]
     pagination_class = None
 
 
 class VideoModulViewSet(ModelViewSet):
     queryset = Video.objects.all()
-    serializer_class = VideoModelSerializer
+    serializer_class = VideoGRUDSerializer
     permission_classes = [IsAuthenticated, IsAdminUser]
     pagination_class = None
