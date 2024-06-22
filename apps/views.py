@@ -2,32 +2,33 @@ from django_filters.rest_framework import DjangoFilterBackend
 from durin.views import LoginView
 from rest_framework import status
 from rest_framework.decorators import action
-from rest_framework.filters import SearchFilter, OrderingFilter
+from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.generics import (CreateAPIView, ListAPIView,
                                      RetrieveAPIView, RetrieveDestroyAPIView,
-                                     UpdateAPIView, )
+                                     UpdateAPIView,)
 from rest_framework.parsers import FormParser, MultiPartParser
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.viewsets import GenericViewSet, ViewSet, ModelViewSet
+from rest_framework.viewsets import GenericViewSet, ModelViewSet, ViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from apps.models import (Course, DeletedUser, Device, Lesson, Module, Task,
-                         User, UserLesson, UserModule, Video, )
+                         User, UserLesson, UserModule, Video,)
 from apps.permissions import IsJoinedCoursePermission
 from apps.serializers import (CheckPhoneModelSerializer, CourseModelSerializer,
-                              DeletedUserSerializer, DeviceModelSerializer,
+                              CustomAuthTokenSerializer, DeletedUserSerializer,
+                              DeviceModelSerializer,
                               LessonDetailModelSerializer,
                               LessonModelSerializer,
                               ModuleLessonModelSerializer,
                               ModuleModelSerializer, ModuleTeacherSerializer,
-                              RegisterModelSerializer, TaskModelSerializer,
-                              TeacherSerializer, UpdatePasswordUserSerializer,
+                              MyUserModelSerializer, RegisterModelSerializer,
+                              TaskModelSerializer, TeacherSerializer,
+                              UpdatePasswordUserSerializer,
                               UpdateUserSerializer,
                               UserCourseTeacherModelSerializer,
-                              UserModuleModelSerializer,
-                              CustomAuthTokenSerializer, MyUserModelSerializer, UserModelSerializer,
-                              VideoModelSerializer)
+                              UserModelSerializer, UserModuleModelSerializer,
+                              VideoModelSerializer,)
 
 
 # class CustomTokenObtainPairView(TokenObtainPairView):

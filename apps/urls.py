@@ -3,14 +3,16 @@ from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenRefreshView, TokenVerifyView
 
 from apps.views import (CheckPhoneAPIView, CourseAllListAPIView,
-                        CustomTokenObtainPairView,
-                        DeleteUserAPIView, DeviceModelListAPIView,
-                        LessonRetrieveAPIView, CourseModelViewSet,
-                        TeacherAPIView, UpdateUser, ModuleModulViewSet,
-                        UpdateUserPassword, UserCourseListAPIView, TaskModulViewSet,
-                        UserCourseTeacherListAPIView, UserCreateAPIView, VideoModulViewSet,
+                        CourseModelViewSet, CustomDurinLoginAPIView,
+                        CustomTokenObtainPairView, DeleteUserAPIView,
+                        DeviceModelListAPIView, LessonModelViewSet,
+                        LessonRetrieveAPIView, ModuleModulViewSet,
+                        MyUserModelAPIView, TaskModulViewSet, TeacherAPIView,
+                        UpdateUser, UpdateUserPassword, UserCourseListAPIView,
+                        UserCourseTeacherListAPIView, UserCreateAPIView,
                         UserModuleListAPIView, UserTaskRetrieveAPIView,
-                        CustomDurinLoginAPIView, MyUserModelAPIView, UserViewSet, LessonModelViewSet)
+                        UserViewSet, VideoModulViewSet,)
+
 
 router = DefaultRouter()
 router.register('users', UserViewSet, basename='user')
