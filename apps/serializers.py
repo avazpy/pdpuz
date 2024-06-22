@@ -181,7 +181,7 @@ class ModuleModelSerializer(ModelSerializer):
 
 
 class ModuleCRUDSerializer(ModelSerializer):
-    lessons = LessonModelSerializer(source='lesson_set', many=True)
+    # lessons = LessonModelSerializer(source='lesson_set', many=True)
 
     class Meta:
         model = Module
