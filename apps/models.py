@@ -13,6 +13,7 @@ from django.utils.translation import gettext_lazy as _
 from parler.models import TranslatableModel
 
 from apps.managers import CustomUserManager
+from django.db import models
 
 
 class CreatedBaseModel(Model):
@@ -261,6 +262,13 @@ class Video(CreatedBaseModel):
 
     def __str__(self):
         return self.lesson.title
+
+    def save(self, *args, **kwargs):
+        # New video being added
+        if not self.pk:
+            self.lesson.video_count = models.F('video_count') + 1
+            self.lesson.save(update_fields=['video_count'])
+        super().save(*args, **kwargs)
 
 
 class Task(CreatedBaseModel):
