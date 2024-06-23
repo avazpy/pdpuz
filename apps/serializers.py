@@ -4,12 +4,12 @@ from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from rest_framework.fields import CharField
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.serializers import ModelSerializer, Serializer
 
 from apps.models import (Course, DeletedUser, Device, Lesson, Module, Task,
                          User, UserCourse, UserLesson, UserModule, UserTask,
-                         Video,)
+                         Video, )
 
 
 class SingleDeviceLogin(Serializer):
@@ -48,11 +48,31 @@ class UserModelSerializer(ModelSerializer):
         return make_password(password)
 
 
+class UserAdminModelSerializer(ModelSerializer):
+    class Meta:
+        model = User
+        exclude = ('groups', 'user_permissions', 'balance', 'bot_options',
+                   'has_registered_bot', 'not_read_message_count', 'is_active',
+                   'is_superuser', 'is_staff', 'payme_balance', 'last_login', 'phone_number', 'email',
+                   "tg_id", 'date_joined', 'password', 'courses', 'username'
+                   )
+
+    def validate_password(self, password):
+        return make_password(password)
+
+
 class UpdateUserSerializer(ModelSerializer):
     class Meta:
         model = User
         fields = 'first_name', 'last_name', 'photo'
         permission_classes = (IsAuthenticated,)
+
+
+class UpdateUserAdminSerializer(ModelSerializer):
+    class Meta:
+        model = User
+        fields = 'type',
+        permission_classes = (IsAuthenticated, IsAdminUser)
 
 
 class UpdatePasswordUserSerializer(ModelSerializer):
@@ -156,12 +176,14 @@ class LessonModelSerializer(ModelSerializer):
         model = Lesson
         fields = 'id', 'title', 'created_at', 'video_count', 'parts'
 
+
 class LessonCRUDSerializer(ModelSerializer):
     parts = VideoModelSerializer(source='video_set', many=True, read_only=True)
 
     class Meta:
         model = Lesson
         fields = '__all__'
+
 
 class LessonDetailModelSerializer(ModelSerializer):
     parts = VideoDetailModelSerializer(source='video_set', many=True)

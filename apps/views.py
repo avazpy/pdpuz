@@ -5,7 +5,7 @@ from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.generics import (CreateAPIView, ListAPIView,
                                      RetrieveAPIView, RetrieveDestroyAPIView,
-                                     UpdateAPIView,)
+                                     UpdateAPIView, )
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
@@ -13,26 +13,25 @@ from rest_framework.viewsets import GenericViewSet, ModelViewSet, ViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from apps.models import (Course, DeletedUser, Device, Lesson, Module, Task,
-                         User, UserLesson, UserModule, Video,)
-from apps.permissions import IsJoinedCoursePermission
+                         User, UserLesson, UserModule, Video, )
+from apps.permissions import IsJoinedCoursePermission, IsAdminsUser
 from apps.serializers import (CheckPhoneModelSerializer, CourseModelSerializer,
-                              CustomAuthTokenSerializer, DeletedUserSerializer,
+                              DeletedUserSerializer,
                               DeviceModelSerializer,
                               LessonDetailModelSerializer,
                               LessonModelSerializer,
                               ModuleLessonModelSerializer,
                               ModuleModelSerializer, ModuleTeacherSerializer,
-                              MyUserModelSerializer, RegisterModelSerializer,
+                              RegisterModelSerializer,
                               TaskModelSerializer, TeacherSerializer,
                               UpdatePasswordUserSerializer,
                               UpdateUserSerializer,
                               UserCourseTeacherModelSerializer,
-                              UserModelSerializer, UserModuleModelSerializer,
-                              VideoModelSerializer,)
                               UserModuleModelSerializer,
                               CustomAuthTokenSerializer, MyUserModelSerializer, UserModelSerializer,
-                              VideoModelSerializer, LessonCRUDSerializer, ModuleCRUDSerializer, TaskGRUDSerializer,
-                              CourseCRUDSerializer, VideoGRUDSerializer)
+                              LessonCRUDSerializer, ModuleCRUDSerializer, TaskGRUDSerializer,
+                              CourseCRUDSerializer, VideoGRUDSerializer, UserAdminModelSerializer,
+                              UpdateUserAdminSerializer)
 
 
 # class CustomTokenObtainPairView(TokenObtainPairView):
@@ -55,6 +54,7 @@ from apps.serializers import (CheckPhoneModelSerializer, CourseModelSerializer,
 #         response.data['durin_token'] = token.token
 #     return response
 
+
 class TeacherAPIView(ListAPIView):
     queryset = User.objects.filter(type='teacher')
     serializer_class = TeacherSerializer
@@ -67,6 +67,20 @@ class UserViewSet(ModelViewSet):
     filter = (OrderingFilter, SearchFilter)
     search_fields = ('phone_number',)
     permission_classes = [IsAuthenticated, ]
+
+    @action(detail=False, methods=['GET'], url_path='get-me')
+    def get_me(self, request):
+        if request.user.is_authenticated:
+            return Response({'message': f'{request.user.phone_number}'})
+        return Response({'message': f'login closed'})
+
+
+class AdminViewSet(ModelViewSet):
+    serializer_class = UserAdminModelSerializer
+    queryset = User.objects.filter(type='admin')
+    filter = (OrderingFilter, SearchFilter)
+    search_fields = ('phone_number',)
+    permission_classes = [IsAuthenticated, IsAdminUser, ]
 
     @action(detail=False, methods=['GET'], url_path='get-me')
     def get_me(self, request):
@@ -284,6 +298,21 @@ class UpdateUser(UpdateAPIView):
         return super().update(request, *args, **kwargs)
 
 
+class UpdateUserAdmin(UpdateAPIView):
+    serializer_class = UpdateUserAdminSerializer
+    queryset = User.objects.filter(type='admin')
+    permission_classes = [IsAuthenticated, IsAdminUser]
+    parser_classes = [MultiPartParser, FormParser]
+    pagination_class = None
+    http_method_names = ['patch']
+
+    def get_object(self):
+        return self.request.user
+
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
+
+
 class UpdateUserPassword(UpdateAPIView):
     serializer_class = UpdatePasswordUserSerializer
     queryset = User.objects.all()
@@ -355,19 +384,19 @@ class CustomDurinLoginAPIView(LoginView):
 class CourseModelViewSet(ModelViewSet):
     queryset = Course.objects.all()
     serializer_class = CourseCRUDSerializer
-    permission_classes = [IsAuthenticated, IsAdminUser]
+    permission_classes = [IsAuthenticated, IsAdminUser, IsAdminsUser]
 
 
 class LessonModelViewSet(ModelViewSet):
     queryset = Lesson.objects.all()
     serializer_class = LessonCRUDSerializer
-    permission_classes = [IsAuthenticated, IsAdminUser]
+    permission_classes = [IsAuthenticated, IsAdminUser, IsAdminsUser]
 
 
 class ModuleModulViewSet(ModelViewSet):
     queryset = Module.objects.all()
     serializer_class = ModuleCRUDSerializer
-    permission_classes = [IsAuthenticated, IsAdminUser]
+    permission_classes = [IsAuthenticated, IsAdminUser, IsAdminsUser]
     pagination_class = None
 
     # @action(['GET'], detail=True)
@@ -379,13 +408,13 @@ class ModuleModulViewSet(ModelViewSet):
 class TaskModulViewSet(ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskGRUDSerializer
-    permission_classes = [IsAuthenticated, IsAdminUser]
+    permission_classes = [IsAuthenticated, IsAdminUser, IsAdminsUser]
     pagination_class = None
 
 
 class VideoModulViewSet(ModelViewSet):
     queryset = Video.objects.all()
     serializer_class = VideoGRUDSerializer
-    permission_classes = [IsAuthenticated, IsAdminUser]
+    permission_classes = [IsAuthenticated, IsAdminUser, IsAdminsUser]
     parser_classes = [MultiPartParser, FormParser]
     pagination_class = None
