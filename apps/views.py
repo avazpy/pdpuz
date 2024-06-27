@@ -5,7 +5,7 @@ from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.generics import (CreateAPIView, ListAPIView,
                                      RetrieveAPIView, RetrieveDestroyAPIView,
-                                     UpdateAPIView,)
+                                     UpdateAPIView, )
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
@@ -13,7 +13,7 @@ from rest_framework.viewsets import GenericViewSet, ModelViewSet, ViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from apps.models import (Course, DeletedUser, Device, Lesson, Module, Task,
-                         User, UserLesson, UserModule, Video,)
+                         User, UserLesson, UserModule, Video, )
 from apps.permissions import IsAdminsUser, IsJoinedCoursePermission
 from apps.serializers import (CheckPhoneModelSerializer, CourseCRUDSerializer,
                               CourseModelSerializer, CustomAuthTokenSerializer,
@@ -30,7 +30,7 @@ from apps.serializers import (CheckPhoneModelSerializer, CourseCRUDSerializer,
                               UserAdminModelSerializer,
                               UserCourseTeacherModelSerializer,
                               UserModelSerializer, UserModuleModelSerializer,
-                              VideoGRUDSerializer,)
+                              VideoGRUDSerializer, )
 
 
 # class CustomTokenObtainPairView(TokenObtainPairView):
@@ -299,17 +299,11 @@ class UpdateUser(UpdateAPIView):
 
 class UpdateUserAdmin(UpdateAPIView):
     serializer_class = UpdateUserAdminSerializer
-    queryset = User.objects.filter(type='admin')
+    queryset = User.objects.all()
     permission_classes = [IsAuthenticated, IsAdminUser]
     parser_classes = [MultiPartParser, FormParser]
     pagination_class = None
     http_method_names = ['patch']
-
-    def get_object(self):
-        return self.request.user
-
-    def update(self, request, *args, **kwargs):
-        return super().update(request, *args, **kwargs)
 
 
 class UpdateUserPassword(UpdateAPIView):

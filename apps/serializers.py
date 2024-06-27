@@ -72,7 +72,7 @@ class UpdateUserAdminSerializer(ModelSerializer):
     class Meta:
         model = User
         fields = 'type',
-        permission_classes = (IsAuthenticated, IsAdminUser)
+        permission_classes = (IsAuthenticated,)
 
 
 class UpdatePasswordUserSerializer(ModelSerializer):
