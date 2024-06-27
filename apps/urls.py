@@ -1,16 +1,19 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenRefreshView, TokenVerifyView
-from apps.views import (CheckPhoneAPIView, CourseAllListAPIView,
+
+from apps.views import (AdminViewSet, CheckPhoneAPIView, CourseAllListAPIView,
                         CourseModelViewSet, CustomDurinLoginAPIView,
                         CustomTokenObtainPairView, DeleteUserAPIView,
                         DeviceModelListAPIView, LessonModelViewSet,
                         LessonRetrieveAPIView, ModuleModulViewSet,
                         MyUserModelAPIView, TaskModulViewSet, TeacherAPIView,
-                        UpdateUser, UpdateUserPassword, UserCourseListAPIView,
-                        UserCourseTeacherListAPIView, UserCreateAPIView,
-                        UserModuleListAPIView, UserTaskRetrieveAPIView,
-                        UserViewSet, VideoModulViewSet, AdminViewSet, UpdateUserAdmin)
+                        UpdateUser, UpdateUserAdmin, UpdateUserPassword,
+                        UserCourseListAPIView, UserCourseTeacherListAPIView,
+                        UserCreateAPIView, UserModuleListAPIView,
+                        UserTaskRetrieveAPIView, UserViewSet,
+                        VideoModulViewSet,)
+
 
 router = DefaultRouter()
 router.register('users', UserViewSet, basename='user')

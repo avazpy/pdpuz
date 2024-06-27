@@ -4,12 +4,12 @@ from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from rest_framework.fields import CharField
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.serializers import ModelSerializer, Serializer
 
 from apps.models import (Course, DeletedUser, Device, Lesson, Module, Task,
                          User, UserCourse, UserLesson, UserModule, UserTask,
-                         Video, )
+                         Video,)
 
 
 class SingleDeviceLogin(Serializer):
