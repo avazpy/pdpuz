@@ -5,7 +5,7 @@ from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.generics import (CreateAPIView, ListAPIView,
                                      RetrieveAPIView, RetrieveDestroyAPIView,
-                                     UpdateAPIView, )
+                                     UpdateAPIView,)
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
@@ -13,7 +13,7 @@ from rest_framework.viewsets import GenericViewSet, ModelViewSet, ViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from apps.models import (Course, DeletedUser, Device, Lesson, Module, Task,
-                         User, UserLesson, UserModule, Video, )
+                         User, UserLesson, UserModule, Video,)
 from apps.permissions import IsAdminsUser, IsJoinedCoursePermission
 from apps.serializers import (CheckPhoneModelSerializer, CourseCRUDSerializer,
                               CourseModelSerializer, CustomAuthTokenSerializer,
@@ -30,7 +30,7 @@ from apps.serializers import (CheckPhoneModelSerializer, CourseCRUDSerializer,
                               UserAdminModelSerializer,
                               UserCourseTeacherModelSerializer,
                               UserModelSerializer, UserModuleModelSerializer,
-                              VideoGRUDSerializer, )
+                              UserTaskModelSerializer, VideoGRUDSerializer,)
 
 
 # class CustomTokenObtainPairView(TokenObtainPairView):
@@ -238,6 +238,7 @@ class ModuleLessonListAPIView(ListAPIView):
 
 
 class UserTaskRetrieveAPIView(ListAPIView):
+    serializer_class = UserTaskModelSerializer
     permission_classes = [IsAuthenticated]
     lookup_url_kwarg = 'lesson_id'
 
@@ -377,7 +378,7 @@ class CustomDurinLoginAPIView(LoginView):
 class CourseModelViewSet(ModelViewSet):
     queryset = Course.objects.all()
     serializer_class = CourseCRUDSerializer
-    permission_classes = [IsAuthenticated, IsAdminUser, IsAdminsUser]
+    permission_classes = [IsAuthenticated, IsAdminsUser]
 
 
 class LessonModelViewSet(ModelViewSet):
